@@ -31,6 +31,38 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #path
+  path_provider:
+
+  #services
+  awesome_notifications:
+  data_connection_checker_nulls:
+  flutter_background_service:
+  regexpattern:
+
+  #state management
+  bloc:
+  flutter_bloc:
+
+  #functional dart
+  dartz:
+  equatable:
+
+  #data source
+  sizer:
+
+  #local data storage
+  hive:
+
+  #UI
+  another_flushbar:
+  flutter_svg:
+
+  #client
+  dio:
+
+  #chached image
+  cached_network_image: 3.2.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
