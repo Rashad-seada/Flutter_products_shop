@@ -4,14 +4,14 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_consts.dart';
 import '../../../../core/config/app_theme.dart';
 
-class CustomTextField extends StatelessWidget {
+class AuthTextField extends StatelessWidget {
   TextEditingController? controller;
   String? hint;
   String? label;
   Widget? prefixIcon;
   String? Function(String?)? validator;
 
-  CustomTextField({Key? key,this.controller, this.hint,this.label,this.prefixIcon,this.validator}) : super(key: key);
+  AuthTextField({Key? key,this.controller, this.hint,this.label,this.prefixIcon,this.validator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

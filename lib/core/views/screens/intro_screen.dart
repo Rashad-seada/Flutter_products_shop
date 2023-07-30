@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../features/auth/views/login_screen.dart';
+import '../../../features/auth/views/screens/login_screen.dart';
+import '../../config/app_images.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -23,10 +25,8 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold(
-      body: Center(
-        child: FlutterLogo(),
-      ),
+    return SafeArea(child: Scaffold(
+      body: Scaffold(body: Center(child: Image.asset(AppImages.logo))),
     ));
   }
 }

@@ -14,6 +14,7 @@ class ClickableText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(text,style: TextStyle(color: AppTheme.neutral500),),
         Space(width: (text.isEmpty)? 0 : .1.w,),
