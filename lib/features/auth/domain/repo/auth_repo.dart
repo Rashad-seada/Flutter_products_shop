@@ -9,4 +9,7 @@ abstract class AuthRepo {
 
  Future<Either<Failure,RegistrationEntity>> register(String userName,String email,String upass,String mobile,);
 
+ //Future<Either<Failure,>> login(String email,String upass,);
+
+
 }

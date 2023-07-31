@@ -5,7 +5,7 @@ import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 
-class RigisterUsecase implements Usecase<RegistrationEntity,RegistrationParams> {
+class RegisterUsecase implements Usecase<RegistrationEntity,RegistrationParams> {
   AuthRepo repo = AuthRepoImpl();
 
   @override

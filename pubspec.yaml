@@ -58,6 +58,9 @@ dependencies:
   #UI
   another_flushbar:
   flutter_svg:
+  simple_animations:
+  animations:
+  intl_phone_number_input:
 
   #client
   dio:

@@ -1,4 +1,6 @@
 abstract class AppStrings {
+
+
   static const String login = "Login";
   static const String loginSubTitle = "Please login to explore our products";
 
@@ -13,6 +15,15 @@ abstract class AppStrings {
 
   static const String password = "Password";
   static const String passwordHint = "please enter your password";
+
+  static const String renterPassword = "Renter Password";
+  static const String renterPasswordHint = "please renter your password";
+
+  static const String phoneNumber = "Phone number";
+  static const String phoneNumberHint = "Enter your phone number";
+
+  static const String country = "Phone number";
+  static const String countryHint = "Enter your phone number";
 
   static const String rememberMe = "Remember me";
   static const String dontHaveAnAccount = "Don't have an account?";
@@ -33,4 +44,8 @@ abstract class AppStrings {
 
   static const String welcome = "welcome";
   static const String welcomeSubTitle = "see the latest products and accessories";
+
+  static const String name = "Name";
+  static const String nameHint = "please enter your name";
+
 }

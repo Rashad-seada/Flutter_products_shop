@@ -1,10 +1,13 @@
+import 'package:animations/animations.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
-import 'package:eng_shop/features/auth/views/bloc/login_cubit.dart';
+import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import 'features/auth/views/bloc/login/login_cubit.dart';
 
 void main() {
 
@@ -29,14 +32,25 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_)=> CoreCubit()),
         BlocProvider(create: (_)=> LoginCubit()),
+        BlocProvider(create: (_)=> RegistrationCubit()),
 
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation,
             DeviceType deviceType) {
-          return const MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: IntroScreen(),
+            theme: ThemeData.from(
+              colorScheme: const ColorScheme.light(),
+            ).copyWith(
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.horizontal),
+                  TargetPlatform.iOS: SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.horizontal),
+                },
+              ),
+            ),
+            home: const IntroScreen(),
           );
         },
       ),

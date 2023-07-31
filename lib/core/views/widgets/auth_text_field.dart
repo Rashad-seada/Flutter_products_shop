@@ -19,7 +19,7 @@ class AuthTextField extends StatelessWidget {
       validator: validator,
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 2.5.h), // Adjust the vertical padding as needed
+        contentPadding: EdgeInsets.symmetric(vertical: 2.3.h), // Adjust the vertical padding as needed
 
         hintText: hint,
         labelText: label,
