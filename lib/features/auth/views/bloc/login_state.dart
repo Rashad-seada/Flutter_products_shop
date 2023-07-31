@@ -24,10 +24,4 @@ class LoginFailure extends LoginState {
   List<Object> get props => [];
 }
 
-Flushbar(
-backgroundColor: AppTheme.primary500,
-title: 'Welcome',
-message:
-'you just logged in to your account, have fun!',
-duration: Duration(seconds: 3),
-).show(context);
+
