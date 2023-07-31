@@ -1,10 +1,8 @@
 
 import 'package:eng_shop/core/services/network_service.dart';
 
-abstract class Services {
+class Services {
 
-  static final NetworkService networkService = NetworkServiceImpl();
-
-
+  final NetworkService networkService = NetworkServiceImpl();
 
 }

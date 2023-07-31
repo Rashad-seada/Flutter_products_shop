@@ -53,6 +53,7 @@ dependencies:
 
   #local data storage
   hive:
+  hive_flutter:
 
   #UI
   another_flushbar:
