@@ -111,8 +111,7 @@ class RegistrationScreen extends StatelessWidget {
                       MainButton(
                         width: 100.w,height: 7.h,
                         label: (state is RegistrationLoading)?
-
-
+                        SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                         :Text(
                           AppStrings.login,
                           style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
