@@ -33,7 +33,11 @@ abstract class AppStrings {
   static const String orLoginWith = "Or Login With";
 
   static const String resetPassword = "Reset Password";
-  static const String resetPasswordSubTitle = "Enter the email address you used when you joined and we'll send you instructions to reset your password";
+
+  static const String resetPasswordMethod = "select how to want to reset your password";
+
+  static const String resetPasswordEmailSubTitle = "Enter the email address you used when you joined and we'll send you instructions to reset your password";
+  static const String resetPasswordPhoneSubTitle = "Enter the phone number you used when you joined and we'll send you instructions to reset your password";
 
   static const String rememberedYourPassword = "You Remember your password?";
 

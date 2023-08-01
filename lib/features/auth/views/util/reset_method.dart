@@ -1,0 +1,4 @@
+enum ResetMethod {
+  email,
+  phoneNumber,
+}
