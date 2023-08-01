@@ -19,10 +19,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<RegistrationEntity> register(String atext, String etext, String uname, String email, String upass, String mobile) async  {
 
     Map<String,dynamic> srvData = {
-      "atext":atext,
-      "etext":etext,
+      "atxt":atext,
+      "etxt":etext,
       "uname":uname,
-      "email":email,
+      "umail":email,
       "upass":upass,
       "mobile":mobile
     };

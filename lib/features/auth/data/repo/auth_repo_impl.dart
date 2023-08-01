@@ -20,10 +20,12 @@ class AuthRepoImpl implements AuthRepo {
       try {
         RegistrationEntity registrationEntity = await remoteDataSource.register(userName, userName, email, email, upass, mobile);
 
-        try{
-          localDataSource.putUserID(int.parse(registrationEntity.res!));
-        } on CacheException {
-          return left(CacheFailure("There was a failure during the caching!"));
+        if(registrationEntity.res != null) {
+          try{
+            localDataSource.putUserID(int.parse(registrationEntity.res!));
+          } on CacheException {
+            return left(CacheFailure("There was a failure during the caching!"));
+          }
         }
 
         return right(registrationEntity);

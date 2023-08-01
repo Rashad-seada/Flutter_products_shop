@@ -8,17 +8,19 @@ import '../../config/app_theme.dart';
 
 class PhoneNumberField extends StatelessWidget {
   TextEditingController? controller;
+  String? Function(String?)? validator;
+  void Function(PhoneNumber)? onInputChanged;
 
-  PhoneNumberField({super.key, this.controller});
+  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged});
 
   PhoneNumber number = PhoneNumber(isoCode: 'KW');
 
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
-      onInputChanged: (PhoneNumber number) {
-        print(number.phoneNumber);
-      },
+
+      validator: validator,
+      onInputChanged: onInputChanged,
       onInputValidated: (bool value) {
         print(value);
       },

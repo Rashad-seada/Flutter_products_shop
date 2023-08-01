@@ -1,7 +1,9 @@
+
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
@@ -58,41 +60,58 @@ class RegistrationScreen extends StatelessWidget {
 
                       Space(height: 3.5.h,),
 
-                      AuthTextField(
-                        controller: context.read<RegistrationCubit>().userNameController,
-                        label: AppStrings.name,hint: AppStrings.nameHint,prefixIcon: Padding(
-                        padding: EdgeInsets.all(1.5.h),
-                        child: SvgPicture.asset(AppImages.profile),
-                      ),),
-                      Space(height: 1.5.h,),
+                      Form(
+                          key: context.read<RegistrationCubit>().registerFormKey,
+                          child: Column(
+                          children: [
+                            AuthTextField(
+                              validator: (_)=> context.read<RegistrationCubit>().validateUsername(),
+                              controller: context.read<RegistrationCubit>().userNameController,
+                                label: AppStrings.name,hint: AppStrings.nameHint,prefixIcon: Padding(
+                                padding: EdgeInsets.all(1.5.h),
+                                child: SvgPicture.asset(AppImages.profile),
+                              ),
+                            ),
+                            Space(height: 1.5.h,),
 
-                      AuthTextField(
-                        controller: context.read<RegistrationCubit>().emailController,
-                        label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
-                        padding: EdgeInsets.all(1.5.h),
-                        child: SvgPicture.asset(AppImages.email),
-                      ),),
-                      Space(height: 1.5.h,),
+                            AuthTextField(
+                              validator: (_)=> context.read<RegistrationCubit>().validateEmail(),
+                              controller: context.read<RegistrationCubit>().emailController,
+                              label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
+                              padding: EdgeInsets.all(1.5.h),
+                              child: SvgPicture.asset(AppImages.email),
+                            ),),
+                            Space(height: 1.5.h,),
 
-                      PhoneNumberField(
-                        controller: context.read<RegistrationCubit>().phoneNumberController,
-                      ),
-                      Space(height: 1.5.h,),
+                            PhoneNumberField(
+                              onInputChanged: (PhoneNumber number) {
+                                print(number);
+                                if(number.phoneNumber != null){
+                                  context.read<RegistrationCubit>().phoneNumber = number.phoneNumber!;
+                                }
+                              },
+                              validator: (_)=> context.read<RegistrationCubit>().validatePhoneNumber(),
+                            ),
+                            Space(height: 1.5.h,),
 
-                      AuthTextField(
-                        controller: context.read<RegistrationCubit>().passwordController,
-                        label: AppStrings.password,hint: AppStrings.passwordHint,prefixIcon: Padding(
-                        padding: EdgeInsets.all(1.5.h),
-                        child: SvgPicture.asset(AppImages.lock),
-                      ),),
-                      Space(height: 1.5.h,),
+                            AuthTextField(
+                              validator: (_)=> context.read<RegistrationCubit>().validatePassword(),
+                              controller: context.read<RegistrationCubit>().passwordController,
+                              label: AppStrings.password,hint: AppStrings.passwordHint,prefixIcon: Padding(
+                              padding: EdgeInsets.all(1.5.h),
+                              child: SvgPicture.asset(AppImages.lock),
+                            ),),
+                            Space(height: 1.5.h,),
 
-                      AuthTextField(
-                        controller: context.read<RegistrationCubit>().renterPasswordController,
-                        label: AppStrings.renterPassword,hint: AppStrings.renterPasswordHint,prefixIcon: Padding(
-                        padding: EdgeInsets.all(1.5.h),
-                        child: SvgPicture.asset(AppImages.lock),
-                      ),),
+                            AuthTextField(
+                              validator: (_)=> context.read<RegistrationCubit>().validateRenterPassword(),
+                              controller: context.read<RegistrationCubit>().renterPasswordController,
+                              label: AppStrings.renterPassword,hint: AppStrings.renterPasswordHint,prefixIcon: Padding(
+                              padding: EdgeInsets.all(1.5.h),
+                              child: SvgPicture.asset(AppImages.lock),
+                            ),),
+                          ],
+                      )),
 
                       Space(height: 10.h,),
 
@@ -113,7 +132,7 @@ class RegistrationScreen extends StatelessWidget {
                         label: (state is RegistrationLoading)?
                         SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                         :Text(
-                          AppStrings.login,
+                          AppStrings.register,
                           style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                         ),
                         onTap: ()=> context.read<RegistrationCubit>().onRegisterClick(context),
