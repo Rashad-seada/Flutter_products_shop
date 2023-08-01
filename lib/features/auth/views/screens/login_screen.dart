@@ -1,6 +1,6 @@
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
-import 'package:eng_shop/core/views/widgets/auth_text_field.dart';
+import 'package:eng_shop/features/auth/views/components/auth_text_field.dart';
 import 'package:eng_shop/core/views/widgets/clickable_text.dart';
 import 'package:eng_shop/core/views/widgets/custom_checkbox.dart';
 import 'package:eng_shop/core/views/widgets/main_button.dart';

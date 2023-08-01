@@ -33,6 +33,9 @@ abstract class AppStrings {
   static const String orLoginWith = "Or Login With";
 
   static const String resetPassword = "Reset Password";
+  static const String resetByEmail = "Reset by email";
+  static const String resetByPhone = "Reset by phone number";
+
 
   static const String resetPasswordMethod = "select how to want to reset your password";
 
@@ -51,5 +54,9 @@ abstract class AppStrings {
 
   static const String name = "Name";
   static const String nameHint = "please enter your name";
+
+  static const String checkEmail = "Check your Email";
+  static const String checkEmailSubtitle = "We have sent a reset password to your email address";
+
 
 }

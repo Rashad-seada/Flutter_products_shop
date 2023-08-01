@@ -10,7 +10,6 @@ import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
-import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../components/reset_option_item.dart';
 
@@ -27,15 +26,12 @@ class PasswordResetMethodsScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 7.w),
           child: SingleChildScrollView(
             child: BlocConsumer<ResetPasswordCubit,ResetPasswordState>(
-              listener: (context, state) {
-                // TODO: implement listener
-              },
+              listener: (context, state) {},
               builder: (context, state) {
                 return Column(
                           children: [
 
                             Space(height: 5.h,),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -44,32 +40,32 @@ class PasswordResetMethodsScreen extends StatelessWidget {
                                 //Image.asset(AppImages.logo,width: 14.w,height: 14.w,)
                               ],
                             ),
-
                             Space(height: 5.h,),
 
                             SvgPicture.asset(AppImages.forgotPassword,width: 100.w,height: 16.h,),
-
                             Space(height: 5.h,),
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Text(AppStrings.resetPassword, style: AppTheme.heading2TextStyle(),),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(AppStrings.resetPassword, style: AppTheme.heading2TextStyle(),),
 
-                                Space(height: 1.h,),
+                                    Space(height: 1.h,),
 
-                                Text(AppStrings.resetPasswordMethod, style: AppTheme.textMTextStyle(),),
+                                    Text(AppStrings.resetPasswordMethod, style: AppTheme.textMTextStyle(),),
+                                  ],
+                                ),
                               ],
                             ),
-
                             Space(height: 3.5.h,),
 
 
-                            ResetOptionItem(screen: PasswordResetScreen(method: ResetMethod.email,),),
-                            Space(height: 1.5.h,),
+                            ResetOptionItem(method: ResetMethod.email,screen: PasswordResetScreen(method: ResetMethod.email,),),
+                            Space(height: 1.h,),
 
-                            ResetOptionItem(screen: PasswordResetScreen(method: ResetMethod.phoneNumber,),),
-
+                            ResetOptionItem(method: ResetMethod.phoneNumber,screen: PasswordResetScreen(method: ResetMethod.phoneNumber,),),
                             Space(height: 2.h,),
 
 

@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../config/app_consts.dart';
-import '../../config/app_theme.dart';
+import '../../../../core/config/app_consts.dart';
+import '../../../../core/config/app_theme.dart';
 
 class PhoneNumberField extends StatelessWidget {
   TextEditingController? controller;
   String? Function(String?)? validator;
   void Function(PhoneNumber)? onInputChanged;
+  void Function(bool)? onInputValidated;
 
-  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged});
+  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged,this.onInputValidated});
 
   PhoneNumber number = PhoneNumber(isoCode: 'KW');
 
@@ -21,9 +22,7 @@ class PhoneNumberField extends StatelessWidget {
 
       validator: validator,
       onInputChanged: onInputChanged,
-      onInputValidated: (bool value) {
-        print(value);
-      },
+      onInputValidated: onInputValidated,
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
       ),

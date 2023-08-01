@@ -1,4 +1,4 @@
-import 'package:eng_shop/core/views/widgets/phone_number_field.dart';
+import 'package:eng_shop/features/auth/views/components/phone_number_field.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:eng_shop/features/auth/views/util/reset_method.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +9,10 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/auth_text_field.dart';
+import '../components/auth_text_field.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
-import '../util/reset_method.dart';
 
 class PasswordResetScreen extends StatelessWidget {
   ResetMethod method;
@@ -63,22 +62,26 @@ class PasswordResetScreen extends StatelessWidget {
 
                         Space(height: 3.5.h,),
 
-                        (method == ResetMethod.email)?
+
                         Form(
                           key: context.read<ResetPasswordCubit>().resetPasswordFormKey,
-                          child: AuthTextField(
+                          child:(method == ResetMethod.email)? AuthTextField(
                             controller: context.read<ResetPasswordCubit>().emailController,
-                            validator: (_) => context.read<ResetPasswordCubit>().validateEmailOrPhoneNumber(),
+                            validator: (_) => context.read<ResetPasswordCubit>().validateEmail(),
                             label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
                             padding: EdgeInsets.all(1.5.h),
                             child: SvgPicture.asset(AppImages.email),
-                          ),),
-                        ): PhoneNumberField(
-                          onInputChanged: (number){
-                            if (number.phoneNumber != null){
-                              context.read<ResetPasswordCubit>().phoneNumber = number.phoneNumber!;
-                            }
-                          },
+                          ),): PhoneNumberField(
+                            validator: (value)=> context.read<ResetPasswordCubit>().validatePhoneNumber(),
+                            onInputValidated: (value) {
+
+                            },
+                            onInputChanged: (number){
+                              if (number.phoneNumber != null){
+                                context.read<ResetPasswordCubit>().phoneNumber = number.phoneNumber!;
+                              }
+                            },
+                          ),
                         ),
 
                         Space(height: 52.h,),
@@ -88,7 +91,7 @@ class PasswordResetScreen extends StatelessWidget {
                           width: 100.w,
                           height: 7.h,
                           label: Text(AppStrings.resetPassword,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
-                          onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(),
+                          onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(context),
                         ),
 
                       ],

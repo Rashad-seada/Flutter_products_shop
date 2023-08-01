@@ -13,6 +13,6 @@ abstract class AppImages {
   static const String done = "images/done.svg";
   static const String email = "images/sms_inactive.svg";
   static const String forgotPassword = "images/forgot_password.svg";
-
-  static const String messages = "images/message.svg"
+  static const String messages = "images/message.svg";
+  static const String letter = "images/letter.svg";
 }

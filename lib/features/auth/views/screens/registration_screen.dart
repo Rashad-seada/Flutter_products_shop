@@ -9,10 +9,10 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/auth_text_field.dart';
+import '../components/auth_text_field.dart';
 import '../../../../core/views/widgets/clickable_text.dart';
 import '../../../../core/views/widgets/main_button.dart';
-import '../../../../core/views/widgets/phone_number_field.dart';
+import '../components/phone_number_field.dart';
 import '../../../../core/views/widgets/space.dart';
 
 class RegistrationScreen extends StatelessWidget {
