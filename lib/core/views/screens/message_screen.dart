@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../config/app_images.dart';
-import '../../config/app_strings.dart';
 import '../../config/app_theme.dart';
 import '../widgets/main_button.dart';
 import '../widgets/space.dart';
@@ -14,7 +12,7 @@ class MessageScreen extends StatelessWidget {
   String messageSubText;
   String image;
   String buttonLabel;
-  void Function()? onButtonTap;
+  Widget? screen;
 
   MessageScreen({
     super.key,
@@ -22,7 +20,7 @@ class MessageScreen extends StatelessWidget {
     required this.messageSubText,
     required this.image,
     required this.buttonLabel,
-    this.onButtonTap,
+    this.screen,
   });
 
   @override
@@ -33,7 +31,7 @@ class MessageScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 7.w),
             child: Column(
               children: [
-                Space(height: 29.h,),
+                Space(height: 27.h,),
 
                 FadeInAnimation(child: SvgPicture.asset(image,width: 100.w,height: 20.h,)),
 
@@ -48,15 +46,14 @@ class MessageScreen extends StatelessWidget {
                   ],
                 ),
 
-                Space(height: 23.h,),
+                Space(height: 20.h,),
 
 
-                MainButton(width: 100.w,height: 7.h,label: Text(buttonLabel,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),onTap: () {
-                  if(onButtonTap != null) {
-                    onButtonTap!();
+                MainButton(width: 100.w,height: 7.h,label: Text(buttonLabel,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),onTap: (){
+                  if(screen != null) {
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> screen!));
                   }
-                },)
-
+                }),
 
               ],
             ),

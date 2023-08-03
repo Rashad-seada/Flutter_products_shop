@@ -11,10 +11,12 @@ class PhoneNumberField extends StatelessWidget {
   String? Function(String?)? validator;
   void Function(PhoneNumber)? onInputChanged;
   void Function(bool)? onInputValidated;
+  Function(PointerDownEvent)? onTapOutside;
+  Widget? suffixIcon;
+  PhoneNumber initialValue ;
 
-  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged,this.onInputValidated});
+  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged,this.onInputValidated,this.onTapOutside,this.suffixIcon,required this.initialValue});
 
-  PhoneNumber number = PhoneNumber(isoCode: 'KW');
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class PhoneNumberField extends StatelessWidget {
       ),
       inputBorder: const OutlineInputBorder(),
       inputDecoration: InputDecoration(
+        suffixIcon: suffixIcon,
         contentPadding: EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 5.w),
         // Adjust the vertical padding as needed
 
@@ -100,7 +103,7 @@ class PhoneNumberField extends StatelessWidget {
       ignoreBlank: false,
       autoValidateMode: AutovalidateMode.disabled,
       selectorTextStyle: const TextStyle(color: Colors.black),
-      initialValue: number,
+      initialValue: initialValue,
       textFieldController: controller,
       formatInput: true,
       keyboardType:

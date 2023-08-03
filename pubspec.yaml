@@ -63,7 +63,9 @@ dependencies:
   simple_animations:
   animations:
   intl_phone_number_input:
-
+  pinput:
+  animated_text_kit:
+    
   #client
   dio:
 

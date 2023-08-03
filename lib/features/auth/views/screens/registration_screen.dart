@@ -3,7 +3,6 @@ import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
@@ -27,7 +26,13 @@ class RegistrationScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  print(state);
+
+                  if (state is RegistrationValidatingEmail) {
+                    print(state);
+                  }
+                },
                 builder: (context, state) {
                   return SingleChildScrollView(
                     child: Column(children: [
@@ -65,6 +70,7 @@ class RegistrationScreen extends StatelessWidget {
                           child: Column(
                           children: [
                             AuthTextField(
+
                               validator: (_)=> context.read<RegistrationCubit>().validateUsername(),
                               controller: context.read<RegistrationCubit>().userNameController,
                                 label: AppStrings.name,hint: AppStrings.nameHint,prefixIcon: Padding(
@@ -75,21 +81,27 @@ class RegistrationScreen extends StatelessWidget {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              onChanged: (_)=> context.read<RegistrationCubit>().onEmailChange(context),
                               validator: (_)=> context.read<RegistrationCubit>().validateEmail(),
                               controller: context.read<RegistrationCubit>().emailController,
-                              label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
-                              padding: EdgeInsets.all(1.5.h),
-                              child: SvgPicture.asset(AppImages.email),
-                            ),),
+                              label: AppStrings.email,hint: AppStrings.emailHint,
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.all(1.5.h),
+                                child: SvgPicture.asset(AppImages.email),
+                              ),
+                              suffixIcon: (state is RegistrationValidatingEmail)? circleIndicator() : checkMark(context.read<RegistrationCubit>().doesEmailExist),
+                            ),
                             Space(height: 1.5.h,),
 
                             PhoneNumberField(
-                              onInputChanged: (PhoneNumber number) {
-                                print(number);
-                                if(number.phoneNumber != null){
-                                  context.read<RegistrationCubit>().phoneNumber = number.phoneNumber!;
-                                }
+                              suffixIcon: (state is RegistrationValidatingPhone)? circleIndicator() : checkMark(context.read<RegistrationCubit>().doesPhoneExist),
+
+                              initialValue:  context.read<RegistrationCubit>().initPhoneNumber,
+                              controller: context.read<RegistrationCubit>().phoneNumberController,
+                              onInputValidated: (bool value) {
+                                context.read<RegistrationCubit>().isPhoneNumberValid = value;
                               },
+                              onInputChanged: (_)=>  context.read<RegistrationCubit>().onPhoneChange(_,context),
                               validator: (_)=> context.read<RegistrationCubit>().validatePhoneNumber(),
                             ),
                             Space(height: 1.5.h,),
@@ -136,7 +148,7 @@ class RegistrationScreen extends StatelessWidget {
                           style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                         ),
                         onTap: ()=> context.read<RegistrationCubit>().onRegisterClick(context),
-                      )
+                      ),
 
 
                     ],),
@@ -146,6 +158,22 @@ class RegistrationScreen extends StatelessWidget {
             ),
           ),
         )
+    );
+
+
+  }
+
+  Widget checkMark(bool isChecked){
+    if (isChecked) {
+      return Icon(Icons.done,color: AppTheme.success,);
+    }
+    return Icon(Icons.cancel_outlined,color: AppTheme.error,);
+  }
+
+  Widget circleIndicator(){
+    return  Padding(
+      padding: EdgeInsets.all(3.w),
+      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral800,)),
     );
   }
 }

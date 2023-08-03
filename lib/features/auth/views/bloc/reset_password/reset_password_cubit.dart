@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/features/auth/views/screens/pin_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:regexpattern/regexpattern.dart';
 
 import '../../../../../core/config/app_strings.dart';
@@ -15,10 +17,11 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   TextEditingController emailController = TextEditingController();
 
-  String phoneNumber = "";
   bool isPhoneNumberValid = false;
+  PhoneNumber initPhoneNumber = PhoneNumber(isoCode: "KW");
 
   GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> pinFormKey = GlobalKey<FormState>();
 
   String? validateEmail() {
     if(emailController.text.isEmail()) {
@@ -36,28 +39,64 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     }
   }
 
-  sendCodeToPhoneNumber(){
-
+  sendCodeToPhoneNumber(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (_) => PinScreen()));
   }
 
   sendCodeToEmail(BuildContext context){
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> MessageScreen(
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
       message: AppStrings.checkEmail,
       messageSubText: AppStrings.checkEmailSubtitle,
       image: AppImages.letter,
       buttonLabel: 'Done',
+      screen: PinScreen(),
+
     )), (route) => false);
   }
 
   onResetPasswordClick(BuildContext context) async {
+
     if(resetPasswordFormKey.currentState!.validate()) {
 
       if(emailController.text.isEmail()) {
         sendCodeToEmail(context);
-      }else {
-        sendCodeToPhoneNumber();
+      }else if(isPhoneNumberValid){
+        sendCodeToPhoneNumber(context);
       }
     }
+  }
+
+
+  onInputValidated(bool valid){
+    isPhoneNumberValid = valid;
+
+  }
+
+  onInputChange(PhoneNumber number){
+    if (number.phoneNumber != null){
+      initPhoneNumber = number;
+    }
+  }
+
+  onDoneClick(){
+
+  }
+
+  onResendClick(){
+
+  }
+
+  String? pinValidator(String? pin){
+
+  }
+
+  validatePin(){
+
+  }
+
+  onSubmittedPin(String pin){
+
+    validatePin();
   }
 
 

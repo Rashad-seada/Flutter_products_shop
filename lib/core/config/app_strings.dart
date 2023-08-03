@@ -55,8 +55,20 @@ abstract class AppStrings {
   static const String name = "Name";
   static const String nameHint = "please enter your name";
 
+  static const String verification = "Verification";
+  static const String verificationSubText = "please enter the code sent to the number";
+
   static const String checkEmail = "Check your Email";
   static const String checkEmailSubtitle = "We have sent a reset password to your email address";
+
+
+  static const String didntReceiveCode = "Didn't receive code?";
+  static const String resend = "Resend";
+
+  static const String done = "Done";
+
+  static const String allSet = "All Set!";
+  static const String yourAccountActive = "Your account have been activated";
 
 
 }

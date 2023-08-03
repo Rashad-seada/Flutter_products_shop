@@ -23,7 +23,7 @@ class FadeInAnimation extends StatelessWidget {
         );
       },
       onCompleted: () {
-        //
+
       },
     );
   }

@@ -9,16 +9,24 @@ class AuthTextField extends StatelessWidget {
   String? hint;
   String? label;
   Widget? prefixIcon;
-  String? Function(String?)? validator;
+  Widget? suffixIcon;
 
-  AuthTextField({Key? key,this.controller, this.hint,this.label,this.prefixIcon,this.validator}) : super(key: key);
+  String? Function(String?)? validator;
+  void Function()? onEditingComplete;
+  ValueChanged<String>? onChanged;
+  void Function(PointerDownEvent)? onTapOutside;
+
+  AuthTextField({Key? key,this.controller, this.hint,this.label,this.prefixIcon,this.suffixIcon,this.validator,this.onEditingComplete,this.onChanged,this.onTapOutside}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: onTapOutside,
+      onChanged: onChanged,
       validator: validator,
       controller: controller,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         contentPadding: EdgeInsets.symmetric(vertical: 2.3.h), // Adjust the vertical padding as needed
 
         hintText: hint,
@@ -39,17 +47,17 @@ class AuthTextField extends StatelessWidget {
         ),
 
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.neutral300,width: 1),
+            borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
             borderRadius: BorderRadius.circular(8)
         ),
 
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.primary,width: 1),
+            borderSide: const BorderSide(color: AppTheme.primary,width: 1),
             borderRadius: BorderRadius.circular(8)
         ),
 
         errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.error,width: 1),
+            borderSide: const BorderSide(color: AppTheme.error,width: 1),
             borderRadius: BorderRadius.circular(8)
         ),
 
@@ -58,6 +66,7 @@ class AuthTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8)
         ),
       ),
+      onEditingComplete: onEditingComplete,
     );
   }
 }

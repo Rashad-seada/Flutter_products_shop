@@ -25,3 +25,18 @@ class RegistrationFailure extends RegistrationState {
   @override
   List<Object> get props => [];
 }
+
+class RegistrationValidatingEmail extends RegistrationState {
+  @override
+  List<Object> get props => [];
+}
+
+class RegistrationValidatingPhone extends RegistrationState {
+  @override
+  List<Object> get props => [];
+}
+
+class RegistrationActivatingAccountBySms extends RegistrationState {
+  @override
+  List<Object> get props => [];
+}
