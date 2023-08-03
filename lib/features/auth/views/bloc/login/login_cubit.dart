@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../screens/password_reset_methods_screen.dart';
+
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -15,8 +17,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   }
 
-  onResetPasswordClick(){
-
+  onResetPasswordClick(BuildContext context){
+    Navigator.push(context,MaterialPageRoute(builder: (_)=> const PasswordResetMethodsScreen()));
   }
 
   onDontHaveAnAccountClick(BuildContext context){

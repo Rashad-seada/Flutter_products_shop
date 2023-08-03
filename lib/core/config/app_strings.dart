@@ -33,7 +33,14 @@ abstract class AppStrings {
   static const String orLoginWith = "Or Login With";
 
   static const String resetPassword = "Reset Password";
-  static const String resetPasswordSubTitle = "Enter the email address you used when you joined and we'll send you instructions to reset your password";
+  static const String resetByEmail = "Reset by email";
+  static const String resetByPhone = "Reset by phone number";
+
+
+  static const String resetPasswordMethod = "select how to want to reset your password";
+
+  static const String resetPasswordEmailSubTitle = "Enter the email address you used when you joined and we'll send you instructions to reset your password";
+  static const String resetPasswordPhoneSubTitle = "Enter the phone number you used when you joined and we'll send you instructions to reset your password";
 
   static const String rememberedYourPassword = "You Remember your password?";
 
@@ -47,5 +54,21 @@ abstract class AppStrings {
 
   static const String name = "Name";
   static const String nameHint = "please enter your name";
+
+  static const String verification = "Verification";
+  static const String verificationSubText = "please enter the code sent to the number";
+
+  static const String checkEmail = "Check your Email";
+  static const String checkEmailSubtitle = "We have sent a reset password to your email address";
+
+
+  static const String didntReceiveCode = "Didn't receive code?";
+  static const String resend = "Resend";
+
+  static const String done = "Done";
+
+  static const String allSet = "All Set!";
+  static const String yourAccountActive = "Your account have been activated";
+
 
 }

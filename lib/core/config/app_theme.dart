@@ -5,7 +5,7 @@ import 'app_consts.dart';
 
 abstract class AppTheme {
 
-
+  static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) => TextStyle(color: color,fontSize: AppConsts.font32.sp,fontWeight: FontWeight.bold);
   static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) => TextStyle(color: color,fontSize: AppConsts.font28.sp);
   static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color:color ,fontSize: AppConsts.font16.sp);
   static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color: color,fontSize: AppConsts.font14.sp);
@@ -23,7 +23,8 @@ abstract class AppTheme {
 
   static const Color primary = Color(0xffC70000);
 
-  static const Color error = Color(0xff1F2937);
+  static const Color success = Color(0xff60c631);
+  static const Color error = Color(0xffff472b);
 
 
 }
