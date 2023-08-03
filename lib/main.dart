@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
+import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> CoreCubit()),
         BlocProvider(create: (_)=> LoginCubit()),
         BlocProvider(create: (_)=> RegistrationCubit()),
+        BlocProvider(create: (_)=> ResetPasswordCubit()),
 
       ],
       child: Sizer(

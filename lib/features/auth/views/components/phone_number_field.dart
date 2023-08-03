@@ -3,30 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../config/app_consts.dart';
-import '../../config/app_theme.dart';
+import '../../../../core/config/app_consts.dart';
+import '../../../../core/config/app_theme.dart';
 
 class PhoneNumberField extends StatelessWidget {
   TextEditingController? controller;
+  String? Function(String?)? validator;
+  void Function(PhoneNumber)? onInputChanged;
+  void Function(bool)? onInputValidated;
+  Function(PointerDownEvent)? onTapOutside;
+  Widget? suffixIcon;
+  PhoneNumber initialValue ;
 
-  PhoneNumberField({super.key, this.controller});
+  PhoneNumberField({super.key, this.controller,this.validator,this.onInputChanged,this.onInputValidated,this.onTapOutside,this.suffixIcon,required this.initialValue});
 
-  PhoneNumber number = PhoneNumber(isoCode: 'KW');
 
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
-      onInputChanged: (PhoneNumber number) {
-        print(number.phoneNumber);
-      },
-      onInputValidated: (bool value) {
-        print(value);
-      },
+
+      validator: validator,
+      onInputChanged: onInputChanged,
+      onInputValidated: onInputValidated,
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
       ),
       inputBorder: const OutlineInputBorder(),
       inputDecoration: InputDecoration(
+        suffixIcon: suffixIcon,
         contentPadding: EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 5.w),
         // Adjust the vertical padding as needed
 
@@ -99,7 +103,7 @@ class PhoneNumberField extends StatelessWidget {
       ignoreBlank: false,
       autoValidateMode: AutovalidateMode.disabled,
       selectorTextStyle: const TextStyle(color: Colors.black),
-      initialValue: number,
+      initialValue: initialValue,
       textFieldController: controller,
       formatInput: true,
       keyboardType:
