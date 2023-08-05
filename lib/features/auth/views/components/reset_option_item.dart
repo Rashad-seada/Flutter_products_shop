@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../util/reset_method.dart';
 
 class ResetOptionItem extends StatelessWidget {
@@ -24,7 +26,7 @@ class ResetOptionItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         alignment: Alignment.centerLeft,
         width: 100.w,
-        height: 10.h,
+        height: 8.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2.w),
           border: Border.all(color: AppTheme.neutral300)
@@ -35,7 +37,7 @@ class ResetOptionItem extends StatelessWidget {
 
             Space(width: 4.w,),
 
-            Text((method == ResetMethod.email)? AppStrings.resetByEmail : AppStrings.resetByPhone ,style: AppTheme.textMTextStyle(),)
+            Text((method == ResetMethod.email)? LocaleKeys.reset_by_email.tr() : LocaleKeys.reset_by_phone.tr() ,style: AppTheme.textMTextStyle(),)
           ],
         ),
       ),

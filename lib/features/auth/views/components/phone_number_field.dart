@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -5,6 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_consts.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../generated/locale_keys.g.dart';
 
 class PhoneNumberField extends StatelessWidget {
   TextEditingController? controller;
@@ -34,8 +36,8 @@ class PhoneNumberField extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 5.w),
         // Adjust the vertical padding as needed
 
-        hintText: AppStrings.phoneNumberHint,
-        labelText: AppStrings.phoneNumber,
+        hintText: LocaleKeys.phone_number_hint.tr(),
+        labelText: LocaleKeys.phone_number.tr(),
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,
@@ -69,8 +71,8 @@ class PhoneNumberField extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 5.w),
         // Adjust the vertical padding as needed
 
-        hintText: AppStrings.countryHint,
-        labelText: AppStrings.country,
+        hintText: LocaleKeys.country_hint.tr(),
+        labelText: LocaleKeys.country.tr(),
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,

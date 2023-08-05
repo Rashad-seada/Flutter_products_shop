@@ -2,9 +2,9 @@ import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
+import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
-import 'package:eng_shop/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 
 import 'core/config/app_consts.dart';
 import 'features/auth/views/bloc/login/login_cubit.dart';
+import 'generated/codegen_loader.g.dart';
 
 void main() async {
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> LoginCubit()),
         BlocProvider(create: (_)=> RegistrationCubit()),
         BlocProvider(create: (_)=> ResetPasswordCubit()),
+        BlocProvider(create: (_)=> AuthMethodsCubit()),
 
       ],
       child: Sizer(
@@ -76,3 +78,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//  dart run easy_localization:generate --source-dir assets/translations
+//  dart run easy_localization:generate -f keys -o locale_keys.g.dart

@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/features/auth/domain/usecase/activate_account_by_sms.dart';
 import 'package:eng_shop/features/auth/domain/usecase/register_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dart';
 import 'package:eng_shop/features/auth/views/screens/activation_pin_screen.dart';
 import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
+import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -112,8 +114,8 @@ class RegistrationCubit extends Cubit<RegistrationState> {
               emit(RegistrationInitial());
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
 
-                message: AppStrings.allSet,
-                messageSubText: AppStrings.yourAccountActive,
+                message: LocaleKeys.all_set.tr(),
+                messageSubText: LocaleKeys.your_account_active.tr(),
                 image: AppImages.done,
                 buttonLabel: 'Done',
                 screen: LoginScreen(),

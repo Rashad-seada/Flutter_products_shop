@@ -41,5 +41,7 @@
   "resend": "Resend",
   "done": "Done",
   "all_set": "All Set!",
-  "your_account_active": "Your account have been activated"
+  "your_account_active": "Your account have been activated",
+  "chose_a_method": "Please chose a method to login to the app"
+
 }

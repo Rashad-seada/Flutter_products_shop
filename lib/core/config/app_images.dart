@@ -1,6 +1,5 @@
 abstract class AppImages {
   static const String signUp =  "images/sign_up.svg";
-  static const String login = "images/login.svg";
   static const String logo = "images/logo.png";
   static const String eye = "images/eye_inactive.svg";
   static const String facebook = "images/facebook.svg";
@@ -15,4 +14,5 @@ abstract class AppImages {
   static const String forgotPassword = "images/forgot_password.svg";
   static const String messages = "images/msg.svg";
   static const String letter = "images/letter.svg";
+  static const String login = "images/login.svg";
 }

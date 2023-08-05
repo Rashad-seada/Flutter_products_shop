@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../components/auth_text_field.dart';
 import '../../../../core/views/widgets/clickable_text.dart';
 import '../../../../core/views/widgets/main_button.dart';
@@ -53,11 +55,11 @@ class RegistrationScreen extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(AppStrings.register, style: AppTheme.heading2TextStyle(),),
+                              Text(LocaleKeys.register.tr(), style: AppTheme.heading2TextStyle(),),
 
                               Space(height: 1.h,),
 
-                              Text(AppStrings.registerSubTitle, style: AppTheme.textLTextStyle(),),
+                              Text(LocaleKeys.register_sub_title.tr(), style: AppTheme.textLTextStyle(),),
                             ],
                           ),
                         ],
@@ -73,7 +75,7 @@ class RegistrationScreen extends StatelessWidget {
 
                               validator: (_)=> context.read<RegistrationCubit>().validateUsername(),
                               controller: context.read<RegistrationCubit>().userNameController,
-                                label: AppStrings.name,hint: AppStrings.nameHint,prefixIcon: Padding(
+                                label: LocaleKeys.name.tr(),hint: LocaleKeys.name_hint.tr(),prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),
                                 child: SvgPicture.asset(AppImages.profile),
                               ),
@@ -84,7 +86,7 @@ class RegistrationScreen extends StatelessWidget {
                               onChanged: (_)=> context.read<RegistrationCubit>().onEmailChange(context),
                               validator: (_)=> context.read<RegistrationCubit>().validateEmail(),
                               controller: context.read<RegistrationCubit>().emailController,
-                              label: AppStrings.email,hint: AppStrings.emailHint,
+                              label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),
                               prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),
                                 child: SvgPicture.asset(AppImages.email),
@@ -109,7 +111,7 @@ class RegistrationScreen extends StatelessWidget {
                             AuthTextField(
                               validator: (_)=> context.read<RegistrationCubit>().validatePassword(),
                               controller: context.read<RegistrationCubit>().passwordController,
-                              label: AppStrings.password,hint: AppStrings.passwordHint,prefixIcon: Padding(
+                              label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
                               child: SvgPicture.asset(AppImages.lock),
                             ),),
@@ -118,25 +120,25 @@ class RegistrationScreen extends StatelessWidget {
                             AuthTextField(
                               validator: (_)=> context.read<RegistrationCubit>().validateRenterPassword(),
                               controller: context.read<RegistrationCubit>().renterPasswordController,
-                              label: AppStrings.renterPassword,hint: AppStrings.renterPasswordHint,prefixIcon: Padding(
+                              label: LocaleKeys.renter_password.tr(),hint: LocaleKeys.renter_password_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
                               child: SvgPicture.asset(AppImages.lock),
                             ),),
                           ],
                       )),
 
-                      Space(height: 10.h,),
+                      Space(height: 7.h,),
 
 
                       ClickableText(
-                        clickableText: AppStrings.register,
-                        text: AppStrings.dontHaveAnAccount,
+                        clickableText: LocaleKeys.register.tr(),
+                        text: LocaleKeys.dont_have_an_account.tr(),
                         style: AppTheme.textMTextStyle(
                             color: AppTheme.primary
                         ),
                         onPressed: ()=> context.read<RegistrationCubit>().onAlreadyHaveAnAccountClick(context),
                       ),
-                      Space(height: 1.h,),
+                      Space(height: .5.h,),
 
 
                       MainButton(
@@ -144,7 +146,7 @@ class RegistrationScreen extends StatelessWidget {
                         label: (state is RegistrationLoading)?
                         SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                         :Text(
-                          AppStrings.register,
+                          LocaleKeys.register.tr(),
                           style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                         ),
                         onTap: ()=> context.read<RegistrationCubit>().onRegisterClick(context),

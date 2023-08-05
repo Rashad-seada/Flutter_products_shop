@@ -5,6 +5,7 @@ import 'package:eng_shop/core/services/services.dart';
 import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
@@ -113,6 +114,31 @@ class AuthRepoImpl implements AuthRepo {
         }
 
         return right(activatePhoneEntity);
+
+      } on ServerException {
+        return left(ServerFailure("The server is down, please try again later!"));
+      }
+    } else {
+      return left(NetworkFailure("Please check your internet connection and try again!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LoginEntity>> login(String email, String password) async {
+
+    if (await services.networkService.isConnected) {
+      try {
+        LoginEntity loginEntity = await remoteDataSource.login(email, password);
+
+        print("${int.parse(loginEntity.res!)}");
+
+        if(loginEntity.res != null) {
+          if (int.parse(loginEntity.res!) != 1){
+            return left(ServerFailure(loginEntity.msg!));
+          }
+        }
+
+        return right(loginEntity);
 
       } on ServerException {
         return left(ServerFailure("The server is down, please try again later!"));

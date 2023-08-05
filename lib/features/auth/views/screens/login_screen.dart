@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/features/auth/views/components/auth_text_field.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/config/app_strings.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../bloc/login/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -47,11 +48,11 @@ class LoginScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppStrings.login, style: AppTheme.heading2TextStyle(),),
+                                Text(LocaleKeys.login.tr(), style: AppTheme.heading2TextStyle(),),
 
                                 Space(height: 1.h,),
 
-                                Text(AppStrings.loginSubTitle, style: AppTheme.textLTextStyle(),),
+                                Text(LocaleKeys.login_sub_title.tr(), style: AppTheme.textLTextStyle(),),
                               ],
                             ),
                           ],
@@ -60,21 +61,32 @@ class LoginScreen extends StatelessWidget {
                         Space(height: 3.5.h,),
 
 
-                        AuthTextField(
-                          controller: context.read<LoginCubit>().emailController,
-                          label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
-                          padding: EdgeInsets.all(1.5.h),
-                          child: SvgPicture.asset(AppImages.profile),
-                        ),),
+                        Form(
+                          key: context.read<LoginCubit>().loginFormKey,
+                          child: Column(
+                            children: [
+                              AuthTextField(
+                                controller: context.read<LoginCubit>().emailController,
+                                label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
+                                padding: EdgeInsets.all(1.5.h),
+                                child: SvgPicture.asset(AppImages.profile),
+                                ),
+                                validator: (_)=> context.read<LoginCubit>().validateEmail(),
+                              ),
 
-                        Space(height: 1.5.h,),
+                              Space(height: 1.5.h,),
 
-                        AuthTextField(
-                          controller: context.read<LoginCubit>().passwordController,
-                          label: AppStrings.password,hint: AppStrings.passwordHint,prefixIcon: Padding(
-                          padding: EdgeInsets.all(1.5.h),
-                          child: SvgPicture.asset(AppImages.lock),
-                        ),),
+                              AuthTextField(
+                                controller: context.read<LoginCubit>().passwordController,
+                                label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
+                                padding: EdgeInsets.all(1.5.h),
+                                child: SvgPicture.asset(AppImages.lock),
+                                ),
+                                validator: (_)=> context.read<LoginCubit>().validatePassword(),
+                              ),
+                            ],
+                        )),
+
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,12 +97,12 @@ class LoginScreen extends StatelessWidget {
                                   context.read<LoginCubit>().rememberMe = value!;
                                 }),
 
-                                Text(AppStrings.rememberMe,style: AppTheme.textMTextStyle(),),
+                                Text(LocaleKeys.remember_me.tr(),style: AppTheme.textMTextStyle(),),
                               ],
                             ),
 
                             ClickableText(
-                              clickableText: AppStrings.resetPassword,
+                              clickableText: LocaleKeys.reset_password.tr(),
                               style: AppTheme.textMTextStyle(
                                   color: AppTheme.primary
                               ),
@@ -98,21 +110,26 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Space(height: 29.h,),
+                        Space(height: 26.h,),
 
 
                         ClickableText(
-                          clickableText: AppStrings.register,
-                          text: AppStrings.dontHaveAnAccount,
+                          clickableText: LocaleKeys.register.tr(),
+                          text: LocaleKeys.dont_have_an_account.tr(),
                           style: AppTheme.textMTextStyle(
                               color: AppTheme.primary
                           ),
                           onPressed: ()=> context.read<LoginCubit>().onDontHaveAnAccountClick(context),
                         ),
-                        Space(height: 1.h,),
+                        Space(height: .5.h,),
 
 
-                        MainButton(width: 100.w,height: 7.h,label: Text(AppStrings.login,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),onTap: ()=> context.read<LoginCubit>().onLoginClick(),)
+                        MainButton(
+                          width: 100.w,
+                          height: 7.h,
+                          label: (state is LoginLoading)? circleIndicator() :Text(LocaleKeys.login.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                          onTap: ()=> context.read<LoginCubit>().onLoginClick(context),
+                        )
 
 
                       ],
@@ -123,6 +140,13 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         )
+    );
+  }
+
+  Widget circleIndicator(){
+    return  Padding(
+      padding: EdgeInsets.all(3.w),
+      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral100,)),
     );
   }
 }
