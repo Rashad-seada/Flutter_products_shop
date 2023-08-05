@@ -1,16 +1,19 @@
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
+import 'package:eng_shop/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import 'core/config/app_consts.dart';
 import 'features/auth/views/bloc/login/login_cubit.dart';
 
-void main() {
+void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -20,8 +23,19 @@ void main() {
   ));
   WidgetsFlutterBinding.ensureInitialized();
 
-  CoreCubit.init();
-  runApp(const MyApp());
+  await CoreCubit.init();
+
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale("en"),
+          Locale("ar")
+        ],
+        path: AppConsts.localizationPath,
+        child: const MyApp(),
+        assetLoader: CodegenLoader()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -41,6 +55,9 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Orientation orientation,
             DeviceType deviceType) {
           return MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             debugShowCheckedModeBanner: false,
             theme: ThemeData.from(
               colorScheme: const ColorScheme.light(),
