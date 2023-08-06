@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/features/auth/views/screens/pin_screen.dart';
 import 'package:equatable/equatable.dart';
@@ -9,6 +10,7 @@ import 'package:regexpattern/regexpattern.dart';
 
 import '../../../../../core/config/app_strings.dart';
 import '../../../../../core/views/screens/message_screen.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 part 'reset_password_state.dart';
 
@@ -45,8 +47,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   sendCodeToEmail(BuildContext context){
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
-      message: AppStrings.checkEmail,
-      messageSubText: AppStrings.checkEmailSubtitle,
+      message: LocaleKeys.check_email.tr(),
+      messageSubText: LocaleKeys.check_email_subtitle.tr(),
       image: AppImages.letter,
       buttonLabel: 'Done',
       screen: PinScreen(),

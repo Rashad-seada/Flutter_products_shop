@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/features/auth/views/components/phone_number_field.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:eng_shop/features/auth/views/util/reset_method.dart';
@@ -9,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../components/auth_text_field.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/main_button.dart';
@@ -53,11 +55,11 @@ class PasswordResetScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(AppStrings.resetPassword, style: AppTheme.heading2TextStyle(),),
+                          Text(LocaleKeys.reset_password.tr(), style: AppTheme.heading2TextStyle(),),
 
                           Space(height: 1.h,),
 
-                          Text((method == ResetMethod.email)? AppStrings.resetPasswordEmailSubTitle : AppStrings.resetPasswordPhoneSubTitle, style: AppTheme.textMTextStyle(),),
+                          Text((method == ResetMethod.email)? LocaleKeys.reset_password_email_sub_title.tr() : LocaleKeys.reset_password_phone_sub_title.tr(), style: AppTheme.textMTextStyle(),),
                         ],
                       ),
 
@@ -69,7 +71,7 @@ class PasswordResetScreen extends StatelessWidget {
                         child:(method == ResetMethod.email)? AuthTextField(
                           controller: context.read<ResetPasswordCubit>().emailController,
                           validator: (_) => context.read<ResetPasswordCubit>().validateEmail(),
-                          label: AppStrings.email,hint: AppStrings.emailHint,prefixIcon: Padding(
+                          label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
                           padding: EdgeInsets.all(1.5.h),
                           child: SvgPicture.asset(AppImages.email),
                         ),): PhoneNumberField(
@@ -80,13 +82,13 @@ class PasswordResetScreen extends StatelessWidget {
                         ),
                       ),
 
-                      Space(height: 52.h,),
+                      Space(height: 45.h,),
 
 
                       MainButton(
                         width: 100.w,
                         height: 7.h,
-                        label: Text(AppStrings.resetPassword,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                        label: Text(LocaleKeys.reset_password.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
                         onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(context),
                       ),
 

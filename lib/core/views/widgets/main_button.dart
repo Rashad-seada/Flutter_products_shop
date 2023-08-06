@@ -8,7 +8,9 @@ class MainButton extends StatelessWidget {
   double? height;
   Widget? label;
   GestureTapCallback? onTap;
-  MainButton({Key? key,this.height,this.width,this.label,this.onTap}) : super(key: key);
+  Color color;
+  Color borderColor;
+  MainButton({Key? key,this.height,this.width,this.label,this.onTap,this.color = AppTheme.primary,this.borderColor = Colors.transparent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,8 @@ class MainButton extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.w),
-          color: AppTheme.primary,
+          border: Border.all(color: borderColor),
+          color: color,
         ),
         child: label,
       ),

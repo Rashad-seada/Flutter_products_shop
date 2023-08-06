@@ -27,7 +27,7 @@ class AuthTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
-        contentPadding: EdgeInsets.symmetric(vertical: 2.3.h), // Adjust the vertical padding as needed
+        contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
 
         hintText: hint,
         labelText: label,

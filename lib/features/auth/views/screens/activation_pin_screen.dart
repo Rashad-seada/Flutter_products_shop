@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_strings.dart';
 import 'package:eng_shop/core/views/widgets/clickable_text.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
@@ -9,6 +10,7 @@ import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../components/pin_field.dart';
 
 class ActivationPinScreen extends StatelessWidget {
@@ -42,11 +44,11 @@ class ActivationPinScreen extends StatelessWidget {
 
                         Column(
                           children: [
-                            Text(AppStrings.verification, style: AppTheme.heading2TextStyle(),),
+                            Text(LocaleKeys.verification.tr(), style: AppTheme.heading2TextStyle(),),
 
                             Space(height: 1.h,),
 
-                            Text(AppStrings.verificationSubText, style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                            Text(LocaleKeys.verification_sub_text, style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
                           ],
                         ),
                         Space(height: 5.h,),
@@ -62,8 +64,8 @@ class ActivationPinScreen extends StatelessWidget {
 
                         ClickableText(
                           onPressed: ()=> context.read<RegistrationCubit>().onResendClick(),
-                          clickableText: AppStrings.resend,
-                          text: AppStrings.didntReceiveCode,
+                          clickableText: LocaleKeys.resend.tr(),
+                          text: LocaleKeys.didnt_receive_code.tr(),
                           style: AppTheme.textLTextStyle(color: AppTheme.primary),
                         ),
                         Space(height: 42.h,),
@@ -73,7 +75,7 @@ class ActivationPinScreen extends StatelessWidget {
                           label: (state is RegistrationActivatingAccountBySms)?
                           SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                               :Text(
-                            AppStrings.done,
+                            LocaleKeys.done.tr(),
                             style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                           ),
                           onTap: ()=> context.read<RegistrationCubit>().onDoneClick(context),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eng_shop/core/views/widgets/fade_in_animation.dart';
+import 'package:eng_shop/features/auth/views/screens/auth_methods_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -21,7 +22,7 @@ class _IntroScreenState extends State<IntroScreen> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (_) => LoginScreen()
+              builder: (_) => const AuthMethodsScreen()
           ), (route) => false
       );
     });

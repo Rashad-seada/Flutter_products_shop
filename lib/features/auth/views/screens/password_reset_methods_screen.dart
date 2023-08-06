@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:eng_shop/features/auth/views/screens/password_reset_screen.dart';
 import 'package:eng_shop/features/auth/views/util/reset_method.dart';
@@ -11,6 +12,7 @@ import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/space.dart';
+import '../../../../generated/locale_keys.g.dart';
 import '../components/reset_option_item.dart';
 
 class PasswordResetMethodsScreen extends StatelessWidget {
@@ -50,11 +52,11 @@ class PasswordResetMethodsScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(AppStrings.resetPassword, style: AppTheme.heading2TextStyle(),),
+                                    Text(LocaleKeys.reset_password.tr(), style: AppTheme.heading2TextStyle(),),
 
                                     Space(height: 1.h,),
 
-                                    Text(AppStrings.resetPasswordMethod, style: AppTheme.textMTextStyle(),),
+                                    Text(LocaleKeys.reset_password_method.tr(), style: AppTheme.textMTextStyle(),),
                                   ],
                                 ),
                               ],
