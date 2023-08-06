@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1076969686309",
+    "project_id": "eng-egypt-2cccd",
+    "storage_bucket": "eng-egypt-2cccd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076969686309:android:a94d4b2e880ce2a2b8c6cc",
+        "android_client_info": {
+          "package_name": "com.example.assissmnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076969686309-pl9oktiijfp9ab5k2brp5v9org74mc55.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.assissmnet",
+            "certificate_hash": "babfab229b797f85baf8759b0ce90f5509ffee2f"
+          }
+        },
+        {
+          "client_id": "1076969686309-crfa865hr6k2gg23jhkncvg611bi0rdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWc7pOR_hswmV5U8w7SRd63p7xiH8AJH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076969686309-crfa865hr6k2gg23jhkncvg611bi0rdi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1076969686309-vvdq2s9dod9lv2s4f71o0nvic155ts75.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.assissmnet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076969686309:android:30f78f5b2f1659b0b8c6cc",
+        "android_client_info": {
+          "package_name": "com.example.eng_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076969686309-crfa865hr6k2gg23jhkncvg611bi0rdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWc7pOR_hswmV5U8w7SRd63p7xiH8AJH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076969686309-crfa865hr6k2gg23jhkncvg611bi0rdi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1076969686309-vvdq2s9dod9lv2s4f71o0nvic155ts75.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.assissmnet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
