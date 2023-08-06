@@ -33,7 +33,8 @@ class AuthMethodsCubit extends Cubit<AuthMethodsState> {
   _registerWithGoogle(BuildContext context) async {
     await services.googleService.getGoogleAccount().then(
             (account) {
-              print(account?.currentUser?.email);
+              print(account?.email);
+              Navigator.push(context,MaterialPageRoute(builder: (_)=> RegistrationScreen(email: account?.email?? "",name: account?.displayName?? "",)));
             }
     );
 
