@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_strings.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../components/auth_text_field.dart';
 import '../../../../core/views/widgets/clickable_text.dart';
@@ -16,8 +17,24 @@ import '../../../../core/views/widgets/main_button.dart';
 import '../components/phone_number_field.dart';
 import '../../../../core/views/widgets/space.dart';
 
-class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({super.key});
+class RegistrationScreen extends StatefulWidget {
+  String email;
+  String name;
+
+  RegistrationScreen({super.key,this.email = "",this.name= ""});
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  @override
+  void initState() {
+    context.read<RegistrationCubit>().emailController.text = widget.email;
+    context.read<RegistrationCubit>().userNameController.text = widget.name;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +45,7 @@ class RegistrationScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
-                listener: (context, state) {
-                  print(state);
-
-                  if (state is RegistrationValidatingEmail) {
-                    print(state);
-                  }
-                },
+                listener: (context, state) {},
                 builder: (context, state) {
                   return SingleChildScrollView(
                     child: Column(children: [
@@ -42,8 +53,10 @@ class RegistrationScreen extends StatelessWidget {
                       Space(height: 5.h,),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          CustomBackButton(),
+
                           Image.asset(AppImages.logo,width: 14.w,height: 14.w,)
                         ],
                       ),

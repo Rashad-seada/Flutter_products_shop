@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../bloc/login/login_cubit.dart';
 
@@ -35,8 +36,10 @@ class LoginScreen extends StatelessWidget {
                         Space(height: 5.h,),
 
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            CustomBackButton(),
+
                             Image.asset(AppImages.logo,width: 14.w,height: 14.w,)
                           ],
                         ),

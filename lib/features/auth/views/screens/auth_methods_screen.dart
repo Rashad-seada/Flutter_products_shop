@@ -57,7 +57,7 @@ class AuthMethodsScreen extends StatelessWidget {
                             LocaleKeys.login.tr(),
                             style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                           ),
-                          onTap: ()=> context.read<AuthMethodsCubit>().onLoginClick(),
+                          onTap: ()=> context.read<AuthMethodsCubit>().onLoginClick(context),
                         ),
                         Space(height: 1.h,),
 
@@ -67,7 +67,7 @@ class AuthMethodsScreen extends StatelessWidget {
                             LocaleKeys.register.tr(),
                             style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
                           ),
-                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterClick(),
+                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterClick(context),
                         ),
                         Space(height: 2.h,),
 
@@ -79,12 +79,8 @@ class AuthMethodsScreen extends StatelessWidget {
                           color: AppTheme.neutral100,
                           width: 100.w,height: 7.h,
                           label: (state is AuthMethodsGoogleLoading)?
-                          SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
-                              :Text(
-                            LocaleKeys.register.tr(),
-                            style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
-                          ),
-                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithGoogleClick(),
+                          circleIndicator() : googleButtonLable(),
+                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithGoogleClick(context),
                         ),
                         Space(height: 2.h,),
 
@@ -93,11 +89,8 @@ class AuthMethodsScreen extends StatelessWidget {
                           color: AppTheme.neutral100,
                           width: 100.w,height: 7.h,
                           label: (state is AuthMethodsFacebookLoading)?
-                          SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
-                              :Text(
-                            LocaleKeys.register.tr(),
-                            style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
-                          ),
+                          circleIndicator()
+                              : facebookButtonLable(),
                           onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithFacebookClick(),
                         ),
 
@@ -111,5 +104,33 @@ class AuthMethodsScreen extends StatelessWidget {
           ),
         )
     );
+  }
+
+  Widget googleButtonLable(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center ,
+      children: [
+        SvgPicture.asset(AppImages.google,width: 6.w,height: 6.w,),
+        Space(width: 2.w,),
+        Text(LocaleKeys.register_by_google.tr()),
+      ],
+    );
+  }
+
+  Widget facebookButtonLable(){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center ,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(AppImages.facebook,width: 6.5.w,height: 6.5.w,),
+        Space(width: 2.w,),
+        Text(LocaleKeys.register_by_facebook.tr())
+      ],
+    );
+  }
+
+  Widget circleIndicator(){
+    return SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,));
   }
 }
