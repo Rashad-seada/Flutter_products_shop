@@ -5,14 +5,13 @@ class GoogleService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: [
         "email",
-        "https://www.googleapis.com/auth/contacts.readonly"
       ]
   );
 
-  Future<GoogleSignIn?> getGoogleAccount() async {
+  Future<GoogleSignInAccount?> getGoogleAccount() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      return _googleSignIn;
+      return googleSignInAccount;
     }catch (e) {
       print(e);
       return null;
