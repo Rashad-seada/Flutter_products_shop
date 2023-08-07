@@ -60,7 +60,12 @@ class CodegenLoader extends AssetLoader{
   "your_account_active": "تم تنشيط حسابك",
   "chose_a_method": "من فضلك اختر الطريقه التي تريد التود الدخول بها للتطبيق",
   "register_by_google": "تسجيل الدخول عن طريق google",
-  "register_by_facebook": "تسجيل الدخول عن طريق facebook"
+  "register_by_facebook": "تسجيل الدخول عن طريق facebook",
+  "settings": "الاعدادات",
+  "language": "اللغه",
+  "main_menu": "القائمه الرئيسيه",
+  "home": "الصفحه الرئيسيه",
+  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -108,7 +113,12 @@ static const Map<String,dynamic> en = {
   "your_account_active": "Your account have been activated",
   "chose_a_method": "Please chose a method to login to the app",
   "register_by_google": "Register by google",
-  "register_by_facebook": "Register by facebook"
+  "register_by_facebook": "Register by facebook",
+  "settings": "settings",
+  "language": "language",
+  "main_menu": "Main Menu",
+  "home": "Home",
+  "home_sub_text": "enjoy the latest offers and exclusive products"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

@@ -5,6 +5,7 @@ import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
+import 'package:eng_shop/features/main_feature/views/bloc/home/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,11 +47,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        // Auth
         BlocProvider(create: (_)=> CoreCubit()),
         BlocProvider(create: (_)=> LoginCubit()),
         BlocProvider(create: (_)=> RegistrationCubit()),
         BlocProvider(create: (_)=> ResetPasswordCubit()),
         BlocProvider(create: (_)=> AuthMethodsCubit()),
+
+        //main feature
+        BlocProvider(create: (_)=> HomeCubit()),
 
       ],
       child: Sizer(
@@ -80,4 +85,4 @@ class MyApp extends StatelessWidget {
 }
 
 //  dart run easy_localization:generate --source-dir assets/translations
-//  dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+// dart run easy_localization:generate --source-dir assets/translations

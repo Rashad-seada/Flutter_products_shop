@@ -10,6 +10,7 @@ abstract class AppConsts {
 
   static const double font32 = 28;
   static const double font28 = 24;
+  static const double font21 = 17;
   static const double font16 = 12;
   static const double font14 = 10;
 

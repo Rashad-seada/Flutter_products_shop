@@ -44,5 +44,11 @@
   "your_account_active": "تم تنشيط حسابك",
   "chose_a_method": "من فضلك اختر الطريقه التي تريد التود الدخول بها للتطبيق",
   "register_by_google": "تسجيل الدخول عن طريق google",
-  "register_by_facebook": "تسجيل الدخول عن طريق facebook"
+  "register_by_facebook": "تسجيل الدخول عن طريق facebook",
+  "settings": "الاعدادات",
+  "language": "اللغه",
+  "main_menu": "القائمه الرئيسيه",
+  "home": "الصفحه الرئيسيه",
+  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه"
+
 }

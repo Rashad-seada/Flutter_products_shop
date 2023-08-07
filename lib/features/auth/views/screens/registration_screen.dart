@@ -44,6 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             width: 100.w,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
+
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
                 listener: (context, state) {},
                 builder: (context, state) {
@@ -110,7 +111,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                             PhoneNumberField(
                               suffixIcon: (state is RegistrationValidatingPhone)? circleIndicator() : checkMark(context.read<RegistrationCubit>().doesPhoneExist),
-
                               initialValue:  context.read<RegistrationCubit>().initPhoneNumber,
                               controller: context.read<RegistrationCubit>().phoneNumberController,
                               onInputValidated: (bool value) {
@@ -147,7 +147,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         clickableText: LocaleKeys.register.tr(),
                         text: LocaleKeys.dont_have_an_account.tr(),
                         style: AppTheme.textMTextStyle(
-                            color: AppTheme.primary
+                            color: AppTheme.primary900
                         ),
                         onPressed: ()=> context.read<RegistrationCubit>().onAlreadyHaveAnAccountClick(context),
                       ),

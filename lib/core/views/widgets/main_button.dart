@@ -10,7 +10,7 @@ class MainButton extends StatelessWidget {
   GestureTapCallback? onTap;
   Color color;
   Color borderColor;
-  MainButton({Key? key,this.height,this.width,this.label,this.onTap,this.color = AppTheme.primary,this.borderColor = Colors.transparent}) : super(key: key);
+  MainButton({Key? key,this.height,this.width,this.label,this.onTap,this.color = AppTheme.primary900,this.borderColor = Colors.transparent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

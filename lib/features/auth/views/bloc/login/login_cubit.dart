@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
 
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../main_feature/views/screens/home_screen.dart';
 import '../../screens/password_reset_methods_screen.dart';
 
 part 'login_state.dart';
@@ -59,6 +60,9 @@ class LoginCubit extends Cubit<LoginState> {
                     message: success.msg!,
                     context: context
                 );
+                Navigator.push(context,MaterialPageRoute(builder: (_)=> const HomeScreen()));
+
+
               }
           )
       );

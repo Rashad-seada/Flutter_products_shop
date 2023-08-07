@@ -3,7 +3,6 @@ import 'package:eng_shop/core/services/services.dart';
 import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../screens/registration_screen.dart';
 
@@ -33,11 +32,9 @@ class AuthMethodsCubit extends Cubit<AuthMethodsState> {
   _registerWithGoogle(BuildContext context) async {
     await services.googleService.getGoogleAccount().then(
             (account) {
-              print(account?.email);
-              Navigator.push(context,MaterialPageRoute(builder: (_)=> RegistrationScreen(email: account?.email?? "",name: account?.displayName?? "",)));
+              Navigator.push(context,MaterialPageRoute(builder: (_)=> RegistrationScreen(email: account?.email ?? "",name: account?.displayName ?? "",)));
             }
     );
-
   }
 
   _registerWithFacebook(){

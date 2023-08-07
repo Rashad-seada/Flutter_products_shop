@@ -107,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                             ClickableText(
                               clickableText: LocaleKeys.reset_password.tr(),
                               style: AppTheme.textMTextStyle(
-                                  color: AppTheme.primary
+                                  color: AppTheme.primary900
                               ),
                               onPressed: () => context.read<LoginCubit>().onResetPasswordClick(context),
                             ),
@@ -120,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                           clickableText: LocaleKeys.register.tr(),
                           text: LocaleKeys.dont_have_an_account.tr(),
                           style: AppTheme.textMTextStyle(
-                              color: AppTheme.primary
+                              color: AppTheme.primary900
                           ),
                           onPressed: ()=> context.read<LoginCubit>().onDontHaveAnAccountClick(context),
                         ),
