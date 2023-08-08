@@ -88,7 +88,7 @@ class PasswordResetScreen extends StatelessWidget {
                       MainButton(
                         width: 100.w,
                         height: 7.h,
-                        label: Text(LocaleKeys.reset_password.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                        label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.reset_password.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
                         onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(context),
                       ),
 
@@ -100,6 +100,13 @@ class PasswordResetScreen extends StatelessWidget {
           ),
         ),
       )
+    );
+  }
+
+  Widget circleIndicator(){
+    return  Padding(
+      padding: EdgeInsets.all(3.w),
+      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral100,)),
     );
   }
 }

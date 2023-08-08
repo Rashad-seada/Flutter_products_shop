@@ -5,11 +5,11 @@ import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 
-class ValidateEmailUsecase implements Usecase<ValidateMobileEntity,ValidateEmailParams> {
+class ValidateEmailUsecase implements Usecase<ValidateEmailEntity,ValidateEmailParams> {
   AuthRepo repo = AuthRepoImpl();
 
   @override
-  Future<Either<Failure, ValidateMobileEntity>> call(ValidateEmailParams params) async {
+  Future<Either<Failure, ValidateEmailEntity>> call(ValidateEmailParams params) async {
     return await repo.validateEmail(params.email);
   }
 }

@@ -64,5 +64,14 @@
   "sale_return": "مرتجع بيع",
   "stock_order": "طلب مخزون",
   "stock_transfer": "نقل مخزون",
-  "suppliers": "الموردين"
+  "suppliers": "الموردين",
+  "general_settings": "اعدادات عامه",
+  "service_provider": "مزود الخدمه",
+
+  "new_password": "كلمه مرور جديده",
+  "new_password_sub_text": "من فضلك ادخل كلمه مرور جديده لحسابك",
+
+  "all_done": "كل شيئ جيد",
+  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح"
+
 }

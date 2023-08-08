@@ -47,8 +47,8 @@ abstract class  LocaleKeys {
   static const chose_a_method = 'chose_a_method';
   static const register_by_google = 'register_by_google';
   static const register_by_facebook = 'register_by_facebook';
-  static const settings = 'Settings';
-  static const language = 'Language';
+  static const settings = 'settings';
+  static const language = 'language';
   static const main_menu = 'main_menu';
   static const home = 'home';
   static const home_sub_text = 'home_sub_text';
@@ -66,5 +66,11 @@ abstract class  LocaleKeys {
   static const stock_order = 'stock_order';
   static const stock_transfer = 'stock_transfer';
   static const suppliers = 'suppliers';
+  static const general_settings = 'general_settings';
+  static const service_provider = 'service_provider';
+  static const new_password = 'new_password';
+  static const new_password_sub_text = 'new_password_sub_text';
+  static const all_done = 'all_done';
+  static const reset_password_sub_text = 'reset_password_sub_text';
 
 }

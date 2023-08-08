@@ -6,7 +6,9 @@ import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 
 import '../../../domain/entity/validate_phone_entity.dart';
@@ -15,7 +17,7 @@ abstract class AuthRemoteDataSource {
 
   Future<RegistrationEntity> register(String atext,String etext,String uname,String email,String upass,String mobile,);
 
-  Future<ValidateMobileEntity> validateEmail(String email);
+  Future<ValidateEmailEntity> validateEmail(String email);
 
   Future<ValidatePhoneEntity> validatePhoneNumber(String phoneNumber);
 
@@ -24,6 +26,11 @@ abstract class AuthRemoteDataSource {
   Future<LoginEntity> login(String email,String password);
 
   Future<SendSmsEntity> sendSms(String number);
+
+  Future<ValidateCodeEntity> validateSmsCode(String number,String smsCode);
+
+  Future<ResetPasswordEntity> resetPassword(String number,String smsCode,String newPassword);
+
 
 }
 
@@ -57,7 +64,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<ValidateMobileEntity> validateEmail(String email) async {
+  Future<ValidateEmailEntity> validateEmail(String email) async {
     List<Map<String,dynamic>> srvData = [{"umail": email,}];
 
     String jsonString = json.encode(srvData);
@@ -69,7 +76,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     Map<String,dynamic> data = json.decode(response.data);
 
-    return ValidateMobileEntity.fromJson(data);
+    return ValidateEmailEntity.fromJson(data);
   }
 
   @override
@@ -134,11 +141,48 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 10));
+    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 60));
 
     Map<String,dynamic> data = json.decode(response.data);
 
     return SendSmsEntity.fromJson(data);
+  }
+
+  @override
+  Future<ValidateCodeEntity> validateSmsCode(String number, String smsCode) async {
+    List<Map<String,dynamic>> srvData = [{
+      "mobile": number,
+      "mcode": smsCode,
+    }];
+
+
+    String jsonString = json.encode(srvData);
+    String base64String = base64.encode(utf8.encode(jsonString));
+
+    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 70));
+
+    Map<String,dynamic> data = json.decode(response.data);
+
+    return ValidateCodeEntity.fromJson(data);
+  }
+
+  @override
+  Future<ResetPasswordEntity> resetPassword(String number, String smsCode, String newPassword) async {
+    List<Map<String,dynamic>> srvData = [{
+      "mobile": number,
+      "mcode": smsCode,
+      "upass": newPassword,
+    }];
+
+
+    String jsonString = json.encode(srvData);
+    String base64String = base64.encode(utf8.encode(jsonString));
+
+    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 80));
+
+    Map<String,dynamic> data = json.decode(response.data);
+
+    return ResetPasswordEntity.fromJson(data);
   }
 
 }

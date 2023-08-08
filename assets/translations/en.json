@@ -64,6 +64,15 @@
   "sale_return": "sale return",
   "stock_order": "stock order",
   "stock_transfer": "stock transfer",
-  "suppliers": "suppliers"
+  "suppliers": "suppliers",
+  "general_settings": "General Settings",
+  "service_provider": "Service provider",
+
+  "new_password": "New password",
+  "new_password_sub_text": "please enter a new password to your email",
+
+  "all_done": "ALL done",
+  "reset_password_sub_text": "you reset your password and you are ready to go"
+
 
 }

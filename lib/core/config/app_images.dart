@@ -30,11 +30,11 @@ abstract class AppImages {
   static const String modifyMiddlemanShipment = "images/modify_middleman_shipment.png";
   static const String purchaseReturn = "images/purchase_return.png";
   static const String receipt = "images/receipt.png";
-  static const String reciveStock = "images/receive_stock.png";
+  static const String receiveStock = "images/receive_stock.png";
   static const String saleReturn = "images/sale_return.png";
   static const String stockOrder = "images/stock_order.png";
   static const String stockTransfer = "images/stock_transfer.png";
   static const String suppliers = "images/suppliers.png";
 
-
+  static const String arrowRight = "images/arrow_right.svg";
 }

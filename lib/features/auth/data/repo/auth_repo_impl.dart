@@ -7,7 +7,9 @@ import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
@@ -53,10 +55,10 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, ValidateMobileEntity>> validateEmail(String email) async {
+  Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email) async {
     if (await services.networkService.isConnected) {
       try {
-        ValidateMobileEntity validateEmailEntity = await remoteDataSource.validateEmail(email);
+        ValidateEmailEntity validateEmailEntity = await remoteDataSource.validateEmail(email);
 
 
         if(validateEmailEntity.res != null) {
@@ -163,6 +165,54 @@ class AuthRepoImpl implements AuthRepo {
         }
 
         return right(sendSmsEntity);
+
+      } on ServerException {
+        return left(ServerFailure("The server is down, please try again later!"));
+      }
+    } else {
+      return left(NetworkFailure("Please check your internet connection and try again!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode) async {
+    if (await services.networkService.isConnected) {
+      try {
+        ValidateCodeEntity validateCodeEntity = await remoteDataSource.validateSmsCode(mobile,smsCode);
+
+        print("${int.parse(validateCodeEntity.res!)}");
+
+        if(validateCodeEntity.res != null) {
+          if (int.parse(validateCodeEntity.res!) != 1){
+            return left(ServerFailure(validateCodeEntity.msg!));
+          }
+        }
+
+        return right(validateCodeEntity);
+
+      } on ServerException {
+        return left(ServerFailure("The server is down, please try again later!"));
+      }
+    } else {
+      return left(NetworkFailure("Please check your internet connection and try again!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword) async {
+    if (await services.networkService.isConnected) {
+      try {
+        ResetPasswordEntity resetPasswordEntity = await remoteDataSource.resetPassword(mobile,smsCode,newPassword);
+
+        print("${int.parse(resetPasswordEntity.res!)}");
+
+        if(resetPasswordEntity.res != null) {
+          if (int.parse(resetPasswordEntity.res!) != 1){
+            return left(ServerFailure(resetPasswordEntity.msg!));
+          }
+        }
+
+        return right(resetPasswordEntity);
 
       } on ServerException {
         return left(ServerFailure("The server is down, please try again later!"));

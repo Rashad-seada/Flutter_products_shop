@@ -1,10 +1,10 @@
-class ValidateEmailEntity {
+class ResetPasswordEntity {
   String? res;
   String? msg;
 
-  ValidateEmailEntity({this.res, this.msg});
+  ResetPasswordEntity({this.res, this.msg});
 
-  ValidateEmailEntity.fromJson(Map<String, dynamic> json) {
+  ResetPasswordEntity.fromJson(Map<String, dynamic> json) {
     res = json['res'];
     msg = json['msg'];
   }

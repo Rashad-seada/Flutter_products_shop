@@ -23,3 +23,8 @@ class ResetPasswordFailure extends ResetPasswordState {
   @override
   List<Object> get props => [];
 }
+
+class ResetPasswordResendSmsLoading extends ResetPasswordState {
+  @override
+  List<Object> get props => [];
+}

@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
     Service(serviceName: LocaleKeys.purchase_return.tr(), image: AppImages.purchaseReturn),
     Service(serviceName: LocaleKeys.stock_order.tr(), image: AppImages.stockOrder),
     Service(serviceName: LocaleKeys.stock_transfer.tr(), image: AppImages.stockTransfer),
-    Service(serviceName: LocaleKeys.receive_stock.tr(), image: AppImages.reciveStock),
+    Service(serviceName: LocaleKeys.receive_stock.tr(), image: AppImages.receiveStock),
     Service(serviceName: LocaleKeys.middleman_shipment.tr(), image: AppImages.middlemanShipment),
     Service(serviceName: LocaleKeys.modify_middleman_shipment.tr(), image: AppImages.modifyMiddlemanShipment),
     Service(serviceName: LocaleKeys.customers.tr(), image: AppImages.customers),

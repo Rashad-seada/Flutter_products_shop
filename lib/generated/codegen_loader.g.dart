@@ -79,7 +79,13 @@ class CodegenLoader extends AssetLoader{
   "sale_return": "مرتجع بيع",
   "stock_order": "طلب مخزون",
   "stock_transfer": "نقل مخزون",
-  "suppliers": "الموردين"
+  "suppliers": "الموردين",
+  "general_settings": "اعدادات عامه",
+  "service_provider": "مزود الخدمه",
+  "new_password": "كلمه مرور جديده",
+  "new_password_sub_text": "من فضلك ادخل كلمه مرور جديده لحسابك",
+  "all_done": "كل شيئ جيد",
+  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -146,7 +152,13 @@ static const Map<String,dynamic> en = {
   "sale_return": "sale return",
   "stock_order": "stock order",
   "stock_transfer": "stock transfer",
-  "suppliers": "suppliers"
+  "suppliers": "suppliers",
+  "general_settings": "General Settings",
+  "service_provider": "Service provider",
+  "new_password": "New password",
+  "new_password_sub_text": "please enter a new password to your email",
+  "all_done": "ALL done",
+  "reset_password_sub_text": "you reset your password and you are ready to go"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }
