@@ -15,4 +15,6 @@ abstract class AppImages {
   static const String messages = "images/msg.svg";
   static const String letter = "images/letter.svg";
   static const String login = "images/login.svg";
+
+  static const String arrowRight = "images/arrow-right.svg";
 }
