@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                                   itemBuilder: (_,index) => ServiceItem(service: context.read<HomeCubit>().services[index],),
                               ),
 
-                              Space(height: 4.h,),
+                              Space(height: 10.h,),
 
                             ],
                           ),

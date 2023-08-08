@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
+import 'package:eng_shop/features/main_feature/views/screens/settings_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,7 +52,7 @@ class CustomSideMenu extends StatelessWidget {
 
           Space(height: .5.h,),
 
-          MenuItem(text: LocaleKeys.settings.tr(), icon: AppImages.setting,),
+          MenuItem(text: LocaleKeys.settings.tr(), icon: AppImages.setting,screen: const SettingsScreen(),),
 
         ],
       ),

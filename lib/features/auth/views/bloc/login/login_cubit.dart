@@ -32,10 +32,10 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   String? validateEmail(){
-    if (emailController.text.isEmail()) {
+    if (emailController.text.isEmail() || emailController.text.isPhone()) {
       return null;
     } else {
-      return "Please enter a valid email";
+      return "Please enter a valid email or number";
     }
   }
 

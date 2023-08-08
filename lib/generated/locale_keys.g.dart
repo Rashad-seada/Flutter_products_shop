@@ -47,8 +47,8 @@ abstract class  LocaleKeys {
   static const chose_a_method = 'chose_a_method';
   static const register_by_google = 'register_by_google';
   static const register_by_facebook = 'register_by_facebook';
-  static const settings = 'settings';
-  static const language = 'language';
+  static const settings = 'Settings';
+  static const language = 'Language';
   static const main_menu = 'main_menu';
   static const home = 'home';
   static const home_sub_text = 'home_sub_text';
