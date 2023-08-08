@@ -52,5 +52,19 @@ abstract class  LocaleKeys {
   static const main_menu = 'main_menu';
   static const home = 'home';
   static const home_sub_text = 'home_sub_text';
+  static const bill_of_sale = 'bill_of_sale';
+  static const bond = 'bond';
+  static const categories = 'categories';
+  static const classification = 'classification';
+  static const customers = 'customers';
+  static const middleman_shipment = 'middleman_shipment';
+  static const modify_middleman_shipment = 'modify_middleman_shipment';
+  static const purchase_return = 'purchase_return';
+  static const receipt = 'receipt';
+  static const receive_stock = 'receive_stock';
+  static const sale_return = 'sale_return';
+  static const stock_order = 'stock_order';
+  static const stock_transfer = 'stock_transfer';
+  static const suppliers = 'suppliers';
 
 }

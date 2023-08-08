@@ -65,7 +65,21 @@ class CodegenLoader extends AssetLoader{
   "language": "اللغه",
   "main_menu": "القائمه الرئيسيه",
   "home": "الصفحه الرئيسيه",
-  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه"
+  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه",
+  "bill_of_sale": "فاتوره بيع",
+  "bond": "السنادات",
+  "categories": "الاقسام",
+  "classification": "التصنيفات",
+  "customers": "العملاء",
+  "middleman_shipment": "شحنه الوسيط",
+  "modify_middleman_shipment": "تعديل شحنه الوسيط",
+  "purchase_return": "مرتجع شراء",
+  "receipt": "receipt",
+  "receive_stock": "استلام مخزون",
+  "sale_return": "مرتجع بيع",
+  "stock_order": "طلب مخزون",
+  "stock_transfer": "نقل مخزون",
+  "suppliers": "الموردين"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -118,7 +132,21 @@ static const Map<String,dynamic> en = {
   "language": "language",
   "main_menu": "Main Menu",
   "home": "Home",
-  "home_sub_text": "enjoy the latest offers and exclusive products"
+  "home_sub_text": "enjoy the latest offers and exclusive products",
+  "bill_of_sale": "Sale bill",
+  "bond": "Bond",
+  "categories": "Categories",
+  "classification": "classification",
+  "customers": "customers",
+  "middleman_shipment": "Middleman shipment",
+  "modify_middleman_shipment": "modify middleman shipment",
+  "purchase_return": "purchase return",
+  "receipt": "receipt",
+  "receive_stock": "receive stock",
+  "sale_return": "sale return",
+  "stock_order": "stock order",
+  "stock_transfer": "stock transfer",
+  "suppliers": "suppliers"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

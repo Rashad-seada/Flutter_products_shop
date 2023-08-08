@@ -11,6 +11,8 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../components/custom_navigation_bar.dart';
+import '../components/service_item.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,51 +30,81 @@ class HomeScreen extends StatelessWidget {
                 drawer: CustomDrawer(
                   child: const CustomSideMenu(),
                 ),
-                body: SizedBox(
-                  width: 100.w,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 7.w),
-                      child: Column(
-                        children: [
+                body: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
 
-                          Space(height: 4.h,),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                    SizedBox(
+                      width: 100.w,
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 7.w),
+                          child: Column(
                             children: [
 
-                              InkWell(
-                                borderRadius: BorderRadius.circular(100.w),
-                                  onTap: () => context.read<HomeCubit>().onMenuTap(),
-                                  child: SvgPicture.asset(AppImages.menu,width: 8.w,height: 8.w,)
-                              )
-                            ],
-                          ),
-                          Space(height: 4.h,),
+                              Space(height: 4.h,),
 
-                          Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),),
 
-                                  Space(height: 1.h,),
+                                  InkWell(
+                                    borderRadius: BorderRadius.circular(100.w),
+                                      onTap: () => context.read<HomeCubit>().onMenuTap(),
+                                      child: SvgPicture.asset(AppImages.menu,width: 8.w,height: 8.w,)
+                                  ),
 
-                                  Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                                  Image.asset(AppImages.logo,width: 10.w,height: 10.w,),
+
                                 ],
                               ),
+                              Space(height: 3.h,),
+
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),),
+
+                                      Space(height: 1.h,),
+
+                                      Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Space(height: 4.h,),
+
+                              GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                    mainAxisSpacing: 1.h,
+                                    crossAxisSpacing: 1.h
+                                  ),
+                                  itemCount: context.read<HomeCubit>().services.length,
+                                  itemBuilder: (_,index) => ServiceItem(service: context.read<HomeCubit>().services[index],),
+                              ),
+
+                              Space(height: 4.h,),
+
                             ],
                           ),
-                          Space(height: 5.h,),
-
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    CustomNavigationBar(
+                      currentIndex: context.read<HomeCubit>().currentIndex ,
+                      onTap: (index)=> context.read<HomeCubit>().onNavigationBarTap(index),
+                    ),
+
+                  ],
                 ) ,
-              );
+          );
         },
       )
     );

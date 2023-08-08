@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Orientation orientation,
             DeviceType deviceType) {
           return MaterialApp(
+
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -85,4 +86,4 @@ class MyApp extends StatelessWidget {
 }
 
 //  dart run easy_localization:generate --source-dir assets/translations
-// dart run easy_localization:generate --source-dir assets/translations
+// dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart

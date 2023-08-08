@@ -49,6 +49,20 @@
   "language": "اللغه",
   "main_menu": "القائمه الرئيسيه",
   "home": "الصفحه الرئيسيه",
-  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه"
+  "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه",
 
+  "bill_of_sale": "فاتوره بيع",
+  "bond": "السنادات",
+  "categories": "الاقسام",
+  "classification": "التصنيفات",
+  "customers": "العملاء",
+  "middleman_shipment": "شحنه الوسيط",
+  "modify_middleman_shipment": "تعديل شحنه الوسيط",
+  "purchase_return": "مرتجع شراء",
+  "receipt": "receipt",
+  "receive_stock": "استلام مخزون",
+  "sale_return": "مرتجع بيع",
+  "stock_order": "طلب مخزون",
+  "stock_transfer": "نقل مخزون",
+  "suppliers": "الموردين"
 }
