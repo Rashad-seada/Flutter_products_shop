@@ -47,6 +47,8 @@ dependencies:
   firebase_auth:
   cloud_firestore:
 
+  image_picker:   
+
   #state management
   bloc:
   flutter_bloc:
@@ -70,6 +72,8 @@ dependencies:
   intl_phone_number_input:
   pinput:
   animated_text_kit:
+  dot_navigation_bar:
+
 
   #client
   dio:

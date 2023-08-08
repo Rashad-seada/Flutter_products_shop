@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
 
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../main_feature/views/screens/home_screen.dart';
 import '../../screens/password_reset_methods_screen.dart';
 
 part 'login_state.dart';
@@ -31,10 +32,10 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   String? validateEmail(){
-    if (emailController.text.isEmail()) {
+    if (emailController.text.isEmail() || emailController.text.isPhone()) {
       return null;
     } else {
-      return "Please enter a valid email";
+      return "Please enter a valid email or number";
     }
   }
 
@@ -59,6 +60,9 @@ class LoginCubit extends Cubit<LoginState> {
                     message: success.msg!,
                     context: context
                 );
+                Navigator.push(context,MaterialPageRoute(builder: (_)=> const HomeScreen()));
+
+
               }
           )
       );

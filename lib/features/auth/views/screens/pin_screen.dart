@@ -65,7 +65,7 @@ class PinScreen extends StatelessWidget {
                               onPressed: ()=> context.read<ResetPasswordCubit>().onResendClick(),
                               clickableText: LocaleKeys.resend.tr(),
                               text: LocaleKeys.didnt_receive_code.tr(),
-                              style: AppTheme.textLTextStyle(color: AppTheme.primary),
+                              style: AppTheme.textLTextStyle(color: AppTheme.primary900),
                             ),
                             Space(height: 42.h,),
 

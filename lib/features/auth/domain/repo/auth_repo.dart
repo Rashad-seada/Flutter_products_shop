@@ -6,6 +6,7 @@ import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 
@@ -20,5 +21,7 @@ abstract class AuthRepo {
  Future<Either<Failure,ActivatePhoneEntity>> activateAccountBySMS(String mobile,String pin,String expectedPin);
 
  Future<Either<Failure,LoginEntity>> login(String email,String password);
+
+ Future<Either<Failure,SendSmsEntity>> sendSms(String mobile);
 
 }

@@ -44,5 +44,26 @@
   "your_account_active": "Your account have been activated",
   "chose_a_method": "Please chose a method to login to the app",
   "register_by_google": "Register by google",
-  "register_by_facebook": "Register by facebook"
+  "register_by_facebook": "Register by facebook",
+  "settings": "settings",
+  "language": "language",
+  "main_menu": "Main Menu",
+  "home": "Home",
+  "home_sub_text": "enjoy the latest offers and exclusive products",
+
+  "bill_of_sale": "Sale bill",
+  "bond": "Bond",
+  "categories": "Categories",
+  "classification": "classification",
+  "customers": "customers",
+  "middleman_shipment": "Middleman shipment",
+  "modify_middleman_shipment": "modify middleman shipment",
+  "purchase_return": "purchase return",
+  "receipt": "receipt",
+  "receive_stock": "receive stock",
+  "sale_return": "sale return",
+  "stock_order": "stock order",
+  "stock_transfer": "stock transfer",
+  "suppliers": "suppliers"
+
 }

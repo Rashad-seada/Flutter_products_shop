@@ -7,10 +7,10 @@ import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
-import 'package:flutter/foundation.dart';
 
 class AuthRepoImpl implements AuthRepo {
 
@@ -139,6 +139,30 @@ class AuthRepoImpl implements AuthRepo {
         }
 
         return right(loginEntity);
+
+      } on ServerException {
+        return left(ServerFailure("The server is down, please try again later!"));
+      }
+    } else {
+      return left(NetworkFailure("Please check your internet connection and try again!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SendSmsEntity>> sendSms(String mobile) async {
+    if (await services.networkService.isConnected) {
+      try {
+        SendSmsEntity sendSmsEntity = await remoteDataSource.sendSms(mobile);
+
+        print("${int.parse(sendSmsEntity.res!)}");
+
+        if(sendSmsEntity.res != null) {
+          if (int.parse(sendSmsEntity.res!) != 1){
+            return left(ServerFailure(sendSmsEntity.msg!));
+          }
+        }
+
+        return right(sendSmsEntity);
 
       } on ServerException {
         return left(ServerFailure("The server is down, please try again later!"));

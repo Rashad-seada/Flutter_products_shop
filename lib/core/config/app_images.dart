@@ -1,4 +1,5 @@
 abstract class AppImages {
+
   static const String signUp =  "images/sign_up.svg";
   static const String logo = "images/logo.png";
   static const String eye = "images/eye_inactive.svg";
@@ -15,6 +16,25 @@ abstract class AppImages {
   static const String messages = "images/msg.svg";
   static const String letter = "images/letter.svg";
   static const String login = "images/login.svg";
+  static const String menu = "images/menu.svg";
+  static const String cancel = "images/cancel.svg";
+  static const String global = "images/global.svg";
+  static const String setting = "images/setting.svg";
 
-  static const String arrowRight = "images/arrow-right.svg";
+  static const String billOfSale = "images/bill_of_sale.png";
+  static const String bond = "images/bond.png";
+  static const String categories = "images/categories.png";
+  static const String classification = "images/classification.png";
+  static const String customers = "images/customers.png";
+  static const String middlemanShipment = "images/middleman_shipment.png";
+  static const String modifyMiddlemanShipment = "images/modify_middleman_shipment.png";
+  static const String purchaseReturn = "images/purchase_return.png";
+  static const String receipt = "images/receipt.png";
+  static const String reciveStock = "images/receive_stock.png";
+  static const String saleReturn = "images/sale_return.png";
+  static const String stockOrder = "images/stock_order.png";
+  static const String stockTransfer = "images/stock_transfer.png";
+  static const String suppliers = "images/suppliers.png";
+
+
 }

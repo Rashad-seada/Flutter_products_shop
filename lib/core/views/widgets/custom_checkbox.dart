@@ -24,7 +24,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           visualDensity: VisualDensity(horizontal: -4, vertical: -4),
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           side: BorderSide(color: AppTheme.neutral400,width: 1.25),
-          activeColor: AppTheme.primary,
+          activeColor: AppTheme.primary900,
           value: widget.value, onChanged: (value){
           setState(() {
             widget.value = value!;

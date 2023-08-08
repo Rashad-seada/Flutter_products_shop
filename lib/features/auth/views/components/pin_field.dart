@@ -22,7 +22,7 @@ class PinField extends StatelessWidget {
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: AppTheme.primary),
+      border: Border.all(color: AppTheme.primary900),
       borderRadius: BorderRadius.circular(15),
     );
 
