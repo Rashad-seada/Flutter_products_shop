@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:eng_shop/features/main_feature/views/util/services.dart';
@@ -39,7 +40,7 @@ class ServiceItem extends StatelessWidget {
             ),
 
             Space(height: 2.h,),
-            Text(service.serviceName,style: AppTheme.textMTextStyle(),textAlign: TextAlign.center,)
+            Text(service.serviceName,style: AppTheme.textMTextStyle(),textAlign: TextAlign.center,).tr()
           ],
         ),
       ),

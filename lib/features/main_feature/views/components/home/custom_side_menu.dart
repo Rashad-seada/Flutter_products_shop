@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
+import 'package:eng_shop/features/main_feature/views/screens/profile_screen.dart';
 import 'package:eng_shop/features/main_feature/views/screens/settings_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../screens/language_screen.dart';
 import 'menu_item.dart';
 
 class CustomSideMenu extends StatelessWidget {
@@ -30,7 +32,7 @@ class CustomSideMenu extends StatelessWidget {
                 children: [
                   Image.asset(AppImages.logo,width: 10.w,height: 10.w,),
                   Space(width: 2.w,),
-                  Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),),
+                  Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),
                 ],
               ),
 
@@ -45,14 +47,19 @@ class CustomSideMenu extends StatelessWidget {
           Space(height: 2.h,),
 
           Divider(),
-
           Space(height: 2.h,),
 
-          MenuItem(text: LocaleKeys.language.tr(), icon: AppImages.global,),
+          MenuItem(text: LocaleKeys.profile.tr(), icon: AppImages.profileActive,screen: const ProfileScreen(),),
+
+          Space(height: .5.h,),
+
+          MenuItem(text: LocaleKeys.language.tr(), icon: AppImages.global,screen: const LanguageScreen(),),
 
           Space(height: .5.h,),
 
           MenuItem(text: LocaleKeys.settings.tr(), icon: AppImages.setting,screen: const SettingsScreen(),),
+
+
 
         ],
       ),

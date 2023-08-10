@@ -7,15 +7,20 @@ import 'package:path_provider/path_provider.dart';
 
 abstract class AuthLocalDataSource {
 
-    Future<int> getUserID();
+    Future<int?> getUserID();
 
     Future<void> putUserID(int userId);
+
+    Future<int?> getIsFirstTime();
+
+    Future<void> putIsFirstTime(int isFirstTime);
 
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
     String get userInfoKey => AppConsts.userInfoKey;
+    String get isFirstTimeKey => AppConsts.userInfoKey;
 
     Future<Box> dbInit()async {
         await Hive.initFlutter();
@@ -30,15 +35,25 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
 
     @override
-    Future<int> getUserID() async {
+    Future<int?> getUserID() async {
       return await instance.then((value) => value.get(userInfoKey));
     }
 
     @override
     Future<void> putUserID(int userId) async {
       await instance.then((value) => value.put(userInfoKey,userId));
-
     }
+
+  @override
+  Future<int?> getIsFirstTime() async {
+      return await instance.then((value) => value.get(isFirstTimeKey));
+  }
+
+  @override
+  Future<void> putIsFirstTime(int isFirstTime) async {
+      await instance.then((value) => value.put(isFirstTimeKey,isFirstTime));
+
+  }
 
 
 }

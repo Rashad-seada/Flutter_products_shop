@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/features/main_feature/views/components/settings/setting_item.dart';
+import 'package:eng_shop/features/main_feature/views/screens/language_screen.dart';
+import 'package:eng_shop/features/main_feature/views/screens/service_provider_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -44,9 +46,9 @@ class SettingsScreen extends StatelessWidget {
                   SettingsSectionHeader(label: LocaleKeys.general_settings.tr(),),
                   Space(height: .5.h,),
 
-                  SettingItem(label: LocaleKeys.service_provider.tr(),),
+                  SettingItem(label: LocaleKeys.service_provider.tr(),nextScreen: const ServiceProviderScreen(),),
 
-                  SettingItem(label: LocaleKeys.language.tr(),)
+                  SettingItem(label: LocaleKeys.language.tr(),nextScreen: const LanguageScreen(),)
 
                 ],
               ),

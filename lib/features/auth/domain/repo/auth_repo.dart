@@ -23,7 +23,7 @@ abstract class AuthRepo {
 
  Future<Either<Failure,ActivatePhoneEntity>> activateAccountBySMS(String mobile,String pin,String expectedPin);
 
- Future<Either<Failure,LoginEntity>> login(String email,String password);
+ Future<Either<Failure,LoginEntity>> login(String email,String password,bool isMobile);
 
  Future<Either<Failure,SendSmsEntity>> sendSms(String mobile);
 

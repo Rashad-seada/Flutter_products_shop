@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class MenuItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (screen != null){
+          Navigator.pop(context);
           Navigator.push(context,MaterialPageRoute(builder: (_)=> screen!));
         }
       },
@@ -41,7 +43,7 @@ class MenuItem extends StatelessWidget {
 
             Space(width: 3.w,),
 
-            Text(text,style: AppTheme.textMTextStyle(),)
+            Text(text,style: AppTheme.textMTextStyle(),).tr()
           ],
         ),
       ),

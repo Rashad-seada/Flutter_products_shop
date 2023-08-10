@@ -11,13 +11,13 @@ class LoginUsecase implements Usecase<LoginEntity,LoginParams> {
 
   @override
   Future<Either<Failure, LoginEntity>> call(LoginParams params) async {
-    return await repo.login(params.email, params.password);
+    return await repo.login(params.email, params.password,params.isMobile);
   }
 }
 
 class LoginParams {
   String email;
   String password;
-
-  LoginParams(this.email, this.password);
+  bool isMobile;
+  LoginParams(this.email, this.password,this.isMobile);
 }

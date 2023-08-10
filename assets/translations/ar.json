@@ -59,7 +59,7 @@
   "middleman_shipment": "شحنه الوسيط",
   "modify_middleman_shipment": "تعديل شحنه الوسيط",
   "purchase_return": "مرتجع شراء",
-  "receipt": "receipt",
+  "receipt": "فاتوره شراء",
   "receive_stock": "استلام مخزون",
   "sale_return": "مرتجع بيع",
   "stock_order": "طلب مخزون",
@@ -72,6 +72,20 @@
   "new_password_sub_text": "من فضلك ادخل كلمه مرور جديده لحسابك",
 
   "all_done": "كل شيئ جيد",
-  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح"
+  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح",
+
+  "english": "الانجليزيه",
+  "arabic": "العربيه",
+
+  "service_provider_config": "هذه هي اعدادات مزود الخدمه , اذا كنت لا تعلم اعدادات مزود خدمه اخرى اترك الاعدادات الافتراضيه.",
+  "save": "حفظ",
+
+  "domain": "Domain",
+  "domain_hint": "من فضلك ادخل اسم Domain صحيح",
+
+  "profile": "الملف الشخصي",
+
+  "want_reset_password_sub_text": "هل تود اعاده تعيين كلمه المرور؟",
+  "reset": "اعاده تعين"
 
 }

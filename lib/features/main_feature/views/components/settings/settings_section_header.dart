@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -17,7 +18,7 @@ class SettingsSectionHeader extends StatelessWidget {
         color: AppTheme.neutral100,
         border: Border.symmetric(horizontal: BorderSide(color: AppTheme.neutral200))
       ),
-      child: Text(label,style: AppTheme.textMTextStyle(),),
+      child: Text(label,style: AppTheme.textMTextStyle(),).tr(),
     );
   }
 }

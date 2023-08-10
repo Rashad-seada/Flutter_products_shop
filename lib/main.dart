@@ -6,6 +6,8 @@ import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubi
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/home/home_cubit.dart';
+import 'package:eng_shop/features/main_feature/views/bloc/language/language_cubit.dart';
+import 'package:eng_shop/features/main_feature/views/bloc/profile/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:sizer/sizer.dart';
 
 import 'core/config/app_consts.dart';
 import 'features/auth/views/bloc/login/login_cubit.dart';
+import 'features/main_feature/views/bloc/serivce_provider/service_provider_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 
 void main() async {
@@ -25,13 +28,13 @@ void main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
 
-  await CoreCubit.init();
+  await CoreCubit().init();
 
   runApp(
     EasyLocalization(
         supportedLocales: const [
-          Locale("en"),
-          Locale("ar")
+          Locale(AppConsts.english),
+          Locale(AppConsts.arabic)
         ],
         path: AppConsts.localizationPath,
         child: const MyApp(),
@@ -56,6 +59,10 @@ class MyApp extends StatelessWidget {
 
         //main feature
         BlocProvider(create: (_)=> HomeCubit()),
+        BlocProvider(create: (_)=> LanguageCubit()),
+        BlocProvider(create: (_)=> ServiceProviderCubit()),
+        BlocProvider(create: (_)=> ProfileCubit()),
+
 
       ],
       child: Sizer(
@@ -86,4 +93,4 @@ class MyApp extends StatelessWidget {
 }
 
 //  dart run easy_localization:generate --source-dir assets/translations
-// dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+//  dart run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart

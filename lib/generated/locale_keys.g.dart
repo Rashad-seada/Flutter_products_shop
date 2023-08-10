@@ -72,5 +72,14 @@ abstract class  LocaleKeys {
   static const new_password_sub_text = 'new_password_sub_text';
   static const all_done = 'all_done';
   static const reset_password_sub_text = 'reset_password_sub_text';
+  static const english = 'english';
+  static const arabic = 'arabic';
+  static const service_provider_config = 'service_provider_config';
+  static const save = 'save';
+  static const domain = 'domain';
+  static const domain_hint = 'domain_hint';
+  static const profile = 'profile';
+  static const want_reset_password_sub_text = 'want_reset_password_sub_text';
+  static const reset = 'reset';
 
 }

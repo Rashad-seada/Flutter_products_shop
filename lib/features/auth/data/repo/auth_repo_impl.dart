@@ -13,16 +13,27 @@ import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
+import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
 
 class AuthRepoImpl implements AuthRepo {
 
-  AuthRemoteDataSource remoteDataSource = AuthRemoteDataSourceImpl();
+  late AuthRemoteDataSource remoteDataSource ;
   AuthLocalDataSource localDataSource = AuthLocalDataSourceImpl();
+  SettingsLocalDataSource mainLocalDataSource = SettingsLocalDataSourceImpl();
   Services services = Services();
 
+  initRemoteDataSource()async {
+    remoteDataSource = AuthRemoteDataSourceImpl(
+          domain: await mainLocalDataSource.getServiceProviderDomain(),
+          serviceEmail: await mainLocalDataSource.getServiceProviderEmail(),
+          servicePassword: await mainLocalDataSource.getServiceProviderPassword()
+      );
+  }
 
   @override
   Future<Either<Failure, RegistrationEntity>> register(String userName, String email, String upass, String mobile) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
         RegistrationEntity registrationEntity = await remoteDataSource.register(userName, userName, email, email, upass, mobile);
@@ -56,9 +67,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
-        ValidateEmailEntity validateEmailEntity = await remoteDataSource.validateEmail(email);
+        ValidateEmailEntity validateEmailEntity = await remoteDataSource!.validateEmail(email);
 
 
         if(validateEmailEntity.res != null) {
@@ -79,9 +92,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ValidatePhoneEntity>> validatePhone(String mobile) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
-        ValidatePhoneEntity validatePhoneEntity = await remoteDataSource.validatePhoneNumber(mobile);
+        ValidatePhoneEntity validatePhoneEntity = await remoteDataSource!.validatePhoneNumber(mobile);
 
 
         if(validatePhoneEntity.res != null) {
@@ -103,9 +118,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ActivatePhoneEntity>> activateAccountBySMS(String mobile, String pin, String expectedPin) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
-        ActivatePhoneEntity activatePhoneEntity = await remoteDataSource.activateAccountSMS(mobile,pin,expectedPin);
+        ActivatePhoneEntity activatePhoneEntity = await remoteDataSource!.activateAccountSMS(mobile,pin,expectedPin);
 
         print("${int.parse(activatePhoneEntity.res!)}");
 
@@ -126,17 +143,18 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, LoginEntity>> login(String email, String password) async {
+  Future<Either<Failure, LoginEntity>> login(String email, String password,bool isMobile) async {
+    await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
       try {
-        LoginEntity loginEntity = await remoteDataSource.login(email, password);
-
-        print("${int.parse(loginEntity.res!)}");
+        LoginEntity loginEntity = await remoteDataSource.login(email, password,isMobile);
 
         if(loginEntity.res != null) {
           if (int.parse(loginEntity.res!) != 1){
             return left(ServerFailure(loginEntity.msg!));
+          }else {
+            localDataSource.putUserID(int.parse(loginEntity.id!));
           }
         }
 
@@ -152,6 +170,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, SendSmsEntity>> sendSms(String mobile) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
         SendSmsEntity sendSmsEntity = await remoteDataSource.sendSms(mobile);
@@ -176,9 +196,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
-        ValidateCodeEntity validateCodeEntity = await remoteDataSource.validateSmsCode(mobile,smsCode);
+        ValidateCodeEntity validateCodeEntity = await remoteDataSource!.validateSmsCode(mobile,smsCode);
 
         print("${int.parse(validateCodeEntity.res!)}");
 
@@ -200,9 +222,11 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword) async {
+    await initRemoteDataSource();
+
     if (await services.networkService.isConnected) {
       try {
-        ResetPasswordEntity resetPasswordEntity = await remoteDataSource.resetPassword(mobile,smsCode,newPassword);
+        ResetPasswordEntity resetPasswordEntity = await remoteDataSource!.resetPassword(mobile,smsCode,newPassword);
 
         print("${int.parse(resetPasswordEntity.res!)}");
 

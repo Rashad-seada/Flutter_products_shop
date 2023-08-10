@@ -74,7 +74,7 @@ class CodegenLoader extends AssetLoader{
   "middleman_shipment": "شحنه الوسيط",
   "modify_middleman_shipment": "تعديل شحنه الوسيط",
   "purchase_return": "مرتجع شراء",
-  "receipt": "receipt",
+  "receipt": "فاتوره شراء",
   "receive_stock": "استلام مخزون",
   "sale_return": "مرتجع بيع",
   "stock_order": "طلب مخزون",
@@ -85,7 +85,16 @@ class CodegenLoader extends AssetLoader{
   "new_password": "كلمه مرور جديده",
   "new_password_sub_text": "من فضلك ادخل كلمه مرور جديده لحسابك",
   "all_done": "كل شيئ جيد",
-  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح"
+  "reset_password_sub_text": "لقد قمت بتغيير كلمه المرور الخاصه بحسابك بنجاح",
+  "english": "الانجليزيه",
+  "arabic": "العربيه",
+  "service_provider_config": "هذه هي اعدادات مزود الخدمه , اذا كنت لا تعلم اعدادات مزود خدمه اخرى اترك الاعدادات الافتراضيه.",
+  "save": "حفظ",
+  "domain": "Domain",
+  "domain_hint": "من فضلك ادخل اسم Domain صحيح",
+  "profile": "الملف الشخصي",
+  "want_reset_password_sub_text": "هل تود اعاده تعيين كلمه المرور؟",
+  "reset": "اعاده تعين"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -158,7 +167,15 @@ static const Map<String,dynamic> en = {
   "new_password": "New password",
   "new_password_sub_text": "please enter a new password to your email",
   "all_done": "ALL done",
-  "reset_password_sub_text": "you reset your password and you are ready to go"
+  "reset_password_sub_text": "you reset your password and you are ready to go",
+  "english": "English",
+  "arabic": "Arabic",
+  "service_provider_config": "This is service provider config ,if you don't know a specific service provider leave the default config.",
+  "save": "Save",
+  "domain": "Domain",
+  "domain_hint": "please enter a valid Domain",
+  "want_reset_password_sub_text": "Do you want to reset your password?",
+  "reset": "Reset password"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

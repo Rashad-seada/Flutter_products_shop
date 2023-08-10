@@ -41,6 +41,7 @@ dependencies:
   flutter_background_service:
   regexpattern:
   easy_localization:
+  permission_handler:
 
   google_sign_in:
   firebase_core:
@@ -73,7 +74,7 @@ dependencies:
   pinput:
   animated_text_kit:
   dot_navigation_bar:
-
+  webview_flutter: 
 
   #client
   dio:

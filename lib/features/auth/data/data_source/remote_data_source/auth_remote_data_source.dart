@@ -23,7 +23,7 @@ abstract class AuthRemoteDataSource {
 
   Future<ActivatePhoneEntity> activateAccountSMS(String phoneNumber,String pin,String expectedPin);
 
-  Future<LoginEntity> login(String email,String password);
+  Future<LoginEntity> login(String email,String password,bool isMobile);
 
   Future<SendSmsEntity> sendSms(String number);
 
@@ -35,6 +35,12 @@ abstract class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  String domain;
+  String serviceEmail;
+  String servicePassword;
+
+  AuthRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword});
+
 
   final Dio client = Dio();
 
@@ -55,7 +61,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 10, 20));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 10, 20));
 
 
     Map<String,dynamic> data = json.decode(response.data);
@@ -70,9 +76,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 30));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 30));
 
-    print(AppConsts.baseUrl(base64String, 0, 30));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -86,7 +91,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 40));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 40));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -104,7 +109,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 50));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 50));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -112,18 +117,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<LoginEntity> login(String email, String password) async {
+  Future<LoginEntity> login(String email, String password,bool isMobile) async {
 
     List<Map<String,dynamic>> srvData = [{
       "uname": email,
       "upass": password,
+      "ismob": (isMobile)? "1" : "0"
     }];
 
 
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 10));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 10));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -141,7 +147,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 60));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 60));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -159,7 +165,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 70));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 70));
 
     Map<String,dynamic> data = json.decode(response.data);
 
@@ -178,7 +184,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     String jsonString = json.encode(srvData);
     String base64String = base64.encode(utf8.encode(jsonString));
 
-    Response response = await client.get(AppConsts.baseUrl(base64String, 0, 80));
+    Response response = await client.get(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 80));
 
     Map<String,dynamic> data = json.decode(response.data);
 

@@ -19,6 +19,7 @@ abstract class AppImages {
   static const String menu = "images/menu.svg";
   static const String cancel = "images/cancel.svg";
   static const String global = "images/global.svg";
+  static const String globalInActive = "images/global_inactive.svg";
   static const String setting = "images/setting.svg";
 
   static const String billOfSale = "images/bill_of_sale.png";
@@ -37,4 +38,10 @@ abstract class AppImages {
   static const String suppliers = "images/suppliers.png";
 
   static const String arrowRight = "images/arrow_right.svg";
+
+  static const String arabic = "images/arabic.png";
+  static const String english = "images/english.png";
+
+  static const String profileActive = "images/profile_active.svg";
+  static const String profilePlaceHolder = "images/profile_place_holder.png";
 }

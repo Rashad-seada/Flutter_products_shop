@@ -8,3 +8,8 @@ class CoreInitial extends CoreState {
   @override
   List<Object> get props => [];
 }
+
+class CoreLoading extends CoreState {
+  @override
+  List<Object> get props => [];
+}

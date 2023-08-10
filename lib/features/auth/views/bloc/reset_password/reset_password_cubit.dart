@@ -175,13 +175,11 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   onNewPasswordClick(BuildContext context) {
-
     if(newPasswordFormKey.currentState!.validate()){
       emit(ResetPasswordLoading());
-
       ResetPasswordUsecase().call(ResetPasswordParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text)).then(
               (value) => value.fold(
-                  (error) {
+              (error) {
                 emit(ResetPasswordFailure());
                 CustomFlushBar(
                     title: 'Error',
@@ -189,7 +187,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
                     context: context
                 );
               },
-                  (success) {
+              (success) {
                 emit(ResetPasswordSuccess());
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
                   message: LocaleKeys.check_email.tr(),

@@ -14,16 +14,17 @@ import '../../../../generated/locale_keys.g.dart';
 import '../components/home/custom_navigation_bar.dart';
 import '../components/home/service_item.dart';
 
+
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocConsumer<HomeCubit,HomeState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
                 key: context.read<HomeCubit>().scaffoldKey,
@@ -67,11 +68,11 @@ class HomeScreen extends StatelessWidget {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),),
+                                      Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),).tr(),
 
                                       Space(height: 1.h,),
 
-                                      Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                                      Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,).tr(),
                                     ],
                                   ),
                                 ],
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                               Space(height: 4.h,),
 
                               GridView.builder(
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,

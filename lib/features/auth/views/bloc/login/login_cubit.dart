@@ -32,39 +32,42 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   String? validateEmail(){
-    if (emailController.text.isEmail() || emailController.text.isPhone()) {
+    if (emailController.text.isEmail() || emailController.text.isPhone() || emailController.text.isUsername()) {
       return null;
     } else {
       return "Please enter a valid email or number";
     }
   }
 
+  bool isMobile(){
+    if(emailController.text.isPhone()) {
+      return true;
+    }
+    return false;
+  }
+
   login(BuildContext context){
     if(loginFormKey.currentState!.validate()){
       emit(LoginLoading());
-
-      LoginUsecase().call(LoginParams(emailController.text,passwordController.text)).then(
-              (value) => value.fold(
-                  (error) {
-                emit(LoginFailure());
-                CustomFlushBar(
-                    title: 'Error!',
-                    message: error.message,
-                    context: context
-                );
-              },
-                  (success) {
-                emit(LoginSuccess());
-                CustomFlushBar(
-                    title: 'Welcome',
-                    message: success.msg!,
-                    context: context
-                );
-                Navigator.push(context,MaterialPageRoute(builder: (_)=> const HomeScreen()));
-
-
-              }
-          )
+      LoginUsecase().call(LoginParams(emailController.text,passwordController.text,isMobile())).then(
+        (value) => value.fold(
+          (error) {
+            emit(LoginFailure());
+            CustomFlushBar(
+                title: 'Error',
+                message: error.message,
+                context: context
+            );
+          },
+          (success) {
+            emit(LoginSuccess());
+            CustomFlushBar(
+                title: 'Welcome',
+                message: success.msg!,
+                context: context
+            );
+            Navigator.push(context,MaterialPageRoute(builder: (_)=> const HomeScreen()));
+          })
       );
     }
   }

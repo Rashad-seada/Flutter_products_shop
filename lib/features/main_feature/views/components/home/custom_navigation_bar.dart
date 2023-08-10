@@ -13,12 +13,12 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DotNavigationBar(
-      itemPadding: EdgeInsets.symmetric(vertical: 1.h,horizontal: 4.3.w),
+      itemPadding: EdgeInsets.symmetric(vertical: 1.h,horizontal: 4.w),
       marginR: EdgeInsets.symmetric(vertical: 2.h,horizontal: 6.w),
       margin: EdgeInsets.symmetric(vertical: 20.w),
       backgroundColor: AppTheme.neutral900,
       currentIndex: currentIndex,
-      dotIndicatorColor: AppTheme.primary500,
+      dotIndicatorColor: AppTheme.neutral900,
       unselectedItemColor: AppTheme.neutral100,
       splashBorderRadius: 50,
       // enableFloatingNavBar: false,
