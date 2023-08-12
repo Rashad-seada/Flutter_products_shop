@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
+import 'package:eng_shop/core/views/widgets/web_view.dart';
 import 'package:eng_shop/features/main_feature/views/util/services.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -14,9 +15,11 @@ class ServiceItem extends StatelessWidget {
     return InkWell(
         borderRadius: BorderRadius.circular(2.w),
         onTap: (){
-        if (service.nextScreen != null) {
-          Navigator.push(context,MaterialPageRoute(builder: (_)=> service.nextScreen!));
-        }
+
+          Navigator.push(context,MaterialPageRoute(builder: (_)=> WebView()));
+
+        // if (service.nextScreen != null) {
+        // }
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 2.h),

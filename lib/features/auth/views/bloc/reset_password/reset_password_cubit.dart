@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:regexpattern/regexpattern.dart';
 
+import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/config/app_images.dart';
 import '../../../../../core/views/screens/message_screen.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
@@ -54,7 +55,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   sendCodeToPhoneNumber(BuildContext context) async {
     emit(ResetPasswordLoading());
-    await SendSmsUsecase().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!))).then(
+    await SendSmsUsecase().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!),AppConsts.resetPasswordMethodScreen)).then(
             (value) => value.fold(
                 (error) {
               emit(ResetPasswordFailure());
@@ -99,7 +100,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   onDoneClick(BuildContext context){
     emit(ResetPasswordLoading());
-    ValidateCodeUsecase().call(ValidateCodeParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text)).then(
+    ValidateCodeUsecase().call(ValidateCodeParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text,AppConsts.pinScreen)).then(
             (value) => value.fold(
                     (error) {
                       emit(ResetPasswordFailure());
@@ -119,7 +120,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   onResendClick(BuildContext context) async {
     emit(ResetPasswordResendSmsLoading());
-    await SendSmsUsecase().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!))).then(
+    await SendSmsUsecase().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!),AppConsts.pinScreen)).then(
             (value) => value.fold(
                 (error) {
               emit(ResetPasswordFailure());
@@ -177,7 +178,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   onNewPasswordClick(BuildContext context) {
     if(newPasswordFormKey.currentState!.validate()){
       emit(ResetPasswordLoading());
-      ResetPasswordUsecase().call(ResetPasswordParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text)).then(
+      ResetPasswordUsecase().call(ResetPasswordParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text,AppConsts.newPasswordScreen)).then(
               (value) => value.fold(
               (error) {
                 emit(ResetPasswordFailure());

@@ -22,20 +22,22 @@ class WebView extends StatelessWidget {
 
         },
         onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('http://oliver.engqr.com/')) {
+          if (!request.url.startsWith('http://oliver.engqr.com/')) {
             return NavigationDecision.prevent;
           }
           return NavigationDecision.navigate;
         },
       ),
     )
-    ..loadRequest(Uri.parse('http://oliver.engqr.com/BUSINESS'));
+    ..loadRequest(Uri.parse('http://oliver.engqr.com/'));
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: WebViewWidget(controller: controller)
+            body: WebViewWidget(
+                controller: controller
+            )
         )
     );
   }

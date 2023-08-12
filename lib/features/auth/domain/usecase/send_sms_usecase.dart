@@ -11,12 +11,13 @@ class SendSmsUsecase implements Usecase<SendSmsEntity,SendSmsParams> {
 
   @override
   Future<Either<Failure, SendSmsEntity>> call(SendSmsParams params) async {
-    return await repo.sendSms(params.number,);
+    return await repo.sendSms(params.number,params.screenCode);
   }
 }
 
 class SendSmsParams {
   String number;
+  int screenCode;
 
-  SendSmsParams(this.number);
+  SendSmsParams(this.number, this.screenCode);
 }

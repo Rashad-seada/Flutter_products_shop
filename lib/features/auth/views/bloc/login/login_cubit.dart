@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/features/auth/domain/usecase/login_uscase.dart';
 import 'package:eng_shop/features/auth/views/screens/registration_screen.dart';
 import 'package:equatable/equatable.dart';
@@ -49,7 +50,7 @@ class LoginCubit extends Cubit<LoginState> {
   login(BuildContext context){
     if(loginFormKey.currentState!.validate()){
       emit(LoginLoading());
-      LoginUsecase().call(LoginParams(emailController.text,passwordController.text,isMobile())).then(
+      LoginUsecase().call(LoginParams(emailController.text,passwordController.text,isMobile(),AppConsts.loginScreen)).then(
         (value) => value.fold(
           (error) {
             emit(LoginFailure());

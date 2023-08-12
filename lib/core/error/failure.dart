@@ -2,23 +2,58 @@ import 'package:equatable/equatable.dart';
 
 class Failure extends Equatable {
   String message;
+  int screenCode;
+  int exceptionCode;
+  int customCode;
+
+  String toString(){
+    return "$screenCode$exceptionCode$customCode";
+  }
+
+  int code(){
+    return int.parse("$screenCode$exceptionCode$customCode");
+  }
+
   List<dynamic> properties;
 
-  Failure(this.message,{this.properties = const <dynamic>[]});
+  Failure(this.message,
+      {this.properties = const <dynamic>[],
+      required this.screenCode,
+      required this.exceptionCode,
+      required this.customCode});
 
   @override
   List<Object?> get props => properties;
 }
 
-
-class ServerFailure extends Failure {
-  ServerFailure(String message) : super(message);
+class InternalFailure extends Failure {
+  InternalFailure(String message,
+      {required int screenCode, required int customCode})
+      : super(message,
+      exceptionCode: 1, screenCode: screenCode, customCode: customCode);
 }
 
-class NetworkFailure extends Failure {
-  NetworkFailure(String message) : super(message);
+class RemoteDataFailure extends Failure {
+  RemoteDataFailure(String message,
+      {required int screenCode, required int customCode})
+      : super(message,
+            exceptionCode: 2, screenCode: screenCode, customCode: customCode);
 }
 
-class CacheFailure extends Failure {
-  CacheFailure(String message) : super(message);
+class LocalDataFailure extends Failure {
+  LocalDataFailure(String message,
+      {required int screenCode, required int customCode})
+      : super(message,
+      exceptionCode: 3, screenCode: screenCode, customCode: customCode);
 }
+
+class ServiceFailure extends Failure {
+  ServiceFailure(String message,
+      {required int screenCode, required int customCode})
+      : super(message,
+      exceptionCode: 4, screenCode: screenCode, customCode: customCode);
+}
+
+
+
+

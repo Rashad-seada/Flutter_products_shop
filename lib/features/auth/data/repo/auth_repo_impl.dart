@@ -31,7 +31,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, RegistrationEntity>> register(String userName, String email, String upass, String mobile) async {
+  Future<Either<Failure, RegistrationEntity>> register(String userName, String email, String upass, String mobile,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -44,29 +44,29 @@ class AuthRepoImpl implements AuthRepo {
 
             try{
               localDataSource.putUserID(int.parse(registrationEntity.res!));
-            } on CacheException {
-              return left(CacheFailure("There was a failure during the caching!"));
+            } on LocalDataException {
+              return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
             }
 
           }else {
-            return left(ServerFailure(registrationEntity.msg!));
+            return left(RemoteDataFailure(registrationEntity.msg!, screenCode: screenCode, customCode: 00));
           }
         }
 
         return right(registrationEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
     }
 
 
   }
 
   @override
-  Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email) async {
+  Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -76,22 +76,22 @@ class AuthRepoImpl implements AuthRepo {
 
         if(validateEmailEntity.res != null) {
           if (int.parse(validateEmailEntity.res!) != 0){
-            return left(ServerFailure(validateEmailEntity.msg!));
+            return left(RemoteDataFailure(validateEmailEntity.msg!, screenCode: screenCode, customCode: 01));
           }
         }
 
         return right(validateEmailEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 
   @override
-  Future<Either<Failure, ValidatePhoneEntity>> validatePhone(String mobile) async {
+  Future<Either<Failure, ValidatePhoneEntity>> validatePhone(String mobile,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -102,48 +102,48 @@ class AuthRepoImpl implements AuthRepo {
         if(validatePhoneEntity.res != null) {
           if (int.parse(validatePhoneEntity.res!) != 0){
 
-            return left(ServerFailure(validatePhoneEntity.msg!));
+            return left(RemoteDataFailure(validatePhoneEntity.msg!, screenCode: screenCode, customCode: 1));
           }
         }
 
         return right(validatePhoneEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 
   @override
-  Future<Either<Failure, ActivatePhoneEntity>> activateAccountBySMS(String mobile, String pin, String expectedPin) async {
+  Future<Either<Failure, ActivatePhoneEntity>> activateAccountBySMS(String mobile, String pin, String expectedPin,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
       try {
-        ActivatePhoneEntity activatePhoneEntity = await remoteDataSource!.activateAccountSMS(mobile,pin,expectedPin);
+        ActivatePhoneEntity activatePhoneEntity = await remoteDataSource.activateAccountSMS(mobile,pin,expectedPin);
 
         print("${int.parse(activatePhoneEntity.res!)}");
 
         if(activatePhoneEntity.res != null) {
           if (int.parse(activatePhoneEntity.res!) == 0){
-            return left(ServerFailure(activatePhoneEntity.msg!));
+            return left(RemoteDataFailure(activatePhoneEntity.msg!, screenCode: screenCode, customCode: 01));
           }
         }
 
         return right(activatePhoneEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure( "200 The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
     }
   }
 
   @override
-  Future<Either<Failure, LoginEntity>> login(String email, String password,bool isMobile) async {
+  Future<Either<Failure, LoginEntity>> login(String email, String password,bool isMobile,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -152,7 +152,7 @@ class AuthRepoImpl implements AuthRepo {
 
         if(loginEntity.res != null) {
           if (int.parse(loginEntity.res!) != 1){
-            return left(ServerFailure(loginEntity.msg!));
+            return left(RemoteDataFailure(loginEntity.msg!, screenCode: screenCode, customCode: 01));
           }else {
             localDataSource.putUserID(int.parse(loginEntity.id!));
           }
@@ -160,16 +160,16 @@ class AuthRepoImpl implements AuthRepo {
 
         return right(loginEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException{
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 
   @override
-  Future<Either<Failure, SendSmsEntity>> sendSms(String mobile) async {
+  Future<Either<Failure, SendSmsEntity>> sendSms(String mobile,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -180,48 +180,48 @@ class AuthRepoImpl implements AuthRepo {
 
         if(sendSmsEntity.res != null) {
           if (int.parse(sendSmsEntity.res!) != 1){
-            return left(ServerFailure(sendSmsEntity.msg!));
+            return left(RemoteDataFailure(sendSmsEntity.msg!, screenCode: screenCode, customCode: 01));
           }
         }
 
         return right(sendSmsEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 
   @override
-  Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode) async {
+  Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
       try {
-        ValidateCodeEntity validateCodeEntity = await remoteDataSource!.validateSmsCode(mobile,smsCode);
+        ValidateCodeEntity validateCodeEntity = await remoteDataSource.validateSmsCode(mobile,smsCode);
 
         print("${int.parse(validateCodeEntity.res!)}");
 
         if(validateCodeEntity.res != null) {
           if (int.parse(validateCodeEntity.res!) != 1){
-            return left(ServerFailure(validateCodeEntity.msg!));
+            return left(RemoteDataFailure(validateCodeEntity.msg!, screenCode: screenCode, customCode: 01));
           }
         }
 
         return right(validateCodeEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 
   @override
-  Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword) async {
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword,int screenCode) async {
     await initRemoteDataSource();
 
     if (await services.networkService.isConnected) {
@@ -232,17 +232,17 @@ class AuthRepoImpl implements AuthRepo {
 
         if(resetPasswordEntity.res != null) {
           if (int.parse(resetPasswordEntity.res!) != 1){
-            return left(ServerFailure(resetPasswordEntity.msg!));
+            return left(RemoteDataFailure(resetPasswordEntity.msg!, screenCode: screenCode, customCode: 01));
           }
         }
 
         return right(resetPasswordEntity);
 
-      } on ServerException {
-        return left(ServerFailure("The server is down, please try again later!"));
+      } on RemoteDataException {
+        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
       }
     } else {
-      return left(NetworkFailure("Please check your internet connection and try again!"));
+      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
     }
   }
 

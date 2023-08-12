@@ -94,7 +94,8 @@ class CodegenLoader extends AssetLoader{
   "domain_hint": "من فضلك ادخل اسم Domain صحيح",
   "profile": "الملف الشخصي",
   "want_reset_password_sub_text": "هل تود اعاده تعيين كلمه المرور؟",
-  "reset": "اعاده تعين"
+  "reset": "اعاده تعين",
+  "image_picker": "ملتقط الصور"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -175,7 +176,8 @@ static const Map<String,dynamic> en = {
   "domain": "Domain",
   "domain_hint": "please enter a valid Domain",
   "want_reset_password_sub_text": "Do you want to reset your password?",
-  "reset": "Reset password"
+  "reset": "Reset password",
+  "image_picker": "Image picker"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

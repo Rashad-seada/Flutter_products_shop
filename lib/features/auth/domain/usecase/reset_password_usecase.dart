@@ -12,7 +12,7 @@ class ResetPasswordUsecase implements Usecase<ResetPasswordEntity,ResetPasswordP
 
   @override
   Future<Either<Failure, ResetPasswordEntity>> call(ResetPasswordParams params) async {
-    return await repo.resetPassword(params.phoneNumber, params.smsCode, params.newPassword);
+    return await repo.resetPassword(params.phoneNumber, params.smsCode, params.newPassword,params.screenCode);
   }
 
 }
@@ -21,6 +21,7 @@ class ResetPasswordParams {
   String phoneNumber;
   String smsCode;
   String newPassword;
+  int screenCode;
 
-  ResetPasswordParams(this.phoneNumber, this.smsCode, this.newPassword);
+  ResetPasswordParams(this.phoneNumber, this.smsCode, this.newPassword,this.screenCode);
 }

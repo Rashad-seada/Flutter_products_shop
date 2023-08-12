@@ -11,12 +11,13 @@ class ValidatePhoneUsecase implements Usecase<ValidatePhoneEntity,ValidatePhoneP
 
   @override
   Future<Either<Failure, ValidatePhoneEntity>> call(ValidatePhoneParams params) async {
-    return await repo.validatePhone(params.phoneNumber);
+    return await repo.validatePhone(params.phoneNumber,params.screenCode);
   }
 }
 
 class ValidatePhoneParams {
   String phoneNumber;
+  int screenCode;
 
-  ValidatePhoneParams(this.phoneNumber);
+  ValidatePhoneParams(this.phoneNumber, this.screenCode);
 }

@@ -25,11 +25,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   onMenuTap(){
-    scaffoldKey!.currentState!.openDrawer();
+    scaffoldKey.currentState!.openDrawer();
   }
 
   List<Service> get services  => [
-    Service(serviceName: LocaleKeys.bill_of_sale.tr(), image: AppImages.billOfSale,nextScreen: WebView()),
+    Service(serviceName: LocaleKeys.bill_of_sale.tr(), image: AppImages.billOfSale),
     Service(serviceName: LocaleKeys.receipt.tr(), image: AppImages.receipt),
     Service(serviceName: LocaleKeys.sale_return.tr(), image: AppImages.saleReturn),
     Service(serviceName: LocaleKeys.purchase_return.tr(), image: AppImages.purchaseReturn),

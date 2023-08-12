@@ -86,6 +86,9 @@
   "profile": "الملف الشخصي",
 
   "want_reset_password_sub_text": "هل تود اعاده تعيين كلمه المرور؟",
-  "reset": "اعاده تعين"
+  "reset": "اعاده تعين",
+
+  "image_picker": "ملتقط الصور"
+
 
 }

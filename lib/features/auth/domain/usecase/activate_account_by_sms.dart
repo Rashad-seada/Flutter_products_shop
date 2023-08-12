@@ -10,7 +10,7 @@ class ActivateAccountBySmsUsecase implements Usecase<ActivatePhoneEntity,Activat
 
   @override
   Future<Either<Failure, ActivatePhoneEntity>> call(ActivateAccountBySmsParams params) async {
-    return await repo.activateAccountBySMS(params.mobile, params.pin, params.expectedPin);
+    return await repo.activateAccountBySMS(params.mobile, params.pin, params.expectedPin,params.screenCode);
   }
 }
 
@@ -18,6 +18,7 @@ class ActivateAccountBySmsParams {
   String pin;
   String expectedPin;
   String mobile;
+  int screenCode;
 
-  ActivateAccountBySmsParams(this.pin, this.expectedPin, this.mobile);
+  ActivateAccountBySmsParams(this.pin, this.expectedPin, this.mobile,this.screenCode);
 }

@@ -10,7 +10,7 @@ class RegisterUsecase implements Usecase<RegistrationEntity,RegistrationParams> 
 
   @override
   Future<Either<Failure, RegistrationEntity>> call(RegistrationParams params) async {
-    return await repo.register(params.userName, params.email, params.upass, params.mobile);
+    return await repo.register(params.userName, params.email, params.upass, params.mobile,params.screenCode);
   }
 }
 
@@ -19,6 +19,8 @@ class RegistrationParams {
   String email;
   String upass;
   String mobile;
+  int screenCode;
 
-  RegistrationParams(this.userName, this.email, this.upass, this.mobile);
+  RegistrationParams(
+      this.userName, this.email, this.upass, this.mobile, this.screenCode);
 }

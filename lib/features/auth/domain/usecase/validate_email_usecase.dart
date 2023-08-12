@@ -10,12 +10,13 @@ class ValidateEmailUsecase implements Usecase<ValidateEmailEntity,ValidateEmailP
 
   @override
   Future<Either<Failure, ValidateEmailEntity>> call(ValidateEmailParams params) async {
-    return await repo.validateEmail(params.email);
+    return await repo.validateEmail(params.email,params.screenCode);
   }
 }
 
 class ValidateEmailParams {
   String email;
+  int screenCode;
 
-  ValidateEmailParams(this.email);
+  ValidateEmailParams(this.email, this.screenCode);
 }

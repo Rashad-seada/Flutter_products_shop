@@ -1,5 +1,7 @@
-class ServerException implements Exception {}
+class RemoteDataException implements Exception {}
 
-class NetworkException implements Exception {}
+class ServiceException implements Exception {}
 
-class CacheException implements Exception {}
+class LocalDataException implements Exception {}
+
+class InternalException implements Exception {}

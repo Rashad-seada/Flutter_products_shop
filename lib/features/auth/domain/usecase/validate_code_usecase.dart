@@ -10,14 +10,14 @@ class ValidateCodeUsecase implements Usecase<ValidateCodeEntity,ValidateCodePara
 
   @override
   Future<Either<Failure, ValidateCodeEntity>> call(ValidateCodeParams params) async {
-    return await repo.validateCode(params.phoneNumber,params.smsCode);
+    return await repo.validateCode(params.phoneNumber,params.smsCode,params.screenCode);
   }
 }
 
 class ValidateCodeParams {
   String phoneNumber;
   String smsCode;
+  int screenCode;
 
-  ValidateCodeParams(this.phoneNumber, this.smsCode);
-
+  ValidateCodeParams(this.phoneNumber, this.smsCode, this.screenCode);
 }

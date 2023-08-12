@@ -28,4 +28,16 @@ abstract class AppConsts {
   static const double font16 = 12;
   static const double font14 = 10;
 
+
+  //Screens code
+  static int get authMethodScreen => 100;
+  static int get loginScreen => 101;
+  static int get registrationScreen => 102;
+  static int get resetPasswordMethodScreen => 103;
+  static int get resetPasswordScreen => 104;
+  static int get pinScreen => 105;
+  static int get newPasswordScreen => 106;
+  static int get accountActivationScreen => 107;
+
+
 }

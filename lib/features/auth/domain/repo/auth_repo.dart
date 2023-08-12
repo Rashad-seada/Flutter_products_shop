@@ -15,20 +15,20 @@ import '../entity/reset_password_entity.dart';
 
 abstract class AuthRepo {
 
- Future<Either<Failure,RegistrationEntity>> register(String userName,String email,String upass,String mobile,);
+ Future<Either<Failure,RegistrationEntity>> register(String userName,String email,String upass,String mobile,int screenCode);
 
- Future<Either<Failure,ValidateEmailEntity>> validateEmail(String email,);
+ Future<Either<Failure,ValidateEmailEntity>> validateEmail(String email,int screenCode);
 
- Future<Either<Failure,ValidatePhoneEntity>> validatePhone(String mobile,);
+ Future<Either<Failure,ValidatePhoneEntity>> validatePhone(String mobile,int screenCode);
 
- Future<Either<Failure,ActivatePhoneEntity>> activateAccountBySMS(String mobile,String pin,String expectedPin);
+ Future<Either<Failure,ActivatePhoneEntity>> activateAccountBySMS(String mobile,String pin,String expectedPin,int screenCode);
 
- Future<Either<Failure,LoginEntity>> login(String email,String password,bool isMobile);
+ Future<Either<Failure,LoginEntity>> login(String email,String password,bool isMobile,int screenCode);
 
- Future<Either<Failure,SendSmsEntity>> sendSms(String mobile);
+ Future<Either<Failure,SendSmsEntity>> sendSms(String mobile,int screenCode);
 
- Future<Either<Failure,ValidateCodeEntity>> validateCode(String mobile,String smsCode);
+ Future<Either<Failure,ValidateCodeEntity>> validateCode(String mobile,String smsCode,int screenCode);
 
- Future<Either<Failure,ResetPasswordEntity>> resetPassword(String mobile,String smsCode,String newPassword);
+ Future<Either<Failure,ResetPasswordEntity>> resetPassword(String mobile,String smsCode,String newPassword,int screenCode);
 
 }
