@@ -1,10 +1,11 @@
 class ValidateEmailEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  ValidateEmailEntity({this.res, this.msg});
+  ValidateEmailEntity({this.res, this.msg,required this.statusCode});
 
-  ValidateEmailEntity.fromJson(Map<String, dynamic> json) {
+  ValidateEmailEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

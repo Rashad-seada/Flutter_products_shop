@@ -1,10 +1,11 @@
 class ValidateCodeEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  ValidateCodeEntity({this.res, this.msg});
+  ValidateCodeEntity({this.res, this.msg,required this.statusCode});
 
-  ValidateCodeEntity.fromJson(Map<String, dynamic> json) {
+  ValidateCodeEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

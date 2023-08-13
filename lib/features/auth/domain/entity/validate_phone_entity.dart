@@ -1,10 +1,11 @@
 class ValidatePhoneEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  ValidatePhoneEntity({this.res, this.msg});
+  ValidatePhoneEntity({this.res, this.msg,required this.statusCode});
 
-  ValidatePhoneEntity.fromJson(Map<String, dynamic> json) {
+  ValidatePhoneEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

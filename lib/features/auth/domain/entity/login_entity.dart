@@ -2,10 +2,11 @@ class LoginEntity {
   String? res;
   String? msg;
   String? id;
+  int statusCode;
 
-  LoginEntity({this.res, this.msg, this.id});
+  LoginEntity({this.res, this.msg, this.id,required this.statusCode});
 
-  LoginEntity.fromJson(Map<String, dynamic> json) {
+  LoginEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
     id = json['id'];

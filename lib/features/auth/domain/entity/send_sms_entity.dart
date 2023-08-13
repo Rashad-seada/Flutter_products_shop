@@ -1,10 +1,11 @@
 class SendSmsEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  SendSmsEntity({this.res, this.msg});
+  SendSmsEntity({this.res, this.msg,required this.statusCode});
 
-  SendSmsEntity.fromJson(Map<String, dynamic> json) {
+  SendSmsEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

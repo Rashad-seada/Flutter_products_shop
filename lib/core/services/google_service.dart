@@ -1,6 +1,8 @@
 
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../error/exception.dart';
+
 class GoogleService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: [
@@ -12,9 +14,8 @@ class GoogleService {
     try {
       final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       return googleSignInAccount;
-    }catch (e) {
-      print(e);
-      return null;
+    } catch (e) {
+      throw ServiceException();
     }
   }
 

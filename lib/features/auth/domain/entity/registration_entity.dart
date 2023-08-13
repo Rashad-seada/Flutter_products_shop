@@ -1,10 +1,11 @@
 class RegistrationEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  RegistrationEntity({this.res, this.msg});
+  RegistrationEntity({this.res, this.msg,required this.statusCode});
 
-  RegistrationEntity.fromJson(Map<String, dynamic> json) {
+  RegistrationEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

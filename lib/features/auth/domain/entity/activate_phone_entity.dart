@@ -1,10 +1,11 @@
 class ActivatePhoneEntity {
   String? res;
   String? msg;
+  int statusCode;
 
-  ActivatePhoneEntity({this.res, this.msg});
+  ActivatePhoneEntity({this.res, this.msg,required this.statusCode});
 
-  ActivatePhoneEntity.fromJson(Map<String, dynamic> json) {
+  ActivatePhoneEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

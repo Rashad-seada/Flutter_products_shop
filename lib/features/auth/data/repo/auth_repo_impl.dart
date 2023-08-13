@@ -22,44 +22,55 @@ class AuthRepoImpl implements AuthRepo {
   SettingsLocalDataSource mainLocalDataSource = SettingsLocalDataSourceImpl();
   Services services = Services();
 
-  initRemoteDataSource()async {
-    remoteDataSource = AuthRemoteDataSourceImpl(
+  initRemoteDataSource() async {
+    try {
+      remoteDataSource = AuthRemoteDataSourceImpl(
           domain: await mainLocalDataSource.getServiceProviderDomain(),
           serviceEmail: await mainLocalDataSource.getServiceProviderEmail(),
           servicePassword: await mainLocalDataSource.getServiceProviderPassword()
       );
+    } catch (e) {
+      throw LocalDataException();
+    }
+
   }
 
   @override
   Future<Either<Failure, RegistrationEntity>> register(String userName, String email, String upass, String mobile,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        RegistrationEntity registrationEntity = await remoteDataSource.register(userName, userName, email, email, upass, mobile);
+    try {
+      await initRemoteDataSource();
 
-
-        if(registrationEntity.res != null) {
-          if (int.parse(registrationEntity.res!) > 0){
-
-            try{
-              localDataSource.putUserID(int.parse(registrationEntity.res!));
-            } on LocalDataException {
-              return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
-            }
-
-          }else {
-            return left(RemoteDataFailure(registrationEntity.msg!, screenCode: screenCode, customCode: 00));
-          }
-        }
-
-        return right(registrationEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
+
+      RegistrationEntity registrationEntity = await remoteDataSource.register(userName, userName, email, email, upass, mobile);
+
+      if(registrationEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(registrationEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(registrationEntity.res!) < 0){
+        return left(RemoteDataFailure(registrationEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      localDataSource.putUserID(int.parse(registrationEntity.res!));
+
+      return right(registrationEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
 
@@ -67,183 +78,254 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        ValidateEmailEntity validateEmailEntity = await remoteDataSource!.validateEmail(email);
+    try {
+      await initRemoteDataSource();
 
-
-        if(validateEmailEntity.res != null) {
-          if (int.parse(validateEmailEntity.res!) != 0){
-            return left(RemoteDataFailure(validateEmailEntity.msg!, screenCode: screenCode, customCode: 01));
-          }
-        }
-
-        return right(validateEmailEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+
+      ValidateEmailEntity validateEmailEntity = await remoteDataSource.validateEmail(email);
+
+      if(validateEmailEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(validateEmailEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(validateEmailEntity.res!) != 0){
+        return left(RemoteDataFailure(validateEmailEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(validateEmailEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
   @override
   Future<Either<Failure, ValidatePhoneEntity>> validatePhone(String mobile,int screenCode) async {
-    await initRemoteDataSource();
-
-    if (await services.networkService.isConnected) {
-      try {
-        ValidatePhoneEntity validatePhoneEntity = await remoteDataSource!.validatePhoneNumber(mobile);
 
 
-        if(validatePhoneEntity.res != null) {
-          if (int.parse(validatePhoneEntity.res!) != 0){
+    try {
+      await initRemoteDataSource();
 
-            return left(RemoteDataFailure(validatePhoneEntity.msg!, screenCode: screenCode, customCode: 1));
-          }
-        }
-
-        return right(validatePhoneEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+
+      ValidatePhoneEntity validatePhoneEntity = await remoteDataSource.validatePhoneNumber(mobile);
+
+      if(validatePhoneEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(validatePhoneEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(validatePhoneEntity.res!) != 0){
+        return left(RemoteDataFailure(validatePhoneEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(validatePhoneEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
   }
 
+
   @override
   Future<Either<Failure, ActivatePhoneEntity>> activateAccountBySMS(String mobile, String pin, String expectedPin,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        ActivatePhoneEntity activatePhoneEntity = await remoteDataSource.activateAccountSMS(mobile,pin,expectedPin);
+    try {
+      await initRemoteDataSource();
 
-        print("${int.parse(activatePhoneEntity.res!)}");
-
-        if(activatePhoneEntity.res != null) {
-          if (int.parse(activatePhoneEntity.res!) == 0){
-            return left(RemoteDataFailure(activatePhoneEntity.msg!, screenCode: screenCode, customCode: 01));
-          }
-        }
-
-        return right(activatePhoneEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure( "200 The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
+
+      ActivatePhoneEntity activatePhoneEntity = await remoteDataSource.activateAccountSMS(mobile,pin,expectedPin);
+
+      if(activatePhoneEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(activatePhoneEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(activatePhoneEntity.res!) == 0){
+        return left(RemoteDataFailure(activatePhoneEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(activatePhoneEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure( "The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    }  catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
   @override
   Future<Either<Failure, LoginEntity>> login(String email, String password,bool isMobile,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        LoginEntity loginEntity = await remoteDataSource.login(email, password,isMobile);
 
-        if(loginEntity.res != null) {
-          if (int.parse(loginEntity.res!) != 1){
-            return left(RemoteDataFailure(loginEntity.msg!, screenCode: screenCode, customCode: 01));
-          }else {
-            localDataSource.putUserID(int.parse(loginEntity.id!));
-          }
-        }
+    try {
+      await initRemoteDataSource();
 
-        return right(loginEntity);
-
-      } on RemoteDataException{
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+
+      LoginEntity loginEntity = await remoteDataSource.login(email, password,isMobile);
+
+      if(loginEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(loginEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(loginEntity.res!) != 1){
+        return left(RemoteDataFailure(loginEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      localDataSource.putUserID(int.parse(loginEntity.id!));
+
+      return right(loginEntity);
+
+    } on RemoteDataException{
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } on LocalDataException {
+      return left(LocalDataFailure("The was unknown error during caching user id", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
   @override
   Future<Either<Failure, SendSmsEntity>> sendSms(String mobile,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        SendSmsEntity sendSmsEntity = await remoteDataSource.sendSms(mobile);
 
-        print("${int.parse(sendSmsEntity.res!)}");
+    try {
+      await initRemoteDataSource();
 
-        if(sendSmsEntity.res != null) {
-          if (int.parse(sendSmsEntity.res!) != 1){
-            return left(RemoteDataFailure(sendSmsEntity.msg!, screenCode: screenCode, customCode: 01));
-          }
-        }
-
-        return right(sendSmsEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+      SendSmsEntity sendSmsEntity = await remoteDataSource.sendSms(mobile);
+
+      if(sendSmsEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(sendSmsEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(sendSmsEntity.res!) != 1){
+        return left(RemoteDataFailure(sendSmsEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(sendSmsEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
   @override
   Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        ValidateCodeEntity validateCodeEntity = await remoteDataSource.validateSmsCode(mobile,smsCode);
+    try {
+      await initRemoteDataSource();
 
-        print("${int.parse(validateCodeEntity.res!)}");
-
-        if(validateCodeEntity.res != null) {
-          if (int.parse(validateCodeEntity.res!) != 1){
-            return left(RemoteDataFailure(validateCodeEntity.msg!, screenCode: screenCode, customCode: 01));
-          }
-        }
-
-        return right(validateCodeEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+
+      ValidateCodeEntity validateCodeEntity = await remoteDataSource.validateSmsCode(mobile,smsCode);
+
+      if(validateCodeEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(validateCodeEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(validateCodeEntity.res!) != 1){
+        return left(RemoteDataFailure(validateCodeEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(validateCodeEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
   @override
   Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword,int screenCode) async {
-    await initRemoteDataSource();
 
-    if (await services.networkService.isConnected) {
-      try {
-        ResetPasswordEntity resetPasswordEntity = await remoteDataSource!.resetPassword(mobile,smsCode,newPassword);
+    try {
+      await initRemoteDataSource();
 
-        print("${int.parse(resetPasswordEntity.res!)}");
-
-        if(resetPasswordEntity.res != null) {
-          if (int.parse(resetPasswordEntity.res!) != 1){
-            return left(RemoteDataFailure(resetPasswordEntity.msg!, screenCode: screenCode, customCode: 01));
-          }
-        }
-
-        return right(resetPasswordEntity);
-
-      } on RemoteDataException {
-        return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
       }
-    } else {
-      return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
+
+      ResetPasswordEntity resetPasswordEntity = await remoteDataSource.resetPassword(mobile,smsCode,newPassword);
+
+      if(resetPasswordEntity.statusCode != 200) {
+        return left(RemoteDataFailure("There is an error in the server please try again later", screenCode: screenCode, customCode: 00));
+      }
+
+      if(resetPasswordEntity.res == null) {
+        return left(RemoteDataFailure("The response returned with null", screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(resetPasswordEntity.res!) != 1){
+        return left(RemoteDataFailure(resetPasswordEntity.msg ?? "There was unknown error in the server", screenCode: screenCode, customCode: 02));
+      }
+
+      return right(resetPasswordEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
+
   }
 
 

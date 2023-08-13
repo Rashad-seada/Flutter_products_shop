@@ -1,3 +1,4 @@
+import 'package:eng_shop/core/error/exception.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CameraService {
@@ -5,19 +6,35 @@ class CameraService {
   final ImagePicker picker = ImagePicker();
 
   Future<XFile?> pickImage() async  {
-    return await picker.pickImage(source: ImageSource.gallery);
+    try {
+      return await picker.pickImage(source: ImageSource.gallery);
+    } catch (e) {
+      throw ServiceException();
+    }
   }
 
   Future<XFile?> takeImage() async  {
-    return await picker.pickImage(source: ImageSource.camera);
+    try {
+      return await picker.pickImage(source: ImageSource.camera);
+    } catch (e) {
+      throw ServiceException();
+    }
   }
 
   Future<XFile?> pickVideo() async  {
-    return await picker.pickVideo(source: ImageSource.gallery);
+    try {
+      return await picker.pickVideo(source: ImageSource.gallery);
+    } catch (e) {
+      throw ServiceException();
+    }
   }
 
   Future<List<XFile>> pickMultiImage() async  {
-    return await picker.pickMultiImage();
+    try {
+      return await picker.pickMultiImage();
+    } catch (e) {
+      throw ServiceException();
+    }
   }
 
 }
