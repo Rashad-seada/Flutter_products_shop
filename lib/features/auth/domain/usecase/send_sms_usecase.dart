@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/core/util/usecase/usecase.dart';
-import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 
 
 class SendSmsUsecase implements Usecase<SendSmsEntity,SendSmsParams> {
-  AuthRepo repo = AuthRepoImpl();
+  AuthRepo repo ;
+
+  SendSmsUsecase({required this.repo});
 
   @override
   Future<Either<Failure, SendSmsEntity>> call(SendSmsParams params) async {

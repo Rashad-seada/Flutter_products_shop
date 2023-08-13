@@ -3,12 +3,12 @@ import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/core/util/usecase/usecase.dart';
 import 'package:eng_shop/features/auth/domain/entity/reset_password_entity.dart';
 
-import '../../data/repo/auth_repo_impl.dart';
 import '../repo/auth_repo.dart';
 
 class ResetPasswordUsecase implements Usecase<ResetPasswordEntity,ResetPasswordParams> {
 
-  AuthRepo repo = AuthRepoImpl();
+  AuthRepo repo;
+  ResetPasswordUsecase({required this.repo});
 
   @override
   Future<Either<Failure, ResetPasswordEntity>> call(ResetPasswordParams params) async {

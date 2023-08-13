@@ -9,30 +9,31 @@ import 'package:flutter/material.dart';
 import '../../features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import '../../features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
 import '../../firebase_options.dart';
+import '../di/app_module.dart';
 
 part 'core_state.dart';
 
 class CoreCubit extends Cubit<CoreState> {
 
-  final AuthLocalDataSource _authLocalDataSource = AuthLocalDataSourceImpl();
-  final SettingsLocalDataSource _mainLocalDataSource = SettingsLocalDataSourceImpl();
-
   _seedingInitialValue() async {
-    await _mainLocalDataSource.putServiceProviderDomain(AppConsts.domain);
-    await _mainLocalDataSource.putServiceProviderEmail(AppConsts.serviceEmail);
-    await _mainLocalDataSource.putServiceProviderPassword(AppConsts.servicePassword);
+    await getIt<SettingsLocalDataSource>().putServiceProviderDomain(AppConsts.domain);
+    await getIt<SettingsLocalDataSource>().putServiceProviderEmail(AppConsts.serviceEmail);
+    await getIt<SettingsLocalDataSource>().putServiceProviderPassword(AppConsts.servicePassword);
   }
 
   init() async {
+    AppModule.setupDependencies();
+
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    if(await _authLocalDataSource.getIsFirstTime() == null) {
+    if(await getIt<AuthLocalDataSource>().getIsFirstTime() == null) {
       await _seedingInitialValue();
-      await _authLocalDataSource.putIsFirstTime(1);
+      await getIt<AuthLocalDataSource>().putIsFirstTime(1);
     }
+
   }
 
 

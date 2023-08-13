@@ -17,6 +17,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:regexpattern/regexpattern.dart';
 import '../../../../../core/config/app_images.dart';
 import '../../../../../core/config/app_strings.dart';
+import '../../../../../core/di/app_module.dart';
 import '../../../../../core/views/screens/message_screen.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 
@@ -99,9 +100,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     register(context);
   }
 
-  activateAccountBySms(BuildContext context){
+  activateAccountBySms(BuildContext context) async {
     emit(RegistrationActivatingAccountBySms());
-    ActivateAccountBySmsUsecase().call(ActivateAccountBySmsParams(pinController.text, "1234", extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen)).then((value) => value.fold(
+    await getIt<ActivateAccountBySmsUsecase>().call(ActivateAccountBySmsParams(pinController.text, "1234", extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen)).then((value) => value.fold(
             (error) {
               emit(RegistrationInitial());
               CustomFlushBar(
@@ -129,7 +130,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   register(BuildContext context) async {
     if (registerFormKey.currentState!.validate()) {
       emit(RegistrationLoading());
-      await RegisterUsecase().call(RegistrationParams(userNameController.text, emailController.text, passwordController.text,extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen))
+      await getIt<RegisterUsecase>().call(RegistrationParams(userNameController.text, emailController.text, passwordController.text,extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen))
           .then((value) => value.fold(
               (error) {
             emit(RegistrationFailure());
@@ -153,9 +154,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     }
   }
 
-  validateEmailExist(BuildContext context) {
+  validateEmailExist(BuildContext context) async {
     emit(RegistrationValidatingEmail());
-    ValidateEmailUsecase().call(ValidateEmailParams(emailController.text,AppConsts.registrationScreen),).then((value) => value.fold(
+    await getIt<ValidateEmailUsecase>().call(ValidateEmailParams(emailController.text,AppConsts.registrationScreen),).then((value) => value.fold(
             (error) {
 
               _doesEmailExist = false;
@@ -188,9 +189,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     return number;
   }
 
-  validatePhoneExist(BuildContext context){
+  validatePhoneExist(BuildContext context) async {
     emit(RegistrationValidatingPhone());
-    ValidatePhoneUsecase().call(ValidatePhoneParams(extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen),).then((value) => value.fold(
+    await getIt<ValidatePhoneUsecase>().call(ValidatePhoneParams(extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen),).then((value) => value.fold(
             (error) {
               _doesPhoneExist = false;
               CustomFlushBar(

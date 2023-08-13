@@ -7,7 +7,9 @@ import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 import '../entity/login_entity.dart';
 
 class LoginUsecase implements Usecase<LoginEntity,LoginParams> {
-  AuthRepo repo = AuthRepoImpl();
+  AuthRepo repo ;
+
+  LoginUsecase({required this.repo});
 
   @override
   Future<Either<Failure, LoginEntity>> call(LoginParams params) async {

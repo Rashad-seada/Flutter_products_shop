@@ -69,7 +69,10 @@ class AuthRepoImpl implements AuthRepo {
     } on LocalDataException {
       return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -105,7 +108,13 @@ class AuthRepoImpl implements AuthRepo {
     } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -141,7 +150,13 @@ class AuthRepoImpl implements AuthRepo {
     } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
   }
@@ -174,9 +189,15 @@ class AuthRepoImpl implements AuthRepo {
       return right(activatePhoneEntity);
 
     } on RemoteDataException {
-      return left(RemoteDataFailure( "The server is down, please try again later!", screenCode: screenCode, customCode: 00));
+      return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    }  catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -211,13 +232,16 @@ class AuthRepoImpl implements AuthRepo {
 
       return right(loginEntity);
 
-    } on RemoteDataException{
+    } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
     } on LocalDataException {
-      return left(LocalDataFailure("The was unknown error during caching user id", screenCode: screenCode, customCode: 00));
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -252,7 +276,13 @@ class AuthRepoImpl implements AuthRepo {
     } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -287,7 +317,13 @@ class AuthRepoImpl implements AuthRepo {
     } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
@@ -322,7 +358,13 @@ class AuthRepoImpl implements AuthRepo {
     } on RemoteDataException {
       return left(RemoteDataFailure("The server is down, please try again later!", screenCode: screenCode, customCode: 00));
 
-    } catch (e) {
+    } on LocalDataException {
+      return left(LocalDataFailure("There was a failure during the caching!", screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure("There was unknown error in network service provider", screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 

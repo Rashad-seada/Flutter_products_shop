@@ -39,11 +39,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   String domain;
   String serviceEmail;
   String servicePassword;
+  final Dio client = Dio();
 
   AuthRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword});
 
 
-  final Dio client = Dio();
 
   @override
   Future<RegistrationEntity> register(String atext, String etext, String uname, String email, String upass, String mobile) async  {
