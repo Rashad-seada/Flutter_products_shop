@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/features/main_feature/views/screens/home_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
@@ -19,7 +20,6 @@ class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit() : super(LanguageInitial());
 
   int currentLanguage = 0;
-  SettingsLocalDataSource mainLocalDataSource = SettingsLocalDataSourceImpl();
 
   List<LanguageItem> languages = [
     LanguageItem(label: LocaleKeys.arabic.tr(), image: AppImages.arabic, locale: const Locale(AppConsts.arabic),),
@@ -30,7 +30,7 @@ class LanguageCubit extends Cubit<LanguageState> {
     emit(LanguageChanging());
     late String languageTag;
     try {
-       languageTag = await mainLocalDataSource.getLanguage();
+       languageTag = await getIt<SettingsLocalDataSource>().getLanguage();
     } catch (e) {
       languageTag = context.deviceLocale.toLanguageTag();
     }
@@ -47,7 +47,7 @@ class LanguageCubit extends Cubit<LanguageState> {
     if(currentLanguage != index){
       emit(LanguageChanging());
 
-      mainLocalDataSource.putLanguage(languages[index].locale.toLanguageTag());
+      getIt<SettingsLocalDataSource>().putLanguage(languages[index].locale.toLanguageTag());
       languages[currentLanguage].isActive = false;
       languages[index].isActive = true;
       currentLanguage = index;

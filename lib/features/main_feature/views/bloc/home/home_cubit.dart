@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/core/views/screens/playground_screen.dart';
 import 'package:eng_shop/core/views/widgets/web_view.dart';
+import 'package:eng_shop/features/main_feature/views/pages/home_page.dart';
 import 'package:eng_shop/features/main_feature/views/util/services.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
@@ -17,6 +19,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentIndex = 0;
 
+  List<Widget> get homeScreens  =>  [
+    const HomePage(),
+    const PlayGroundScreen(),
+    const Scaffold(),
+    const Scaffold(),
+  ];
+
   onNavigationBarTap(int index){
     emit(HomePageChanged());
     currentIndex = index;
@@ -29,6 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   List<Service> get services  => [
+
     Service(serviceName: LocaleKeys.bill_of_sale.tr(), image: AppImages.billOfSale),
     Service(serviceName: LocaleKeys.receipt.tr(), image: AppImages.receipt),
     Service(serviceName: LocaleKeys.sale_return.tr(), image: AppImages.saleReturn),
@@ -43,8 +53,11 @@ class HomeCubit extends Cubit<HomeState> {
     Service(serviceName: LocaleKeys.categories.tr(), image: AppImages.customers),
     Service(serviceName: LocaleKeys.classification.tr(), image: AppImages.classification),
     Service(serviceName: LocaleKeys.bond.tr(), image: AppImages.bond),
-
   ];
+
+  Widget getCurrentPage() {
+    return homeScreens[currentIndex];
+  }
 
 
 }

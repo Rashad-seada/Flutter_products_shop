@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:eng_shop/core/di/app_module.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -13,21 +14,20 @@ class ServiceProviderCubit extends Cubit<ServiceProviderState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  SettingsLocalDataSource mainLocalDataSource = SettingsLocalDataSourceImpl();
 
   initConfig() async {
     emit(ServiceProviderLoading());
-    domainController.text = await mainLocalDataSource.getServiceProviderDomain();
-    emailController.text = await mainLocalDataSource.getServiceProviderEmail();
-    passwordController.text = await mainLocalDataSource.getServiceProviderPassword();
+    getIt<SettingsLocalDataSource>().getServiceProviderDomain().then((value) => domainController.text = value) ;
+    getIt<SettingsLocalDataSource>().getServiceProviderEmail().then((value) => emailController.text = value);
+    getIt<SettingsLocalDataSource>().getServiceProviderPassword().then((value) => passwordController.text = value);
     emit(ServiceProviderInitial());
   }
 
   onSaveClick(BuildContext context) async {
     emit(ServiceProviderSavingConfig());
-    await mainLocalDataSource.putServiceProviderDomain(domainController.text);
-    await mainLocalDataSource.putServiceProviderEmail(emailController.text);
-    await mainLocalDataSource.putServiceProviderPassword(passwordController.text);
+    getIt<SettingsLocalDataSource>().putServiceProviderDomain(domainController.text);
+    getIt<SettingsLocalDataSource>().putServiceProviderEmail(emailController.text);
+    getIt<SettingsLocalDataSource>().putServiceProviderPassword(passwordController.text);
     emit(ServiceProviderInitial());
     Navigator.pop(context);
   }

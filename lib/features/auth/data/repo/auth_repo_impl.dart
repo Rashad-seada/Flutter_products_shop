@@ -17,29 +17,31 @@ import 'package:eng_shop/features/main_feature/data/data_source/local_data_sourc
 
 class AuthRepoImpl implements AuthRepo {
 
-  late AuthRemoteDataSource remoteDataSource ;
-  AuthLocalDataSource localDataSource = AuthLocalDataSourceImpl();
-  SettingsLocalDataSource mainLocalDataSource = SettingsLocalDataSourceImpl();
-  Services services = Services();
+  AuthRemoteDataSource remoteDataSource;
+  AuthLocalDataSource localDataSource;
+  SettingsLocalDataSource settingsLocalDataSource;
+  Services services;
 
-  initRemoteDataSource() async {
-    try {
-      remoteDataSource = AuthRemoteDataSourceImpl(
-          domain: await mainLocalDataSource.getServiceProviderDomain(),
-          serviceEmail: await mainLocalDataSource.getServiceProviderEmail(),
-          servicePassword: await mainLocalDataSource.getServiceProviderPassword()
-      );
-    } catch (e) {
-      throw LocalDataException();
-    }
+  AuthRepoImpl({required this.localDataSource,required this.settingsLocalDataSource,required this.services,required this.remoteDataSource});
 
-  }
+  // initRemoteDataSource() async {
+  //   try {
+  //     remoteDataSource = AuthRemoteDataSourceImpl(
+  //         domain: await mainLocalDataSource.getServiceProviderDomain(),
+  //         serviceEmail: await mainLocalDataSource.getServiceProviderEmail(),
+  //         servicePassword: await mainLocalDataSource.getServiceProviderPassword()
+  //     );
+  //   } catch (e) {
+  //     throw LocalDataException();
+  //   }
+  //
+  // }
 
   @override
   Future<Either<Failure, RegistrationEntity>> register(String userName, String email, String upass, String mobile,int screenCode) async {
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -83,7 +85,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, ValidateEmailEntity>> validateEmail(String email,int screenCode) async {
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -125,7 +127,7 @@ class AuthRepoImpl implements AuthRepo {
 
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -166,7 +168,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, ActivatePhoneEntity>> activateAccountBySMS(String mobile, String pin, String expectedPin,int screenCode) async {
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 00));
@@ -208,7 +210,7 @@ class AuthRepoImpl implements AuthRepo {
 
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -252,7 +254,7 @@ class AuthRepoImpl implements AuthRepo {
 
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -292,7 +294,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, ValidateCodeEntity>> validateCode(String mobile,String smsCode,int screenCode) async {
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
@@ -333,7 +335,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword,int screenCode) async {
 
     try {
-      await initRemoteDataSource();
+      //await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure("Please check your internet connection and try again!", screenCode: screenCode, customCode: 01));
