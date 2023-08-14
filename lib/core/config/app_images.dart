@@ -44,4 +44,7 @@ abstract class AppImages {
 
   static const String profileActive = "images/profile_active.svg";
   static const String profilePlaceHolder = "images/profile_place_holder.png";
+
+  static const String camera = "images/camera.svg";
+
 }
