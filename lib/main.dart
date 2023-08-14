@@ -5,8 +5,10 @@ import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
+import 'package:eng_shop/features/main_feature/views/bloc/camera/camera_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/home/home_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/language/language_cubit.dart';
+import 'package:eng_shop/features/main_feature/views/bloc/map/map_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/profile/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,6 +64,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> LanguageCubit()),
         BlocProvider(create: (_)=> ServiceProviderCubit()),
         BlocProvider(create: (_)=> ProfileCubit()),
+        BlocProvider(create: (_)=> CameraCubit()),
+        BlocProvider(create: (_)=> MapCubit()),
 
 
       ],

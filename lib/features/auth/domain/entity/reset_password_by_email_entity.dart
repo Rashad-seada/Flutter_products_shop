@@ -1,11 +1,10 @@
-class ResetPasswordEntity {
+class ResetPasswordByEmailEntity {
   String? res;
   String? msg;
-  int statusCode;
+  int? statusCode;
+  ResetPasswordByEmailEntity({this.res, this.msg,this.statusCode});
 
-  ResetPasswordEntity({this.res, this.msg,required this.statusCode});
-
-  ResetPasswordEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
+  ResetPasswordByEmailEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     res = json['res'];
     msg = json['msg'];
   }

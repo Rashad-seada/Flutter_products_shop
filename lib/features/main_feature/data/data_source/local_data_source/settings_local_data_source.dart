@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../../core/config/app_consts.dart';
+import '../../../../../core/error/exception.dart';
 
 abstract class SettingsLocalDataSource {
 
@@ -46,43 +48,74 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
 
   @override
   Future<String> getLanguage() async {
-    return await instance.then((value) => value.get(languageKey));
+    try {
+      return await instance.then((value) => value.get(languageKey));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<void> putLanguage(String language) async {
-    await instance.then((value) => value.put(languageKey,language));
+    try {
+      await instance.then((value) => value.put(languageKey,language));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<String> getServiceProviderEmail() async {
-    return await instance.then((value) => value.get(serviceProviderEmailKey));
+    try {
+      return await instance.then((value) => value.get(serviceProviderEmailKey));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<void> putServiceProviderEmail(String email) async {
-    await instance.then((value) => value.put(serviceProviderEmailKey,email));
+    try {
+      await instance.then((value) => value.put(serviceProviderEmailKey,email));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<String> getServiceProviderPassword() async {
-    return await instance.then((value) => value.get(serviceProviderPasswordKey));
+    try {
+      return await instance.then((value) => value.get(serviceProviderPasswordKey));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<void> putServiceProviderPassword(String password) async {
-    await instance.then((value) => value.put(serviceProviderPasswordKey,password));
+    try {
+      await instance.then((value) => value.put(serviceProviderPasswordKey,password));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<String> getServiceProviderDomain() async {
-
-    return await instance.then((value) => value.get(serviceProviderDomainKey));
+    try {
+      return await instance.then((value) => value.get(serviceProviderDomainKey));
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
   @override
   Future<void> putServiceProviderDomain(String domain) async {
-    await instance.then((value) => value.put(serviceProviderDomainKey,domain));
+    try {
+      await instance.then((value) => value.put(serviceProviderDomainKey,domain));
+    } catch (e) {
+      throw LocalDataException();
+    }
 
   }
 

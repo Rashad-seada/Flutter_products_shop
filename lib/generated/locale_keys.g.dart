@@ -83,5 +83,8 @@ abstract class  LocaleKeys {
   static const reset = 'reset';
   static const image_picker = 'image_picker';
   static const edit = 'edit';
+  static const camera = 'camera';
+  static const camera_sub_text = 'camera_sub_text';
+  static const camera_sub_text2 = 'camera_sub_text2';
 
 }

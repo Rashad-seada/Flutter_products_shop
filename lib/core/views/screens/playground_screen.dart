@@ -4,6 +4,8 @@ import 'package:eng_shop/core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../features/main_feature/views/screens/camera_screen.dart';
+import '../../../features/main_feature/views/screens/listing_screen.dart';
 import '../../../features/main_feature/views/screens/map_screen.dart';
 import '../../config/app_theme.dart';
 import '../widgets/main_button.dart';
@@ -41,7 +43,7 @@ class PlayGroundScreen extends StatelessWidget {
                     style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
               ),
               onTap: () {
-                print(ErrorMessages().debugErrorCode(10620));
+                Navigator.push(context, MaterialPageRoute(builder: (_)=> ListingScreen()));
               },
             ),
               Space(height: 5.h,),
@@ -53,7 +55,7 @@ class PlayGroundScreen extends StatelessWidget {
                   style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
               ),
               onTap: () {
-                getIt<Services>().cameraService.pickMultiImage();
+                Navigator.push(context, MaterialPageRoute(builder: (_)=> CameraScreen()));
               },
             ),
 

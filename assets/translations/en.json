@@ -88,6 +88,10 @@
 
   "image_picker": "Image picker",
 
-  "edit": "Edit"
+  "edit": "Edit",
+
+  "camera": "Camera",
+  "camera_sub_text": "Take a photo from camera",
+  "camera_sub_text2": "Any photos that have been taken will appear below"
 
 }

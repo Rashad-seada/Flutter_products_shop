@@ -1,19 +1,39 @@
+import 'dart:async';
+
+import 'package:eng_shop/features/main_feature/views/bloc/map/map_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapScreen extends StatelessWidget {
-  MapScreen({super.key});
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => MapScreenState();
+}
+
+class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37, 37),
-          zoom: 14
-        ),
+    return Scaffold(
+      body: BlocConsumer<MapCubit, MapState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return GoogleMap(
+            mapType: MapType.hybrid,
+            initialCameraPosition: context.read<MapCubit>().initialPosition,
+            onMapCreated: (_)=> context.read<MapCubit>().onMapCreated(_)
+          );
+        },
       ),
-    ));
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: ()=> context.read<MapCubit>().onTap(),
+        label: const Text('To My Location'),
+        icon: const Icon(Icons.directions_boat),
+      ),
+    );
   }
+
+
 }

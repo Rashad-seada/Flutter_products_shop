@@ -88,7 +88,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              readOnly: context.read<ServiceProviderCubit>().isEditable,
+                              enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().domainController,
                               label: LocaleKeys.domain.tr(),hint: LocaleKeys.domain_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -99,7 +99,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              readOnly: context.read<ServiceProviderCubit>().isEditable,
+                              enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().emailController,
                               label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -110,7 +110,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              readOnly: context.read<ServiceProviderCubit>().isEditable,
+                              enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().passwordController,
                               label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),

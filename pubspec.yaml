@@ -51,6 +51,8 @@ dependencies:
 
   image_picker:   
 
+  geolocator:
+
   #state management
   bloc:
   flutter_bloc:
@@ -78,12 +80,11 @@ dependencies:
   dot_navigation_bar:
   webview_flutter: 
   google_maps_flutter:
+  cached_network_image:
 
   #client
   dio:
 
-  #chached image
-  cached_network_image: 3.2.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

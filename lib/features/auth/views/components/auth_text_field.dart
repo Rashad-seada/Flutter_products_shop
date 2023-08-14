@@ -14,7 +14,7 @@ class AuthTextField extends StatelessWidget {
   void Function()? onEditingComplete;
   ValueChanged<String>? onChanged;
   void Function(PointerDownEvent)? onTapOutside;
-  bool readOnly;
+  bool enabled;
 
   AuthTextField({
     Key? key,
@@ -27,14 +27,14 @@ class AuthTextField extends StatelessWidget {
     this.onEditingComplete,
     this.onChanged,
     this.onTapOutside,
-    this.readOnly = false,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
 
-      enabled: readOnly,
+      enabled: enabled,
       onTapOutside: onTapOutside,
       onChanged: onChanged,
       validator: validator,

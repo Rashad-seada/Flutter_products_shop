@@ -1,7 +1,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:eng_shop/features/auth/domain/usecase/reset_password_usecase.dart';
+import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
 import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
@@ -179,7 +179,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   onNewPasswordClick(BuildContext context) async {
     if(newPasswordFormKey.currentState!.validate()){
       emit(ResetPasswordLoading());
-      await getIt<ResetPasswordUsecase>().call(ResetPasswordParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text,AppConsts.newPasswordScreen)).then(
+      await getIt<ResetPasswordBySMSUsecase>().call(ResetPasswordBySMSParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text,AppConsts.newPasswordScreen)).then(
               (value) => value.fold(
               (error) {
                 emit(ResetPasswordFailure());

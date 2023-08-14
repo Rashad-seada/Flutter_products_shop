@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:async';
 
 import 'package:eng_shop/core/services/camera_service.dart';
 import 'package:eng_shop/core/services/google_service.dart';
+import 'package:eng_shop/core/services/location_service.dart';
 import 'package:eng_shop/core/services/network_service.dart';
 import 'package:eng_shop/core/services/permission_service.dart';
 import 'package:eng_shop/core/services/services.dart';
@@ -13,7 +13,8 @@ import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 import 'package:eng_shop/features/auth/domain/usecase/activate_account_by_sms.dart';
 import 'package:eng_shop/features/auth/domain/usecase/login_uscase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/register_usecase.dart';
-import 'package:eng_shop/features/auth/domain/usecase/reset_password_usecase.dart';
+import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_email_usecase.dart';
+import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_email_usecase.dart';
@@ -34,6 +35,7 @@ class AppModule {
             ..registerSingleton<GoogleService>(GoogleService())
             ..registerSingleton<NetworkService>(NetworkServiceImpl())
             ..registerSingleton<PermissionService>(PermissionService())
+            ..registerSingleton<LocationService>(LocationService())
             ..registerSingleton<Services>(Services())
             ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSourceImpl())
             ..registerSingleton<SettingsLocalDataSource>(SettingsLocalDataSourceImpl())
@@ -54,15 +56,17 @@ class AppModule {
                 ActivateAccountBySmsUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<LoginUsecase>(LoginUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<RegisterUsecase>(RegisterUsecase(repo: getIt<AuthRepo>()))
-            ..registerSingleton<ResetPasswordUsecase>(
-                ResetPasswordUsecase(repo: getIt<AuthRepo>()))
+            ..registerSingleton<ResetPasswordBySMSUsecase>(
+                ResetPasswordBySMSUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<SendSmsUsecase>(SendSmsUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<ValidateCodeUsecase>(
                 ValidateCodeUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<ValidateEmailUsecase>(
                 ValidateEmailUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<ValidatePhoneUsecase>(
-                ValidatePhoneUsecase(repo: getIt<AuthRepo>()));
+                ValidatePhoneUsecase(repo: getIt<AuthRepo>()))
+            ..registerSingleton<ResetPasswordByEmailUsecase>(
+                ResetPasswordByEmailUsecase(repo: getIt<AuthRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {

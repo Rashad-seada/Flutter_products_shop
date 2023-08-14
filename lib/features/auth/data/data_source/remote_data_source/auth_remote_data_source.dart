@@ -7,7 +7,8 @@ import 'package:eng_shop/core/error/exception.dart';
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
-import 'package:eng_shop/features/auth/domain/entity/reset_password_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_by_email_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_by_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
@@ -30,8 +31,9 @@ abstract class AuthRemoteDataSource {
 
   Future<ValidateCodeEntity> validateSmsCode(String number,String smsCode);
 
-  Future<ResetPasswordEntity> resetPassword(String number,String smsCode,String newPassword);
+  Future<ResetPasswordBySMSEntity> resetPasswordBySMS(String number,String smsCode,String newPassword);
 
+  Future<ResetPasswordByEmailEntity> resetPasswordByEmail(String email);
 
 }
 
@@ -262,7 +264,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<ResetPasswordEntity> resetPassword(String number, String smsCode, String newPassword) async {
+  Future<ResetPasswordBySMSEntity> resetPasswordBySMS(String number, String smsCode, String newPassword) async {
     try {
       List<Map<String,dynamic>> srvData = [{
         "mobile": number,
@@ -286,11 +288,41 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Map<String,dynamic> data = json.decode(response.data);
 
-      return ResetPasswordEntity.fromJson(data,response.statusCode!);
+      return ResetPasswordBySMSEntity.fromJson(data,response.statusCode!);
     } catch (e) {
       throw RemoteDataException();
     }
 
+  }
+
+  @override
+  Future<ResetPasswordByEmailEntity> resetPasswordByEmail(String email) async {
+    try {
+      List<Map<String,dynamic>> srvData = [{
+        "umail": email,
+        "is_code_sms":"1"
+      }];
+
+
+      String jsonString = json.encode(srvData);
+      String base64String = base64.encode(utf8.encode(jsonString));
+
+      Response response = await client.get(
+          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 90),
+          options: Options(
+              receiveDataWhenStatusError: true,
+              followRedirects: false,
+              validateStatus: (status)=> true,
+              receiveTimeout: const Duration(seconds: 60)
+          )
+      );
+
+      Map<String,dynamic> data = json.decode(response.data);
+
+      return ResetPasswordByEmailEntity.fromJson(data,response.statusCode!);
+    } catch (e) {
+      throw RemoteDataException();
+    }
   }
 
 }

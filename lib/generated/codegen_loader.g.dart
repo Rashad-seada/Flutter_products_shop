@@ -96,7 +96,10 @@ class CodegenLoader extends AssetLoader{
   "want_reset_password_sub_text": "هل تود اعاده تعيين كلمه المرور؟",
   "reset": "اعاده تعين",
   "image_picker": "ملتقط الصور",
-  "edit": "تعديل"
+  "edit": "تعديل",
+  "camera": "الكاميرا",
+  "camera_sub_text": "التقط صوره من الكاميرا",
+  "camera_sub_text2": "اي صور تم اتقلطها يتظهر هنا بالاسفل"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -179,7 +182,10 @@ static const Map<String,dynamic> en = {
   "want_reset_password_sub_text": "Do you want to reset your password?",
   "reset": "Reset password",
   "image_picker": "Image picker",
-  "edit": "Edit"
+  "edit": "Edit",
+  "camera": "Camera",
+  "camera_sub_text": "Take a photo from camera",
+  "camera_sub_text2": "Any photos that have been taken will appear below"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

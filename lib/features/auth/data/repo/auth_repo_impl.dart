@@ -7,7 +7,8 @@ import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/login_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/registration_entity.dart';
-import 'package:eng_shop/features/auth/domain/entity/reset_password_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_by_email_entity.dart';
+import 'package:eng_shop/features/auth/domain/entity/reset_password_by_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
@@ -334,7 +335,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, ResetPasswordEntity>> resetPassword(String mobile, String smsCode, String newPassword,int screenCode) async {
+  Future<Either<Failure, ResetPasswordBySMSEntity>> resetPasswordBySMS(String mobile, String smsCode, String newPassword,int screenCode) async {
 
     try {
       //await initRemoteDataSource();
@@ -343,7 +344,7 @@ class AuthRepoImpl implements AuthRepo {
         return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
       }
 
-      ResetPasswordEntity resetPasswordEntity = await remoteDataSource.resetPassword(mobile,smsCode,newPassword);
+      ResetPasswordBySMSEntity resetPasswordEntity = await remoteDataSource.resetPasswordBySMS(mobile,smsCode,newPassword);
 
       if(resetPasswordEntity.statusCode != 200) {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
@@ -372,6 +373,45 @@ class AuthRepoImpl implements AuthRepo {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
 
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordByEmailEntity>> resetPasswordByEmail(String email,int screenCode) async {
+    try {
+      //await initRemoteDataSource();
+
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
+      }
+
+      ResetPasswordByEmailEntity resetPasswordByEmailEntity = await remoteDataSource.resetPasswordByEmail(email);
+
+      if(resetPasswordByEmailEntity.statusCode != 200) {
+        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+      }
+
+      if(resetPasswordByEmailEntity.res == null) {
+        return left(RemoteDataFailure(ErrorMessages.returnedWithNull, screenCode: screenCode, customCode: 01));
+      }
+
+      if (int.parse(resetPasswordByEmailEntity.res!) != 1){
+        return left(RemoteDataFailure(resetPasswordByEmailEntity.msg ?? ErrorMessages.unknown, screenCode: screenCode, customCode: 02));
+      }
+
+      return right(resetPasswordByEmailEntity);
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+
+    } on ServiceException {
+      return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
+
+    }catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
   }
 
 
