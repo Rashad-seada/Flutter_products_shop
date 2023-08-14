@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/config/app_theme.dart';
 
 class AuthTextField extends StatelessWidget {
@@ -15,12 +14,27 @@ class AuthTextField extends StatelessWidget {
   void Function()? onEditingComplete;
   ValueChanged<String>? onChanged;
   void Function(PointerDownEvent)? onTapOutside;
+  bool readOnly;
 
-  AuthTextField({Key? key,this.controller, this.hint,this.label,this.prefixIcon,this.suffixIcon,this.validator,this.onEditingComplete,this.onChanged,this.onTapOutside}) : super(key: key);
+  AuthTextField({
+    Key? key,
+    this.controller,
+    this.hint,
+    this.label,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.validator,
+    this.onEditingComplete,
+    this.onChanged,
+    this.onTapOutside,
+    this.readOnly = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
+      enabled: readOnly,
       onTapOutside: onTapOutside,
       onChanged: onChanged,
       validator: validator,
@@ -34,7 +48,7 @@ class AuthTextField extends StatelessWidget {
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
         ),
 
@@ -42,8 +56,13 @@ class AuthTextField extends StatelessWidget {
 
         hintStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
+        ),
+
+        disabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
+            borderRadius: BorderRadius.circular(8)
         ),
 
         enabledBorder: OutlineInputBorder(

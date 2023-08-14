@@ -1,8 +1,10 @@
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/error/error_messages.dart';
 import 'package:eng_shop/core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../features/main_feature/views/screens/map_screen.dart';
 import '../../config/app_theme.dart';
 import '../widgets/main_button.dart';
 import '../widgets/space.dart';
@@ -27,7 +29,7 @@ class PlayGroundScreen extends StatelessWidget {
                 style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
               ),
               onTap: () {
-
+                Navigator.push(context, MaterialPageRoute(builder: (_)=> MapScreen()));
               },
             ),
               Space(height: 5.h,),
@@ -39,7 +41,7 @@ class PlayGroundScreen extends StatelessWidget {
                     style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
               ),
               onTap: () {
-
+                print(ErrorMessages().debugErrorCode(10620));
               },
             ),
               Space(height: 5.h,),

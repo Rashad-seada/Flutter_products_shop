@@ -82,5 +82,6 @@ abstract class  LocaleKeys {
   static const want_reset_password_sub_text = 'want_reset_password_sub_text';
   static const reset = 'reset';
   static const image_picker = 'image_picker';
+  static const edit = 'edit';
 
 }

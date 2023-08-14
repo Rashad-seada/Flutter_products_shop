@@ -41,13 +41,13 @@ class PhoneNumberField extends StatelessWidget {
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
         ),
 
         hintStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
         ),
 
@@ -76,13 +76,13 @@ class PhoneNumberField extends StatelessWidget {
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
         ),
 
         hintStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppConsts.font16.sp,
+          fontSize: AppTheme.font16.sp,
           fontWeight: FontWeight.w400,
         ),
 

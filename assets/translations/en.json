@@ -86,7 +86,8 @@
   "want_reset_password_sub_text": "Do you want to reset your password?",
   "reset": "Reset password",
 
-  "image_picker": "Image picker"
+  "image_picker": "Image picker",
 
+  "edit": "Edit"
 
 }

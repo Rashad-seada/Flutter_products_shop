@@ -22,12 +22,6 @@ abstract class AppConsts {
 
   static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode) => "$domain/SRV/?srv_code=$serCode&fid=$fid&userid=1&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
 
-  static const double font32 = 28;
-  static const double font28 = 24;
-  static const double font21 = 17;
-  static const double font16 = 12;
-  static const double font14 = 10;
-
 
   //Screens code
   static int get authMethodScreen => 100;

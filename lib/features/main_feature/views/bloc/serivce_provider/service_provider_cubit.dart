@@ -10,6 +10,8 @@ part 'service_provider_state.dart';
 class ServiceProviderCubit extends Cubit<ServiceProviderState> {
   ServiceProviderCubit() : super(ServiceProviderInitial());
 
+  bool isEditable = false;
+
   TextEditingController domainController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -20,6 +22,7 @@ class ServiceProviderCubit extends Cubit<ServiceProviderState> {
     getIt<SettingsLocalDataSource>().getServiceProviderDomain().then((value) => domainController.text = value) ;
     getIt<SettingsLocalDataSource>().getServiceProviderEmail().then((value) => emailController.text = value);
     getIt<SettingsLocalDataSource>().getServiceProviderPassword().then((value) => passwordController.text = value);
+    isEditable = false;
     emit(ServiceProviderInitial());
   }
 
@@ -30,6 +33,12 @@ class ServiceProviderCubit extends Cubit<ServiceProviderState> {
     getIt<SettingsLocalDataSource>().putServiceProviderPassword(passwordController.text);
     emit(ServiceProviderInitial());
     Navigator.pop(context);
+  }
+
+  toggleEdit() {
+    emit(ServiceProviderLoading());
+    isEditable = !isEditable;
+    emit(ServiceProviderInitial());
   }
 
 

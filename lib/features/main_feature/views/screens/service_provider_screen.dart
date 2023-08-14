@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../core/views/widgets/clickable_text.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
@@ -66,9 +67,28 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                               child: Text(LocaleKeys.service_provider_config.tr(), style: AppTheme.textLTextStyle(),),
                             ),
 
-                            Space(height: 4.h,),
+                            Space(height: 1.5.h,),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+
+                                Icon(Icons.edit,color: AppTheme.primary900,),
+
+                                ClickableText(
+                                  clickableText: LocaleKeys.edit.tr(),
+                                  style: AppTheme.textMTextStyle(
+                                      color: AppTheme.primary900
+                                  ),
+                                  onPressed: () => context.read<ServiceProviderCubit>().toggleEdit(),
+                                ),
+                              ],
+                            ),
+
+                            Space(height: 1.5.h,),
 
                             AuthTextField(
+                              readOnly: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().domainController,
                               label: LocaleKeys.domain.tr(),hint: LocaleKeys.domain_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -79,6 +99,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              readOnly: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().emailController,
                               label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -89,6 +110,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              readOnly: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().passwordController,
                               label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -96,7 +118,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             ),
                             ),
 
-                            Space(height: 30.h,),
+                            Space(height: 27.h,),
 
 
                             MainButton(
