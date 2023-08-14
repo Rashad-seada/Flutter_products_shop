@@ -47,4 +47,6 @@ abstract class AppImages {
 
   static const String camera = "images/camera.svg";
 
+  static const String photo = "images/photo.svg";
+
 }
