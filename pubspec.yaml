@@ -68,6 +68,7 @@ dependencies:
   #local data storage
   hive:
   hive_flutter:
+  floor:
 
   #UI
   another_flushbar:
@@ -93,6 +94,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  floor_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -3,6 +3,8 @@ import 'dart:ui';
 abstract class AppConsts {
 
   static const String prefDBName = "app_db";
+  static const String mainDBName = "app_database.db";
+
   static const String userInfoKey = "userInfo";
   static const String languageKey = "language";
   static const String serviceProviderDomainKey = "serviceDomainKey";
@@ -20,7 +22,8 @@ abstract class AppConsts {
   static const String servicePassword = "111111";
 
 
-  static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode) => "$domain/SRV/?srv_code=$serCode&fid=$fid&userid=1&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
+  static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = ""}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=1&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
+  static String baseImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/thums/t${productId}_29.jpg";
 
 
   //Screens code

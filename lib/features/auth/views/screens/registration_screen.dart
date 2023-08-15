@@ -140,7 +140,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ],
                       )),
 
-                      Space(height: 7.h,),
+                      Space(height: 2.h,),
 
 
                       ClickableText(

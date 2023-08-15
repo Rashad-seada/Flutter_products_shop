@@ -35,18 +35,14 @@ class AuthMethodsScreen extends StatelessWidget {
                         SvgPicture.asset(AppImages.login,width: 100.w,height: 20.h,),
 
                         Space(height: 4.h,),
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(LocaleKeys.welcome.tr(), style: AppTheme.heading2TextStyle(),),
+                            Text(LocaleKeys.welcome.tr(), style: AppTheme.heading2TextStyle(),),
 
-                                Space(height: 1.h,),
+                            Space(height: 1.h,),
 
-                                Text(LocaleKeys.chose_a_method.tr(), style: AppTheme.textLTextStyle(),),
-                              ],
-                            ),
+                            Text(LocaleKeys.chose_a_method.tr(), style: AppTheme.textLTextStyle(),maxLines: 2,overflow: TextOverflow.ellipsis,),
                           ],
                         ),
                         Space(height: 4.h,),

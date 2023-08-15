@@ -14,6 +14,10 @@ class ErrorMessages {
 
   static const String serviceProvider = "There was unknown error in network service provider";
 
+  static const String emptyListOfProducts = "There request returned with an empty list";
+
+  static const String emptyListOfProductsInSearch = "Didn't found what you have been looking for!";
+
   debugErrorCode(int errorCode) {
      List errorCodeList = errorCode.toString().split("");
      String error = "";

@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Space(height: 26.h,),
+                        Space(height: 20.h,),
 
 
                         ClickableText(
