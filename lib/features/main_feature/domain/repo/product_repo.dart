@@ -9,7 +9,7 @@ abstract class ProductRepo {
   Future<Either<Failure, List<ProductEntity>>> getProductById(int id,int screenCode);
   Future<Either<Failure, List<ProductEntity>>> getProductsById(List<int> ids,int screenCode);
   Future<Either<Failure, String>> getProductImageById(int id,int screenCode);
-  Future<Either<Failure, List<ProductEntity>>> getProducts(int screenCode);
+  Future<Either<Failure, List<ProductEntity>>> getProducts(int pageNumber,int screenCode);
 
   //cart
   Future<Either<Failure, void>> addToCart(ProductEntity productEntity,int screenCode);

@@ -11,6 +11,7 @@ import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
+import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 
 import '../entity/reset_password_by_sms_entity.dart';
 
@@ -26,6 +27,9 @@ abstract class AuthRepo {
 
  Future<Either<Failure,LoginEntity>> login(String email,String password,bool isMobile,int screenCode);
 
+ Future<Either<Failure,void>> logout(int screenCode);
+
+
  Future<Either<Failure,SendSmsEntity>> sendSms(String mobile,int screenCode);
 
  Future<Either<Failure,ValidateCodeEntity>> validateCode(String mobile,String smsCode,int screenCode);
@@ -33,5 +37,7 @@ abstract class AuthRepo {
  Future<Either<Failure,ResetPasswordBySMSEntity>> resetPasswordBySMS(String mobile,String smsCode,String newPassword,int screenCode);
 
  Future<Either<Failure,ResetPasswordByEmailEntity>> resetPasswordByEmail(String email,int screenCode);
+
+ Future<Either<Failure,UserType?>> getUserType(int screenCode);
 
 }

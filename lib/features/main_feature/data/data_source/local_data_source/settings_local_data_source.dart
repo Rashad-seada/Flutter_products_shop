@@ -1,26 +1,24 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/error/exception.dart';
 
 abstract class SettingsLocalDataSource {
 
-  Future<String> getLanguage();
+  Future<String?> getLanguage();
 
   Future<void> putLanguage(String language);
 
-  Future<String> getServiceProviderDomain();
+  Future<String?> getServiceProviderDomain();
 
   Future<void> putServiceProviderDomain(String domain);
 
-  Future<String> getServiceProviderEmail();
+  Future<String?> getServiceProviderEmail();
 
   Future<void> putServiceProviderEmail(String email);
 
-  Future<String> getServiceProviderPassword();
+  Future<String?> getServiceProviderPassword();
 
   Future<void> putServiceProviderPassword(String password);
 
@@ -33,23 +31,15 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   String get serviceProviderPasswordKey => AppConsts.serviceProviderPasswordKey;
   String get serviceProviderDomainKey => AppConsts.serviceProviderDomainKey;
 
-  Future<Box> dbInit()async {
-    await Hive.initFlutter();
-    final appDocumentDirectory = await getApplicationDocumentsDirectory();
-    Hive.init(appDocumentDirectory.path);
-    return await Hive.openBox(AppConsts.prefDBName);
-  }
+  Box storage;
 
-  Future<Box> get instance async {
-    return await dbInit();
-  }
-
+  SettingsLocalDataSourceImpl({required this.storage});
 
 
   @override
-  Future<String> getLanguage() async {
+  Future<String?> getLanguage() async {
     try {
-      return await instance.then((value) => value.get(languageKey));
+      return await storage.get(languageKey);
     } catch (e) {
       throw LocalDataException();
     }
@@ -58,16 +48,16 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   @override
   Future<void> putLanguage(String language) async {
     try {
-      await instance.then((value) => value.put(languageKey,language));
+      await storage.put(languageKey,language);
     } catch (e) {
       throw LocalDataException();
     }
   }
 
   @override
-  Future<String> getServiceProviderEmail() async {
+  Future<String?> getServiceProviderEmail() async {
     try {
-      return await instance.then((value) => value.get(serviceProviderEmailKey));
+      return await storage.get(serviceProviderEmailKey);
     } catch (e) {
       throw LocalDataException();
     }
@@ -76,16 +66,16 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   @override
   Future<void> putServiceProviderEmail(String email) async {
     try {
-      await instance.then((value) => value.put(serviceProviderEmailKey,email));
+      await storage.put(serviceProviderEmailKey,email);
     } catch (e) {
       throw LocalDataException();
     }
   }
 
   @override
-  Future<String> getServiceProviderPassword() async {
+  Future<String?> getServiceProviderPassword() async {
     try {
-      return await instance.then((value) => value.get(serviceProviderPasswordKey));
+      return await storage.get(serviceProviderPasswordKey);
     } catch (e) {
       throw LocalDataException();
     }
@@ -94,16 +84,17 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   @override
   Future<void> putServiceProviderPassword(String password) async {
     try {
-      await instance.then((value) => value.put(serviceProviderPasswordKey,password));
+      await storage.put(serviceProviderPasswordKey,password);
     } catch (e) {
       throw LocalDataException();
     }
   }
 
   @override
-  Future<String> getServiceProviderDomain() async {
+  Future<String?> getServiceProviderDomain() async {
     try {
-      return await instance.then((value) => value.get(serviceProviderDomainKey));
+      final i = await storage.get(serviceProviderDomainKey);
+      return await storage.get(serviceProviderDomainKey);
     } catch (e) {
       throw LocalDataException();
     }
@@ -112,7 +103,7 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   @override
   Future<void> putServiceProviderDomain(String domain) async {
     try {
-      await instance.then((value) => value.put(serviceProviderDomainKey,domain));
+      await storage.put(serviceProviderDomainKey,domain);
     } catch (e) {
       throw LocalDataException();
     }

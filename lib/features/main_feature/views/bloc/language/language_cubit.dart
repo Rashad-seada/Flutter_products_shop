@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/features/auth/domain/usecase/get_user_type_usecase.dart';
 import 'package:eng_shop/features/main_feature/views/screens/home_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
@@ -30,7 +31,7 @@ class LanguageCubit extends Cubit<LanguageState> {
     emit(LanguageChanging());
     late String languageTag;
     try {
-       languageTag = await getIt<SettingsLocalDataSource>().getLanguage();
+       languageTag = (await getIt<SettingsLocalDataSource>().getLanguage())!;
     } catch (e) {
       languageTag = context.deviceLocale.toLanguageTag();
     }
@@ -52,10 +53,20 @@ class LanguageCubit extends Cubit<LanguageState> {
       languages[index].isActive = true;
       currentLanguage = index;
       await  context.setLocale(languages[index].locale);
-      Timer.periodic(const Duration(seconds: 2), (timer) {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomeScreen()), (route) => false);
-        emit(LanguageInitial());
-      });
+      await getIt<GetUserTypeUsecase>().call(GetUserTypeParams(AppConsts.languageScreen)).then((
+          value) => value.fold(
+              (error) {
+
+              },
+              (success) {
+                Timer.periodic(const Duration(seconds: 2), (timer) {
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomeScreen(userType: success!,)), (route) => false);
+                  emit(LanguageInitial());
+                });
+              }
+          )
+      );
+
     }
   }
 

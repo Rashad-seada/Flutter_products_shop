@@ -1,14 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/views/screens/playground_screen.dart';
 import 'package:eng_shop/core/views/widgets/web_view.dart';
-import 'package:eng_shop/features/main_feature/views/pages/home_page.dart';
+import 'package:eng_shop/features/auth/domain/usecase/logout_usecase.dart';
+import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
+import 'package:eng_shop/features/auth/views/screens/auth_methods_screen.dart';
+import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/get_products_usecase.dart';
+import 'package:eng_shop/features/main_feature/views/pages/admin_home_page.dart';
+import 'package:eng_shop/features/main_feature/views/pages/customer_home_page.dart';
 import 'package:eng_shop/features/main_feature/views/util/services.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../auth/domain/usecase/get_user_type_usecase.dart';
 
 part 'home_state.dart';
 
@@ -16,11 +27,21 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  ScrollController scrollController = ScrollController();
 
   int currentIndex = 0;
 
-  List<Widget> get homeScreens  =>  [
-    const HomePage(),
+  int pageNumber = 1;
+
+  List<Widget> get adminHomePages  =>  [
+    const AdminHomePage(),
+    const PlayGroundScreen(),
+    const Scaffold(),
+    const Scaffold(),
+  ];
+
+  List<Widget> get customerHomePages  =>  [
+    const CustomerHomePage(),
     const PlayGroundScreen(),
     const Scaffold(),
     const Scaffold(),
@@ -55,9 +76,66 @@ class HomeCubit extends Cubit<HomeState> {
     Service(serviceName: LocaleKeys.bond.tr(), image: AppImages.bond),
   ];
 
-  Widget getCurrentPage() {
-    return homeScreens[currentIndex];
+  Widget getCurrentPage(UserType userType) {
+
+    if(userType == UserType.admin){
+      return adminHomePages[currentIndex];
+    } else {
+      return customerHomePages[currentIndex];
+    }
   }
+
+  onLogoutClick(BuildContext context) {
+    logout(context);
+  }
+
+
+  logout(BuildContext context) async {
+    await getIt<LogoutUsecase>().call(LogoutParams(AppConsts.homeScreen)).then(
+            (value) => value.fold(
+                    (error) {
+                      CustomFlushBar(
+                          title: 'Error',
+                          message: error.message,
+                          context: context
+                      );
+                    },
+                    (success) {
+                      return Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> AuthMethodsScreen()), (route) => false);
+                    }
+            ));
+  }
+
+  void getProducts(BuildContext context){
+    emit(HomeIsLoading());
+
+    getIt<GetProductsUsecase>().call(GetProductsParams(pageNumber, AppConsts.homeScreen)).then(
+            (value) => value.fold(
+                    (error) {
+                      emit(HomeFailure());
+                      CustomFlushBar(
+                          title: 'Error',
+                          message: error.message,
+                          context: context
+                      );
+                      emit(HomeInitial());
+
+                    },
+                    (success) {
+                      emit(HomeSuccess());
+
+                        HomeSuccess.products.addAll(success);
+                        emit(HomeInitial());
+                        pageNumber += 1;
+
+
+                    }
+            )
+    );
+
+  }
+
+
 
 
 }

@@ -10,6 +10,7 @@ import 'package:regexpattern/regexpattern.dart';
 
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../main_feature/views/screens/home_screen.dart';
+import '../../../domain/usecase/get_user_type_usecase.dart';
 import '../../screens/password_reset_methods_screen.dart';
 
 part 'login_state.dart';
@@ -56,7 +57,7 @@ class LoginCubit extends Cubit<LoginState> {
           (error) {
             emit(LoginFailure());
             CustomFlushBar(
-                title: 'Error',
+                title: 'Error : ${error.code()}',
                 message: error.message,
                 context: context
             );
@@ -68,7 +69,7 @@ class LoginCubit extends Cubit<LoginState> {
                 message: success.msg!,
                 context: context
             );
-            Navigator.push(context,MaterialPageRoute(builder: (_)=> const HomeScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (_)=> HomeScreen(userType: success.utype!,)));
           })
       );
     }
@@ -84,6 +85,19 @@ class LoginCubit extends Cubit<LoginState> {
 
 
   LoginCubit() : super(LoginInitial());
+
+  Future<void> getUserType(BuildContext context) async {
+    await getIt<GetUserTypeUsecase>().call(GetUserTypeParams(AppConsts.introScreen)).then(
+            (value) => value.fold(
+                (error) {
+              print(error.toString());
+            },
+                (success) {
+              print("user type is $success");
+
+            }
+        ));
+  }
 
 }
 

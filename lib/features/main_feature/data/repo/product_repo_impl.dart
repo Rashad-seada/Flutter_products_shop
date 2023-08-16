@@ -5,6 +5,7 @@ import 'package:eng_shop/features/main_feature/data/data_source/remote_data_sour
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/repo/product_repo.dart';
 
+import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/services/services.dart';
@@ -27,10 +28,9 @@ class ProductRepoImpl implements ProductRepo {
   initRemoteDataSource() async {
     try {
       remoteDataSource = ProductRemoteDataSourceImpl(
-          domain: await settingsLocalDataSource.getServiceProviderDomain(),
-          serviceEmail: await settingsLocalDataSource.getServiceProviderEmail(),
-          servicePassword: await settingsLocalDataSource
-              .getServiceProviderPassword()
+        domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
       );
     } catch (e) {
       throw LocalDataException();
@@ -197,7 +197,7 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getProducts(int screenCode) async {
+  Future<Either<Failure, List<ProductEntity>>> getProducts(int pageNumber,int screenCode) async {
     try {
       await initRemoteDataSource();
 
@@ -206,7 +206,7 @@ class ProductRepoImpl implements ProductRepo {
         return right(productEntity);
       }
 
-      List<ProductEntity> productEntity = await remoteDataSource.getProducts();
+      List<ProductEntity> productEntity = await remoteDataSource.getProducts(pageNumber);
 
       if(productEntity.isEmpty) {
         return left(RemoteDataFailure(ErrorMessages.emptyListOfProducts, screenCode: screenCode, customCode: 03));
@@ -216,7 +216,7 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
       }
 
-      localDataSource.insertAllCartProduct(productEntity);
+      await localDataSource.insertAllCartProduct(productEntity);
 
       return right(productEntity);
 

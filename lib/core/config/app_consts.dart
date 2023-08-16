@@ -5,12 +5,15 @@ abstract class AppConsts {
   static const String prefDBName = "app_db";
   static const String mainDBName = "app_database.db";
 
-  static const String userInfoKey = "userInfo";
+  static const String userIdKey = "userId";
   static const String languageKey = "language";
   static const String serviceProviderDomainKey = "serviceDomainKey";
   static const String serviceProviderEmailKey = "serviceEmailKey";
   static const String serviceProviderPasswordKey = "servicePasswordKey";
   static const String isFirstTimeKey = "isFirstTimeKey";
+  static const String emailKey = "userEmailKey";
+  static const String passwordKey = "userPasswordKey";
+  static const String userTypeKey = "userTypeKey";
 
   static const String localizationPath = "assets/translations";
 
@@ -27,6 +30,7 @@ abstract class AppConsts {
 
 
   //Screens code
+  static int get introScreen => 000;
   static int get authMethodScreen => 100;
   static int get loginScreen => 101;
   static int get registrationScreen => 102;
@@ -35,6 +39,13 @@ abstract class AppConsts {
   static int get pinScreen => 105;
   static int get newPasswordScreen => 106;
   static int get accountActivationScreen => 107;
+  static int get homeScreen => 108;
+  static int get languageScreen => 109;
+
+  //User types
+  static int get user => 5;
+  static int get admin => 4;
+
 
 
 }

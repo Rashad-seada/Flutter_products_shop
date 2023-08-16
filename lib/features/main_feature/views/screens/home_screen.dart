@@ -1,6 +1,7 @@
 import 'package:eng_shop/core/views/widgets/custom_drawer.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/home/home_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/components/home/custom_side_menu.dart';
+import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +10,9 @@ import '../components/home/custom_navigation_bar.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  UserType userType;
+
+  HomeScreen({super.key, required this.userType });
 
 
   @override
@@ -30,7 +33,7 @@ class HomeScreen extends StatelessWidget {
 
                     AnimatedSwitcher(
                         duration: Duration(milliseconds: 500),
-                        child: context.read<HomeCubit>().getCurrentPage(),
+                        child: context.read<HomeCubit>().getCurrentPage(userType),
                     ),
 
                     CustomNavigationBar(

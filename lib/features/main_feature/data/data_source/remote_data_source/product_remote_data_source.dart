@@ -14,7 +14,7 @@ abstract class ProductRemoteDataSource {
 
   String getProductImageById(int id);
 
-  Future<List<ProductEntity>> getProducts();
+  Future<List<ProductEntity>> getProducts(int pageNumber);
 
   Future<List<ProductEntity>> searchProducts(String searchTerm);
 }
@@ -116,10 +116,13 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<List<ProductEntity>> getProducts() async {
+  Future<List<ProductEntity>> getProducts(int pageNumber) async {
     try {
 
-      List<Map<String,dynamic>> srvData = [{}];
+      List<Map<String,dynamic>> srvData = [{
+        "Pgsize": "10",
+        "Pgno": "$pageNumber"
+      }];
 
 
       String jsonString = json.encode(srvData);
@@ -135,11 +138,14 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           )
       );
 
+
       List data = json.decode(response.data);
+      print(response.data);
 
       return data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
 
     } catch (e) {
+      print(e);
       throw RemoteDataException();
     }
   }

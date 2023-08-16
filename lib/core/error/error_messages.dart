@@ -34,6 +34,7 @@ class ErrorMessages {
 
   /// Code for each screen
   final Map<String,String> _screenCode = {
+    "0" : "Intro Screen",
     "100" : "Auth Method Screen",
     "101" : "Login Screen",
     "102" : "Registration Screen",

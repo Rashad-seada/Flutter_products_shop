@@ -12,6 +12,7 @@ import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 import 'package:eng_shop/features/auth/domain/usecase/activate_account_by_sms.dart';
 import 'package:eng_shop/features/auth/domain/usecase/login_uscase.dart';
+import 'package:eng_shop/features/auth/domain/usecase/logout_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/register_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_sms_usecase.dart';
@@ -32,8 +33,13 @@ import 'package:eng_shop/features/main_feature/domain/usecase/get_product_by_id_
 import 'package:eng_shop/features/main_feature/domain/usecase/get_products_usecase.dart';
 import 'package:eng_shop/features/main_feature/domain/usecase/remove_from_cart_usecase.dart';
 import 'package:eng_shop/features/main_feature/domain/usecase/search_usecase.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../features/auth/domain/usecase/get_user_type_usecase.dart';
 import '../../features/main_feature/data/data_source/local_data_source/database/database.dart';
 import '../config/app_consts.dart';
 
@@ -52,16 +58,23 @@ class AppModule {
             ..registerSingleton<NetworkService>(NetworkServiceImpl())
             ..registerSingleton<PermissionService>(PermissionService())
             ..registerSingleton<LocationService>(LocationService())
-            ..registerSingleton<Services>(Services())
+            ..registerSingleton<Services>(Services());
 
 
             //Local data source
-            ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSourceImpl())
-            ..registerSingleton<SettingsLocalDataSource>(SettingsLocalDataSourceImpl());
+            final hiveStorage = await _initializeHiveDatabase();
+            getIt.registerSingleton<Box>(hiveStorage);
+
+        getIt
+            ..registerSingleton<FlutterSecureStorage>( FlutterSecureStorage())
+            ..registerSingleton<SettingsLocalDataSource>(SettingsLocalDataSourceImpl(storage: getIt<Box>()))
+            ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSourceImpl(secureStorage: getIt<FlutterSecureStorage>(), storage: getIt<Box>()));
+
+
+            await _seedingInitialValue();
 
             final database = await _initializeProductsDatabase();
-            getIt
-            ..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
+            getIt..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
 
 
              //Remote data source
@@ -102,6 +115,10 @@ class AppModule {
                 ValidatePhoneUsecase(repo: getIt<AuthRepo>()))
             ..registerSingleton<ResetPasswordByEmailUsecase>(
                 ResetPasswordByEmailUsecase(repo: getIt<AuthRepo>()))
+            ..registerSingleton<GetUserTypeUsecase>(
+                GetUserTypeUsecase(repo: getIt<AuthRepo>()))
+            ..registerSingleton<LogoutUsecase>(
+                LogoutUsecase(repo: getIt<AuthRepo>()))
 
             ..registerSingleton<AddToCartUsecase>(
                 AddToCartUsecase(repo: getIt<ProductRepo>()))
@@ -121,23 +138,45 @@ class AppModule {
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {
         return AuthRemoteDataSourceImpl(
-            domain: await getIt<SettingsLocalDataSource>().getServiceProviderDomain(),
-            serviceEmail: await getIt<SettingsLocalDataSource>().getServiceProviderEmail(),
-            servicePassword: await getIt<SettingsLocalDataSource>().getServiceProviderPassword(),
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
         );
     }
 
     static Future<ProductRemoteDataSource> _initializeProductRemoteDataSource() async {
         return ProductRemoteDataSourceImpl(
-            domain: await getIt<SettingsLocalDataSource>().getServiceProviderDomain(),
-            serviceEmail: await getIt<SettingsLocalDataSource>().getServiceProviderEmail(),
-            servicePassword: await getIt<SettingsLocalDataSource>().getServiceProviderPassword(),
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
         );
     }
 
     static Future<AppDatabase> _initializeProductsDatabase() async {
         return await $FloorAppDatabase.databaseBuilder(AppConsts.mainDBName).build();
 
+    }
+
+    static Future<Box> _initializeHiveDatabase() async {
+        await Hive.initFlutter();
+        final appDocumentDirectory = await getApplicationDocumentsDirectory();
+        Hive.init(appDocumentDirectory.path);
+        return await Hive.openBox(AppConsts.prefDBName);
+
+    }
+
+    static Future<void> _seedingInitialValue() async {
+        if(await getIt<SettingsLocalDataSource>().getServiceProviderDomain() == null){
+            await getIt<SettingsLocalDataSource>().putServiceProviderDomain(AppConsts.domain);
+        }
+
+        if(await await getIt<SettingsLocalDataSource>().getServiceProviderEmail() == null){
+            await getIt<SettingsLocalDataSource>().putServiceProviderEmail(AppConsts.serviceEmail);
+        }
+
+        if(await getIt<SettingsLocalDataSource>().getServiceProviderPassword() == null){
+            await getIt<SettingsLocalDataSource>().putServiceProviderPassword(AppConsts.servicePassword);
+        }
     }
 
 }

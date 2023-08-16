@@ -19,9 +19,9 @@ class ServiceProviderCubit extends Cubit<ServiceProviderState> {
 
   initConfig() async {
     emit(ServiceProviderLoading());
-    getIt<SettingsLocalDataSource>().getServiceProviderDomain().then((value) => domainController.text = value) ;
-    getIt<SettingsLocalDataSource>().getServiceProviderEmail().then((value) => emailController.text = value);
-    getIt<SettingsLocalDataSource>().getServiceProviderPassword().then((value) => passwordController.text = value);
+    getIt<SettingsLocalDataSource>().getServiceProviderDomain().then((value) => domainController.text = value!) ;
+    getIt<SettingsLocalDataSource>().getServiceProviderEmail().then((value) => emailController.text = value!);
+    getIt<SettingsLocalDataSource>().getServiceProviderPassword().then((value) => passwordController.text = value!);
     isEditable = false;
     emit(ServiceProviderInitial());
   }

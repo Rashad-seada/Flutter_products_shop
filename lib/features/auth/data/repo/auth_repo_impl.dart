@@ -15,7 +15,9 @@ import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart'
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
+import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 
+import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
 
 class AuthRepoImpl implements AuthRepo {
@@ -30,9 +32,9 @@ class AuthRepoImpl implements AuthRepo {
   initRemoteDataSource() async {
     try {
       remoteDataSource = AuthRemoteDataSourceImpl(
-          domain: await settingsLocalDataSource.getServiceProviderDomain(),
-          serviceEmail: await settingsLocalDataSource.getServiceProviderEmail(),
-          servicePassword: await settingsLocalDataSource.getServiceProviderPassword()
+        domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
       );
     } catch (e) {
       throw LocalDataException();
@@ -233,7 +235,13 @@ class AuthRepoImpl implements AuthRepo {
         return left(RemoteDataFailure(loginEntity.msg ?? ErrorMessages.unknown, screenCode: screenCode, customCode: 02));
       }
 
-      localDataSource.putUserID(int.parse(loginEntity.id!));
+      print(loginEntity.utype!);
+      
+      localDataSource
+          ..putUserType(fromUserTypeToString(loginEntity.utype!)!)
+          ..putUserID(int.parse(loginEntity.id!))
+          ..putEmail(email)
+          ..putPassword(password);
 
       return right(loginEntity);
 
@@ -413,6 +421,50 @@ class AuthRepoImpl implements AuthRepo {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> logout(int screenCode) async {
+    try {
+
+      await localDataSource.deleteEmail();
+      await localDataSource.deletePassword();
+      await localDataSource.deleteUserID();
+
+      await localDataSource.deleteUserType();
+
+
+      return right(Unit);
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserType?>> getUserType(int screenCode) async {
+
+    try {
+
+      String? userType = await localDataSource.getUserType();
+
+      if(userType == null) {
+        return right(null);
+      }
+
+    return right(fromStringToUserType(userType));
+
+    } on LocalDataException {
+    return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+
+    } catch (e) {
+    return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+
 
 
 }

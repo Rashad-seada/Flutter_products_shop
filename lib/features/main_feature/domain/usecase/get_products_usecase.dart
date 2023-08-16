@@ -12,12 +12,13 @@ class GetProductsUsecase implements Usecase<List<ProductEntity>,GetProductsParam
 
   @override
   Future<Either<Failure, List<ProductEntity>>> call(GetProductsParams params) async {
-    return await repo.getProducts(params.screenCode);
+    return await repo.getProducts(params.pageNumber,params.screenCode);
   }
 }
 
 class GetProductsParams {
+  int pageNumber;
   int screenCode;
 
-  GetProductsParams( this.screenCode);
+  GetProductsParams(this.pageNumber, this.screenCode,);
 }

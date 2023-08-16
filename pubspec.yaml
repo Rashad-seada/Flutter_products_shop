@@ -62,13 +62,14 @@ dependencies:
   equatable:
   get_it:
 
-  #data source
+  #ui sizes
   sizer:
 
   #local data storage
   hive:
   hive_flutter:
   floor:
+  flutter_secure_storage:
 
   #UI
   another_flushbar:
@@ -82,6 +83,7 @@ dependencies:
   webview_flutter: 
   google_maps_flutter:
   cached_network_image:
+  smooth_page_indicator:
 
   #client
   dio:

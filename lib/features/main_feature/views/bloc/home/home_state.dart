@@ -13,3 +13,23 @@ class HomePageChanged extends HomeState {
   @override
   List<Object> get props => [];
 }
+
+class HomeIsLoading extends HomeState {
+  @override
+  List<Object> get props => [];
+}
+
+class HomeSuccess extends HomeState {
+
+  static List<ProductEntity> products = [];
+
+
+
+  @override
+  List<Object> get props => [];
+}
+
+class HomeFailure extends HomeState {
+  @override
+  List<Object> get props => [];
+}

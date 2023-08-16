@@ -1,6 +1,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
@@ -75,7 +76,28 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   sendCodeToEmail(BuildContext context) async {
-
+    emit(ResetPasswordLoading());
+    getIt<ResetPasswordByEmailUsecase>().call(ResetPasswordByEmailParams(emailController.text, AppConsts.resetPasswordScreen)).then(
+            (value) => value.fold(
+                    (error) {
+                      emit(ResetPasswordFailure());
+                      CustomFlushBar(
+                          title: 'Error',
+                          message: error.message,
+                          context: context
+                      );
+                    },
+                    (success) {
+                      emit(ResetPasswordSuccess());
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
+                        message: LocaleKeys.check_email.tr(),
+                        messageSubText: LocaleKeys.check_email_subtitle.tr(),
+                        image: AppImages.done,
+                        buttonLabel: LocaleKeys.done.tr(),
+                        screen: LoginScreen(),
+                      )), (route) => false);
+                    }
+            ));
   }
 
   onResetPasswordClick(BuildContext context) async {
