@@ -1,17 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/auth/domain/usecase/login_uscase.dart';
-import 'package:eng_shop/features/auth/views/screens/registration_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/registration/registration_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
 
-import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../main_feature/views/screens/home_screen.dart';
 import '../../../domain/usecase/get_user_type_usecase.dart';
-import '../../screens/password_reset_methods_screen.dart';
+import '../../screens/reset_password/password_reset_methods_screen.dart';
 
 part 'login_state.dart';
 
@@ -55,21 +55,11 @@ class LoginCubit extends Cubit<LoginState> {
       getIt<LoginUsecase>().call(LoginParams(emailController.text,passwordController.text,isMobile(),AppConsts.loginScreen)).then(
         (value) => value.fold(
           (error) {
-            emit(LoginFailure());
-            CustomFlushBar(
-                title: 'Error : ${error.code()}',
-                message: error.message,
-                context: context
-            );
+            emit(LoginFailure(error));
           },
           (success) {
             emit(LoginSuccess());
-            CustomFlushBar(
-                title: 'Welcome',
-                message: success.msg!,
-                context: context
-            );
-            Navigator.push(context,MaterialPageRoute(builder: (_)=> HomeScreen(userType: success.utype!,)));
+            Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (_)=> HomeScreen(userType: success.utype!,)), (route) => false);
           })
       );
     }

@@ -20,6 +20,13 @@ class LoginSuccess extends LoginState {
 }
 
 class LoginFailure extends LoginState {
+
+  static Failure myFailure = Failure("", screenCode: 0, exceptionCode: 0, customCode: 0);
+
+  LoginFailure(Failure failure){
+    myFailure = failure;
+  }
+
   @override
   List<Object> get props => [];
 }

@@ -1,18 +1,11 @@
-import 'dart:async';
 
 import 'package:eng_shop/features/main_feature/views/bloc/map/map_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapScreen extends StatefulWidget {
+class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
-
-  @override
-  State<MapScreen> createState() => MapScreenState();
-}
-
-class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +14,9 @@ class MapScreenState extends State<MapScreen> {
         listener: (context, state) {},
         builder: (context, state) {
           return GoogleMap(
-            mapType: MapType.hybrid,
-            initialCameraPosition: context.read<MapCubit>().initialPosition,
-            onMapCreated: (_)=> context.read<MapCubit>().onMapCreated(_)
+              mapType: MapType.hybrid,
+              initialCameraPosition: context.read<MapCubit>().initialPosition,
+              onMapCreated: (_)=> context.read<MapCubit>().onMapCreated(_)
           );
         },
       ),
@@ -34,6 +27,6 @@ class MapScreenState extends State<MapScreen> {
       ),
     );
   }
-
-
 }
+
+

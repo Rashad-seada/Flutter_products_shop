@@ -17,6 +17,7 @@ import 'package:sizer/sizer.dart';
 
 import 'core/config/app_consts.dart';
 import 'features/auth/views/bloc/login/login_cubit.dart';
+import 'features/main_feature/views/bloc/cart/cart_cubit.dart';
 import 'features/main_feature/views/bloc/serivce_provider/service_provider_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 
@@ -38,9 +39,10 @@ void main() async {
           Locale(AppConsts.english),
           Locale(AppConsts.arabic)
         ],
+        fallbackLocale: const Locale(AppConsts.english),
         path: AppConsts.localizationPath,
-        child: const MyApp(),
-        assetLoader: CodegenLoader()
+        assetLoader: const CodegenLoader(),
+        child: const MyApp()
     )
   );
 }
@@ -66,6 +68,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> ProfileCubit()),
         BlocProvider(create: (_)=> CameraCubit()),
         BlocProvider(create: (_)=> MapCubit()),
+        BlocProvider(create: (_)=> CartCubit()),
 
 
       ],

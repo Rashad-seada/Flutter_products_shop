@@ -38,7 +38,7 @@ dependencies:
 
   #services
   awesome_notifications:
-  data_connection_checker_nulls:
+  connectivity_plus:
   flutter_background_service:
   regexpattern:
   easy_localization:

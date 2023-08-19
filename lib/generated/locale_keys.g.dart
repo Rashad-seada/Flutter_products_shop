@@ -88,5 +88,6 @@ abstract class  LocaleKeys {
   static const camera_sub_text2 = 'camera_sub_text2';
   static const logout = 'logout';
   static const recommended = 'recommended';
+  static const cart = 'cart';
 
 }

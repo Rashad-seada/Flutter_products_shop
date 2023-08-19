@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:eng_shop/features/auth/views/screens/password_reset_methods_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/reset_password/password_reset_methods_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

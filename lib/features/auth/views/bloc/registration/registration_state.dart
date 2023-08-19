@@ -22,6 +22,13 @@ class RegistrationSuccess extends RegistrationState {
 
 
 class RegistrationFailure extends RegistrationState {
+
+  static Failure myFailure = Failure("", screenCode: 0, exceptionCode: 0, customCode: 0);
+
+  RegistrationFailure(Failure failure){
+    myFailure = failure;
+  }
+
   @override
   List<Object> get props => [];
 }

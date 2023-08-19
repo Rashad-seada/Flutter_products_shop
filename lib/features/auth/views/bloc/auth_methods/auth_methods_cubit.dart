@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/services/services.dart';
-import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/login/login_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../screens/registration_screen.dart';
+import '../../screens/registration/registration_screen.dart';
 
 part 'auth_methods_state.dart';
 

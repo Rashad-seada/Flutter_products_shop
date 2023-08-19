@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/product_local_data_source.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/remote_data_source/product_remote_data_source.dart';
+import 'package:eng_shop/features/main_feature/domain/entity/cart_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/repo/product_repo.dart';
 
@@ -78,6 +79,7 @@ class ProductRepoImpl implements ProductRepo {
     try {
       await initRemoteDataSource();
 
+
       if (await services.networkService.isConnected == false) {
         return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
       }
@@ -147,24 +149,28 @@ class ProductRepoImpl implements ProductRepo {
       await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
-        List<ProductEntity> productEntity = await localDataSource.getCartProducts();
-        return right(productEntity);
+        return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
       }
 
-      List<int> cart = await localDataSource.getCartProductsId();
-      List<ProductEntity> productEntity = await remoteDataSource.getProductsById(cart);
+      List<CartEntity> productEntity = await localDataSource.getCartProducts();
+
+      if(productEntity.isEmpty){
+        return right([]);
+      }
+
+
+      List<ProductEntity> cartProducts = await remoteDataSource.getProductsById(productEntity.map((e) => e.id!).toList());
+
 
       if(productEntity.isEmpty) {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
-      if(productEntity[0].statusCode != 200) {
+      if(cartProducts[0].statusCode != 200) {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
       }
 
-      localDataSource.insertAllCartProduct(productEntity);
-
-      return right(productEntity);
+      return right(cartProducts);
 
 
     } on RemoteDataException {
@@ -216,9 +222,10 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
       }
 
-      await localDataSource.insertAllCartProduct(productEntity);
+      await localDataSource.insertAllProduct(productEntity);
 
-      return right(productEntity);
+      List<ProductEntity> allProducts = await localDataSource.getProducts();
+      return right(allProducts);
 
 
     } on RemoteDataException {

@@ -71,13 +71,15 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           stringsOfIds += "(";
         }
 
-        stringsOfIds += "${ids[i]}";
-
         if(i != 0){
           stringsOfIds += ",";
         }
 
-        if(i == ids.length){
+        stringsOfIds += "${ids[i]}";
+
+
+
+        if(i == ids.length - 1){
           stringsOfIds += ")";
         }
       }
@@ -86,6 +88,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       List<Map<String,dynamic>> srvData = [{
         "Whr" : " AND id IN $stringsOfIds"
       }];
+
 
 
       String jsonString = json.encode(srvData);
@@ -140,12 +143,13 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
 
       List data = json.decode(response.data);
-      print(response.data);
 
-      return data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
+      List<ProductEntity> products = data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
+
+      return products;
 
     } catch (e) {
-      print(e);
+
       throw RemoteDataException();
     }
   }

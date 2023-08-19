@@ -17,8 +17,8 @@ import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 
-import '../../../../core/di/app_module.dart';
-import '../../../../core/error/error_messages.dart';
+import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/error/error_messages.dart';
 
 class AuthRepoImpl implements AuthRepo {
 

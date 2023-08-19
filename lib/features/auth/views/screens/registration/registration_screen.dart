@@ -6,16 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/config/app_images.dart';
-import '../../../../core/config/app_strings.dart';
-import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/custom_back_button.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../components/auth_text_field.dart';
-import '../../../../core/views/widgets/clickable_text.dart';
-import '../../../../core/views/widgets/main_button.dart';
-import '../components/phone_number_field.dart';
-import '../../../../core/views/widgets/space.dart';
+import '../../../../../core/config/app_images.dart';
+import '../../../../../core/config/app_strings.dart';
+import '../../../../../core/config/app_theme.dart';
+import '../../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../components/auth_text_field.dart';
+import '../../../../../core/views/widgets/clickable_text.dart';
+import '../../../../../core/views/widgets/main_button.dart';
+import '../../components/phone_number_field.dart';
+import '../../../../../core/views/widgets/space.dart';
 
 class RegistrationScreen extends StatefulWidget {
   String email;
@@ -46,7 +47,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               padding: EdgeInsets.symmetric(horizontal: 7.w),
 
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if(state is RegistrationFailure){
+                    CustomFlushBar(
+                        title: 'Error : ${RegistrationFailure.myFailure.code()}',
+                        message: RegistrationFailure.myFailure.message,
+                        context: context
+                    );
+                  }
+                },
                 builder: (context, state) {
                   return SingleChildScrollView(
                     child: Column(children: [

@@ -63,7 +63,7 @@ class _$AppDatabase extends AppDatabase {
 
   ProductDao? _productDaoInstance;
 
-  ProductCartDao? _productCartDaoInstance;
+  CartDao? _productCartDaoInstance;
 
   ProductFavoriteDao? _productFavoriteDaoInstance;
 
@@ -91,7 +91,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ProductEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ProductFavoriteEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `CartEntity` (`id` INTEGER, `itemId` INTEGER, `unitId` INTEGER, `storeId` INTEGER, `colorId` INTEGER, `sizeId` INTEGER, `quantity` INTEGER, `note` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ProductFavoriteEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
 
@@ -107,9 +107,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  ProductCartDao get productCartDao {
-    return _productCartDaoInstance ??=
-        _$ProductCartDao(database, changeListener);
+  CartDao get productCartDao {
+    return _productCartDaoInstance ??= _$CartDao(database, changeListener);
   }
 
   @override
@@ -210,6 +209,93 @@ class _$ProductDao extends ProductDao {
                   'codesAlter': item.codesAlter,
                   'isForsale': item.isForsale
                 }),
+        _productEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'ProductEntity',
+            ['id'],
+            (ProductEntity item) => <String, Object?>{
+                  'statusCode': item.statusCode,
+                  'id': item.id,
+                  'fdate': item.fdate,
+                  'hfdate': item.hfdate,
+                  'ftime': item.ftime,
+                  'fupdate': item.fupdate,
+                  'hfupdate': item.hfupdate,
+                  'utime': item.utime,
+                  'fdelete': item.fdelete,
+                  'hfdelete': item.hfdelete,
+                  'dtime': item.dtime,
+                  'userid': item.userid,
+                  'updateUserid': item.updateUserid,
+                  'deleteUserid': item.deleteUserid,
+                  'flagnet': item.flagnet,
+                  'categoryId': item.categoryId,
+                  'branchId': item.branchId,
+                  'storeId': item.storeId,
+                  'itemId': item.itemId,
+                  'barcode': item.barcode,
+                  'munitId': item.munitId,
+                  'unitId': item.unitId,
+                  'quantityStart': item.quantityStart,
+                  'buyAlertAmount': item.buyAlertAmount,
+                  'orderQntMin': item.orderQntMin,
+                  'quantity': item.quantity,
+                  'quantityIn': item.quantityIn,
+                  'lastSellQuantity': item.lastSellQuantity,
+                  'lastPurQuantity': item.lastPurQuantity,
+                  'saleQuantity': item.saleQuantity,
+                  'purchaseQuantity': item.purchaseQuantity,
+                  'itemEvalId': item.itemEvalId,
+                  'terminalPrinterId': item.terminalPrinterId,
+                  'categoryPrntr': item.categoryPrntr,
+                  'isActive': item.isActive,
+                  'isShowPrice': item.isShowPrice,
+                  'isDef': item.isDef,
+                  'isPublish': item.isPublish,
+                  'isClose': item.isClose,
+                  'isCompound': item.isCompound,
+                  'isPriceIncludeTax': item.isPriceIncludeTax,
+                  'isSpecialOffer': item.isSpecialOffer,
+                  'notes': item.notes,
+                  'xfile': item.xfile,
+                  'atxt': item.atxt,
+                  'etxt': item.etxt,
+                  'expirDays': item.expirDays,
+                  'itemLocationId': item.itemLocationId,
+                  'locationCode': item.locationCode,
+                  'avaPurchasePrice': item.avaPurchasePrice,
+                  'priceAddPer': item.priceAddPer,
+                  'priceAddValue': item.priceAddValue,
+                  'price': item.price,
+                  'discPer': item.discPer,
+                  'discValue': item.discValue,
+                  'minPrice': item.minPrice,
+                  'lastSprice': item.lastSprice,
+                  'lastBprice': item.lastBprice,
+                  'isRetailSale': item.isRetailSale,
+                  'setItem': item.setItem,
+                  'inUnitId': item.inUnitId,
+                  'quantityUnit': item.quantityUnit,
+                  'xgrid': item.xgrid,
+                  'img': item.img,
+                  'salesComm': item.salesComm,
+                  'visits': item.visits,
+                  'netPrice': item.netPrice,
+                  'adetails': item.adetails,
+                  'edetails': item.edetails,
+                  'isSerial': item.isSerial,
+                  'outId': item.outId,
+                  'isSize': item.isSize,
+                  'isColor': item.isColor,
+                  'isExpiredDate': item.isExpiredDate,
+                  'avaStartPrice': item.avaStartPrice,
+                  'barcodesOther': item.barcodesOther,
+                  'xtypeId': item.xtypeId,
+                  'countryId': item.countryId,
+                  'codeOrg': item.codeOrg,
+                  'codesAlter': item.codesAlter,
+                  'isForsale': item.isForsale
+                }),
         _productEntityDeletionAdapter = DeletionAdapter(
             database,
             'ProductEntity',
@@ -306,14 +392,16 @@ class _$ProductDao extends ProductDao {
 
   final InsertionAdapter<ProductEntity> _productEntityInsertionAdapter;
 
+  final UpdateAdapter<ProductEntity> _productEntityUpdateAdapter;
+
   final DeletionAdapter<ProductEntity> _productEntityDeletionAdapter;
 
   @override
   Future<List<ProductEntity>> getProducts() async {
     return _queryAdapter.queryList('SELECT * FROM ProductEntity',
         mapper: (Map<String, Object?> row) => ProductEntity(
-            statusCode: row['statusCode'] as int?,
             id: row['id'] as int?,
+            statusCode: row['statusCode'] as int?,
             fdate: row['fdate'] as int?,
             hfdate: row['hfdate'] as int?,
             ftime: row['ftime'] as int?,
@@ -414,6 +502,12 @@ class _$ProductDao extends ProductDao {
   }
 
   @override
+  Future<void> updateTask(ProductEntity products) async {
+    await _productEntityUpdateAdapter.update(
+        products, OnConflictStrategy.abort);
+  }
+
+  @override
   Future<void> deleteProduct(ProductEntity person) async {
     await _productEntityDeletionAdapter.delete(person);
   }
@@ -424,183 +518,51 @@ class _$ProductDao extends ProductDao {
   }
 }
 
-class _$ProductCartDao extends ProductCartDao {
-  _$ProductCartDao(
+class _$CartDao extends CartDao {
+  _$CartDao(
     this.database,
     this.changeListener,
   )   : _queryAdapter = QueryAdapter(database),
-        _productEntityInsertionAdapter = InsertionAdapter(
+        _cartEntityInsertionAdapter = InsertionAdapter(
             database,
-            'ProductEntity',
-            (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
+            'CartEntity',
+            (CartEntity item) => <String, Object?>{
                   'id': item.id,
-                  'fdate': item.fdate,
-                  'hfdate': item.hfdate,
-                  'ftime': item.ftime,
-                  'fupdate': item.fupdate,
-                  'hfupdate': item.hfupdate,
-                  'utime': item.utime,
-                  'fdelete': item.fdelete,
-                  'hfdelete': item.hfdelete,
-                  'dtime': item.dtime,
-                  'userid': item.userid,
-                  'updateUserid': item.updateUserid,
-                  'deleteUserid': item.deleteUserid,
-                  'flagnet': item.flagnet,
-                  'categoryId': item.categoryId,
-                  'branchId': item.branchId,
-                  'storeId': item.storeId,
                   'itemId': item.itemId,
-                  'barcode': item.barcode,
-                  'munitId': item.munitId,
                   'unitId': item.unitId,
-                  'quantityStart': item.quantityStart,
-                  'buyAlertAmount': item.buyAlertAmount,
-                  'orderQntMin': item.orderQntMin,
+                  'storeId': item.storeId,
+                  'colorId': item.colorId,
+                  'sizeId': item.sizeId,
                   'quantity': item.quantity,
-                  'quantityIn': item.quantityIn,
-                  'lastSellQuantity': item.lastSellQuantity,
-                  'lastPurQuantity': item.lastPurQuantity,
-                  'saleQuantity': item.saleQuantity,
-                  'purchaseQuantity': item.purchaseQuantity,
-                  'itemEvalId': item.itemEvalId,
-                  'terminalPrinterId': item.terminalPrinterId,
-                  'categoryPrntr': item.categoryPrntr,
-                  'isActive': item.isActive,
-                  'isShowPrice': item.isShowPrice,
-                  'isDef': item.isDef,
-                  'isPublish': item.isPublish,
-                  'isClose': item.isClose,
-                  'isCompound': item.isCompound,
-                  'isPriceIncludeTax': item.isPriceIncludeTax,
-                  'isSpecialOffer': item.isSpecialOffer,
-                  'notes': item.notes,
-                  'xfile': item.xfile,
-                  'atxt': item.atxt,
-                  'etxt': item.etxt,
-                  'expirDays': item.expirDays,
-                  'itemLocationId': item.itemLocationId,
-                  'locationCode': item.locationCode,
-                  'avaPurchasePrice': item.avaPurchasePrice,
-                  'priceAddPer': item.priceAddPer,
-                  'priceAddValue': item.priceAddValue,
-                  'price': item.price,
-                  'discPer': item.discPer,
-                  'discValue': item.discValue,
-                  'minPrice': item.minPrice,
-                  'lastSprice': item.lastSprice,
-                  'lastBprice': item.lastBprice,
-                  'isRetailSale': item.isRetailSale,
-                  'setItem': item.setItem,
-                  'inUnitId': item.inUnitId,
-                  'quantityUnit': item.quantityUnit,
-                  'xgrid': item.xgrid,
-                  'img': item.img,
-                  'salesComm': item.salesComm,
-                  'visits': item.visits,
-                  'netPrice': item.netPrice,
-                  'adetails': item.adetails,
-                  'edetails': item.edetails,
-                  'isSerial': item.isSerial,
-                  'outId': item.outId,
-                  'isSize': item.isSize,
-                  'isColor': item.isColor,
-                  'isExpiredDate': item.isExpiredDate,
-                  'avaStartPrice': item.avaStartPrice,
-                  'barcodesOther': item.barcodesOther,
-                  'xtypeId': item.xtypeId,
-                  'countryId': item.countryId,
-                  'codeOrg': item.codeOrg,
-                  'codesAlter': item.codesAlter,
-                  'isForsale': item.isForsale
+                  'note': item.note
                 }),
-        _productEntityDeletionAdapter = DeletionAdapter(
+        _cartEntityUpdateAdapter = UpdateAdapter(
             database,
-            'ProductEntity',
+            'CartEntity',
             ['id'],
-            (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
+            (CartEntity item) => <String, Object?>{
                   'id': item.id,
-                  'fdate': item.fdate,
-                  'hfdate': item.hfdate,
-                  'ftime': item.ftime,
-                  'fupdate': item.fupdate,
-                  'hfupdate': item.hfupdate,
-                  'utime': item.utime,
-                  'fdelete': item.fdelete,
-                  'hfdelete': item.hfdelete,
-                  'dtime': item.dtime,
-                  'userid': item.userid,
-                  'updateUserid': item.updateUserid,
-                  'deleteUserid': item.deleteUserid,
-                  'flagnet': item.flagnet,
-                  'categoryId': item.categoryId,
-                  'branchId': item.branchId,
-                  'storeId': item.storeId,
                   'itemId': item.itemId,
-                  'barcode': item.barcode,
-                  'munitId': item.munitId,
                   'unitId': item.unitId,
-                  'quantityStart': item.quantityStart,
-                  'buyAlertAmount': item.buyAlertAmount,
-                  'orderQntMin': item.orderQntMin,
+                  'storeId': item.storeId,
+                  'colorId': item.colorId,
+                  'sizeId': item.sizeId,
                   'quantity': item.quantity,
-                  'quantityIn': item.quantityIn,
-                  'lastSellQuantity': item.lastSellQuantity,
-                  'lastPurQuantity': item.lastPurQuantity,
-                  'saleQuantity': item.saleQuantity,
-                  'purchaseQuantity': item.purchaseQuantity,
-                  'itemEvalId': item.itemEvalId,
-                  'terminalPrinterId': item.terminalPrinterId,
-                  'categoryPrntr': item.categoryPrntr,
-                  'isActive': item.isActive,
-                  'isShowPrice': item.isShowPrice,
-                  'isDef': item.isDef,
-                  'isPublish': item.isPublish,
-                  'isClose': item.isClose,
-                  'isCompound': item.isCompound,
-                  'isPriceIncludeTax': item.isPriceIncludeTax,
-                  'isSpecialOffer': item.isSpecialOffer,
-                  'notes': item.notes,
-                  'xfile': item.xfile,
-                  'atxt': item.atxt,
-                  'etxt': item.etxt,
-                  'expirDays': item.expirDays,
-                  'itemLocationId': item.itemLocationId,
-                  'locationCode': item.locationCode,
-                  'avaPurchasePrice': item.avaPurchasePrice,
-                  'priceAddPer': item.priceAddPer,
-                  'priceAddValue': item.priceAddValue,
-                  'price': item.price,
-                  'discPer': item.discPer,
-                  'discValue': item.discValue,
-                  'minPrice': item.minPrice,
-                  'lastSprice': item.lastSprice,
-                  'lastBprice': item.lastBprice,
-                  'isRetailSale': item.isRetailSale,
-                  'setItem': item.setItem,
-                  'inUnitId': item.inUnitId,
-                  'quantityUnit': item.quantityUnit,
-                  'xgrid': item.xgrid,
-                  'img': item.img,
-                  'salesComm': item.salesComm,
-                  'visits': item.visits,
-                  'netPrice': item.netPrice,
-                  'adetails': item.adetails,
-                  'edetails': item.edetails,
-                  'isSerial': item.isSerial,
-                  'outId': item.outId,
-                  'isSize': item.isSize,
-                  'isColor': item.isColor,
-                  'isExpiredDate': item.isExpiredDate,
-                  'avaStartPrice': item.avaStartPrice,
-                  'barcodesOther': item.barcodesOther,
-                  'xtypeId': item.xtypeId,
-                  'countryId': item.countryId,
-                  'codeOrg': item.codeOrg,
-                  'codesAlter': item.codesAlter,
-                  'isForsale': item.isForsale
+                  'note': item.note
+                }),
+        _cartEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'CartEntity',
+            ['id'],
+            (CartEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'itemId': item.itemId,
+                  'unitId': item.unitId,
+                  'storeId': item.storeId,
+                  'colorId': item.colorId,
+                  'sizeId': item.sizeId,
+                  'quantity': item.quantity,
+                  'note': item.note
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -609,123 +571,57 @@ class _$ProductCartDao extends ProductCartDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<ProductEntity> _productEntityInsertionAdapter;
+  final InsertionAdapter<CartEntity> _cartEntityInsertionAdapter;
 
-  final DeletionAdapter<ProductEntity> _productEntityDeletionAdapter;
+  final UpdateAdapter<CartEntity> _cartEntityUpdateAdapter;
+
+  final DeletionAdapter<CartEntity> _cartEntityDeletionAdapter;
 
   @override
-  Future<List<ProductEntity>> getProducts() async {
-    return _queryAdapter.queryList('SELECT * FROM ProductCartEntity',
-        mapper: (Map<String, Object?> row) => ProductEntity(
-            statusCode: row['statusCode'] as int?,
+  Future<List<CartEntity>> getProducts() async {
+    return _queryAdapter.queryList('SELECT * FROM CartEntity',
+        mapper: (Map<String, Object?> row) => CartEntity(
             id: row['id'] as int?,
-            fdate: row['fdate'] as int?,
-            hfdate: row['hfdate'] as int?,
-            ftime: row['ftime'] as int?,
-            fupdate: row['fupdate'] as int?,
-            hfupdate: row['hfupdate'] as int?,
-            utime: row['utime'] as int?,
-            fdelete: row['fdelete'] as int?,
-            hfdelete: row['hfdelete'] as int?,
-            dtime: row['dtime'] as int?,
-            userid: row['userid'] as int?,
-            updateUserid: row['updateUserid'] as int?,
-            deleteUserid: row['deleteUserid'] as int?,
-            flagnet: row['flagnet'] as int?,
-            categoryId: row['categoryId'] as int?,
-            branchId: row['branchId'] as int?,
-            storeId: row['storeId'] as int?,
             itemId: row['itemId'] as int?,
-            barcode: row['barcode'] as String?,
-            munitId: row['munitId'] as int?,
             unitId: row['unitId'] as int?,
-            quantityStart: row['quantityStart'] as int?,
-            buyAlertAmount: row['buyAlertAmount'] as int?,
-            orderQntMin: row['orderQntMin'] as int?,
+            storeId: row['storeId'] as int?,
+            colorId: row['colorId'] as int?,
+            sizeId: row['sizeId'] as int?,
             quantity: row['quantity'] as int?,
-            quantityIn: row['quantityIn'] as int?,
-            lastSellQuantity: row['lastSellQuantity'] as int?,
-            lastPurQuantity: row['lastPurQuantity'] as int?,
-            saleQuantity: row['saleQuantity'] as int?,
-            purchaseQuantity: row['purchaseQuantity'] as int?,
-            itemEvalId: row['itemEvalId'] as int?,
-            terminalPrinterId: row['terminalPrinterId'] as int?,
-            categoryPrntr: row['categoryPrntr'] as String?,
-            isActive: row['isActive'] as int?,
-            isShowPrice: row['isShowPrice'] as int?,
-            isDef: row['isDef'] as int?,
-            isPublish: row['isPublish'] as int?,
-            isClose: row['isClose'] as int?,
-            isCompound: row['isCompound'] as int?,
-            isPriceIncludeTax: row['isPriceIncludeTax'] as int?,
-            isSpecialOffer: row['isSpecialOffer'] as int?,
-            notes: row['notes'] as String?,
-            xfile: row['xfile'] as String?,
-            atxt: row['atxt'] as String?,
-            etxt: row['etxt'] as String?,
-            expirDays: row['expirDays'] as int?,
-            itemLocationId: row['itemLocationId'] as int?,
-            locationCode: row['locationCode'] as String?,
-            avaPurchasePrice: row['avaPurchasePrice'] as int?,
-            priceAddPer: row['priceAddPer'] as int?,
-            priceAddValue: row['priceAddValue'] as int?,
-            price: row['price'] as int?,
-            discPer: row['discPer'] as int?,
-            discValue: row['discValue'] as int?,
-            minPrice: row['minPrice'] as int?,
-            lastSprice: row['lastSprice'] as int?,
-            lastBprice: row['lastBprice'] as int?,
-            isRetailSale: row['isRetailSale'] as int?,
-            setItem: row['setItem'] as int?,
-            inUnitId: row['inUnitId'] as int?,
-            quantityUnit: row['quantityUnit'] as int?,
-            xgrid: row['xgrid'] as int?,
-            img: row['img'] as String?,
-            salesComm: row['salesComm'] as int?,
-            visits: row['visits'] as int?,
-            netPrice: row['netPrice'] as int?,
-            adetails: row['adetails'] as String?,
-            edetails: row['edetails'] as String?,
-            isSerial: row['isSerial'] as int?,
-            outId: row['outId'] as int?,
-            isSize: row['isSize'] as int?,
-            isColor: row['isColor'] as int?,
-            isExpiredDate: row['isExpiredDate'] as int?,
-            avaStartPrice: row['avaStartPrice'] as int?,
-            barcodesOther: row['barcodesOther'] as String?,
-            xtypeId: row['xtypeId'] as int?,
-            countryId: row['countryId'] as int?,
-            codeOrg: row['codeOrg'] as String?,
-            codesAlter: row['codesAlter'] as String?,
-            isForsale: row['isForsale'] as int?));
+            note: row['note'] as String?));
   }
 
   @override
   Future<List<int>> getProductsIds() async {
-    return _queryAdapter.queryList('SELECT id FROM ProductCartEntity',
+    return _queryAdapter.queryList('SELECT id FROM CartEntity',
         mapper: (Map<String, Object?> row) => row.values.first as int);
   }
 
   @override
-  Future<void> insertAllProducts(List<ProductEntity> products) async {
-    await _productEntityInsertionAdapter.insertList(
+  Future<void> insertAllProducts(List<CartEntity> products) async {
+    await _cartEntityInsertionAdapter.insertList(
         products, OnConflictStrategy.replace);
   }
 
   @override
-  Future<void> insertProduct(ProductEntity person) async {
-    await _productEntityInsertionAdapter.insert(
+  Future<void> insertProduct(CartEntity person) async {
+    await _cartEntityInsertionAdapter.insert(
         person, OnConflictStrategy.replace);
   }
 
   @override
-  Future<void> deleteProduct(ProductEntity person) async {
-    await _productEntityDeletionAdapter.delete(person);
+  Future<void> updateTask(CartEntity products) async {
+    await _cartEntityUpdateAdapter.update(products, OnConflictStrategy.abort);
   }
 
   @override
-  Future<void> deleteAllProduct(List<ProductEntity> person) async {
-    await _productEntityDeletionAdapter.deleteList(person);
+  Future<void> deleteProduct(CartEntity person) async {
+    await _cartEntityDeletionAdapter.delete(person);
+  }
+
+  @override
+  Future<void> deleteAllProduct(List<CartEntity> person) async {
+    await _cartEntityDeletionAdapter.deleteList(person);
   }
 }
 
@@ -820,6 +716,93 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
                   'codesAlter': item.codesAlter,
                   'isForsale': item.isForsale
                 }),
+        _productEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'ProductEntity',
+            ['id'],
+            (ProductEntity item) => <String, Object?>{
+                  'statusCode': item.statusCode,
+                  'id': item.id,
+                  'fdate': item.fdate,
+                  'hfdate': item.hfdate,
+                  'ftime': item.ftime,
+                  'fupdate': item.fupdate,
+                  'hfupdate': item.hfupdate,
+                  'utime': item.utime,
+                  'fdelete': item.fdelete,
+                  'hfdelete': item.hfdelete,
+                  'dtime': item.dtime,
+                  'userid': item.userid,
+                  'updateUserid': item.updateUserid,
+                  'deleteUserid': item.deleteUserid,
+                  'flagnet': item.flagnet,
+                  'categoryId': item.categoryId,
+                  'branchId': item.branchId,
+                  'storeId': item.storeId,
+                  'itemId': item.itemId,
+                  'barcode': item.barcode,
+                  'munitId': item.munitId,
+                  'unitId': item.unitId,
+                  'quantityStart': item.quantityStart,
+                  'buyAlertAmount': item.buyAlertAmount,
+                  'orderQntMin': item.orderQntMin,
+                  'quantity': item.quantity,
+                  'quantityIn': item.quantityIn,
+                  'lastSellQuantity': item.lastSellQuantity,
+                  'lastPurQuantity': item.lastPurQuantity,
+                  'saleQuantity': item.saleQuantity,
+                  'purchaseQuantity': item.purchaseQuantity,
+                  'itemEvalId': item.itemEvalId,
+                  'terminalPrinterId': item.terminalPrinterId,
+                  'categoryPrntr': item.categoryPrntr,
+                  'isActive': item.isActive,
+                  'isShowPrice': item.isShowPrice,
+                  'isDef': item.isDef,
+                  'isPublish': item.isPublish,
+                  'isClose': item.isClose,
+                  'isCompound': item.isCompound,
+                  'isPriceIncludeTax': item.isPriceIncludeTax,
+                  'isSpecialOffer': item.isSpecialOffer,
+                  'notes': item.notes,
+                  'xfile': item.xfile,
+                  'atxt': item.atxt,
+                  'etxt': item.etxt,
+                  'expirDays': item.expirDays,
+                  'itemLocationId': item.itemLocationId,
+                  'locationCode': item.locationCode,
+                  'avaPurchasePrice': item.avaPurchasePrice,
+                  'priceAddPer': item.priceAddPer,
+                  'priceAddValue': item.priceAddValue,
+                  'price': item.price,
+                  'discPer': item.discPer,
+                  'discValue': item.discValue,
+                  'minPrice': item.minPrice,
+                  'lastSprice': item.lastSprice,
+                  'lastBprice': item.lastBprice,
+                  'isRetailSale': item.isRetailSale,
+                  'setItem': item.setItem,
+                  'inUnitId': item.inUnitId,
+                  'quantityUnit': item.quantityUnit,
+                  'xgrid': item.xgrid,
+                  'img': item.img,
+                  'salesComm': item.salesComm,
+                  'visits': item.visits,
+                  'netPrice': item.netPrice,
+                  'adetails': item.adetails,
+                  'edetails': item.edetails,
+                  'isSerial': item.isSerial,
+                  'outId': item.outId,
+                  'isSize': item.isSize,
+                  'isColor': item.isColor,
+                  'isExpiredDate': item.isExpiredDate,
+                  'avaStartPrice': item.avaStartPrice,
+                  'barcodesOther': item.barcodesOther,
+                  'xtypeId': item.xtypeId,
+                  'countryId': item.countryId,
+                  'codeOrg': item.codeOrg,
+                  'codesAlter': item.codesAlter,
+                  'isForsale': item.isForsale
+                }),
         _productEntityDeletionAdapter = DeletionAdapter(
             database,
             'ProductEntity',
@@ -916,14 +899,16 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
 
   final InsertionAdapter<ProductEntity> _productEntityInsertionAdapter;
 
+  final UpdateAdapter<ProductEntity> _productEntityUpdateAdapter;
+
   final DeletionAdapter<ProductEntity> _productEntityDeletionAdapter;
 
   @override
   Future<List<ProductEntity>> getProducts() async {
     return _queryAdapter.queryList('SELECT * FROM ProductFavoriteEntity',
         mapper: (Map<String, Object?> row) => ProductEntity(
-            statusCode: row['statusCode'] as int?,
             id: row['id'] as int?,
+            statusCode: row['statusCode'] as int?,
             fdate: row['fdate'] as int?,
             hfdate: row['hfdate'] as int?,
             ftime: row['ftime'] as int?,
@@ -1021,6 +1006,12 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
   Future<void> insertProduct(ProductEntity person) async {
     await _productEntityInsertionAdapter.insert(
         person, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> updateTask(ProductEntity products) async {
+    await _productEntityUpdateAdapter.update(
+        products, OnConflictStrategy.abort);
   }
 
   @override

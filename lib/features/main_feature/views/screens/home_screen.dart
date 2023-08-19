@@ -14,38 +14,38 @@ class HomeScreen extends StatelessWidget {
 
   HomeScreen({super.key, required this.userType });
 
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<HomeCubit,HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Scaffold(
-                key: context.read<HomeCubit>().scaffoldKey,
-                drawer: CustomDrawer(
-                  child: const CustomSideMenu(),
-                ),
-                body: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
+        child: Scaffold(
+          key: context.read<HomeCubit>().scaffoldKey ,
+          drawer: CustomDrawer(
+            child: const CustomSideMenu(),
+          ),
+          body: BlocConsumer<HomeCubit, HomeState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
 
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: context.read<HomeCubit>().getCurrentPage(userType),
+                  ),
 
-                    AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
-                        child: context.read<HomeCubit>().getCurrentPage(userType),
-                    ),
+                  CustomNavigationBar(
+                    currentIndex: context.read<HomeCubit>().currentIndex ,
+                    onTap: (index)=> context.read<HomeCubit>().onNavigationBarTap(index),
+                    items: context.read<HomeCubit>().getNavItems(userType),
+                  ),
 
-                    CustomNavigationBar(
-                      currentIndex: context.read<HomeCubit>().currentIndex ,
-                      onTap: (index)=> context.read<HomeCubit>().onNavigationBarTap(index),
-                    ),
-
-                  ],
-                ) ,
-          );
-        },
-      )
+                ],
+              );
+            },
+          ) ,
+        )
     );
   }
+
 }
+

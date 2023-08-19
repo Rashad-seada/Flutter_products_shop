@@ -101,7 +101,8 @@ class CodegenLoader extends AssetLoader{
   "camera_sub_text": "التقط صوره من الكاميرا",
   "camera_sub_text2": "اي صور تم اتقلطها يتظهر هنا بالاسفل",
   "logout": "تسجيل خروج",
-  "recommended": "خصيصا من اجلك"
+  "recommended": "خصيصا من اجلك",
+  "cart": "عربه التسوق"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -189,7 +190,8 @@ static const Map<String,dynamic> en = {
   "camera_sub_text": "Take a photo from camera",
   "camera_sub_text2": "Any photos that have been taken will appear below",
   "logout": "Logout",
-  "recommended": "Recommended for you"
+  "recommended": "Recommended for you",
+  "cart": "Cart"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

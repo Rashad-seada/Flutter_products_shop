@@ -1,57 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/views/widgets/custom_flushbar.dart';
+import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/config/app_images.dart';
-import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/space.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../bloc/home/home_cubit.dart';
-import '../components/home/ad_banner_slider.dart';
-import '../components/home/small_product_item.dart';
+import '../../../../../core/config/app_images.dart';
+import '../../../../../core/config/app_theme.dart';
+import '../../../../../core/views/widgets/space.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../bloc/cart/cart_cubit.dart';
+import '../../bloc/home/home_cubit.dart';
+import '../../components/home/ad_banner_slider.dart';
+import '../../components/home/small_product_item.dart';
 
-class CustomerHomePage extends StatefulWidget {
+class CustomerHomePage extends StatelessWidget {
   const CustomerHomePage({super.key});
 
   @override
-  State<CustomerHomePage> createState() => _CustomerHomePageState();
-}
-
-class _CustomerHomePageState extends State<CustomerHomePage> {
-
-  @override
-  void initState() {
-
-    context.read<HomeCubit>().getProducts(context);
-
-
-    context.read<HomeCubit>().scrollController.addListener(() {
-      if (context.read<HomeCubit>().scrollController.position.atEdge) {
-        if (context.read<HomeCubit>().scrollController.position.pixels == 0) {
-          // Top of the scrollable area
-        } else {
-          // End of the scrollable area
-          context.read<HomeCubit>().getProducts(context);
-        }
-      }
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    context.read<HomeCubit>().pageNumber = 1;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+
     return  BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is HomeFailure){
+          CustomFlushBar(
+              title: "Error : ${HomeFailure.myError.code()}",
+              message: HomeFailure.myError.message,
+              context: context
+          );
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -60,7 +38,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: context.read<HomeCubit>().scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,14 +53,14 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
 
                         InkWell(
                             borderRadius: BorderRadius.circular(100.w),
-                            onTap: () => context.read<HomeCubit>().onMenuTap(),
+                            onTap: () => context.read<HomeCubit>().onMenuTap(UserType.customer),
                             child: SvgPicture.asset(AppImages.menu,width: 8.w,height: 8.w,)
                         ),
 
                         InkWell(
                           borderRadius: BorderRadius.circular(100.w),
                           onTap: () {},
-                          child: Icon(Icons.favorite_border_rounded,size: 26,),
+                          child: const Icon(Icons.favorite_border_rounded,size: 26,color: AppTheme.neutral900,),
                         ),
 
                       ],
@@ -117,17 +95,20 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                     Space(height: 2.h,),
 
                     GridView.builder(
-                      itemCount: HomeSuccess.products.length,
-                      physics: NeverScrollableScrollPhysics(),
+                        itemCount: HomeSuccess.products.length,
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 3.w,
                             crossAxisSpacing: 3.w,
-                            childAspectRatio: 1.85/3
+                            childAspectRatio: 2/3
                         ),
                         itemBuilder: (_,index) {
-                          return SmallProductItem(productEntity: HomeSuccess.products[index],);
+                          return SmallProductItem(
+                            productEntity: HomeSuccess.products[index],
+                            onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(HomeSuccess.products[index],context),
+                          );
                         }
                     ),
 
@@ -153,3 +134,4 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
     );
   }
 }
+

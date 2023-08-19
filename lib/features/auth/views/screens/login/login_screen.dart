@@ -11,9 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/views/widgets/custom_back_button.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../bloc/login/login_cubit.dart';
+import '../../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../bloc/login/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,7 +28,15 @@ class LoginScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: BlocConsumer<LoginCubit,LoginState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if(state is LoginFailure){
+                    CustomFlushBar(
+                        title: 'Error : ${LoginFailure.myFailure.code()}',
+                        message: LoginFailure.myFailure.message,
+                        context: context
+                    );
+                  }
+                },
                 builder: (context, state) {
                   return SingleChildScrollView(
                     child: Column(
@@ -153,3 +162,4 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+

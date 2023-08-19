@@ -1,8 +1,9 @@
 import 'package:floor/floor.dart';
 
+
 @Entity(tableName: "ProductEntity")
 class ProductEntity {
-  num? statusCode;
+  int? statusCode;
 
   @primaryKey
   num? id;
@@ -87,9 +88,8 @@ class ProductEntity {
   num? isForsale;
 
   ProductEntity(
-      {
+      {this.id,
         this.statusCode,
-        this.id,
         this.fdate,
         this.hfdate,
         this.ftime,
@@ -170,7 +170,7 @@ class ProductEntity {
         this.codesAlter,
         this.isForsale});
 
-  ProductEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
+  ProductEntity.fromJson(Map<String, dynamic> json, int this.statusCode) {
     id = json['id'];
     fdate = json['fdate'];
     hfdate = json['hfdate'];
@@ -338,4 +338,3 @@ class ProductEntity {
     return data;
   }
 }
-

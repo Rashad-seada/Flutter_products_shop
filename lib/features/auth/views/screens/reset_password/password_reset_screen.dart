@@ -7,14 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/config/app_images.dart';
-import '../../../../core/config/app_strings.dart';
-import '../../../../core/config/app_theme.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../components/auth_text_field.dart';
-import '../../../../core/views/widgets/custom_back_button.dart';
-import '../../../../core/views/widgets/main_button.dart';
-import '../../../../core/views/widgets/space.dart';
+import '../../../../../core/config/app_images.dart';
+import '../../../../../core/config/app_strings.dart';
+import '../../../../../core/config/app_theme.dart';
+import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../components/auth_text_field.dart';
+import '../../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../../core/views/widgets/main_button.dart';
+import '../../../../../core/views/widgets/space.dart';
 
 class PasswordResetScreen extends StatelessWidget {
   ResetMethod method;
@@ -32,7 +33,13 @@ class PasswordResetScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: BlocConsumer<ResetPasswordCubit,ResetPasswordState>(
                 listener: (context, state) {
-                  // TODO: implement listener
+                  if(state is ResetPasswordCubit){
+                    CustomFlushBar(
+                        title: 'Error : ${ResetPasswordFailure.myFailure.code()}',
+                        message: ResetPasswordFailure.myFailure.message,
+                        context: context
+                    );
+                  }
                 },
                 builder: (context, state) {
                   return Column(

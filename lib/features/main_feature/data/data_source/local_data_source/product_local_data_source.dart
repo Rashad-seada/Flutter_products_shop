@@ -1,3 +1,4 @@
+import 'package:eng_shop/features/main_feature/domain/entity/cart_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
 
 import 'database/database.dart';
@@ -5,7 +6,7 @@ import 'database/database.dart';
 abstract class ProductLocalDataSource {
 
   //favorite products
-  Future<List<ProductEntity>> getCartProducts();
+  Future<List<CartEntity>> getCartProducts();
   Future<List<int>> getCartProductsId();
   Future<void> insertAllCartProduct(List<ProductEntity> productEntity);
   Future<void> insertCartProduct(ProductEntity productEntity);
@@ -32,7 +33,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   ProductLocalDataSourceImpl(this.database);
 
   @override
-  Future<List<ProductEntity>> getCartProducts() async {
+  Future<List<CartEntity>> getCartProducts() async {
     return await database.productCartDao.getProducts();
   }
   @override
@@ -41,15 +42,15 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   }
   @override
   Future<void> insertAllCartProduct(List<ProductEntity> productEntity) async {
-    return await database.productCartDao.insertAllProducts(productEntity);
+    return await database.productCartDao.insertAllProducts(productEntity.map((e) => CartEntity.fromProduct(e)).toList());
   }
   @override
   Future<void> insertCartProduct(ProductEntity productEntity) async {
-    return await database.productCartDao.insertProduct(productEntity);
+    return await database.productCartDao.insertProduct(CartEntity.fromProduct(productEntity));
   }
   @override
   Future<void> deleteCartProduct(ProductEntity productEntity) async {
-    return await database.productCartDao.deleteProduct(productEntity);
+    return await database.productCartDao.deleteProduct(CartEntity.fromProduct(productEntity));
   }
 
 

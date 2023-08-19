@@ -11,6 +11,7 @@ abstract class AppTheme {
 
   static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color:color ,fontSize: font16.sp);
   static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color: color,fontSize: font14.sp);
+  static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color: color,fontSize: font12.sp);
 
 
   static const Color neutral900 = Color(0xff111827);
@@ -42,5 +43,6 @@ abstract class AppTheme {
   static const double font21 = 17;
   static const double font16 = 12;
   static const double font14 = 10;
+  static const double font12 = 8;
 
 }

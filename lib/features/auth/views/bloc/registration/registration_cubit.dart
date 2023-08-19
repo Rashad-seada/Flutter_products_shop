@@ -7,8 +7,8 @@ import 'package:eng_shop/features/auth/domain/usecase/activate_account_by_sms.da
 import 'package:eng_shop/features/auth/domain/usecase/register_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dart';
-import 'package:eng_shop/features/auth/views/screens/activation_pin_screen.dart';
-import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/registration/activation_pin_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/login/login_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:regexpattern/regexpattern.dart';
 import '../../../../../core/config/app_images.dart';
-import '../../../../../core/config/app_strings.dart';
 import '../../../../../core/di/app_module.dart';
+import '../../../../../core/error/failure.dart';
 import '../../../../../core/views/screens/message_screen.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 
@@ -133,20 +133,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       await getIt<RegisterUsecase>().call(RegistrationParams(userNameController.text, emailController.text, passwordController.text,extractPlusFromPhoneNumber(phoneNumber),AppConsts.registrationScreen))
           .then((value) => value.fold(
               (error) {
-            emit(RegistrationFailure());
-            CustomFlushBar(
-                title: 'Error!',
-                message: error.message,
-                context: context
-            );
+            emit(RegistrationFailure(error));
+
           },
               (success) {
             emit(RegistrationSuccess());
-            CustomFlushBar(
-                title: 'Welcome!',
-                message: "${success.msg}",
-                context: context
-            );
             Navigator.push(context,MaterialPageRoute(builder: (_)=> ActivationPinScreen()));
           }
       )

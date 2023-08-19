@@ -18,6 +18,20 @@ part 'core_state.dart';
 
 class CoreCubit extends Cubit<CoreState> {
 
+  static BuildContext? _context;
+
+  static void initSnackBar(BuildContext context) {
+    _context = context;
+  }
+
+  static void showSnackBar(String message) {
+    if (_context != null) {
+      ScaffoldMessenger.of(_context!).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+  }
+
 
 
   init() async {
@@ -39,7 +53,6 @@ class CoreCubit extends Cubit<CoreState> {
     await getIt<GetUserTypeUsecase>().call(GetUserTypeParams(AppConsts.introScreen)).then(
             (value) => value.fold(
                     (error) {
-                      print(error.message);
 
                       timer(AuthMethodsScreen(),context);
 

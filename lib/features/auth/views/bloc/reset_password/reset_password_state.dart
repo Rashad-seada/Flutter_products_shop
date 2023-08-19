@@ -20,6 +20,13 @@ class ResetPasswordSuccess extends ResetPasswordState {
 }
 
 class ResetPasswordFailure extends ResetPasswordState {
+
+  static Failure myFailure = Failure("", screenCode: 0, exceptionCode: 0, customCode: 0);
+
+  ResetPasswordFailure(Failure failure){
+    myFailure = failure;
+  }
+
   @override
   List<Object> get props => [];
 }

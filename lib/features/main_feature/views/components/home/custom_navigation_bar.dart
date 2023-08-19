@@ -6,9 +6,9 @@ import 'package:sizer/sizer.dart';
 class CustomNavigationBar extends StatelessWidget {
   Function(int)? onTap;
   int currentIndex;
+  List<DotNavigationBarItem> items;
 
-
-  CustomNavigationBar({super.key,required this.currentIndex,this.onTap});
+  CustomNavigationBar({super.key,required this.currentIndex,this.onTap,required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -23,31 +23,7 @@ class CustomNavigationBar extends StatelessWidget {
       splashBorderRadius: 50,
       // enableFloatingNavBar: false,
       onTap: onTap,
-      items: [
-        /// Home
-        DotNavigationBarItem(
-          icon: Icon(Icons.home),
-          selectedColor: AppTheme.primary500,
-        ),
-
-        /// Likes
-        DotNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          selectedColor: AppTheme.primary500,
-        ),
-
-        /// Search
-        DotNavigationBarItem(
-          icon: Icon(Icons.search),
-          selectedColor: AppTheme.primary500,
-        ),
-
-        /// Profile
-        DotNavigationBarItem(
-          icon: Icon(Icons.person),
-          selectedColor: AppTheme.primary500,
-        ),
-      ],
+      items: items
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:eng_shop/features/main_feature/domain/entity/product_cart_entity.dart';
+import 'package:eng_shop/features/main_feature/domain/entity/cart_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_favorite_entity.dart';
 import 'package:floor/floor.dart';
 
@@ -25,28 +25,33 @@ abstract class ProductDao {
   @delete
   Future<void> deleteAllProduct(List<ProductEntity> person);
 
+  @update
+  Future<void> updateTask(ProductEntity products);
 }
 
 @dao
-abstract class ProductCartDao {
+abstract class CartDao {
 
-  @Query('SELECT * FROM ProductCartEntity')
-  Future<List<ProductEntity>> getProducts();
+  @Query('SELECT * FROM CartEntity')
+  Future<List<CartEntity>> getProducts();
 
-  @Query('SELECT id FROM ProductCartEntity')
+  @Query('SELECT id FROM CartEntity')
   Future<List<int>> getProductsIds();
 
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertAllProducts(List<ProductEntity> products);
+  Future<void> insertAllProducts(List<CartEntity> products);
 
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertProduct(ProductEntity person);
+  Future<void> insertProduct(CartEntity person);
 
   @delete
-  Future<void> deleteProduct(ProductEntity person);
+  Future<void> deleteProduct(CartEntity person);
 
   @delete
-  Future<void> deleteAllProduct(List<ProductEntity> person);
+  Future<void> deleteAllProduct(List<CartEntity> person);
+
+  @update
+  Future<void> updateTask(CartEntity products);
 }
 
 @dao
@@ -69,4 +74,7 @@ abstract class ProductFavoriteDao {
 
   @delete
   Future<void> deleteAllProduct(List<ProductEntity> person);
+
+  @update
+  Future<void> updateTask(ProductEntity products);
 }

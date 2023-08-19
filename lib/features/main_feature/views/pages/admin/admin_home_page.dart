@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../core/config/app_images.dart';
-import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/space.dart';
-import '../../../../generated/locale_keys.g.dart';
-import '../bloc/home/home_cubit.dart';
-import '../components/home/service_item.dart';
+import '../../../../../core/config/app_images.dart';
+import '../../../../../core/config/app_theme.dart';
+import '../../../../../core/views/widgets/space.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../../../auth/domain/util/user_type_enum.dart';
+import '../../bloc/home/home_cubit.dart';
+import '../../components/home/service_item.dart';
 
 class AdminHomePage extends StatelessWidget {
   const AdminHomePage({super.key});
@@ -39,7 +40,7 @@ class AdminHomePage extends StatelessWidget {
 
                         InkWell(
                             borderRadius: BorderRadius.circular(100.w),
-                            onTap: () => context.read<HomeCubit>().onMenuTap(),
+                            onTap: () => context.read<HomeCubit>().onMenuTap(UserType.admin),
                             child: SvgPicture.asset(AppImages.menu,width: 8.w,height: 8.w,)
                         ),
 

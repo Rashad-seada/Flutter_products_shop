@@ -5,9 +5,9 @@ import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_email_us
 import 'package:eng_shop/features/auth/domain/usecase/reset_password_by_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
-import 'package:eng_shop/features/auth/views/screens/login_screen.dart';
-import 'package:eng_shop/features/auth/views/screens/new_password_screen.dart';
-import 'package:eng_shop/features/auth/views/screens/pin_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/login/login_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/reset_password/new_password_screen.dart';
+import 'package:eng_shop/features/auth/views/screens/reset_password/pin_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +17,7 @@ import 'package:regexpattern/regexpattern.dart';
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/config/app_images.dart';
 import '../../../../../core/di/app_module.dart';
+import '../../../../../core/error/failure.dart';
 import '../../../../../core/views/screens/message_screen.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../../generated/locale_keys.g.dart';
@@ -60,12 +61,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     await getIt<SendSmsUsecase>().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!),AppConsts.resetPasswordMethodScreen)).then(
             (value) => value.fold(
                 (error) {
-              emit(ResetPasswordFailure());
-              CustomFlushBar(
-                  title: 'Error',
-                  message: error.message,
-                  context: context
-              );
+              emit(ResetPasswordFailure(error));
             },
                 (success) {
               emit(ResetPasswordSuccess());
@@ -80,12 +76,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     getIt<ResetPasswordByEmailUsecase>().call(ResetPasswordByEmailParams(emailController.text, AppConsts.resetPasswordScreen)).then(
             (value) => value.fold(
                     (error) {
-                      emit(ResetPasswordFailure());
-                      CustomFlushBar(
-                          title: 'Error',
-                          message: error.message,
-                          context: context
-                      );
+                      emit(ResetPasswordFailure(error));
                     },
                     (success) {
                       emit(ResetPasswordSuccess());
@@ -126,12 +117,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     await getIt<ValidateCodeUsecase>().call(ValidateCodeParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text,AppConsts.pinScreen)).then(
             (value) => value.fold(
                     (error) {
-                      emit(ResetPasswordFailure());
-                      CustomFlushBar(
-                          title: 'Error',
-                          message: error.message,
-                          context: context
-                      );
+                      emit(ResetPasswordFailure(error));
                     },
                     (success) {
                       emit(ResetPasswordSuccess());
@@ -146,12 +132,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     await getIt<SendSmsUsecase>().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!),AppConsts.pinScreen)).then(
             (value) => value.fold(
                 (error) {
-              emit(ResetPasswordFailure());
-              CustomFlushBar(
-                  title: 'Error',
-                  message: error.message,
-                  context: context
-              );
+              emit(ResetPasswordFailure(error));
             },
                 (success) {
               emit(ResetPasswordSuccess());
@@ -204,12 +185,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       await getIt<ResetPasswordBySMSUsecase>().call(ResetPasswordBySMSParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!), pinController.text, passwordController.text,AppConsts.newPasswordScreen)).then(
               (value) => value.fold(
               (error) {
-                emit(ResetPasswordFailure());
-                CustomFlushBar(
-                    title: 'Error',
-                    message: error.message,
-                    context: context
-                );
+                emit(ResetPasswordFailure(error));
               },
               (success) {
                 emit(ResetPasswordSuccess());
