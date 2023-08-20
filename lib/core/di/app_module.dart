@@ -26,12 +26,13 @@ import 'package:eng_shop/features/main_feature/data/data_source/remote_data_sour
 import 'package:eng_shop/features/main_feature/data/data_source/remote_data_source/profile_remote_data_source.dart';
 import 'package:eng_shop/features/main_feature/data/repo/product_repo_impl.dart';
 import 'package:eng_shop/features/main_feature/domain/repo/product_repo.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/add_to_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_image_by_id_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_product_by_id_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_products_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/remove_from_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/add_to_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/get_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/update_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/products/get_image_by_id_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/products/get_product_by_id_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/products/get_products_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/remove_from_cart_usecase.dart';
 import 'package:eng_shop/features/main_feature/domain/usecase/search_usecase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -133,7 +134,9 @@ class AppModule {
             ..registerSingleton<RemoveFromCartUsecase>(
                 RemoveFromCartUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<SearchUsecase>(
-                SearchUsecase(repo: getIt<ProductRepo>()));
+                SearchUsecase(repo: getIt<ProductRepo>()))
+            ..registerSingleton<UpdateCartUsecase>(
+                UpdateCartUsecase(repo: getIt<ProductRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {

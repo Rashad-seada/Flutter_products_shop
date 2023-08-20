@@ -102,7 +102,10 @@ class CodegenLoader extends AssetLoader{
   "camera_sub_text2": "اي صور تم اتقلطها يتظهر هنا بالاسفل",
   "logout": "تسجيل خروج",
   "recommended": "خصيصا من اجلك",
-  "cart": "عربه التسوق"
+  "cart": "عربه التسوق",
+  "total": "الاجمالي",
+  "continue_order": "متابعه الطلب",
+  "cart_sub_text": "اضف بعض المتجات الى العربيه و سوف تظهر لك هنا"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -191,7 +194,10 @@ static const Map<String,dynamic> en = {
   "camera_sub_text2": "Any photos that have been taken will appear below",
   "logout": "Logout",
   "recommended": "Recommended for you",
-  "cart": "Cart"
+  "cart": "Cart",
+  "total": "Total",
+  "continue_order": "Continue Order",
+  "cart_sub_text": "Add some products to your cart and it will appear here"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

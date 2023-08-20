@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/features/main_feature/views/bloc/cart/cart_cubit.dart';
-import 'package:eng_shop/features/main_feature/views/bloc/home/home_cubit.dart';
 import 'package:eng_shop/features/main_feature/views/components/customer/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_theme.dart';
@@ -50,9 +51,10 @@ class _CartPageState extends State<CartPage> {
               },
               builder: (context, state) {
                 return Column(
+                  mainAxisAlignment: (CartSuccess.cart.isNotEmpty)? MainAxisAlignment.start : MainAxisAlignment.center,
                   children: [
 
-                    Space(height: 5.h,),
+                    Space(height: 4.h,),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -67,28 +69,59 @@ class _CartPageState extends State<CartPage> {
                     Space(height: 2.h,),
                     
 
-                    (state is CartLoading)? circleIndicator() : ListView.separated(
+                    (state is CartLoading)?
+                    circleIndicator() :
+
+                    (CartSuccess.cart.isNotEmpty)?
+                    ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: CartSuccess.cart.length,
                       itemBuilder: (_, index) {
-                        return CartItem(productEntity: CartSuccess.cart[index],);
+                        return CartItem(
+                          cartResponse: CartSuccess.cart[index],
+                          quantity: CartSuccess.cart[index].cartEntity.quantity!,
+
+                          onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
+                          onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
+                          onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
+                        );
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return Space(height: 2.h,);
                       },
+                    ):
+                    Center(
+                      child: Column(
+                        children: [
+
+                          Space(height: 10.h,),
+
+                          SvgPicture.asset(AppImages.emptyCart,width: 86.w,height: 60.w,),
+                          Space(height: 4.h,),
+
+                          Text(
+                            LocaleKeys.cart_sub_text.tr(),
+                            style: AppTheme.textLTextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
+
+                          Space(height: 2.h,),
+
+
+                        ],
+                      ),
                     ),
 
-                    Space(height: 2.h,),
 
-                    MainButton(
+                    Space(height: 3.h,),
+
+                    (CartSuccess.cart.isNotEmpty)? MainButton(
                       width: 100.w,
                       height: 7.h,
-                      label: Text(LocaleKeys.login.tr(),
+                      label: Text(LocaleKeys.continue_order.tr(),
                         style: AppTheme.textLTextStyle(color: AppTheme
                             .neutral100),),
                       onTap: () {},
-                    ),
+                    ) : const SizedBox(),
 
                     Space(height: 15.h,),
 

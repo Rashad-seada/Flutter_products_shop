@@ -10,21 +10,16 @@ class CartInitial extends CartState {
 }
 
 class CartSuccess extends CartState {
-
-  static List<ProductEntity> cart = [];
-
+  static List<CartResponse> cart = [];
   @override
   List<Object> get props => [];
 }
 
 class CartFailure extends CartState {
-
   static Failure myError = Failure("", screenCode: 0, exceptionCode: 0, customCode: 0);
-
   CartFailure(Failure error){
     myError = error;
   }
-
   @override
   List<Object> get props => [];
 }

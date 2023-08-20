@@ -89,5 +89,8 @@ abstract class  LocaleKeys {
   static const logout = 'logout';
   static const recommended = 'recommended';
   static const cart = 'cart';
+  static const total = 'total';
+  static const continue_order = 'continue_order';
+  static const cart_sub_text = 'cart_sub_text';
 
 }

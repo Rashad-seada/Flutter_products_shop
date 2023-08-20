@@ -97,6 +97,11 @@
   "logout": "Logout",
   "recommended": "Recommended for you",
 
-  "cart": "Cart"
+  "cart": "Cart",
+  "total": "Total",
+  "continue_order": "Continue Order",
+  "cart_sub_text": "Add some products to your cart and it will appear here"
+
+
 
 }

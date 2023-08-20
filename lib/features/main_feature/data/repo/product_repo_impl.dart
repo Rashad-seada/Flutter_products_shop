@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/product_local_data_source.dart';
 import 'package:eng_shop/features/main_feature/data/data_source/remote_data_source/product_remote_data_source.dart';
+import 'package:eng_shop/features/main_feature/data/repo/util/cart_response.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/cart_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
 import 'package:eng_shop/features/main_feature/domain/repo/product_repo.dart';
@@ -144,7 +145,7 @@ class ProductRepoImpl implements ProductRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getCart(int screenCode) async {
+  Future<Either<Failure, List<CartResponse>>> getCart(int screenCode) async {
     try {
       await initRemoteDataSource();
 
@@ -152,17 +153,17 @@ class ProductRepoImpl implements ProductRepo {
         return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
       }
 
-      List<CartEntity> productEntity = await localDataSource.getCartProducts();
+      List<CartEntity> cartEntity = await localDataSource.getCartProducts();
 
-      if(productEntity.isEmpty){
+      if(cartEntity.isEmpty){
         return right([]);
       }
 
 
-      List<ProductEntity> cartProducts = await remoteDataSource.getProductsById(productEntity.map((e) => e.id!).toList());
+      List<ProductEntity> cartProducts = await remoteDataSource.getProductsById(cartEntity.map((e) => e.id!).toList());
 
 
-      if(productEntity.isEmpty) {
+      if(cartEntity.isEmpty) {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
@@ -170,7 +171,9 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
       }
 
-      return right(cartProducts);
+      List<CartResponse> cartResponse = List.generate(cartEntity.length, (index) => CartResponse(cartEntity: cartEntity[index], productEntity: cartProducts[index]));
+
+      return right(cartResponse);
 
 
     } on RemoteDataException {
@@ -271,6 +274,22 @@ class ProductRepoImpl implements ProductRepo {
         return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
     } catch (e) {
         return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateCartProduct(CartEntity productEntity, int screenCode) async {
+    try {
+      print(productEntity.quantity);
+
+      localDataSource.updateCartProduct(productEntity);
+      return right(Unit);
+
+    } on LocalDataException {
+
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
   }
 

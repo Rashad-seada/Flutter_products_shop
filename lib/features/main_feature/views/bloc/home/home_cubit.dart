@@ -9,10 +9,10 @@ import 'package:eng_shop/features/auth/domain/usecase/logout_usecase.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:eng_shop/features/auth/views/screens/auth_methods_screen.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/add_to_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/get_products_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/remove_from_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/add_to_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/get_cart_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/products/get_products_usecase.dart';
+import 'package:eng_shop/features/main_feature/domain/usecase/cart/remove_from_cart_usecase.dart';
 import 'package:eng_shop/features/main_feature/views/pages/admin/admin_home_page.dart';
 import 'package:eng_shop/features/main_feature/views/pages/customer/customer_home_page.dart';
 import 'package:eng_shop/features/main_feature/views/pages/customer/cart_page.dart';
@@ -74,13 +74,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<DotNavigationBarItem> get adminNavItems => [
     /// Home
     DotNavigationBarItem(
-      icon: Icon(Icons.home),
-      selectedColor: AppTheme.primary500,
-    ),
-
-    /// Likes
-    DotNavigationBarItem(
-      icon: Icon(Icons.favorite),
+      icon: Icon(Icons.home_outlined),
       selectedColor: AppTheme.primary500,
     ),
 
@@ -90,9 +84,15 @@ class HomeCubit extends Cubit<HomeState> {
       selectedColor: AppTheme.primary500,
     ),
 
+    /// Likes
+    DotNavigationBarItem(
+      icon: Icon(Icons.favorite_border_rounded),
+      selectedColor: AppTheme.primary500,
+    ),
+
     /// Profile
     DotNavigationBarItem(
-      icon: Icon(Icons.person),
+      icon: Icon(Icons.person_2_outlined),
       selectedColor: AppTheme.primary500,
     ),
   ];
@@ -104,15 +104,16 @@ class HomeCubit extends Cubit<HomeState> {
       selectedColor: AppTheme.primary500,
     ),
 
-    /// Likes
-    DotNavigationBarItem(
-      icon: Icon(Icons.favorite_border_rounded),
-      selectedColor: AppTheme.primary500,
-    ),
-
     /// Search
     DotNavigationBarItem(
       icon: Icon(Icons.search),
+      selectedColor: AppTheme.primary500,
+    ),
+
+
+    /// Likes
+    DotNavigationBarItem(
+      icon: Icon(Icons.favorite_border_rounded),
       selectedColor: AppTheme.primary500,
     ),
 

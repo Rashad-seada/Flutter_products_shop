@@ -11,6 +11,7 @@ abstract class ProductLocalDataSource {
   Future<void> insertAllCartProduct(List<ProductEntity> productEntity);
   Future<void> insertCartProduct(ProductEntity productEntity);
   Future<void> deleteCartProduct(ProductEntity productEntity);
+  Future<void> updateCartProduct(CartEntity cartEntity);
 
   //products
   Future<List<ProductEntity>> getProducts();
@@ -18,6 +19,7 @@ abstract class ProductLocalDataSource {
   Future<void> insertAllProduct(List<ProductEntity> productEntity);
   Future<void> insertProduct(ProductEntity productEntity);
   Future<void> deleteProduct(ProductEntity productEntity);
+  Future<void> updateProduct(ProductEntity productEntity);
 
   //favorite products
   Future<List<ProductEntity>> getFavoriteProducts();
@@ -25,6 +27,7 @@ abstract class ProductLocalDataSource {
   Future<void> insertAllFavoriteProduct(List<ProductEntity> productEntity);
   Future<void> insertFavoriteProduct(ProductEntity productEntity);
   Future<void> deleteFavoriteProduct(ProductEntity productEntity);
+  Future<void> updateFavoriteProduct(ProductEntity productEntity);
 
 }
 
@@ -95,6 +98,21 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   @override
   Future<void> insertFavoriteProduct(ProductEntity productEntity) async {
     return await database.productFavoriteDao.insertProduct(productEntity);
+  }
+
+  @override
+  Future<void> updateCartProduct(CartEntity cartEntity) async {
+    return await database.productCartDao.updateTask(cartEntity);
+  }
+
+  @override
+  Future<void> updateFavoriteProduct(ProductEntity productEntity) async {
+    return await database.productFavoriteDao.updateTask(productEntity);
+  }
+
+  @override
+  Future<void> updateProduct(ProductEntity productEntity) async {
+    return await database.productDao.updateTask(productEntity);
   }
 
 }
