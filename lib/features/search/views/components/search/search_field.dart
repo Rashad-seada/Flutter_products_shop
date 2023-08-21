@@ -18,6 +18,7 @@ class SearchField extends StatelessWidget {
   void Function()? onTap;
   void Function(String)? onFieldSubmitted;
   bool enabled;
+  FocusNode? focusNode;
 
   SearchField({
     Key? key,
@@ -34,11 +35,13 @@ class SearchField extends StatelessWidget {
     this.onTap,
     this.onFieldSubmitted,
     this.enabled = true,
+    this.focusNode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: focusNode,
       onTap: onTap,
       onFieldSubmitted: onFieldSubmitted,
       keyboardType: keyboardType,

@@ -105,6 +105,7 @@
 
   "recent": "Recent",
   "clear": "Clear",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "search_not_found": "We didn't find what you been looking for!"
 
 }

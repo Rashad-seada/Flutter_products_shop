@@ -4,9 +4,10 @@ import 'package:floor/floor.dart';
 class RecentSearchEntity {
 
   @PrimaryKey(autoGenerate: true)
-  int id;
+  int? id;
 
   String searchTerm;
 
-  RecentSearchEntity(this.id,this.searchTerm);
+  RecentSearchEntity({this.id,required this.searchTerm});
 }
+

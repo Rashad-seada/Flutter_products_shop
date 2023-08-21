@@ -23,6 +23,10 @@ import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dar
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
 import 'package:eng_shop/features/search/data/data_source/remote_data_source/search_remote_data_source.dart';
 import 'package:eng_shop/features/search/domain/repo/search_repo_impl.dart';
+import 'package:eng_shop/features/search/domain/usecase/delete_all_recent_search_usecase.dart';
+import 'package:eng_shop/features/search/domain/usecase/delete_recent_search_usecase.dart';
+import 'package:eng_shop/features/search/domain/usecase/get_recent_search_usecase.dart';
+import 'package:eng_shop/features/search/domain/usecase/insert_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -147,10 +151,20 @@ class AppModule {
                 GetProductsUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<RemoveFromCartUsecase>(
                 RemoveFromCartUsecase(repo: getIt<ProductRepo>()))
+            ..registerSingleton<UpdateCartUsecase>(
+                UpdateCartUsecase(repo: getIt<ProductRepo>()))
+
+
             ..registerSingleton<SearchUsecase>(
                 SearchUsecase(repo: getIt<SearchRepo>()))
-            ..registerSingleton<UpdateCartUsecase>(
-                UpdateCartUsecase(repo: getIt<ProductRepo>()));
+            ..registerSingleton<InsertRecentSearchUsecase>(
+                InsertRecentSearchUsecase(repo: getIt<SearchRepo>()))
+            ..registerSingleton<GetRecentSearchUsecase>(
+                GetRecentSearchUsecase(repo: getIt<SearchRepo>()))
+            ..registerSingleton<DeleteAllRecentSearchUsecase>(
+                DeleteAllRecentSearchUsecase(repo: getIt<SearchRepo>()))
+            ..registerSingleton<DeleteRecentSearchUsecase>(
+                DeleteRecentSearchUsecase(repo: getIt<SearchRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {

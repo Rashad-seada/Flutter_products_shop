@@ -114,4 +114,5 @@ class CartCubit extends Cubit<CartState> {
     CartSuccess.cart[index].cartEntity.quantity = CartSuccess.cart[index].cartEntity.quantity! - 1;
     updateCartProduct(CartSuccess.cart[index].cartEntity,context);
   }
+
 }

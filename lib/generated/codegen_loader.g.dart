@@ -109,7 +109,8 @@ class CodegenLoader extends AssetLoader{
   "search_hint_home": "عن ماذا تبحث؟",
   "recent": "مؤخرا",
   "clear": "مسح",
-  "cancel": "الغاء"
+  "cancel": "الغاء",
+  "search_not_found": "لم نستطيع العثور على ما كنت تبحث عنه!"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -205,7 +206,8 @@ static const Map<String,dynamic> en = {
   "search_hint_home": "What are you looking for?",
   "recent": "Recent",
   "clear": "Clear",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "search_not_found": "We didn't find what you been looking for!"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

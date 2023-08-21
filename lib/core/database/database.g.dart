@@ -97,7 +97,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ProductFavoriteEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `RecentSearchEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `searchTerm` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `RecentSearchEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `searchTerm` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -1069,13 +1069,13 @@ class _$SearchDao extends SearchDao {
   @override
   Future<List<RecentSearchEntity>> getAllRecentSearch() async {
     return _queryAdapter.queryList('SELECT * FROM RecentSearchEntity',
-        mapper: (Map<String, Object?> row) =>
-            RecentSearchEntity(row['id'] as int, row['searchTerm'] as String));
+        mapper: (Map<String, Object?> row) => RecentSearchEntity(
+            id: row['id'] as int?, searchTerm: row['searchTerm'] as String));
   }
 
   @override
   Future<void> dropAllRecentSearch() async {
-    await _queryAdapter.queryNoReturn('DROP TABLE RecentSearchEntity');
+    await _queryAdapter.queryNoReturn('DELETE FROM RecentSearchEntity');
   }
 
   @override

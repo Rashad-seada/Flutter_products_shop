@@ -8,7 +8,7 @@ import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../components/settings/setting_item.dart';
-import '../components/settings/settings_section_header.dart';
+import '../../../../core/views/widgets/section_header.dart';
 import 'language_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
 
                   Space(height: 4.h,),
 
-                  SettingsSectionHeader(label: LocaleKeys.general_settings.tr(),),
+                  SectionHeader(label: LocaleKeys.general_settings.tr(),),
                   Space(height: .5.h,),
 
                   SettingItem(label: LocaleKeys.service_provider.tr(),nextScreen: const ServiceProviderScreen(),),

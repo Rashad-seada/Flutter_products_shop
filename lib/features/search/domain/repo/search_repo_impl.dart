@@ -1,6 +1,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
+import 'package:eng_shop/features/search/domain/entity/recent_search_entity.dart';
 
 import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
@@ -50,14 +51,11 @@ class SearchRepoImpl implements SearchRepo {
 
       List<ProductEntity> productEntity = await remoteDataSource.searchProducts(searchTerm);
 
-      if(productEntity.isEmpty) {
-        return left(RemoteDataFailure(ErrorMessages.emptyListOfProductsInSearch, screenCode: screenCode, customCode: 03));
+      if(productEntity.isNotEmpty){
+        if(productEntity[0].statusCode != 200) {
+          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+        }
       }
-
-      if(productEntity[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
-
 
       return right(productEntity);
 
@@ -68,6 +66,68 @@ class SearchRepoImpl implements SearchRepo {
       return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
     } on ServiceException {
       return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAllRecentSearch(int screenCode) async {
+    try {
+
+      await localDataSource.clearAllRecentSearch();
+      return right(Unit);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteRecentSearch(RecentSearchEntity recentSearchEntity, int screenCode) async {
+    try {
+
+      await localDataSource.deleteRecentSearch(recentSearchEntity);
+      return right(Unit);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<RecentSearchEntity>>> getRecentSearch(int screenCode) async {
+    try {
+
+      List<RecentSearchEntity> recentSearchEntites = await localDataSource.getRecentSearch();
+
+      return right(recentSearchEntites);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> insertRecentSearch(RecentSearchEntity recentSearchEntity, int screenCode) async {
+    try {
+
+      await localDataSource.insertRecentSearch(recentSearchEntity);
+
+      return right(Unit);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
     } catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }

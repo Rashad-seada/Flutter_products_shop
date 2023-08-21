@@ -14,6 +14,6 @@ abstract class SearchDao {
   @delete
   Future<void> deleteRecentSearch(RecentSearchEntity recentSearchEntity);
 
-  @Query('DROP TABLE RecentSearchEntity')
+  @Query('DELETE FROM RecentSearchEntity')
   Future<void> dropAllRecentSearch();
 }
