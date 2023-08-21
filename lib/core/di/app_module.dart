@@ -20,20 +20,10 @@ import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dart';
-import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/product_local_data_source.dart';
-import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
-import 'package:eng_shop/features/main_feature/data/data_source/remote_data_source/product_remote_data_source.dart';
-import 'package:eng_shop/features/main_feature/data/data_source/remote_data_source/profile_remote_data_source.dart';
-import 'package:eng_shop/features/main_feature/data/repo/product_repo_impl.dart';
-import 'package:eng_shop/features/main_feature/domain/repo/product_repo.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/add_to_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/get_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/update_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/products/get_image_by_id_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/products/get_product_by_id_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/products/get_products_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/remove_from_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/search_usecase.dart';
+import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
+import 'package:eng_shop/features/search/data/data_source/remote_data_source/search_remote_data_source.dart';
+import 'package:eng_shop/features/search/domain/repo/search_repo_impl.dart';
+import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -41,8 +31,22 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/auth/domain/usecase/get_user_type_usecase.dart';
-import '../../features/main_feature/data/data_source/local_data_source/database/database.dart';
+import '../../features/search/data/repo/search_repo.dart';
+import '../../features/shop/data/data_source/local_data_source/product_local_data_source.dart';
+import '../../features/shop/data/data_source/local_data_source/settings_local_data_source.dart';
+import '../../features/shop/data/data_source/remote_data_source/product_remote_data_source.dart';
+import '../../features/shop/data/data_source/remote_data_source/profile_remote_data_source.dart';
+import '../../features/shop/data/repo/product_repo_impl.dart';
+import '../../features/shop/domain/repo/product_repo.dart';
+import '../../features/shop/domain/usecase/cart/add_to_cart_usecase.dart';
+import '../../features/shop/domain/usecase/cart/get_cart_usecase.dart';
+import '../../features/shop/domain/usecase/cart/remove_from_cart_usecase.dart';
+import '../../features/shop/domain/usecase/cart/update_cart_usecase.dart';
+import '../../features/shop/domain/usecase/products/get_image_by_id_usecase.dart';
+import '../../features/shop/domain/usecase/products/get_product_by_id_usecase.dart';
+import '../../features/shop/domain/usecase/products/get_products_usecase.dart';
 import '../config/app_consts.dart';
+import '../database/database.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -75,7 +79,9 @@ class AppModule {
             await _seedingInitialValue();
 
             final database = await _initializeProductsDatabase();
-            getIt..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
+            getIt
+                ..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
+                ..registerSingleton<SearchLocalDataSource>(SearchLocalDataSourceImpl(database))
 
 
              //Remote data source
@@ -87,6 +93,9 @@ class AppModule {
             final productRemoteDataSource = await _initializeProductRemoteDataSource();
             getIt.registerSingleton<ProductRemoteDataSource>(productRemoteDataSource);
 
+            final searchRemoteDataSource = await _initializeSearchRemoteDataSource();
+            getIt.registerSingleton<SearchRemoteDataSource>(searchRemoteDataSource);
+
             //Repos
         getIt
             ..registerSingleton<AuthRepo>(AuthRepoImpl(
@@ -97,6 +106,11 @@ class AppModule {
             ..registerSingleton<ProductRepo>(ProductRepoImpl(
                 remoteDataSource: getIt<ProductRemoteDataSource>(),
                 localDataSource: getIt<ProductLocalDataSource>(),
+                settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
+                services: getIt<Services>()))
+            ..registerSingleton<SearchRepo>(SearchRepoImpl(
+                remoteDataSource: getIt<SearchRemoteDataSource>(),
+                localDataSource: getIt<SearchLocalDataSource>(),
                 settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>()))
 
@@ -134,7 +148,7 @@ class AppModule {
             ..registerSingleton<RemoveFromCartUsecase>(
                 RemoveFromCartUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<SearchUsecase>(
-                SearchUsecase(repo: getIt<ProductRepo>()))
+                SearchUsecase(repo: getIt<SearchRepo>()))
             ..registerSingleton<UpdateCartUsecase>(
                 UpdateCartUsecase(repo: getIt<ProductRepo>()));
     }
@@ -149,6 +163,14 @@ class AppModule {
 
     static Future<ProductRemoteDataSource> _initializeProductRemoteDataSource() async {
         return ProductRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+        );
+    }
+
+    static Future<SearchRemoteDataSource> _initializeSearchRemoteDataSource() async {
+        return SearchRemoteDataSourceImpl(
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,

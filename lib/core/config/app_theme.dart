@@ -1,17 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'app_consts.dart';
 
 abstract class AppTheme {
 
-  static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) => TextStyle(color: color,fontSize: font32.sp,fontWeight: FontWeight.bold);
-  static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) => TextStyle(color: color,fontSize: font28.sp);
-  static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) => TextStyle(color: color,fontSize: font21.sp);
+  static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font32.sp,fontWeight: FontWeight.bold));
+  static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font28.sp));
+  static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font21.sp));
 
-  static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color:color ,fontSize: font16.sp);
-  static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color: color,fontSize: font14.sp);
-  static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) => TextStyle(color: color,fontSize: font12.sp);
+  static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color:color ,fontSize: font16.sp));
+  static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font14.sp));
+  static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font12.sp));
 
 
   static const Color neutral900 = Color(0xff111827);

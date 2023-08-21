@@ -105,7 +105,11 @@ class CodegenLoader extends AssetLoader{
   "cart": "عربه التسوق",
   "total": "الاجمالي",
   "continue_order": "متابعه الطلب",
-  "cart_sub_text": "اضف بعض المتجات الى العربيه و سوف تظهر لك هنا"
+  "cart_sub_text": "اضف بعض المتجات الى العربيه و سوف تظهر لك هنا",
+  "search_hint_home": "عن ماذا تبحث؟",
+  "recent": "مؤخرا",
+  "clear": "مسح",
+  "cancel": "الغاء"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -197,7 +201,11 @@ static const Map<String,dynamic> en = {
   "cart": "Cart",
   "total": "Total",
   "continue_order": "Continue Order",
-  "cart_sub_text": "Add some products to your cart and it will appear here"
+  "cart_sub_text": "Add some products to your cart and it will appear here",
+  "search_hint_home": "What are you looking for?",
+  "recent": "Recent",
+  "clear": "Clear",
+  "cancel": "Cancel"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

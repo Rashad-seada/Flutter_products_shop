@@ -92,5 +92,9 @@ abstract class  LocaleKeys {
   static const total = 'total';
   static const continue_order = 'continue_order';
   static const cart_sub_text = 'cart_sub_text';
+  static const search_hint_home = 'search_hint_home';
+  static const recent = 'recent';
+  static const clear = 'clear';
+  static const cancel = 'cancel';
 
 }

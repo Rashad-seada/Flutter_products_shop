@@ -14,11 +14,12 @@ import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_phone_entity.dart';
 import 'package:eng_shop/features/auth/domain/repo/auth_repo.dart';
-import 'package:eng_shop/features/main_feature/data/data_source/local_data_source/settings_local_data_source.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 
 import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/error/error_messages.dart';
+
+import '../../../shop/data/data_source/local_data_source/settings_local_data_source.dart';
 
 class AuthRepoImpl implements AuthRepo {
 

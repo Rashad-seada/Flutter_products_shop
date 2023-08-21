@@ -49,4 +49,11 @@ abstract class AppImages {
 
   static const String photo = "images/photo.svg";
   static const String emptyCart = "images/empty_cart.svg";
+
+  static const String search = "images/search.svg";
+  static const String searchPlaceHolder = "images/search_place_holder.png";
+
+  static const String heart = "images/heart.svg";
+  static const String menu2 = "images/menu_2.svg";
+
 }

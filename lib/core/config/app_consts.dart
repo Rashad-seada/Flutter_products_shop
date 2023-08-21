@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 abstract class AppConsts {
 
@@ -42,6 +41,7 @@ abstract class AppConsts {
   static int get homeScreen => 108;
   static int get languageScreen => 109;
   static int get cartScreen => 110;
+  static int get searchScreen => 120;
 
   //User types
   static int get user => 5;

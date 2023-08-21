@@ -1,12 +1,10 @@
 import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/error/error_messages.dart';
-import 'package:eng_shop/core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../features/main_feature/views/screens/camera_screen.dart';
-import '../../../features/main_feature/views/screens/listing_screen.dart';
-import '../../../features/main_feature/views/screens/map_screen.dart';
+import '../../../features/shop/views/screens/camera_screen.dart';
+import '../../../features/shop/views/screens/listing_screen.dart';
+import '../../../features/shop/views/screens/map_screen.dart';
 import '../../config/app_theme.dart';
 import '../widgets/main_button.dart';
 import '../widgets/space.dart';

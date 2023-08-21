@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:regexpattern/regexpattern.dart';
 
-import '../../../../main_feature/views/screens/home_screen.dart';
+import '../../../../shop/views/screens/home_screen.dart';
 import '../../../domain/usecase/get_user_type_usecase.dart';
 import '../../screens/reset_password/password_reset_methods_screen.dart';
 
