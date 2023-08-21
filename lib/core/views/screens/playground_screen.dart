@@ -36,28 +36,28 @@ class PlayGroundScreen extends StatelessWidget {
             ),
               Space(height: 5.h,),
 
-            MainButton(
+              MainButton(
                 width: 100.w, height: 7.h,
                 label: Text(
                     "Listing",
                     style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> ListingScreen()));
+                },
               ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_)=> ListingScreen()));
-              },
-            ),
               Space(height: 5.h,),
 
-            MainButton(
-              width: 100.w, height: 7.h,
-              label: Text(
-                  "Camera",
-                  style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+              MainButton(
+                width: 100.w, height: 7.h,
+                label: Text(
+                    "Camera",
+                    style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> CameraScreen()));
+                },
               ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_)=> CameraScreen()));
-              },
-            ),
 
             ],
           ),
@@ -66,3 +66,4 @@ class PlayGroundScreen extends StatelessWidget {
     );
   }
 }
+

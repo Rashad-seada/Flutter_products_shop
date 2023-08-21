@@ -9,10 +9,7 @@ import 'package:eng_shop/features/auth/domain/usecase/logout_usecase.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:eng_shop/features/auth/views/screens/auth_methods_screen.dart';
 import 'package:eng_shop/features/main_feature/domain/entity/product_entity.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/add_to_cart_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/get_cart_usecase.dart';
 import 'package:eng_shop/features/main_feature/domain/usecase/products/get_products_usecase.dart';
-import 'package:eng_shop/features/main_feature/domain/usecase/cart/remove_from_cart_usecase.dart';
 import 'package:eng_shop/features/main_feature/views/pages/admin/admin_home_page.dart';
 import 'package:eng_shop/features/main_feature/views/pages/customer/customer_home_page.dart';
 import 'package:eng_shop/features/main_feature/views/pages/customer/cart_page.dart';
@@ -23,7 +20,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/config/app_theme.dart';
 import '../../../../../core/error/failure.dart';
-import '../../../../../core/views/widgets/custom_flushbar.dart';
 
 part 'home_state.dart';
 
