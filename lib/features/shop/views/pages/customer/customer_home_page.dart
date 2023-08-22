@@ -74,22 +74,11 @@ class CustomerHomePage extends StatelessWidget {
                       children: [
                         Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),).tr(),
 
-                        Space(height: 1.h,),
-
                         Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,).tr(),
                       ],
                     ),
                     Space(height: 2.h,),
 
-                    AdBannerSlider(
-                      ads: const [
-                        "https://i.ytimg.com/vi/hBYJDtkLY6Q/maxresdefault.jpg",
-                        "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cyber-monday-clothes-sale-ad-design-template-41ee71b978ca61439cd6bc1ac5332d8b_screen.jpg?ts=1561414497",
-                        "https://i.ytimg.com/vi/hBYJDtkLY6Q/maxresdefault.jpg",
-                      ],
-                    ),
-
-                    Space(height: 3.h,),
                     SearchField(
                       onTap: ()=> context.read<HomeCubit>().onSearchTap(context),
                       prefixIcon: Padding(
@@ -100,12 +89,24 @@ class CustomerHomePage extends StatelessWidget {
                       hint: LocaleKeys.search_hint_home.tr(),
                     ),
 
+                    Space(height: 2.h,),
+
+                    AdBannerSlider(
+                      ads: const [
+                        "https://i.ytimg.com/vi/hBYJDtkLY6Q/maxresdefault.jpg",
+                        "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cyber-monday-clothes-sale-ad-design-template-41ee71b978ca61439cd6bc1ac5332d8b_screen.jpg?ts=1561414497",
+                        "https://i.ytimg.com/vi/hBYJDtkLY6Q/maxresdefault.jpg",
+                      ],
+                    ),
+
+
+
                     Space(height: 3.h,),
 
 
 
                     Text(LocaleKeys.recommended.tr(), style: AppTheme.textLTextStyle(color: AppTheme.neutral900),textAlign: TextAlign.center,).tr(),
-                    Space(height: 2.h,),
+                    Space(height: 1.h,),
 
                     GridView.builder(
                         itemCount: HomeSuccess.products.length,
@@ -115,7 +116,7 @@ class CustomerHomePage extends StatelessWidget {
                             crossAxisCount: 2,
                             mainAxisSpacing: 3.w,
                             crossAxisSpacing: 3.w,
-                            childAspectRatio: 2/3
+                            childAspectRatio: 1.9/3
                         ),
                         itemBuilder: (_,index) {
                           return SmallProductItem(

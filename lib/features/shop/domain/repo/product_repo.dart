@@ -19,7 +19,5 @@ abstract class ProductRepo {
   Future<Either<Failure, void>> removeFromCart(ProductEntity productEntity,int screenCode);
   Future<Either<Failure, void>> updateCartProduct(CartEntity productEntity,int screenCode);
 
-  //search
-  Future<Either<Failure, List<ProductEntity>>> searchProduct(String searchTerm,int screenCode);
 
 }

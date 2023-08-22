@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
+import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
@@ -24,12 +25,7 @@ import 'generated/codegen_loader.g.dart';
 
 void main() async {
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.white,
-    statusBarColor: Colors.white,
-    statusBarIconBrightness: Brightness.dark,
-  ));
+  AppTheme.initSystemNavAndStatusBar();
   WidgetsFlutterBinding.ensureInitialized();
 
   await CoreCubit().init();
@@ -83,16 +79,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             debugShowCheckedModeBanner: false,
-            theme: ThemeData.from(
-              colorScheme: const ColorScheme.light(),
-            ).copyWith(
-              pageTransitionsTheme: const PageTransitionsTheme(
-                builders: <TargetPlatform, PageTransitionsBuilder>{
-                  TargetPlatform.android: SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.horizontal),
-                  TargetPlatform.iOS: SharedAxisPageTransitionsBuilder(transitionType: SharedAxisTransitionType.horizontal),
-                },
-              ),
-            ),
+            theme: AppTheme.theme,
             home: const IntroScreen(),
           );
         },

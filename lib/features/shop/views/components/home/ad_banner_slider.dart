@@ -58,7 +58,7 @@ class _AdBannerSliderState extends State<AdBannerSlider> {
           alignment: Alignment.center,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(1.w),
+            borderRadius: BorderRadius.circular(2.w),
             color: AppTheme.neutral100
           ),
           height: 200, // Adjust the height as needed

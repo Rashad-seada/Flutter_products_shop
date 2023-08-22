@@ -31,118 +31,136 @@ class _SmallProductItemState extends State<SmallProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: [
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      height: 20.h,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppTheme.neutral100,
+          borderRadius: BorderRadius.circular(2.w)
+      ),
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
 
 
 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            InkWell(
-              onTap: widget.onItemTap,
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                padding: EdgeInsets.all(1.w),
-                height: 20.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppTheme.neutral100,
-                  borderRadius: BorderRadius.circular(5.w)
-                ),
-                child: FutureBuilder(
-                    future: getImage(),
-                    builder: (BuildContext context, AsyncSnapshot<String> snapshot){
-                      if(snapshot.hasData) {
-                        return Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.w)
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: snapshot.data!,
-                            placeholder: (context, url) => Center(child: SvgPicture.asset(AppImages.photo,width: 15.w,height: 15.w,)),
-                            errorWidget: (context, url, error) => Center(child: SvgPicture.asset(AppImages.photo,width: 15.w,height: 15.w,)),
-                            fit: BoxFit.cover,
-                          ),
-                        );
+              InkWell(
+                onTap: widget.onItemTap,
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  height: 20.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppTheme.neutral100,
+                    borderRadius: BorderRadius.circular(2.w)
+                  ),
+                  child: FutureBuilder(
+                      future: getImage(),
+                      builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+                        if(snapshot.hasData) {
+                          return Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2.w)
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: snapshot.data!,
+                              placeholder: (context, url) => Center(child: SvgPicture.asset(AppImages.photo,width: 15.w,height: 15.w,)),
+                              errorWidget: (context, url, error) => Center(child: SvgPicture.asset(AppImages.photo,width: 15.w,height: 15.w,)),
+                              fit: BoxFit.cover,
+                            ),
+                          );
 
-                      }else if(snapshot.hasError){
-                        return Center(child: SvgPicture.asset(AppImages.photo));
-                      }else {
-                        return Center(child: SvgPicture.asset(AppImages.photo));
+                        }else if(snapshot.hasError){
+                          return Center(child: SvgPicture.asset(AppImages.photo));
+                        }else {
+                          return Center(child: SvgPicture.asset(AppImages.photo));
 
+                        }
                       }
-                    }
+                  ),
                 ),
               ),
-            ),
 
-            Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
 
-                Icon(Icons.star_half_rounded,color: Colors.amber,),
+                        Icon(Icons.star_half_rounded,color: Colors.amber,),
 
-                Space(width: 1.w,) ,
+                        Space(width: 1.w,) ,
 
-                Text("4.7",style: AppTheme.textMTextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                        Text("4.7",style: AppTheme.textMTextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
 
-                Space(width: 1.5.w,) ,
+                        Space(width: 1.5.w,) ,
 
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 1.w, horizontal:  1.w),
-                  width: 0.4.w,
-                  height: 2.h,
-                  decoration: BoxDecoration(
-                      color: AppTheme.neutral300,
-                      borderRadius: BorderRadius.circular(1.w)
-                  ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 1.w, horizontal:  1.w),
+                          width: 0.4.w,
+                          height: 2.h,
+                          decoration: BoxDecoration(
+                              color: AppTheme.neutral300,
+                              borderRadius: BorderRadius.circular(1.w)
+                          ),
+                        ),
+
+                        Space(width: 2.w,) ,
+
+                        Container(
+                          padding: EdgeInsets.all(1.w),
+                          decoration: BoxDecoration(
+                              color: AppTheme.neutral200,
+                              borderRadius: BorderRadius.circular(1.w)
+                          ),
+                          child: Text("4075 Sold",style: AppTheme.textSTextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                        ),
+
+
+                      ],
+                    ),
+
+                    Text("KD ${widget.productEntity.price}",style: AppTheme.textLTextStyle(color: AppTheme.primary900),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                    Space(height: 1.h,) ,
+
+                  ],
                 ),
-
-                Space(width: 2.w,) ,
-
-                Container(
-                  padding: EdgeInsets.all(1.w),
-                  decoration: BoxDecoration(
-                      color: AppTheme.neutral100,
-                      borderRadius: BorderRadius.circular(1.w)
-                  ),
-                  child: Text("4075 Sold",style: AppTheme.textSTextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
-                ),
+              ),
 
 
-              ],
-            ),
-
-            Text("KD ${widget.productEntity.price}",style: AppTheme.textLTextStyle(color: AppTheme.primary900),maxLines: 2,overflow: TextOverflow.ellipsis,),
-
-
-          ],
-        ),
-
-        InkWell(
-          onTap: widget.onAddToFavoriteTap,
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(2.w),
-            width: 7.w,
-            height: 7.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppTheme.neutral200,
-            ),
-            child: Icon(Icons.favorite_border_rounded,size: 15,color: AppTheme.neutral500,),
+            ],
           ),
-        ),
-        
-        
-      ],
+
+          InkWell(
+            onTap: widget.onAddToFavoriteTap,
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.all(2.w),
+              width: 7.w,
+              height: 7.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.neutral100,
+              ),
+              child: SvgPicture.asset(AppImages.heart,width: 4.w,height: 4.w,),
+            ),
+          ),
+
+
+        ],
+      ),
     );
   }
 }

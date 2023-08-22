@@ -1,29 +1,35 @@
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
-class CustomNavigationBar extends StatelessWidget {
+import '../../../../../core/config/app_theme.dart';
+
+class CustomNavigationBar extends StatefulWidget {
   Function(int)? onTap;
   int currentIndex;
-  List<DotNavigationBarItem> items;
+  List<BottomNavigationBarItem> items;
 
   CustomNavigationBar({super.key,required this.currentIndex,this.onTap,required this.items});
 
   @override
+  State<CustomNavigationBar> createState() => _CustomNavigationBarState();
+}
+
+class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  @override
   Widget build(BuildContext context) {
-    return DotNavigationBar(
-      itemPadding: EdgeInsets.symmetric(vertical: 1.h,horizontal: 4.w),
-      marginR: EdgeInsets.symmetric(vertical: 2.h,horizontal: 6.w),
-      margin: EdgeInsets.symmetric(vertical: 20.w),
-      backgroundColor: AppTheme.neutral900,
-      currentIndex: currentIndex,
-      dotIndicatorColor: AppTheme.neutral900,
-      unselectedItemColor: AppTheme.neutral100,
-      splashBorderRadius: 50,
-      // enableFloatingNavBar: false,
-      onTap: onTap,
-      items: items
+    return  BottomNavigationBar(
+      backgroundColor: AppTheme.backgroundColor,
+      elevation: 20,
+      selectedLabelStyle: AppTheme.textMTextStyle(color: AppTheme.neutral900),
+      unselectedLabelStyle: AppTheme.textMTextStyle(color: AppTheme.neutral900),
+      currentIndex: widget.currentIndex,
+      onTap: (index){
+        if(widget.onTap != null){
+          widget.onTap!(index);
+        }
+      },
+      items: widget.items,
+      unselectedItemColor: Colors.white,
+      selectedItemColor: AppTheme.neutral900,
     );
   }
 }

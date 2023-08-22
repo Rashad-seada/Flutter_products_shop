@@ -1,19 +1,30 @@
-
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'app_consts.dart';
 
 abstract class AppTheme {
+  static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) =>
+      GoogleFonts.lato(
+          textStyle: TextStyle(
+              color: color, fontSize: font32.sp, fontWeight: FontWeight.bold));
 
-  static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font32.sp,fontWeight: FontWeight.bold));
-  static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font28.sp));
-  static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font21.sp));
+  static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font28.sp));
 
-  static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color:color ,fontSize: font16.sp));
-  static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font14.sp));
-  static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) => GoogleFonts.lato(textStyle: TextStyle(color: color,fontSize: font12.sp));
+  static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font21.sp));
 
+  static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font16.sp));
+
+  static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font14.sp));
+
+  static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font12.sp));
 
   static const Color neutral900 = Color(0xff111827);
   static const Color neutral800 = Color(0xff1F2937);
@@ -38,7 +49,6 @@ abstract class AppTheme {
   static const Color success = Color(0xff60c631);
   static const Color error = Color(0xffff472b);
 
-
   static const double font32 = 28;
   static const double font28 = 24;
   static const double font21 = 17;
@@ -46,4 +56,54 @@ abstract class AppTheme {
   static const double font14 = 10;
   static const double font12 = 8;
 
+  static const Color backgroundColor = Color(0xffFFFFFF);
+
+  static ThemeData theme = ThemeData(
+    primaryColor: primary900,  // Primary color for your app
+    hintColor: neutral300,  // Accent color used for buttons, etc.
+    fontFamily: 'Late',      // Default font family
+    // Text theme
+    textTheme: TextTheme(
+      displayLarge: heading1TextStyle(),
+      displayMedium: heading2TextStyle(),
+      bodyLarge: textLTextStyle(),
+      bodyMedium: textMTextStyle(),
+    ),
+
+    scaffoldBackgroundColor: backgroundColor,
+
+    // Button theme
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primary900,  // Default button color
+      ),
+    ),
+
+    // Input decoration theme
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primary900),
+      ),
+    ),
+
+  ).copyWith(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: <TargetPlatform, PageTransitionsBuilder>{
+        TargetPlatform.android: SharedAxisPageTransitionsBuilder(
+            transitionType: SharedAxisTransitionType.horizontal),
+        TargetPlatform.iOS: SharedAxisPageTransitionsBuilder(
+            transitionType: SharedAxisTransitionType.horizontal),
+      },
+    ),
+  );
+
+  static void initSystemNavAndStatusBar() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.black,
+      statusBarColor: backgroundColor,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+  }
 }

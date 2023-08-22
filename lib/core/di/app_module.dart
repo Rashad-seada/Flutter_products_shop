@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:eng_shop/core/services/camera_service.dart';
 import 'package:eng_shop/core/services/google_service.dart';
+import 'package:eng_shop/core/services/locale_service.dart';
 import 'package:eng_shop/core/services/location_service.dart';
 import 'package:eng_shop/core/services/network_service.dart';
 import 'package:eng_shop/core/services/permission_service.dart';
@@ -67,6 +68,7 @@ class AppModule {
             ..registerSingleton<NetworkService>(NetworkServiceImpl())
             ..registerSingleton<PermissionService>(PermissionService())
             ..registerSingleton<LocationService>(LocationService())
+            ..registerSingleton<LocaleService>(LocaleService())
             ..registerSingleton<Services>(Services());
 
 

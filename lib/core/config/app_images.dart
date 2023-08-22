@@ -55,5 +55,12 @@ abstract class AppImages {
 
   static const String heart = "images/heart.svg";
   static const String menu2 = "images/menu_2.svg";
+  static const String home = "images/home.svg";
+  static const String cart = "images/shopping_cart.svg";
 
+  static const String trash = "images/trash.svg";
+
+  static const String profile2 = "images/profile2.svg";
+
+  static const String search2 = "images/search2.svg";
 }

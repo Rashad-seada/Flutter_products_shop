@@ -5,6 +5,7 @@ import 'package:eng_shop/core/services/network_service.dart';
 import 'package:eng_shop/core/services/permission_service.dart';
 
 import 'camera_service.dart';
+import 'locale_service.dart';
 
 class Services {
 
@@ -17,5 +18,7 @@ class Services {
   final LocationService locationService = LocationService();
 
   final PermissionService permissionService = PermissionService();
+
+  final LocaleService localeService = LocaleService();
 
 }

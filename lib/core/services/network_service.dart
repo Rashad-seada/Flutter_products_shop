@@ -1,6 +1,5 @@
 
-import 'package:connectivity_plus/connectivity_plus.dart';
-
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import '../error/exception.dart';
 
 abstract class NetworkService {
@@ -11,16 +10,13 @@ abstract class NetworkService {
 
 class NetworkServiceImpl implements NetworkService {
 
+  InternetConnection internetConnection = InternetConnection();
+
 
   @override
   Future<bool> get isConnected async {
     try {
-      final connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.none) {
-        return false;
-      } else {
-        return true;
-      }
+      return await InternetConnection().hasInternetAccess;
     } catch (e) {
       throw ServiceException();
     }

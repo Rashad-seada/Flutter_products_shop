@@ -12,14 +12,16 @@ import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:eng_shop/features/shop/views/util/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/app_theme.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../search/views/screens/search_screen.dart';
 import '../../../domain/entity/product_entity.dart';
+import '../../../domain/usecase/cart/get_cart_usecase.dart';
 import '../../../domain/usecase/products/get_products_usecase.dart';
 import '../../pages/admin/admin_home_page.dart';
-import '../../pages/customer/cart_page.dart';
+import '../../pages/cart_page.dart';
 import '../../pages/customer/customer_home_page.dart';
 
 part 'home_state.dart';
@@ -38,11 +40,10 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   HomeCubit() : super(HomeInitial()){
-
     scrollController = ScrollController();
     scrollController.addListener(()=> _listener());
-
     pageNumber = 1;
+
     getProducts();
   }
 
@@ -51,6 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
   ScrollController scrollController = ScrollController();
 
   int currentIndex = 0;
+
 
   int pageNumber = 1;
 
@@ -66,60 +68,80 @@ class HomeCubit extends Cubit<HomeState> {
     const PlayGroundScreen(),
     const Scaffold(),
     const CartPage(),
+    const Scaffold(),
   ];
 
-  List<DotNavigationBarItem> get adminNavItems => [
+  List<BottomNavigationBarItem> get adminNavItems => [
     /// Home
-    DotNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      selectedColor: AppTheme.primary500,
+    BottomNavigationBarItem(
+        label: "Home",
+        icon: SvgPicture.asset(AppImages.home),
+        activeIcon: SvgPicture.asset(AppImages.home)
     ),
 
     /// Search
-    DotNavigationBarItem(
-      icon: Icon(Icons.search),
-      selectedColor: AppTheme.primary500,
-    ),
-
-    /// Likes
-    DotNavigationBarItem(
-      icon: Icon(Icons.favorite_border_rounded),
-      selectedColor: AppTheme.primary500,
-    ),
-
-    /// Profile
-    DotNavigationBarItem(
-      icon: Icon(Icons.person_2_outlined),
-      selectedColor: AppTheme.primary500,
-    ),
-  ];
-
-  List<DotNavigationBarItem> get customerNavItems => [
-    /// Home
-    DotNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
-      selectedColor: AppTheme.primary500,
-    ),
-
-    /// Search
-    DotNavigationBarItem(
-      icon: Icon(Icons.search),
-      selectedColor: AppTheme.primary500,
+    BottomNavigationBarItem(
+        label: "Search",
+        icon: SvgPicture.asset(AppImages.search),
+        activeIcon: SvgPicture.asset(AppImages.search)
     ),
 
 
     /// Likes
-    DotNavigationBarItem(
-      icon: Icon(Icons.favorite_border_rounded),
-      selectedColor: AppTheme.primary500,
+    BottomNavigationBarItem(
+        label: "Favorite",
+        icon: SvgPicture.asset(AppImages.heart),
+        activeIcon: SvgPicture.asset(AppImages.heart)
+
     ),
 
     /// Profile
-    DotNavigationBarItem(
-      icon: Icon(Icons.shopping_cart_outlined),
-      selectedColor: AppTheme.primary500,
+    BottomNavigationBarItem(
+        label: "Cart",
+        icon: SvgPicture.asset(AppImages.cart),
+        activeIcon: SvgPicture.asset(AppImages.cart)
     ),
   ];
+
+  List<BottomNavigationBarItem> get customerNavItems => [
+    /// Home
+    BottomNavigationBarItem(
+      label: "Home",
+      icon: SvgPicture.asset(AppImages.home),
+      activeIcon: SvgPicture.asset(AppImages.home)
+    ),
+
+    /// Search
+    BottomNavigationBarItem(
+      label: "Categories",
+      icon: SvgPicture.asset(AppImages.search2),
+      activeIcon: SvgPicture.asset(AppImages.search2)
+    ),
+
+
+    /// Likes
+    BottomNavigationBarItem(
+      label: "Favorite",
+      icon: SvgPicture.asset(AppImages.heart),
+      activeIcon: SvgPicture.asset(AppImages.heart)
+
+    ),
+
+    /// cart
+    BottomNavigationBarItem(
+      label: "Cart",
+      icon: SvgPicture.asset(AppImages.cart),
+      activeIcon: SvgPicture.asset(AppImages.cart)
+    ),
+
+    /// profile
+    BottomNavigationBarItem(
+        label: "Me",
+        icon: SvgPicture.asset(AppImages.profile2),
+        activeIcon: SvgPicture.asset(AppImages.profile2)
+    ),
+  ];
+
 
   onNavigationBarTap(int index){
     emit(HomePageChanged());
@@ -131,7 +153,7 @@ class HomeCubit extends Cubit<HomeState> {
       scaffoldKey.currentState!.openDrawer();
   }
 
-  List<DotNavigationBarItem> getNavItems(UserType userType){
+  List<BottomNavigationBarItem> getNavItems(UserType userType){
     if(userType == UserType.customer){
       return customerNavItems;
     }else {
@@ -182,6 +204,7 @@ class HomeCubit extends Cubit<HomeState> {
       )
     );
   }
+
 
   void getProducts(){
     emit(HomeIsLoading());

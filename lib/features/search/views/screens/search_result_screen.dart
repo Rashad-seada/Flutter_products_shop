@@ -102,7 +102,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                             crossAxisCount: 2,
                             mainAxisSpacing: 3.w,
                             crossAxisSpacing: 3.w,
-                            childAspectRatio: 2/3
+                            childAspectRatio: 1.9/3
                         ),
                         itemBuilder: (_,index) {
                           return SmallProductItem(
