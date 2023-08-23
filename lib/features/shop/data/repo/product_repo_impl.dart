@@ -215,6 +215,7 @@ class ProductRepoImpl implements ProductRepo {
         return right(productEntity);
       }
 
+
       List<ProductEntity> productEntity = await remoteDataSource.getProducts(pageNumber);
 
       if(productEntity.isEmpty) {
@@ -248,6 +249,21 @@ class ProductRepoImpl implements ProductRepo {
       print(productEntity.quantity);
 
       localDataSource.updateCartProduct(productEntity);
+      return right(Unit);
+
+    } on LocalDataException {
+
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> dropAllProducts(int screenCode) async {
+    try {
+
+      await localDataSource.dropAllProducts();
       return right(Unit);
 
     } on LocalDataException {

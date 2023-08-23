@@ -89,6 +89,8 @@ dependencies:
   google_fonts:
   device_preview:
   badges:
+  liquid_pull_to_refresh:
+
 
   #client
   dio:

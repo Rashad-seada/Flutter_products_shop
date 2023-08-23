@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: BlocConsumer<LoginCubit,LoginState>(
                 listener: (context, state) {
                   if(state is LoginFailure){

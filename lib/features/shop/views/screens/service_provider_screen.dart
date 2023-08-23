@@ -36,7 +36,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
       body: SizedBox(
         width: 100.w,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: SingleChildScrollView(
             child: BlocConsumer<ServiceProviderCubit, ServiceProviderState>(
               listener: (context, state) {},

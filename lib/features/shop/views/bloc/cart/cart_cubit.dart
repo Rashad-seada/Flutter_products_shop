@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:eng_shop/features/shop/views/bloc/home/home_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/di/app_module.dart';
+import '../../../../../core/error/error_messages.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../data/repo/util/cart_response.dart';
@@ -15,24 +15,29 @@ import '../../../domain/usecase/cart/add_to_cart_usecase.dart';
 import '../../../domain/usecase/cart/get_cart_usecase.dart';
 import '../../../domain/usecase/cart/remove_from_cart_usecase.dart';
 import '../../../domain/usecase/cart/update_cart_usecase.dart';
+import '../home/home_cubit.dart';
 
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
-  void getCart(){
+  Future<void> getCart() async {
     CartSuccess.cart.clear();
     emit(CartLoading());
-    getIt<GetCartUsecase>().call(GetCartParams(AppConsts.homeScreen)).then(
+    await getIt<GetCartUsecase>().call(GetCartParams(AppConsts.homeScreen)).then(
         (value) => value.fold(
           (error) {
             emit(CartFailure(error));
-            emit(CartInitial());
+            if(error.exceptionCode.toString() + error.customCode.toString() == ErrorMessages.networkErrorCode){
+              emit(CartNetworkError());
+            }
           },
           (success) {
             emit(CartSuccess());
             CartSuccess.cart = success;
+            HomeCubit.cartCount.value = getTotalItems() ;
+
             emit(CartInitial());
           },
         )
@@ -40,6 +45,8 @@ class CartCubit extends Cubit<CartState> {
   }
 
   double totalPrice = 0;
+
+  int cartCount = 0;
 
   calculateTotal(){
     emit(CartInitial());
@@ -49,7 +56,7 @@ class CartCubit extends Cubit<CartState> {
     emit(CartSuccess());
   }
 
-  void removeFromCart(CartResponse cartResponse,BuildContext context){
+  void removeFromCart(CartResponse cartResponse,BuildContext context) {
 
     getIt<RemoveFromCartUsecase>().call(RemoveFromCartParams(cartResponse.productEntity, AppConsts.homeScreen)).then(
             (value) => value.fold(
@@ -57,15 +64,12 @@ class CartCubit extends Cubit<CartState> {
                 emit(CartFailure(error));
                 emit(CartInitial());
               },
-              (success) {
+              (success) async {
                 emit(CartSuccess());
                 CartSuccess.cart.remove(cartResponse);
-                print(CartSuccess.cart.length);
-                CustomFlushBar(
-                    title: "Removed from cart",
-                    message: "the product has been removed from your cart",
-                    context: context
-                );
+
+                HomeCubit.cartCount.value = getTotalItems() ;
+
                 emit(CartInitial());
                 calculateTotal();
               },
@@ -82,14 +86,17 @@ class CartCubit extends Cubit<CartState> {
           emit(CartFailure(error));
           emit(CartInitial());
         },
-        (success) {
+        (success) async {
           emit(CartSuccess());
+
+          await getCart();
+          HomeCubit.cartCount.value = getTotalItems() ;
+
           CustomFlushBar(
               title: "Added to cart",
               message: "the product has been added to your cart",
               context: context
           );
-          context.read<HomeCubit>().emit(HomeSuccess());
           emit(CartInitial());
           calculateTotal();
 
@@ -134,6 +141,10 @@ class CartCubit extends Cubit<CartState> {
 
   int getTotalItems() {
     return CartSuccess.cart.length;
+  }
+
+  onRefreash() {
+    getCart();
   }
 
 }

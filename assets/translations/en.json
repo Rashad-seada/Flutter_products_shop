@@ -106,6 +106,9 @@
   "recent": "Recent",
   "clear": "Clear",
   "cancel": "Cancel",
-  "search_not_found": "We didn't find what you been looking for!"
+  "search_not_found": "We didn't find what you been looking for!",
+
+  "internet_connection": "Please check your internet connection!"
+
 
 }

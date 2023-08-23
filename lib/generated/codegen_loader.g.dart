@@ -110,7 +110,8 @@ class CodegenLoader extends AssetLoader{
   "recent": "مؤخرا",
   "clear": "مسح",
   "cancel": "الغاء",
-  "search_not_found": "لم نستطيع العثور على ما كنت تبحث عنه!"
+  "search_not_found": "لم نستطيع العثور على ما كنت تبحث عنه!",
+  "internet_connection": "من فضلك تحقق من الاتصال بالشبكه"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -207,7 +208,8 @@ static const Map<String,dynamic> en = {
   "recent": "Recent",
   "clear": "Clear",
   "cancel": "Cancel",
-  "search_not_found": "We didn't find what you been looking for!"
+  "search_not_found": "We didn't find what you been looking for!",
+  "internet_connection": "Please check your internet connection!"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

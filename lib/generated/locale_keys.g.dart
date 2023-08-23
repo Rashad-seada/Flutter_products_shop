@@ -97,5 +97,6 @@ abstract class  LocaleKeys {
   static const clear = 'clear';
   static const cancel = 'cancel';
   static const search_not_found = 'search_not_found';
+  static const internet_connection = 'internet_connection';
 
 }

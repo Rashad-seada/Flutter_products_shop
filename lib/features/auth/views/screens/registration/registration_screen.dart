@@ -44,7 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
 
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
                 listener: (context, state) {

@@ -18,7 +18,7 @@ class ImageSelectorScreen extends StatelessWidget {
         width: 100.w,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 7.w),
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: Column(
               children: [
 

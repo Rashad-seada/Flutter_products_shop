@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   Space(height: 3.h,),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Row(
                       children: [
                         SizedBox(

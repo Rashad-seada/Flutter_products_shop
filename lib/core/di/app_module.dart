@@ -47,6 +47,7 @@ import '../../features/shop/domain/usecase/cart/add_to_cart_usecase.dart';
 import '../../features/shop/domain/usecase/cart/get_cart_usecase.dart';
 import '../../features/shop/domain/usecase/cart/remove_from_cart_usecase.dart';
 import '../../features/shop/domain/usecase/cart/update_cart_usecase.dart';
+import '../../features/shop/domain/usecase/products/drop_all_products_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_image_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_product_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_products_usecase.dart';
@@ -166,7 +167,9 @@ class AppModule {
             ..registerSingleton<DeleteAllRecentSearchUsecase>(
                 DeleteAllRecentSearchUsecase(repo: getIt<SearchRepo>()))
             ..registerSingleton<DeleteRecentSearchUsecase>(
-                DeleteRecentSearchUsecase(repo: getIt<SearchRepo>()));
+                DeleteRecentSearchUsecase(repo: getIt<SearchRepo>()))
+            ..registerSingleton<DropAllProductsUsecase>(
+                DropAllProductsUsecase(repo: getIt<ProductRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {

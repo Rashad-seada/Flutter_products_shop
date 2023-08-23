@@ -499,6 +499,11 @@ class _$ProductDao extends ProductDao {
   }
 
   @override
+  Future<void> dropAllProducts() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ProductEntity');
+  }
+
+  @override
   Future<void> insertAllProducts(List<ProductEntity> products) async {
     await _productEntityInsertionAdapter.insertList(
         products, OnConflictStrategy.replace);
@@ -604,6 +609,11 @@ class _$CartDao extends CartDao {
   Future<List<int>> getProductsIds() async {
     return _queryAdapter.queryList('SELECT id FROM CartEntity',
         mapper: (Map<String, Object?> row) => row.values.first as int);
+  }
+
+  @override
+  Future<void> dropAllCart() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM CartEntity');
   }
 
   @override
@@ -1003,6 +1013,11 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
   Future<List<int>> getProductsIds() async {
     return _queryAdapter.queryList('SELECT id FROM ProductFavoriteEntity',
         mapper: (Map<String, Object?> row) => row.values.first as int);
+  }
+
+  @override
+  Future<void> dropAllFavoriteProducts() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM ProductFavoriteEntity');
   }
 
   @override

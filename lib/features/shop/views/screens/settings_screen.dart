@@ -26,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
                   Space(height: 5.h,),
 
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

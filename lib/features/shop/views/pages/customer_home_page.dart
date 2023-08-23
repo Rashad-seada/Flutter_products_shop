@@ -1,20 +1,24 @@
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/views/components/network_error_message.dart';
 import 'package:eng_shop/core/views/widgets/custom_flushbar.dart';
+import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../../core/config/app_images.dart';
-import '../../../../../core/config/app_theme.dart';
-import '../../../../../core/views/widgets/space.dart';
-import '../../../../../generated/locale_keys.g.dart';
-import '../../../../search/views/components/search/search_field.dart';
-import '../../bloc/cart/cart_cubit.dart';
-import '../../bloc/home/home_cubit.dart';
-import '../../components/home/ad_banner_slider.dart';
-import '../../components/home/small_product_item.dart';
+import '../../../../core/config/app_images.dart';
+import '../../../../core/config/app_theme.dart';
+import '../../../../core/views/widgets/space.dart';
+import '../../../../generated/locale_keys.g.dart';
+import '../../../search/views/components/search/search_field.dart';
+import '../bloc/cart/cart_cubit.dart';
+import '../bloc/home/home_cubit.dart';
+import '../bloc/home_customer/home_customer_cubit.dart';
+import '../components/home/ad_banner_slider.dart';
+import '../components/home/small_product_item.dart';
 
 class CustomerHomePage extends StatelessWidget {
   const CustomerHomePage({super.key});
@@ -22,12 +26,12 @@ class CustomerHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return  BlocConsumer<HomeCubit, HomeState>(
+    return  BlocConsumer<HomeCustomerCubit, HomeCustomerState>(
       listener: (context, state) {
-        if(state is HomeFailure){
+        if(state is HomeCustomerFailure){
           CustomFlushBar(
-              title: "Error : ${HomeFailure.myError.code()}",
-              message: HomeFailure.myError.message,
+              title: "Error : ${HomeCustomerFailure.myError.code()}",
+              message: HomeCustomerFailure.myError.message,
               context: context
           );
         }
@@ -36,14 +40,13 @@ class CustomerHomePage extends StatelessWidget {
         return Scaffold(
           body: SizedBox(
             width: 100.w,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7.w),
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                controller: context.read<HomeCubit>().scrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+            child: PullToRefresh(
+              onRefresh: () async  => context.read<HomeCustomerCubit>().onRefresh(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                child: ListView(
+                  controller: context.read<HomeCustomerCubit>().scrollController,
+                  physics: BouncingScrollPhysics(),
                   children: [
 
                     Space(height: 4.h,),
@@ -80,7 +83,7 @@ class CustomerHomePage extends StatelessWidget {
                     Space(height: 2.h,),
 
                     SearchField(
-                      onTap: ()=> context.read<HomeCubit>().onSearchTap(context),
+                      onTap: ()=> context.read<HomeCustomerCubit>().onSearchTap(context),
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(1.5.h),
                         child: SvgPicture.asset(AppImages.search),
@@ -105,11 +108,15 @@ class CustomerHomePage extends StatelessWidget {
 
 
 
-                    Text(LocaleKeys.recommended.tr(), style: AppTheme.textLTextStyle(color: AppTheme.neutral900),textAlign: TextAlign.center,).tr(),
+                    Row(
+                      children: [
+                        Text(LocaleKeys.recommended.tr(), style: AppTheme.textLTextStyle(color: AppTheme.neutral900),textAlign: TextAlign.center,).tr(),
+                      ],
+                    ),
                     Space(height: 1.h,),
 
                     GridView.builder(
-                        itemCount: HomeSuccess.products.length,
+                        itemCount: HomeCustomerSuccess.products.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -120,13 +127,16 @@ class CustomerHomePage extends StatelessWidget {
                         ),
                         itemBuilder: (_,index) {
                           return SmallProductItem(
-                            productEntity: HomeSuccess.products[index],
-                            onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(HomeSuccess.products[index],context),
+                            productEntity: HomeCustomerSuccess.products[index],
+                            onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(HomeCustomerSuccess.products[index],context),
                           );
                         }
                     ),
 
-                    Center(child: (state is HomeIsLoading)? circleIndicator() : const SizedBox()),
+                    Center(child: (state is HomeCustomerIsLoading)? circleIndicator() : const SizedBox()),
+
+                    Center(child: (state is HomeCustomerNetworkError)? const NetworkErrorMessage() : const SizedBox()),
+
 
                     Space(height: 14.h,),
 
@@ -148,4 +158,6 @@ class CustomerHomePage extends StatelessWidget {
     );
   }
 }
+
+
 

@@ -62,6 +62,7 @@ class SearchCubit extends Cubit<SearchState> {
             (success) {
           emit(SearchSuccess());
           SearchSuccess.recentSearches = success;
+          print(success);
           emit(SearchInitial());
         }
     ));

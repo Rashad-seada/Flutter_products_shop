@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
@@ -6,8 +5,8 @@ import 'package:eng_shop/core/views/screens/intro_screen.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
+import 'package:eng_shop/features/shop/views/bloc/categories/categories_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,6 +16,8 @@ import 'features/search/views/bloc/search/search_cubit.dart';
 import 'features/shop/views/bloc/camera/camera_cubit.dart';
 import 'features/shop/views/bloc/cart/cart_cubit.dart';
 import 'features/shop/views/bloc/home/home_cubit.dart';
+import 'features/shop/views/bloc/home_admin/home_admin_cubit.dart';
+import 'features/shop/views/bloc/home_customer/home_customer_cubit.dart';
 import 'features/shop/views/bloc/language/language_cubit.dart';
 import 'features/shop/views/bloc/map/map_cubit.dart';
 import 'features/shop/views/bloc/profile/profile_cubit.dart';
@@ -60,6 +61,8 @@ class MyApp extends StatelessWidget {
 
         //main feature
         BlocProvider(create: (_)=> HomeCubit()),
+        BlocProvider(create: (_)=> HomeCustomerCubit()),
+        BlocProvider(create: (_)=> HomeAdminCubit()),
         BlocProvider(create: (_)=> LanguageCubit()),
         BlocProvider(create: (_)=> ServiceProviderCubit()),
         BlocProvider(create: (_)=> ProfileCubit()),
@@ -67,6 +70,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> MapCubit()),
         BlocProvider(create: (_)=> CartCubit()),
         BlocProvider(create: (_)=> SearchCubit()),
+        BlocProvider(create: (_)=> CategoriesCubit()),
 
 
       ],

@@ -15,7 +15,7 @@ class ListingScreen extends StatelessWidget {
         width: 100.w,
         height: 100.h,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(

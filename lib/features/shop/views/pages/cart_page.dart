@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/core/views/components/network_error_message.dart';
+import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,13 +42,12 @@ class _CartPageState extends State<CartPage> {
             body: SizedBox(
               width: 100.w,
               height: 100.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.w),
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-
-                  child: Column(
-                    mainAxisAlignment: (CartSuccess.cart.isNotEmpty)? MainAxisAlignment.start : MainAxisAlignment.center,
+              child: PullToRefresh(
+                onRefresh: () async => context.read<CartCubit>().onRefreash(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: ListView(
+                    physics: BouncingScrollPhysics(),
                     children: [
 
                       Space(height: 4.h,),
@@ -56,36 +57,23 @@ class _CartPageState extends State<CartPage> {
                         children: [
 
                           Text(LocaleKeys.cart.tr(),
-                            style: AppTheme.heading2TextStyle(),),
+                            style: AppTheme.heading3TextStyle(),),
 
                         ],
                       ),
 
                       Space(height: 2.h,),
 
+                      (state is CartNetworkError)?
+                      NetworkErrorMessage() :
+                      SizedBox() ,
+
 
                       (state is CartLoading)?
                       circleIndicator() :
+                      SizedBox(),
 
-                      (CartSuccess.cart.isNotEmpty)?
-                      ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: CartSuccess.cart.length,
-                        itemBuilder: (_, index) {
-                          return CartItem(
-                            cartResponse: CartSuccess.cart[index],
-                            quantity: CartSuccess.cart[index].cartEntity.quantity!,
-
-                            onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
-                            onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
-                            onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Space(height: 2.h,);
-                        },
-                      ):
+                      (CartSuccess.cart.isEmpty &&  state is! CartLoading && state is! CartNetworkError)?
                       Center(
                         child: Column(
                           children: [
@@ -104,6 +92,27 @@ class _CartPageState extends State<CartPage> {
 
                           ],
                         ),
+                      ) :
+                      SizedBox(),
+
+
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: CartSuccess.cart.length,
+                        itemBuilder: (_, index) {
+                          return CartItem(
+                            cartResponse: CartSuccess.cart[index],
+                            quantity: CartSuccess.cart[index].cartEntity.quantity!,
+
+                            onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
+                            onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
+                            onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Space(height: 2.h,);
+                        },
                       ),
 
                       Space(height: 5.h,),
@@ -125,7 +134,7 @@ class _CartPageState extends State<CartPage> {
   Widget circleIndicator(){
     return  Padding(
       padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,)),
+      child: Center(child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,))),
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../bloc/home/home_cubit.dart';
+import '../../bloc/home_customer/home_customer_cubit.dart';
 import '../../screens/language_screen.dart';
 import '../../screens/profile_screen.dart';
 import '../../screens/settings_screen.dart';
@@ -74,7 +74,7 @@ class CustomSideMenu extends StatelessWidget {
 
              Text(LocaleKeys.logout.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),
              Space(width: 0.5.w,),
-             IconButton(onPressed: () async => context.read<HomeCubit>().onLogoutClick(context) , icon: Icon(Icons.logout))
+             IconButton(onPressed: () async => context.read<HomeCustomerCubit>().onLogoutClick(context) , icon: Icon(Icons.logout))
            ],
          )
 

@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: SingleChildScrollView(
                 child: BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {

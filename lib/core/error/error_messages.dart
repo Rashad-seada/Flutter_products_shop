@@ -79,6 +79,8 @@ class ErrorMessages {
     "1" : "the device is not connected to the network",
   };
 
+  static const String networkErrorCode = "41";
+
 
 
 }

@@ -27,6 +27,9 @@ abstract class ProductDao {
 
   @update
   Future<void> updateProduct(ProductEntity products);
+
+  @Query('DELETE FROM ProductEntity')
+  Future<void> dropAllProducts();
 }
 
 @dao
@@ -52,6 +55,9 @@ abstract class CartDao {
 
   @update
   Future<void> updateProduct(CartEntity products);
+
+  @Query('DELETE FROM CartEntity')
+  Future<void> dropAllCart();
 }
 
 @dao
@@ -77,4 +83,7 @@ abstract class ProductFavoriteDao {
 
   @update
   Future<void> updateProduct(ProductEntity products);
+
+  @Query('DELETE FROM ProductFavoriteEntity')
+  Future<void> dropAllFavoriteProducts();
 }
