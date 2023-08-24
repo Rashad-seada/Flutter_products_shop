@@ -60,7 +60,7 @@ class LanguageCubit extends Cubit<LanguageState> {
               },
               (success) {
                 Timer.periodic(const Duration(seconds: 2), (timer) {
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomeScreen(userType: success!,)), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomeScreen(userType: success!, context: context,)), (route) => false);
                   emit(LanguageInitial());
                 });
               }

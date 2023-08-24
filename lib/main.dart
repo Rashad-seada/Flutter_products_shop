@@ -15,6 +15,7 @@ import 'features/auth/views/bloc/login/login_cubit.dart';
 import 'features/search/views/bloc/search/search_cubit.dart';
 import 'features/shop/views/bloc/camera/camera_cubit.dart';
 import 'features/shop/views/bloc/cart/cart_cubit.dart';
+import 'features/shop/views/bloc/category_product/category_product_cubit.dart';
 import 'features/shop/views/bloc/home/home_cubit.dart';
 import 'features/shop/views/bloc/home_admin/home_admin_cubit.dart';
 import 'features/shop/views/bloc/home_customer/home_customer_cubit.dart';
@@ -71,6 +72,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> CartCubit()),
         BlocProvider(create: (_)=> SearchCubit()),
         BlocProvider(create: (_)=> CategoriesCubit()),
+
+        BlocProvider(create: (_)=>CategoryProductCubit()) ,
 
 
       ],

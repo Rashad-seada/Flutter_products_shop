@@ -59,7 +59,7 @@ class LoginCubit extends Cubit<LoginState> {
           },
           (success) {
             emit(LoginSuccess());
-            Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (_)=> HomeScreen(userType: success.utype!,)), (route) => false);
+            Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (_)=> HomeScreen(userType: success.utype!,context: context)), (route) => false);
           })
       );
     }

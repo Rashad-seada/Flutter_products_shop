@@ -13,3 +13,8 @@ class HomePageChanged extends HomeState {
   @override
   List<Object> get props => [];
 }
+
+class HomeSuccess extends HomeState {
+  @override
+  List<Object> get props => [];
+}

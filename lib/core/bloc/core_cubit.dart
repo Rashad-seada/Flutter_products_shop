@@ -63,7 +63,7 @@ class CoreCubit extends Cubit<CoreState> {
                         timer(AuthMethodsScreen(),context);
 
                       }else {
-                        timer(HomeScreen( userType: success,),context,);
+                        timer(HomeScreen( userType: success, context: context),context,);
 
                       }
                     }

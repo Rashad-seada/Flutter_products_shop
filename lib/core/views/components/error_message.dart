@@ -8,8 +8,10 @@ import 'package:sizer/sizer.dart';
 import '../../../generated/locale_keys.g.dart';
 import '../../config/app_theme.dart';
 
-class NetworkErrorMessage extends StatelessWidget {
-  const NetworkErrorMessage({super.key});
+class ErrorMessage extends StatelessWidget {
+
+  String message;
+  ErrorMessage({super.key,required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,14 @@ class NetworkErrorMessage extends StatelessWidget {
 
         Space(height: 10.h,),
 
-        SvgPicture.asset(AppImages.global),
+        SvgPicture.asset(AppImages.error2,width: 50.w,height: 20.h,),
 
         Space(height: 3.h,),
 
         SizedBox(
           width: 50.w,
           child: Text(
-            LocaleKeys.internet_connection.tr(),
+            message,
             style: AppTheme.textLTextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:eng_shop/features/shop/views/bloc/cart/cart_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,20 @@ import '../../pages/customer_home_page.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(HomeInitial()){
+    cartCount.addListener(() {
+      emit(HomeSuccess());
+      emit(HomeInitial());
+
+    });
+  }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   int currentIndex = 0;
 
   static ValueNotifier<int> cartCount = ValueNotifier<int>(0);
+
 
   List<Widget> get adminHomePages  =>  [
     const AdminHomePage(),
@@ -35,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     const CustomerHomePage(),
     const CategoriesPage(),
     const Scaffold(),
-    const CartPage(),
+    CartPage(),
     const Scaffold(),
   ];
 

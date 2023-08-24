@@ -42,6 +42,9 @@ abstract class AppConsts {
   static int get languageScreen => 109;
   static int get cartScreen => 110;
   static int get searchScreen => 120;
+  static int get categoryScreen => 130;
+  static int get categoryProductScreen => 140;
+
 
   //User types
   static int get user => 5;

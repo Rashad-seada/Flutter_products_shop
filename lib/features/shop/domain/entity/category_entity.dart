@@ -1,41 +1,44 @@
 class CategoryEntity {
-  int? id;
-  int? fdate;
-  int? hfdate;
-  int? ftime;
-  int? fupdate;
-  int? hfupdate;
-  int? utime;
-  int? fdelete;
-  int? hfdelete;
-  int? dtime;
-  int? userid;
-  int? updateUserid;
-  int? deleteUserid;
-  int? flagnet;
+  num? statusCode;
+  num? id;
+  num? fdate;
+  num? hfdate;
+  num? ftime;
+  num? fupdate;
+  num? hfupdate;
+  num? utime;
+  num? fdelete;
+  num? hfdelete;
+  num? dtime;
+  num? userid;
+  num? updateUserid;
+  num? deleteUserid;
+  num? flagnet;
   String? atxt;
   String? etxt;
-  int? parentId;
+  num? parentId;
   String? xpath;
   String? adetails;
   String? edetails;
-  int? isAddStore;
-  int? isActive;
-  int? isPublish;
+  num? isAddStore;
+  num? isActive;
+  num? isPublish;
   String? notes;
   String? img;
   String? backTreeIds;
   String? backTreeLinks;
   String? arBackTreeLinks;
   String? frontTreeIds;
-  int? outId;
+  num? outId;
   String? categoryPrntr;
-  int? itemsCount;
-  int? maxDiscPer;
-  int? vatSalePer;
+  num? itemsCount;
+  num? maxDiscPer;
+  num? vatSalePer;
 
   CategoryEntity(
-      {this.id,
+      {
+        this.statusCode,
+        this.id,
         this.fdate,
         this.hfdate,
         this.ftime,
@@ -70,7 +73,7 @@ class CategoryEntity {
         this.maxDiscPer,
         this.vatSalePer});
 
-  CategoryEntity.fromJson(Map<String, dynamic> json) {
+  CategoryEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
     id = json['id'];
     fdate = json['fdate'];
     hfdate = json['hfdate'];

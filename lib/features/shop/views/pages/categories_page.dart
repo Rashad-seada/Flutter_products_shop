@@ -9,32 +9,45 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../search/views/components/search/search_field.dart';
+import '../components/categories/sub_category_section.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});
+
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+
+  @override
+  void initState() {
+    context.read<CategoriesCubit>().getAllCategories();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocConsumer<CategoriesCubit, CategoriesState>(
           listener: (context, state) {
-            // TODO: implement listener
+            print(state);
           },
           builder: (context, state) {
             return Scaffold(
               body: SizedBox(
                 width: 100.w,
                 child: PullToRefresh(
-                  onRefresh: () => context.read<CategoriesCubit>().onRefreash(),
+                  onRefresh: () async => context.read<CategoriesCubit>().onRefreash(),
                   child: ListView(
-                    physics: NeverScrollableScrollPhysics(),
                     children: [
 
 
-                      Space(height: 4.h,),
+                      Space(height: 2.h,),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +98,28 @@ class CategoriesPage extends StatelessWidget {
                       ),
                       Space(height: 4.h,),
 
-                      CategoriesSection(categories: [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,])
+                      (state is CategoriesLoading)?
+                      circleIndicator(): SizedBox(),
+
+                      (state is CategoriesFailure)?
+                      ErrorMessage(message:CategoriesFailure.myError.message): SizedBox(),
+
+                      (state is! CategoriesFailure )?
+                      Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CategoriesSection(categories: CategoriesSuccess.categories,onCategoryTap: (index,_)=> context.read<CategoriesCubit>().onCategoryTap(index,_), selectedIndex: context.read<CategoriesCubit>().selectedCategoryIndex,),
+                            (state is CategoriesSubLoading)
+                                ? Expanded(child: circleIndicator())
+                                :  SubCategorySection(
+                              categories: CategoriesSuccess.subCategories.elementAtOrNull(context.read<CategoriesCubit>().selectedCategoryIndex) ?? [],
+                              onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context),
+                            ),
+                          ],
+                        ),
+                      ):SizedBox()
 
 
                     ],
@@ -95,6 +129,13 @@ class CategoriesPage extends StatelessWidget {
             );
           },
         )
+    );
+  }
+
+  Widget circleIndicator(){
+    return  Padding(
+      padding: EdgeInsets.all(3.w),
+      child: Center(child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,))),
     );
   }
 }

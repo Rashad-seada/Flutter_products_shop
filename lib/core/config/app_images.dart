@@ -63,4 +63,6 @@ abstract class AppImages {
   static const String profile2 = "images/profile2.svg";
 
   static const String search2 = "images/search2.svg";
+  static const String error2 = "images/error.svg";
+
 }

@@ -29,9 +29,6 @@ class CartCubit extends Cubit<CartState> {
         (value) => value.fold(
           (error) {
             emit(CartFailure(error));
-            if(error.exceptionCode.toString() + error.customCode.toString() == ErrorMessages.networkErrorCode){
-              emit(CartNetworkError());
-            }
           },
           (success) {
             emit(CartSuccess());
@@ -89,7 +86,6 @@ class CartCubit extends Cubit<CartState> {
         (success) async {
           emit(CartSuccess());
 
-          await getCart();
           HomeCubit.cartCount.value = getTotalItems() ;
 
           CustomFlushBar(

@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
+import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -113,10 +114,13 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     ),
                   ),
 
+                  (state is SearchFailure)?
+                  ErrorMessage(message:SearchFailure.myError.message): SizedBox(),
+
                   Center(
                       child: (state is SearchLoading)?
                       circleIndicator()
-                          : (SearchSuccess.products.isEmpty)?
+                          : (SearchSuccess.products.isEmpty && state is! SearchFailure)?
                       Column(
                         children: [
                           Space(height: 10.h,),

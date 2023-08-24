@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
-import 'package:eng_shop/core/views/components/network_error_message.dart';
+import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,16 +8,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_theme.dart';
+import '../../../../core/di/app_module.dart';
+import '../../../../core/services/services.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../bloc/cart/cart_cubit.dart';
+import '../bloc/category_product/category_product_cubit.dart';
 import '../components/cart/cart_item.dart';
 import '../components/cart/checkout_botton.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  bool withBackBotton;
+  
+  CartPage({super.key,this.withBackBotton = false});
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -50,7 +55,22 @@ class _CartPageState extends State<CartPage> {
                     physics: BouncingScrollPhysics(),
                     children: [
 
-                      Space(height: 4.h,),
+                      Space(height: 2.h,),
+
+                      (widget.withBackBotton)?
+                      Row(
+                        children: [
+                          InkWell(
+                              borderRadius: BorderRadius.circular(100.w),
+                              onTap: () => Navigator.pop(context),
+                              child: SvgPicture.asset(
+                                (getIt<Services>().localeService.isLtr(context))? AppImages.arrow : AppImages.arrowRight,
+                                width: 6.w
+                                ,height: 6.w,
+                              )
+                          ),
+                        ],
+                      ): SizedBox(),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -64,8 +84,8 @@ class _CartPageState extends State<CartPage> {
 
                       Space(height: 2.h,),
 
-                      (state is CartNetworkError)?
-                      NetworkErrorMessage() :
+                      (state is CartFailure)?
+                      ErrorMessage(message: CartFailure.myError.message,) :
                       SizedBox() ,
 
 
@@ -73,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                       circleIndicator() :
                       SizedBox(),
 
-                      (CartSuccess.cart.isEmpty &&  state is! CartLoading && state is! CartNetworkError)?
+                      (CartSuccess.cart.isEmpty &&  state is! CartLoading && state is! CartFailure)?
                       Center(
                         child: Column(
                           children: [

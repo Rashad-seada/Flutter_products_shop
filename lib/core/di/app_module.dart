@@ -29,6 +29,12 @@ import 'package:eng_shop/features/search/domain/usecase/delete_recent_search_use
 import 'package:eng_shop/features/search/domain/usecase/get_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/insert_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
+import 'package:eng_shop/features/shop/data/data_source/remote_data_source/category_remote_data_source.dart';
+import 'package:eng_shop/features/shop/data/repo/category_repo_impl.dart';
+import 'package:eng_shop/features/shop/domain/repo/category_repo.dart';
+import 'package:eng_shop/features/shop/domain/usecase/categories/get_all_categories_usecase.dart';
+import 'package:eng_shop/features/shop/domain/usecase/categories/get_category_products_usecase.dart';
+import 'package:eng_shop/features/shop/domain/usecase/categories/get_sub_categories_usecase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -103,6 +109,9 @@ class AppModule {
             final searchRemoteDataSource = await _initializeSearchRemoteDataSource();
             getIt.registerSingleton<SearchRemoteDataSource>(searchRemoteDataSource);
 
+            final categoryRemoteDataSource = await _initializeCategoryRemoteDataSource();
+            getIt.registerSingleton<CategoryRemoteDataSource>(categoryRemoteDataSource);
+
             //Repos
         getIt
             ..registerSingleton<AuthRepo>(AuthRepoImpl(
@@ -120,6 +129,10 @@ class AppModule {
                 localDataSource: getIt<SearchLocalDataSource>(),
                 settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>()))
+            ..registerSingleton<CategoryRepo>(CategoryRepoImpl(
+                categoryRemoteDataSource: getIt<CategoryRemoteDataSource>(),
+                settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
+                services: getIt<Services>(),))
 
             //Use cases
             ..registerSingleton<ActivateAccountBySmsUsecase>(
@@ -142,6 +155,7 @@ class AppModule {
             ..registerSingleton<LogoutUsecase>(
                 LogoutUsecase(repo: getIt<AuthRepo>()))
 
+
             ..registerSingleton<AddToCartUsecase>(
                 AddToCartUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetCartUsecase>(
@@ -150,6 +164,8 @@ class AppModule {
                 GetImageByIdUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductByIdUsecase>(
                 GetProductByIdUsecase(repo: getIt<ProductRepo>()))
+            ..registerSingleton<DropAllProductsUsecase>(
+                DropAllProductsUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductsUsecase>(
                 GetProductsUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<RemoveFromCartUsecase>(
@@ -168,8 +184,14 @@ class AppModule {
                 DeleteAllRecentSearchUsecase(repo: getIt<SearchRepo>()))
             ..registerSingleton<DeleteRecentSearchUsecase>(
                 DeleteRecentSearchUsecase(repo: getIt<SearchRepo>()))
-            ..registerSingleton<DropAllProductsUsecase>(
-                DropAllProductsUsecase(repo: getIt<ProductRepo>()));
+
+
+            ..registerSingleton<GetAllCategoriesUsecase>(
+                GetAllCategoriesUsecase(repo: getIt<CategoryRepo>()))
+            ..registerSingleton<GetCategoryProductsUsecase>(
+                GetCategoryProductsUsecase(repo: getIt<CategoryRepo>()))
+            ..registerSingleton<GetSubCategoriesUsecase>(
+                GetSubCategoriesUsecase(repo: getIt<CategoryRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {
@@ -195,6 +217,15 @@ class AppModule {
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
         );
     }
+
+    static Future<CategoryRemoteDataSource> _initializeCategoryRemoteDataSource() async {
+        return CategoryRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+        );
+    }
+
 
     static Future<AppDatabase> _initializeProductsDatabase() async {
         return await $FloorAppDatabase.databaseBuilder(AppConsts.mainDBName).build();
@@ -222,6 +253,7 @@ class AppModule {
             await getIt<SettingsLocalDataSource>().putServiceProviderPassword(AppConsts.servicePassword);
         }
     }
+
 
 }
 

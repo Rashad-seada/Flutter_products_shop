@@ -1,6 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:eng_shop/core/views/components/network_error_message.dart';
+import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/core/views/widgets/custom_flushbar.dart';
 import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
@@ -135,7 +135,7 @@ class CustomerHomePage extends StatelessWidget {
 
                     Center(child: (state is HomeCustomerIsLoading)? circleIndicator() : const SizedBox()),
 
-                    Center(child: (state is HomeCustomerNetworkError)? const NetworkErrorMessage() : const SizedBox()),
+                    Center(child: (state is HomeCustomerFailure)? ErrorMessage(message: HomeCustomerFailure.myError.message,) : const SizedBox()),
 
 
                     Space(height: 14.h,),
