@@ -1,7 +1,7 @@
 import 'package:floor/floor.dart';
 
-import '../../features/shop/domain/entity/cart_entity.dart';
-import '../../features/shop/domain/entity/product_entity.dart';
+import '../../../features/shop/domain/entity/cart_entity.dart';
+import '../../../features/shop/domain/entity/product_entity.dart';
 
 
 @dao
