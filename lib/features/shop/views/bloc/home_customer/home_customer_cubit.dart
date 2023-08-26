@@ -23,7 +23,6 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
       if (scrollController.position.pixels == 0) {
         // Top of the scrollable area
       } else {
-        print("at the end of the page");
         getProducts();
       }
     }
@@ -32,10 +31,6 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
   HomeCustomerCubit() : super(HomeCustomerInitial()){
     scrollController = ScrollController();
     scrollController.addListener(()=> _listener());
-    pageNumber = 1;
-
-    getProducts();
-
   }
 
   ScrollController scrollController = ScrollController();
@@ -100,8 +95,10 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
     getIt<DropAllProductsUsecase>().call(DropAllProductsParams( AppConsts.homeScreen)).then(
       (value) => value.fold(
           (error) {
+            
           },
           (success) {
+
           }
       )
     );

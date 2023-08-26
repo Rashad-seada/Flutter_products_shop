@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/di/app_module.dart';
 import '../../../../core/services/services.dart';
+import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
@@ -60,15 +61,9 @@ class _CartPageState extends State<CartPage> {
                       (widget.withBackBotton)?
                       Row(
                         children: [
-                          InkWell(
-                              borderRadius: BorderRadius.circular(100.w),
-                              onTap: () => Navigator.pop(context),
-                              child: SvgPicture.asset(
-                                (getIt<Services>().localeService.isLtr(context))? AppImages.arrow : AppImages.arrowRight,
-                                width: 6.w
-                                ,height: 6.w,
-                              )
-                          ),
+
+                          CustomBackButton(),
+
                         ],
                       ): SizedBox(),
 
@@ -105,7 +100,7 @@ class _CartPageState extends State<CartPage> {
 
                             Text(
                               LocaleKeys.cart_sub_text.tr(),
-                              style: AppTheme.textLTextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
+                              style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
 
                             Space(height: 2.h,),
 
@@ -145,6 +140,7 @@ class _CartPageState extends State<CartPage> {
             bottomNavigationBar: CheckoutButton(
               totalItems: context.read<CartCubit>().getTotalItems(),
               totalPrice: context.read<CartCubit>().totalPrice,
+              onTap: ()=> context.read<CartCubit>().onCheckoutClick(context),
             )
           );
         },

@@ -95,7 +95,7 @@ class PasswordResetScreen extends StatelessWidget {
                       MainButton(
                         width: 100.w,
                         height: 7.h,
-                        label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.reset_password.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                        label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.reset_password.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                         onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(context),
                       ),
 

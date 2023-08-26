@@ -60,7 +60,7 @@ class NewPasswordScreen extends StatelessWidget {
 
                                     Space(height: 1.h,),
 
-                                    Text(LocaleKeys.new_password_sub_text.tr(), style: AppTheme.textLTextStyle(),),
+                                    Text(LocaleKeys.new_password_sub_text.tr(), style: AppTheme.textL2TextStyle(),),
                                   ],
                                 ),
                               ],
@@ -99,7 +99,7 @@ class NewPasswordScreen extends StatelessWidget {
                             MainButton(
                               width: 100.w,
                               height: 7.h,
-                              label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.done.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                              label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.done.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                               onTap: ()=> context.read<ResetPasswordCubit>().onNewPasswordClick(context),
                             )
                           ],

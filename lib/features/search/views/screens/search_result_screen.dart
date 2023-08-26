@@ -13,7 +13,7 @@ import '../../../../generated/locale_keys.g.dart';
 import '../../../shop/views/bloc/cart/cart_cubit.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
-import '../components/search/search_field.dart';
+import '../../../../core/views/widgets/custom_text_field.dart';
 
 class SearchResultScreen extends StatefulWidget {
   const SearchResultScreen({super.key});
@@ -56,10 +56,11 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 70.w,
-                          child: SearchField(
+                          width:  80.w,
+                          child: CustomTextField(
                             onTap: ()=> Navigator.pop(context),
                             controller: context.read<SearchCubit>().searchController,
                             prefixIcon: Padding(
@@ -71,7 +72,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                             keyboardType: TextInputType.none,
                           ),
                         ),
-                        Space(width: 2.w,),
 
                         InkWell(
                             onTap: () {

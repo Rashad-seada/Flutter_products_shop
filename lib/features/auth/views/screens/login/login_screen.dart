@@ -64,7 +64,7 @@ class LoginScreen extends StatelessWidget {
 
                                 Space(height: 1.h,),
 
-                                Text(LocaleKeys.login_sub_title.tr(), style: AppTheme.textLTextStyle(),),
+                                Text(LocaleKeys.login_sub_title.tr(), style: AppTheme.textL2TextStyle(),),
                               ],
                             ),
                           ],
@@ -139,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                         MainButton(
                           width: 100.w,
                           height: 7.h,
-                          label: (state is LoginLoading)? circleIndicator() :Text(LocaleKeys.login.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                          label: (state is LoginLoading)? circleIndicator() :Text(LocaleKeys.login.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                           onTap: ()=> context.read<LoginCubit>().onLoginClick(context),
                         )
 

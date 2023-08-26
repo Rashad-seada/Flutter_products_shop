@@ -98,5 +98,14 @@ abstract class  LocaleKeys {
   static const cancel = 'cancel';
   static const search_not_found = 'search_not_found';
   static const internet_connection = 'internet_connection';
+  static const payment_details = 'payment_details';
+  static const payment_details_sub_text = 'payment_details_sub_text';
+  static const items_total = 'items_total';
+  static const delivery_fees = 'delivery_fees';
+  static const confirm = 'confirm';
+  static const order_summary = 'order_summary';
+  static const promo_code = 'promo_code';
+  static const promo_code_sub_text = 'promo_code_sub_text';
+  static const apply = 'apply';
 
 }

@@ -111,7 +111,16 @@ class CodegenLoader extends AssetLoader{
   "clear": "مسح",
   "cancel": "الغاء",
   "search_not_found": "لم نستطيع العثور على ما كنت تبحث عنه!",
-  "internet_connection": "من فضلك تحقق من الاتصال بالشبكه"
+  "internet_connection": "من فضلك تحقق من الاتصال بالشبكه",
+  "payment_details": "تفاصيل الدفع",
+  "payment_details_sub_text": "تحقق من صحه بيانات طلبك و قم بالتاكيد",
+  "items_total": "إجمالي العناصر",
+  "delivery_fees": "تكاليف الشحن",
+  "confirm": "تاكيد",
+  "order_summary": "ملخص الطلب",
+  "promo_code": "كود الخصم",
+  "promo_code_sub_text": "ادخل كود الخصم الخاص بك",
+  "apply": "تطبيق"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -209,7 +218,16 @@ static const Map<String,dynamic> en = {
   "clear": "Clear",
   "cancel": "Cancel",
   "search_not_found": "We didn't find what you been looking for!",
-  "internet_connection": "Please check your internet connection!"
+  "internet_connection": "Please check your internet connection!",
+  "payment_details": "Payment details",
+  "payment_details_sub_text": "Check the accuracy of your order's data and confirm.",
+  "items_total": "Items Total",
+  "delivery_fees": "Delivery Fees",
+  "confirm": "Confirm",
+  "order_summary": "Order Summary",
+  "promo_code": "Promo Code",
+  "promo_code_sub_text": "Enter your promo code.",
+  "apply": "Apply"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

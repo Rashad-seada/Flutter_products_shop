@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
+import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
@@ -70,11 +71,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> CameraCubit()),
         BlocProvider(create: (_)=> MapCubit()),
         BlocProvider(create: (_)=> CartCubit()),
+
         BlocProvider(create: (_)=> SearchCubit()),
+
         BlocProvider(create: (_)=> CategoriesCubit()),
+        BlocProvider(create: (_)=> CategoryProductCubit()),
 
-        BlocProvider(create: (_)=>CategoryProductCubit()) ,
-
+        BlocProvider(create: (_)=> PaymentCubit()),
 
       ],
       child: Sizer(

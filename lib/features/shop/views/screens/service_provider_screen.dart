@@ -64,7 +64,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
 
                             SizedBox(
                               width: 86.w,
-                              child: Text(LocaleKeys.service_provider_config.tr(), style: AppTheme.textLTextStyle(),),
+                              child: Text(LocaleKeys.service_provider_config.tr(), style: AppTheme.textL2TextStyle(),),
                             ),
 
                             Space(height: 1.5.h,),
@@ -124,7 +124,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             MainButton(
                               width: 100.w,
                               height: 7.h,
-                              label: (state is ServiceProviderSavingConfig)? circleIndicator() :Text(LocaleKeys.save.tr(),style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                              label: (state is ServiceProviderSavingConfig)? circleIndicator() :Text(LocaleKeys.save.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                               onTap: ()=> context.read<ServiceProviderCubit>().onSaveClick(context),
                             )
 

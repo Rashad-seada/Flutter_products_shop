@@ -32,7 +32,7 @@ class SettingItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(label, style: AppTheme.textLTextStyle(color: AppTheme.neutral800),).tr(),
+                  Text(label, style: AppTheme.textL2TextStyle(color: AppTheme.neutral800),).tr(),
 
                   SvgPicture.asset(AppImages.arrowRight,width: 6.w,height: 6.w,)
                 ],

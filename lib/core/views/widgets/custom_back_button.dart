@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../di/app_module.dart';
+import '../../services/services.dart';
+
 class CustomBackButton extends StatelessWidget {
   void Function()? onPressed;
 
@@ -11,17 +14,18 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        if(onPressed != null) {
-          onPressed!();
-        }
-
-        Navigator.pop(context);
-      },
-      borderRadius: BorderRadius.circular(100.w),
-      child: SvgPicture.asset(
-        AppImages.arrow,
-      ),
+        borderRadius: BorderRadius.circular(100.w),
+        onTap: () {
+          if(onPressed != null){
+            onPressed!();
+          }
+          Navigator.pop(context);
+        },
+        child: SvgPicture.asset(
+          (getIt<Services>().localeService.isLtr(context))? AppImages.arrow : AppImages.arrowRight,
+          width: 6.w
+          ,height: 6.w,
+        )
     );
   }
 }

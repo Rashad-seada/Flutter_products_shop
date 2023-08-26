@@ -28,7 +28,7 @@ class ErrorMessage extends StatelessWidget {
           width: 50.w,
           child: Text(
             message,
-            style: AppTheme.textLTextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
+            style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
         ),
       ],
     );

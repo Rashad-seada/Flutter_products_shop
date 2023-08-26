@@ -30,7 +30,7 @@ class CameraItem extends StatelessWidget {
           children: [
             SvgPicture.asset(AppImages.camera,width: 16.w,height: 16.w,),
             Space(height: 3.h,),
-            Text(LocaleKeys.camera_sub_text.tr(), style: AppTheme.textLTextStyle(),),
+            Text(LocaleKeys.camera_sub_text.tr(), style: AppTheme.textL2TextStyle(),),
           ],
         ),
       ),

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:eng_shop/features/In_app_payments/view/screens/payment_datails_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/config/app_consts.dart';
@@ -54,7 +56,6 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void removeFromCart(CartResponse cartResponse,BuildContext context) {
-
     getIt<RemoveFromCartUsecase>().call(RemoveFromCartParams(cartResponse.productEntity, AppConsts.homeScreen)).then(
             (value) => value.fold(
               (error) {
@@ -86,6 +87,7 @@ class CartCubit extends Cubit<CartState> {
         (success) async {
           emit(CartSuccess());
 
+          await getCart();
           HomeCubit.cartCount.value = getTotalItems() ;
 
           CustomFlushBar(
@@ -141,6 +143,10 @@ class CartCubit extends Cubit<CartState> {
 
   onRefreash() {
     getCart();
+  }
+
+  onCheckoutClick(BuildContext context){
+    Navigator.push(context,MaterialPageRoute(builder: (_)=> PaymentDetailsScreen(totalItemsCount: getTotalItems(),totalItemsPrice: totalPrice,)));
   }
 
 }

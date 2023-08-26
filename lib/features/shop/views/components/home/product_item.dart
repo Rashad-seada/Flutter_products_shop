@@ -56,7 +56,7 @@ class ProductItem extends StatelessWidget {
 
                   Text(
                     "Apple AirPods 2",
-                    style: AppTheme.textLTextStyle(),),
+                    style: AppTheme.textL2TextStyle(),),
                   Text(
                     "Music on a more personal note. Adaptive EQ automatically tunes music to your ears. Inward-facing microphones detect what you’re hearing, then adjust low and midrange frequencies to deliver the rich details in every song, customized for you in real time",
                     style: AppTheme.textMTextStyle(),overflow: TextOverflow.ellipsis,maxLines: 2,),

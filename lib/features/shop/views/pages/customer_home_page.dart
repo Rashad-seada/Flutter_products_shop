@@ -13,15 +13,28 @@ import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../../search/views/components/search/search_field.dart';
+import '../../../../core/views/widgets/custom_text_field.dart';
 import '../bloc/cart/cart_cubit.dart';
 import '../bloc/home/home_cubit.dart';
 import '../bloc/home_customer/home_customer_cubit.dart';
 import '../components/home/ad_banner_slider.dart';
 import '../components/home/small_product_item.dart';
 
-class CustomerHomePage extends StatelessWidget {
+class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({super.key});
+
+  @override
+  State<CustomerHomePage> createState() => _CustomerHomePageState();
+}
+
+class _CustomerHomePageState extends State<CustomerHomePage> {
+
+  @override
+  void initState() {
+    context.read<HomeCustomerCubit>().pageNumber = 1;
+    context.read<HomeCustomerCubit>().getProducts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +90,12 @@ class CustomerHomePage extends StatelessWidget {
                       children: [
                         Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),).tr(),
 
-                        Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,).tr(),
+                        Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,).tr(),
                       ],
                     ),
                     Space(height: 2.h,),
 
-                    SearchField(
+                    CustomTextField(
                       onTap: ()=> context.read<HomeCustomerCubit>().onSearchTap(context),
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(1.5.h),
@@ -110,7 +123,7 @@ class CustomerHomePage extends StatelessWidget {
 
                     Row(
                       children: [
-                        Text(LocaleKeys.recommended.tr(), style: AppTheme.textLTextStyle(color: AppTheme.neutral900),textAlign: TextAlign.center,).tr(),
+                        Text(LocaleKeys.recommended.tr(), style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),textAlign: TextAlign.center,).tr(),
                       ],
                     ),
                     Space(height: 1.h,),

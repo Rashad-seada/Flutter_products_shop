@@ -57,7 +57,7 @@ class PinScreen extends StatelessWidget {
 
                                 Space(height: 1.h,),
 
-                                Text(LocaleKeys.verification_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                                Text(LocaleKeys.verification_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,),
                               ],
                             ),
                             Space(height: 5.h,),
@@ -78,7 +78,7 @@ class PinScreen extends StatelessWidget {
                                   onPressed: ()=> context.read<ResetPasswordCubit>().onResendClick(context),
                                   clickableText: LocaleKeys.resend.tr(),
                                   text: LocaleKeys.didnt_receive_code.tr(),
-                                  style: AppTheme.textLTextStyle(color: AppTheme.primary900),
+                                  style: AppTheme.textL2TextStyle(color: AppTheme.primary900),
                                 ),
 
                                 (state is ResetPasswordResendSmsLoading)? circleIndicator(AppTheme.neutral900) : SizedBox(),
@@ -92,7 +92,7 @@ class PinScreen extends StatelessWidget {
                               width: 100.w,height: 7.h,
                               label: (state is ResetPasswordLoading)? circleIndicator(AppTheme.neutral100) :Text(
                                 LocaleKeys.done.tr(),
-                                style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                                style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                               ),
                               onTap: ()=> context.read<ResetPasswordCubit>().onDoneClick(context),
                             ),

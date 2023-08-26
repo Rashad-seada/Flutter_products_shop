@@ -5,6 +5,7 @@ import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_images.dart';
@@ -46,7 +47,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
 
 
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
@@ -93,7 +94,14 @@ class _SmallProductItemState extends State<SmallProductItem> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                    Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines:2,overflow: TextOverflow.ellipsis,),
+
+                    Text(
+                      "KD ${widget.productEntity.price}",
+                      style: GoogleFonts.lato(textStyle: TextStyle(color: AppTheme.neutral900, fontSize: AppTheme.font16.sp,fontWeight: FontWeight.bold)),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
 
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,7 +140,6 @@ class _SmallProductItemState extends State<SmallProductItem> {
                       ],
                     ),
 
-                    Text("KD ${widget.productEntity.price}",style: AppTheme.textLTextStyle(color: AppTheme.primary900),maxLines: 2,overflow: TextOverflow.ellipsis,),
                     Space(height: 1.h,) ,
 
                   ],

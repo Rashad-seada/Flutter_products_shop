@@ -26,7 +26,7 @@ class PlayGroundScreen extends StatelessWidget {
               width: 100.w, height: 7.h,
               label: Text(
                 "Google Maps",
-                style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
               ),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_)=> MapScreen()));
@@ -38,7 +38,7 @@ class PlayGroundScreen extends StatelessWidget {
                 width: 100.w, height: 7.h,
                 label: Text(
                     "Listing",
-                    style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                    style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_)=> ListingScreen()));
@@ -50,7 +50,7 @@ class PlayGroundScreen extends StatelessWidget {
                 width: 100.w, height: 7.h,
                 label: Text(
                     "Camera",
-                    style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                    style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_)=> CameraScreen()));

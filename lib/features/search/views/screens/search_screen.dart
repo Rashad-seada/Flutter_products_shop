@@ -13,7 +13,7 @@ import '../../../shop/views/bloc/cart/cart_cubit.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
 import '../components/search/recent_search_section.dart';
-import '../components/search/search_field.dart';
+import '../../../../core/views/widgets/custom_text_field.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -57,10 +57,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 70.w,
-                          child: SearchField(
+                          width:  80.w,
+                          child: CustomTextField(
                             controller: context.read<SearchCubit>().searchController,
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),
@@ -71,7 +72,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             onChanged: (_)=> context.read<SearchCubit>().onChangeSearch() ,
                           ),
                         ),
-                        Space(width: 2.w,),
 
                         InkWell(
                           onTap: ()=> context.read<SearchCubit>().onCancelTap(context) ,

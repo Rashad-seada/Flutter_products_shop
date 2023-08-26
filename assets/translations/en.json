@@ -108,7 +108,17 @@
   "cancel": "Cancel",
   "search_not_found": "We didn't find what you been looking for!",
 
-  "internet_connection": "Please check your internet connection!"
+  "internet_connection": "Please check your internet connection!",
+
+  "payment_details": "Payment details",
+  "payment_details_sub_text": "Check the accuracy of your order's data and confirm.",
+  "items_total": "Items Total",
+  "delivery_fees": "Delivery Fees",
+  "confirm": "Confirm",
+  "order_summary": "Order Summary",
+  "promo_code": "Promo Code",
+  "promo_code_sub_text": "Enter your promo code.",
+  "apply": "Apply"
 
 
 }

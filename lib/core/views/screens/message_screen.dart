@@ -42,14 +42,14 @@ class MessageScreen extends StatelessWidget {
 
                     Space(height: 1.h,),
 
-                    Text(messageSubText, style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                    Text(messageSubText, style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,),
                   ],
                 ),
 
                 Space(height: 20.h,),
 
 
-                MainButton(width: 100.w,height: 7.h,label: Text(buttonLabel,style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),onTap: (){
+                MainButton(width: 100.w,height: 7.h,label: Text(buttonLabel,style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),onTap: (){
                   if(screen != null) {
                     Navigator.push(context, MaterialPageRoute(builder: (_)=> screen!));
                   }

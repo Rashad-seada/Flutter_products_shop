@@ -58,7 +58,7 @@ class AdminHomePage extends StatelessWidget {
 
                             Space(height: 1.h,),
 
-                            Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,).tr(),
+                            Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,).tr(),
                           ],
                         ),
                       ],

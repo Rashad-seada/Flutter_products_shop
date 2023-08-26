@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../../core/config/app_theme.dart';
+import '../../config/app_theme.dart';
 
-class SearchField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
 
   TextEditingController? controller;
   String? hint;
@@ -20,7 +20,7 @@ class SearchField extends StatelessWidget {
   bool enabled;
   FocusNode? focusNode;
 
-  SearchField({
+  CustomTextField({
     Key? key,
     this.controller,
     this.hint,

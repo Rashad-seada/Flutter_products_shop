@@ -65,4 +65,6 @@ abstract class AppImages {
   static const String search2 = "images/search2.svg";
   static const String error2 = "images/error.svg";
 
+  static const String ticket = "images/ticket.svg";
+
 }

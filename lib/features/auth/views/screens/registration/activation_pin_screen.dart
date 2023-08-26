@@ -48,7 +48,7 @@ class ActivationPinScreen extends StatelessWidget {
 
                             Space(height: 1.h,),
 
-                            Text(LocaleKeys.verification_sub_text.tr(), style: AppTheme.textLTextStyle(),textAlign: TextAlign.center,),
+                            Text(LocaleKeys.verification_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,),
                           ],
                         ),
                         Space(height: 5.h,),
@@ -66,7 +66,7 @@ class ActivationPinScreen extends StatelessWidget {
                           onPressed: ()=> context.read<RegistrationCubit>().onResendClick(),
                           clickableText: LocaleKeys.resend.tr(),
                           text: LocaleKeys.didnt_receive_code.tr(),
-                          style: AppTheme.textLTextStyle(color: AppTheme.primary900),
+                          style: AppTheme.textL2TextStyle(color: AppTheme.primary900),
                         ),
                         Space(height: 42.h,),
 
@@ -76,7 +76,7 @@ class ActivationPinScreen extends StatelessWidget {
                           SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                               :Text(
                             LocaleKeys.done.tr(),
-                            style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                            style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                           ),
                           onTap: ()=> context.read<RegistrationCubit>().onDoneClick(context),
                         ),

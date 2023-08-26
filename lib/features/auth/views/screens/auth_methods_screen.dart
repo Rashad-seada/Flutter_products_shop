@@ -42,7 +42,7 @@ class AuthMethodsScreen extends StatelessWidget {
 
                             Space(height: 1.h,),
 
-                            Text(LocaleKeys.chose_a_method.tr(), style: AppTheme.textLTextStyle(),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                            Text(LocaleKeys.chose_a_method.tr(), style: AppTheme.textL2TextStyle(),maxLines: 2,overflow: TextOverflow.ellipsis,),
                           ],
                         ),
                         Space(height: 4.h,),
@@ -51,7 +51,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           width: 100.w,height: 7.h,
                           label: Text(
                             LocaleKeys.login.tr(),
-                            style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                            style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                           ),
                           onTap: ()=> context.read<AuthMethodsCubit>().onLoginClick(context),
                         ),
@@ -61,7 +61,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           width: 100.w,height: 7.h,
                           label: Text(
                             LocaleKeys.register.tr(),
-                            style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                            style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                           ),
                           onTap: ()=> context.read<AuthMethodsCubit>().onRegisterClick(context),
                         ),

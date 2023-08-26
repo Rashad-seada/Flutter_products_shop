@@ -32,7 +32,7 @@ class LanguageItem extends StatelessWidget {
                     children: [
                       Image.asset(image,width: 9.w,height: 9.w,),
                       Space(width: 4.w,),
-                      Text(label, style: AppTheme.textLTextStyle(color: AppTheme.neutral800),).tr(),
+                      Text(label, style: AppTheme.textL2TextStyle(color: AppTheme.neutral800),).tr(),
                     ],
                   ),
 

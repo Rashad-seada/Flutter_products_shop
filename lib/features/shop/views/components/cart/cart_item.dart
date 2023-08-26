@@ -4,6 +4,7 @@ import 'package:eng_shop/core/services/locale_service.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_consts.dart';
@@ -101,12 +102,11 @@ class CartItem extends StatelessWidget {
 
                     Text(
                       "${cartResponse.productEntity.etxt}",
-                      style: AppTheme.textLTextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                      style: AppTheme.textL2TextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
 
 
-                    Text(
-                      "${cartResponse.productEntity.price}",
-                      style: AppTheme.textLTextStyle(color: AppTheme.primary900),),
+                    Text("${cartResponse.productEntity.price} KD",
+                      style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
 
 
 
@@ -116,7 +116,7 @@ class CartItem extends StatelessWidget {
 
                         Text(
                           "${LocaleKeys.total} ${cartResponse.productEntity.price! * quantity}",
-                          style: AppTheme.textMTextStyle(color: AppTheme.primary900),),
+                          style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -140,14 +140,14 @@ class CartItem extends StatelessWidget {
                                 ),
                                 child: Text(
                                   "-",
-                                  style: AppTheme.textLTextStyle(color: AppTheme.neutral100),),
+                                  style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                               ),
                             ),
                             Space(width: 1.w,),
 
                             Text(
                               "${cartResponse.cartEntity.quantity}",
-                              style: AppTheme.textLTextStyle(),),
+                              style: AppTheme.textL2TextStyle(),),
                             Space(width: 1.w,),
 
                             InkWell(
@@ -168,7 +168,7 @@ class CartItem extends StatelessWidget {
                                 ),
                                 child: Text(
                                   "+",
-                                  style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                                  style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                                 ),
                               ),
                             ),

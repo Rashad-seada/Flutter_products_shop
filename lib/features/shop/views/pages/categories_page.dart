@@ -12,7 +12,7 @@ import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../../search/views/components/search/search_field.dart';
+import '../../../../core/views/widgets/custom_text_field.dart';
 import '../components/categories/sub_category_section.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           children: [
                             SizedBox(
                               width: 80.w,
-                              child: SearchField(
+                              child: CustomTextField(
                                 onTap: () =>
                                     context.read<CategoriesCubit>().onSearchTap(
                                         context),

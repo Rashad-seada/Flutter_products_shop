@@ -82,7 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                               Space(height: 1.h,),
 
-                              Text(LocaleKeys.register_sub_title.tr(), style: AppTheme.textLTextStyle(),),
+                              Text(LocaleKeys.register_sub_title.tr(), style: AppTheme.textL2TextStyle(),),
                             ],
                           ),
                         ],
@@ -169,7 +169,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                         :Text(
                           LocaleKeys.register.tr(),
-                          style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                          style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                         ),
                         onTap: ()=> context.read<RegistrationCubit>().onRegisterClick(context),
                       ),

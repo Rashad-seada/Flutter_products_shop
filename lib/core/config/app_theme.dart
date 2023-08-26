@@ -17,7 +17,10 @@ abstract class AppTheme {
   static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) =>
       GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font21.sp));
 
-  static TextStyle? textLTextStyle({Color color = AppTheme.neutral500}) =>
+  static TextStyle? textL1TextStyle({Color color = AppTheme.neutral500}) =>
+      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font17.sp));
+
+  static TextStyle? textL2TextStyle({Color color = AppTheme.neutral500}) =>
       GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font16.sp));
 
   static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) =>
@@ -52,6 +55,7 @@ abstract class AppTheme {
   static const double font32 = 28;
   static const double font28 = 24;
   static const double font21 = 17;
+  static const double font17 = 14;
   static const double font16 = 12;
   static const double font14 = 10;
   static const double font12 = 8;
@@ -66,7 +70,7 @@ abstract class AppTheme {
     textTheme: TextTheme(
       displayLarge: heading1TextStyle(),
       displayMedium: heading2TextStyle(),
-      bodyLarge: textLTextStyle(),
+      bodyLarge: textL2TextStyle(),
       bodyMedium: textMTextStyle(),
     ),
 

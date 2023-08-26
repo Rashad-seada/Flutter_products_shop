@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                                       SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
                                           :Text(
                                         LocaleKeys.save.tr(),
-                                        style: AppTheme.textLTextStyle(color: AppTheme.neutral100),
+                                        style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                                       ),
                                       onTap: ()=> context.read<ProfileCubit>().onSaveClick(context),
                                     ),
