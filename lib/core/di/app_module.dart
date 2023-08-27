@@ -1,12 +1,6 @@
 import 'dart:async';
 
-import 'package:eng_shop/core/services/camera_service.dart';
-import 'package:eng_shop/core/services/google_service.dart';
-import 'package:eng_shop/core/services/locale_service.dart';
-import 'package:eng_shop/core/services/location_service.dart';
-import 'package:eng_shop/core/services/network_service.dart';
-import 'package:eng_shop/core/services/permission_service.dart';
-import 'package:eng_shop/core/services/services.dart';
+import 'package:eng_shop/core/infrastructure/api/api.dart';
 import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
@@ -21,6 +15,9 @@ import 'package:eng_shop/features/auth/domain/usecase/send_sms_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_code_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_email_usecase.dart';
 import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dart';
+import 'package:eng_shop/features/cart/data/data_source/local/cart_local_data_source.dart';
+import 'package:eng_shop/features/cart/data/repo/cart_repo_impl.dart';
+import 'package:eng_shop/features/cart/domain/repo/cart_repo.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
 import 'package:eng_shop/features/search/data/data_source/remote_data_source/search_remote_data_source.dart';
 import 'package:eng_shop/features/search/domain/repo/search_repo_impl.dart';
@@ -29,12 +26,9 @@ import 'package:eng_shop/features/search/domain/usecase/delete_recent_search_use
 import 'package:eng_shop/features/search/domain/usecase/get_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/insert_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
-import 'package:eng_shop/features/shop/data/data_source/remote_data_source/category_remote_data_source.dart';
-import 'package:eng_shop/features/shop/data/repo/category_repo_impl.dart';
-import 'package:eng_shop/features/shop/domain/repo/category_repo.dart';
-import 'package:eng_shop/features/shop/domain/usecase/categories/get_all_categories_usecase.dart';
-import 'package:eng_shop/features/shop/domain/usecase/categories/get_category_products_usecase.dart';
-import 'package:eng_shop/features/shop/domain/usecase/categories/get_sub_categories_usecase.dart';
+import 'package:eng_shop/features/categories/data/repo/category_repo_impl.dart';
+import 'package:eng_shop/features/categories/domain/repo/category_repo.dart';
+import 'package:eng_shop/features/categories/domain/usecase/get_all_categories_usecase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -42,23 +36,33 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/auth/domain/usecase/get_user_type_usecase.dart';
+import '../../features/cart/domain/usecase/add_to_cart_usecase.dart';
+import '../../features/cart/domain/usecase/get_cart_usecase.dart';
+import '../../features/cart/domain/usecase/remove_from_cart_usecase.dart';
+import '../../features/cart/domain/usecase/update_cart_usecase.dart';
+import '../../features/categories/data/data_source/remote/category_remote_data_source.dart';
+import '../../features/categories/domain/usecase/get_category_products_usecase.dart';
+import '../../features/categories/domain/usecase/get_sub_categories_usecase.dart';
 import '../../features/search/data/repo/search_repo.dart';
-import '../../features/shop/data/data_source/local_data_source/product_local_data_source.dart';
-import '../../features/shop/data/data_source/local_data_source/settings_local_data_source.dart';
-import '../../features/shop/data/data_source/remote_data_source/product_remote_data_source.dart';
-import '../../features/shop/data/data_source/remote_data_source/profile_remote_data_source.dart';
+import '../../features/shop/data/data_source/local/product_local_data_source.dart';
+import '../../features/settings/data/data_source/local/settings_local_data_source.dart';
+import '../../features/shop/data/data_source/remote/product_remote_data_source.dart';
+import '../../features/settings/data/data_source/remote/profile_remote_data_source.dart';
 import '../../features/shop/data/repo/product_repo_impl.dart';
 import '../../features/shop/domain/repo/product_repo.dart';
-import '../../features/shop/domain/usecase/cart/add_to_cart_usecase.dart';
-import '../../features/shop/domain/usecase/cart/get_cart_usecase.dart';
-import '../../features/shop/domain/usecase/cart/remove_from_cart_usecase.dart';
-import '../../features/shop/domain/usecase/cart/update_cart_usecase.dart';
 import '../../features/shop/domain/usecase/products/drop_all_products_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_image_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_product_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_products_usecase.dart';
 import '../config/app_consts.dart';
-import '../database/database.dart';
+import '../infrastructure/database/database.dart';
+import '../infrastructure/services/camera_service.dart';
+import '../infrastructure/services/google_service.dart';
+import '../infrastructure/services/locale_service.dart';
+import '../infrastructure/services/location_service.dart';
+import '../infrastructure/services/network_service.dart';
+import '../infrastructure/services/permission_service.dart';
+import '../infrastructure/services/services.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -76,7 +80,8 @@ class AppModule {
             ..registerSingleton<PermissionService>(PermissionService())
             ..registerSingleton<LocationService>(LocationService())
             ..registerSingleton<LocaleService>(LocaleService())
-            ..registerSingleton<Services>(Services());
+            ..registerSingleton<Services>(Services())
+            ..registerSingleton<Api>(ApiImpl());
 
 
             //Local data source
@@ -95,6 +100,7 @@ class AppModule {
             getIt
                 ..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
                 ..registerSingleton<SearchLocalDataSource>(SearchLocalDataSourceImpl(database))
+                ..registerSingleton<CartLocalDataSource>(CartLocalDataSourceImpl(database))
 
 
              //Remote data source
@@ -133,6 +139,12 @@ class AppModule {
                 categoryRemoteDataSource: getIt<CategoryRemoteDataSource>(),
                 settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>(),))
+            ..registerSingleton<CartRepo>(CartRepoImpl(
+                remoteDataSource: getIt<ProductRemoteDataSource>(),
+                localDataSource: getIt<CartLocalDataSource>(),
+                settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
+                services: getIt<Services>()
+            ))
 
             //Use cases
             ..registerSingleton<ActivateAccountBySmsUsecase>(
@@ -157,9 +169,9 @@ class AppModule {
 
 
             ..registerSingleton<AddToCartUsecase>(
-                AddToCartUsecase(repo: getIt<ProductRepo>()))
+                AddToCartUsecase(repo: getIt<CartRepo>()))
             ..registerSingleton<GetCartUsecase>(
-                GetCartUsecase(repo: getIt<ProductRepo>()))
+                GetCartUsecase(repo: getIt<CartRepo>()))
             ..registerSingleton<GetImageByIdUsecase>(
                 GetImageByIdUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductByIdUsecase>(
@@ -167,11 +179,13 @@ class AppModule {
             ..registerSingleton<DropAllProductsUsecase>(
                 DropAllProductsUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductsUsecase>(
-                GetProductsUsecase(repo: getIt<ProductRepo>()))
+                GetProductsUsecase(repo: getIt<ProductRepo>(),
+                    dropAllProductsUsecase: getIt<DropAllProductsUsecase>(),
+                    networkService: getIt<NetworkService>()))
             ..registerSingleton<RemoveFromCartUsecase>(
-                RemoveFromCartUsecase(repo: getIt<ProductRepo>()))
+                RemoveFromCartUsecase(repo: getIt<CartRepo>()))
             ..registerSingleton<UpdateCartUsecase>(
-                UpdateCartUsecase(repo: getIt<ProductRepo>()))
+                UpdateCartUsecase(repo: getIt<CartRepo>()))
 
 
             ..registerSingleton<SearchUsecase>(
@@ -199,6 +213,7 @@ class AppModule {
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
         );
     }
 
@@ -207,6 +222,7 @@ class AppModule {
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
         );
     }
 
@@ -215,6 +231,7 @@ class AppModule {
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
         );
     }
 
@@ -223,6 +240,7 @@ class AppModule {
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
         );
     }
 

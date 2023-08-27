@@ -6,24 +6,24 @@ import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubi
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
-import 'package:eng_shop/features/shop/views/bloc/categories/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import 'core/config/app_consts.dart';
 import 'features/auth/views/bloc/login/login_cubit.dart';
+import 'features/cart/view/bloc/cart/cart_cubit.dart';
+import 'features/categories/views/bloc/categories/categories_cubit.dart';
+import 'features/categories/views/bloc/category_product/category_product_cubit.dart';
 import 'features/search/views/bloc/search/search_cubit.dart';
+import 'features/settings/view/bloc/language/language_cubit.dart';
+import 'features/settings/view/bloc/profile/profile_cubit.dart';
+import 'features/settings/view/bloc/serivce_provider/service_provider_cubit.dart';
 import 'features/shop/views/bloc/camera/camera_cubit.dart';
-import 'features/shop/views/bloc/cart/cart_cubit.dart';
-import 'features/shop/views/bloc/category_product/category_product_cubit.dart';
 import 'features/shop/views/bloc/home/home_cubit.dart';
 import 'features/shop/views/bloc/home_admin/home_admin_cubit.dart';
 import 'features/shop/views/bloc/home_customer/home_customer_cubit.dart';
-import 'features/shop/views/bloc/language/language_cubit.dart';
 import 'features/shop/views/bloc/map/map_cubit.dart';
-import 'features/shop/views/bloc/profile/profile_cubit.dart';
-import 'features/shop/views/bloc/serivce_provider/service_provider_cubit.dart';
 import 'generated/codegen_loader.g.dart';
 
 void main() async {

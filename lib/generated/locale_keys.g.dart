@@ -107,5 +107,18 @@ abstract class  LocaleKeys {
   static const promo_code = 'promo_code';
   static const promo_code_sub_text = 'promo_code_sub_text';
   static const apply = 'apply';
+  static const discounts = 'discounts';
+  static const user_info = 'user_info';
+  static const area = 'area';
+  static const city = 'city';
+  static const neighborhood = 'neighborhood';
+  static const address = 'address';
+  static const note = 'note';
+  static const enter_area = 'enter_area';
+  static const enter_city = 'enter_city';
+  static const enter_neighborhood = 'enter_neighborhood';
+  static const enter_address = 'enter_address';
+  static const enter_note = 'enter_note';
+  static const billing_address = 'billing_address';
 
 }

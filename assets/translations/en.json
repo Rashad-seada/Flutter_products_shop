@@ -118,7 +118,23 @@
   "order_summary": "Order Summary",
   "promo_code": "Promo Code",
   "promo_code_sub_text": "Enter your promo code.",
-  "apply": "Apply"
+  "apply": "Apply",
+  "discounts": "Discounts",
+  "user_info": "User info",
+
+  "area": "Area",
+  "city": "City",
+  "neighborhood": "Neighborhood",
+  "address": "Address",
+  "note": "Note",
+
+  "enter_area": "Enter area",
+  "enter_city": "Enter city",
+  "enter_neighborhood": "Enter Neighborhood",
+  "enter_address": "Enter home address",
+  "enter_note": "Add any notes on the order if needed",
+  "billing_address": "Billing Address",
+  "remember_billing_address": "Remember billing address"
 
 
 }

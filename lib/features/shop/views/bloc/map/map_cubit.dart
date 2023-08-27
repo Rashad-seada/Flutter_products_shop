@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:eng_shop/core/services/services.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../core/di/app_module.dart';
+import '../../../../../core/infrastructure/services/services.dart';
 
 part 'map_state.dart';
 

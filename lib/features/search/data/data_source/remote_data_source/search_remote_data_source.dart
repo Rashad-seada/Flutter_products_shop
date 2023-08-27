@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:eng_shop/core/infrastructure/api/api.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/error/exception.dart';
@@ -17,9 +18,9 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
   String domain;
   String serviceEmail;
   String servicePassword;
-  final Dio client = Dio();
+  Api client;
 
-  SearchRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword});
+  SearchRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client});
 
   @override
   Future<List<ProductEntity>> searchProducts(String searchTerm) async {
@@ -39,12 +40,6 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,823, 50,endPoint: "list/"),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       List data = json.decode(response.data);

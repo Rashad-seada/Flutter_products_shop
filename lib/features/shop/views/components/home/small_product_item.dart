@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_images.dart';
-import '../../../data/data_source/local_data_source/settings_local_data_source.dart';
+import '../../../../settings/data/data_source/local/settings_local_data_source.dart';
 import '../../../domain/entity/product_entity.dart';
 
 class SmallProductItem extends StatefulWidget {
@@ -97,7 +97,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
                     Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines:2,overflow: TextOverflow.ellipsis,),
 
                     Text(
-                      "KD ${widget.productEntity.price}",
+                      "${widget.productEntity.price} KD",
                       style: GoogleFonts.lato(textStyle: TextStyle(color: AppTheme.neutral900, fontSize: AppTheme.font16.sp,fontWeight: FontWeight.bold)),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

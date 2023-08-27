@@ -1,5 +1,6 @@
 
 import 'package:dartz/dartz.dart';
+import 'package:eng_shop/core/infrastructure/api/api.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
 import 'package:eng_shop/features/search/domain/entity/recent_search_entity.dart';
 
@@ -7,8 +8,8 @@ import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/error/failure.dart';
-import '../../../../core/services/services.dart';
-import '../../../shop/data/data_source/local_data_source/settings_local_data_source.dart';
+import '../../../../core/infrastructure/services/services.dart';
+import '../../../settings/data/data_source/local/settings_local_data_source.dart';
 import '../../../shop/domain/entity/product_entity.dart';
 import '../../data/data_source/remote_data_source/search_remote_data_source.dart';
 import '../../data/repo/search_repo.dart';
@@ -33,6 +34,7 @@ class SearchRepoImpl implements SearchRepo {
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
         serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
         servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+        client: getIt<Api>()
       );
     } catch (e) {
       throw LocalDataException();

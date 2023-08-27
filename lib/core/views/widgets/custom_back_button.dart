@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../di/app_module.dart';
-import '../../services/services.dart';
+import '../../infrastructure/services/services.dart';
 
 class CustomBackButton extends StatelessWidget {
   void Function()? onPressed;

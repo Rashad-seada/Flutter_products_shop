@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/exception.dart';
 import 'package:eng_shop/core/error/failure.dart';
-import 'package:eng_shop/core/services/services.dart';
 import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:eng_shop/features/auth/domain/entity/activate_phone_entity.dart';
@@ -19,7 +18,10 @@ import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
 import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/error/error_messages.dart';
 
-import '../../../shop/data/data_source/local_data_source/settings_local_data_source.dart';
+import '../../../../core/infrastructure/api/api.dart';
+import '../../../../core/infrastructure/services/services.dart';
+import '../../../settings/data/data_source/local/settings_local_data_source.dart';
+
 
 class AuthRepoImpl implements AuthRepo {
 
@@ -36,6 +38,7 @@ class AuthRepoImpl implements AuthRepo {
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
         serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
         servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+        client: getIt<Api>(),
       );
     } catch (e) {
       throw LocalDataException();

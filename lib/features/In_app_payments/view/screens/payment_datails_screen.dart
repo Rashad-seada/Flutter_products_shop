@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/views/widgets/main_button.dart';
 import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_theme.dart';
@@ -32,7 +34,8 @@ class PaymentDetailsScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: Center(
-                    child: Column(
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
                       children: [
 
                         Space(height: 2.h,),
@@ -51,20 +54,36 @@ class PaymentDetailsScreen extends StatelessWidget {
                         ),
                         Space(height: 6.h,),
 
-                        Text(LocaleKeys.order_summary.tr(),
-                          style: AppTheme.textL2TextStyle(color: AppTheme.neutral600),),
-                        Space(height: 1.h,),
+                        SvgPicture.asset(AppImages.shop,width: 92.w,height: 12.h,),
+                        Space(height: 2.5.h,),
 
-                        Text(LocaleKeys.payment_details_sub_text.tr(),
-                          style: AppTheme.textMTextStyle(color: AppTheme.neutral500),),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              children: [
+
+                                Text(LocaleKeys.order_summary.tr(),
+                                  style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),),
+                                Space(height: 1.h,),
+
+                              ],
+                            ),
+                          ],
+                        ),
 
 
-                        Space(height: 2.h,),
+
+
+                        Space(height: 0.5.h,),
 
 
                         PaymentDetailsCard(
-                          totalPrice: totalItemsPrice,
+                          totalPrice: 299.5,
+                          deliveryFees: 5,
                           totalItemCount: totalItemsCount,
+                          discounts: 100,
                         ),
 
                         Space(height: 2.h,),
@@ -72,8 +91,12 @@ class PaymentDetailsScreen extends StatelessWidget {
 
                         MainButton(
                           height: 7.h,
-                          label: Text(LocaleKeys.confirm.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),)
-                        )
+                          label: Text(LocaleKeys.confirm.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                          onTap: ()=> context.read<PaymentCubit>().confirm(context),
+                        ),
+
+                        Space(height: 2.h,),
+
 
                       ],
                     ),

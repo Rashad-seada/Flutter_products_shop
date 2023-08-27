@@ -35,7 +35,3 @@ class HomeCustomerFailure extends HomeCustomerState {
 }
 
 
-class HomeCustomerNetworkError extends HomeCustomerState {
-  @override
-  List<Object> get props => [];
-}

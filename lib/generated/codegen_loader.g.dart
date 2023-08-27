@@ -120,7 +120,20 @@ class CodegenLoader extends AssetLoader{
   "order_summary": "ملخص الطلب",
   "promo_code": "كود الخصم",
   "promo_code_sub_text": "ادخل كود الخصم الخاص بك",
-  "apply": "تطبيق"
+  "apply": "تطبيق",
+  "discounts": "الخصومات",
+  "user_info": "بيانات المستخدم",
+  "area": "المنطقة",
+  "city": "المدينة",
+  "neighborhood": "الحي",
+  "address": "العنوان",
+  "note": "ملاحظة",
+  "enter_area": "أدخل منطقتك",
+  "enter_city": "أدخل مدينتك",
+  "enter_neighborhood": "أدخل حيك",
+  "enter_address": "أدخل عنوان منزلك",
+  "enter_note": "أضف أي ملاحظات على الطلب إذا لزم الأمر",
+  "billing_address": "عنوان الفاتورة"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -227,7 +240,20 @@ static const Map<String,dynamic> en = {
   "order_summary": "Order Summary",
   "promo_code": "Promo Code",
   "promo_code_sub_text": "Enter your promo code.",
-  "apply": "Apply"
+  "apply": "Apply",
+  "discounts": "Discounts",
+  "user_info": "User info",
+  "area": "Area",
+  "city": "City",
+  "neighborhood": "Neighborhood",
+  "address": "Address",
+  "note": "Note",
+  "enter_area": "Enter area",
+  "enter_city": "Enter city",
+  "enter_neighborhood": "Enter Neighborhood",
+  "enter_address": "Enter home address",
+  "enter_note": "Add any notes on the order if needed",
+  "billing_address": "Billing Address"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

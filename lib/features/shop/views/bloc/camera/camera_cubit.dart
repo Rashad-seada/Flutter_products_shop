@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/di/app_module.dart';
-import 'package:eng_shop/core/services/services.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../../core/infrastructure/services/services.dart';
 
 part 'camera_state.dart';
 

@@ -66,5 +66,16 @@ abstract class AppImages {
   static const String error2 = "images/error.svg";
 
   static const String ticket = "images/ticket.svg";
+  static const String shop = "images/shop.svg";
+  static const String info = "images/info.svg";
+
+  static const String area = "images/area.svg";
+  static const String city = "images/city.svg";
+  static const String neighborhood = "images/neighborhood.svg";
+  static const String address = "images/address.svg";
+  static const String note = "images/note.svg";
+
+  static const String address2 = "images/address2.svg";
+  static const String address3 = "images/address3.svg";
 
 }

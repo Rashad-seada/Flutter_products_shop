@@ -10,7 +10,7 @@ import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../../shop/views/bloc/cart/cart_cubit.dart';
+import '../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
@@ -61,7 +61,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         SizedBox(
                           width:  80.w,
                           child: CustomTextField(
-                            onTap: ()=> Navigator.pop(context),
+                            onTap: () {
+                              Navigator.pop(context);
+                              context.read<SearchCubit>().getRecentSearch();
+                            },
                             controller: context.read<SearchCubit>().searchController,
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),

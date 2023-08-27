@@ -1,11 +1,11 @@
 
 import 'package:eng_shop/core/views/widgets/custom_drawer.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
-import 'package:eng_shop/features/shop/views/bloc/cart/cart_cubit.dart';
 import 'package:eng_shop/features/shop/views/bloc/home/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../components/home/custom_navigation_bar.dart';
 import '../components/home/custom_side_menu.dart';
 

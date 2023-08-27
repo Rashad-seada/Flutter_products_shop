@@ -1,17 +1,14 @@
 import 'package:bloc/bloc.dart';
-import 'package:eng_shop/features/shop/views/bloc/cart/cart_cubit.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_images.dart';
 import '../../../../../core/views/screens/playground_screen.dart';
 import '../../../../auth/domain/util/user_type_enum.dart';
+import '../../../../cart/view/pages/cart_page.dart';
 import '../../pages/admin_home_page.dart';
-import '../../pages/cart_page.dart';
-import '../../pages/categories_page.dart';
+import '../../../../categories/views/pages/categories_page.dart';
 import '../../pages/customer_home_page.dart';
 
 part 'home_state.dart';

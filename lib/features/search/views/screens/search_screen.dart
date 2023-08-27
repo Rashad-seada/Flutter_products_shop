@@ -9,8 +9,6 @@ import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../../shop/views/bloc/cart/cart_cubit.dart';
-import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
 import '../components/search/recent_search_section.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';

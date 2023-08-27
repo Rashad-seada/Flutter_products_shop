@@ -1,5 +1,5 @@
 
-import '../../../../../core/database/database.dart';
+import '../../../../../core/infrastructure/database/database.dart';
 import '../../../domain/entity/recent_search_entity.dart';
 
 abstract class SearchLocalDataSource {

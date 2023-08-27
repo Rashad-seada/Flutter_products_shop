@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../settings/view/screens/language_screen.dart';
+import '../../../../settings/view/screens/settings_screen.dart';
 import '../../bloc/home_customer/home_customer_cubit.dart';
-import '../../screens/language_screen.dart';
-import '../../screens/profile_screen.dart';
-import '../../screens/settings_screen.dart';
+import '../../../../settings/view/screens/profile_screen.dart';
 import 'menu_item.dart';
 
 class CustomSideMenu extends StatelessWidget {

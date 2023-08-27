@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/infrastructure/services/network_service.dart';
 import 'package:eng_shop/features/auth/domain/usecase/logout_usecase.dart';
 import 'package:eng_shop/features/auth/views/screens/auth_methods_screen.dart';
 import 'package:eng_shop/features/shop/domain/usecase/products/drop_all_products_usecase.dart';
@@ -37,6 +38,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
 
   int pageNumber = 1;
 
+
   onLogoutClick(BuildContext context) {
     logout(context);
   }
@@ -56,21 +58,29 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
     );
   }
 
-  void getProducts(){
+  void getProducts({bool refresh = false}){
     emit(HomeCustomerIsLoading());
-    getIt<GetProductsUsecase>().call(GetProductsParams(pageNumber, AppConsts.homeScreen)).then(
+    getIt<GetProductsUsecase>().call(GetProductsParams(pageNumber, AppConsts.homeScreen,refresh: refresh)).then(
       (value) => value.fold(
         (error) {
+          getProducts();
           emit(HomeCustomerFailure(error));
-          if(error.exceptionCode.toString() + error.customCode.toString() == ErrorMessages.networkErrorCode){
-            emit(HomeCustomerNetworkError());
-          }
+
         },
-        (success) {
-          emit(HomeCustomerSuccess());
-          HomeCustomerSuccess.products = success;
-          emit(HomeCustomerInitial());
-          pageNumber = HomeCustomerSuccess.products.length ~/ 10 + 1 ;
+        (success) async {
+          if(await getIt<NetworkService>().isConnected == false) {
+
+            emit(HomeCustomerSuccess());
+            HomeCustomerSuccess.products = success;
+            getProducts();
+
+          }else {
+            emit(HomeCustomerSuccess());
+            HomeCustomerSuccess.products = success;
+            emit(HomeCustomerInitial());
+            pageNumber = HomeCustomerSuccess.products.length ~/ 10 + 1 ;
+          }
+
         }
       )
     );
@@ -87,21 +97,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
   void onRefresh() async  {
     pageNumber = 1;
     HomeCustomerSuccess.products.clear();
-    await dropAllProducts();
-    getProducts();
-  }
-
-  dropAllProducts(){
-    getIt<DropAllProductsUsecase>().call(DropAllProductsParams( AppConsts.homeScreen)).then(
-      (value) => value.fold(
-          (error) {
-            
-          },
-          (success) {
-
-          }
-      )
-    );
+    getProducts(refresh: true);
   }
 
 

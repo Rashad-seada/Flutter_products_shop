@@ -121,7 +121,23 @@
   "order_summary": "ملخص الطلب",
   "promo_code": "كود الخصم",
   "promo_code_sub_text": "ادخل كود الخصم الخاص بك",
-  "apply": "تطبيق"
+  "apply": "تطبيق",
+  "discounts": "الخصومات",
+  "user_info": "بيانات المستخدم",
 
+
+  "area": "المنطقة",
+  "city": "المدينة",
+  "neighborhood": "الحي",
+  "address": "العنوان",
+  "note": "ملاحظة",
+
+  "enter_area": "أدخل منطقتك",
+  "enter_city": "أدخل مدينتك",
+  "enter_neighborhood": "أدخل حيك",
+  "enter_address": "أدخل عنوان منزلك",
+  "enter_note": "أضف أي ملاحظات على الطلب إذا لزم الأمر",
+  "billing_address": "عنوان الفاتورة",
+  "remember_billing_address": "تذكر عنوان الفاتوره"
 
 }

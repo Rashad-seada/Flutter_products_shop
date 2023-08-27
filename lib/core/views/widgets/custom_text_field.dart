@@ -5,6 +5,10 @@ import '../../config/app_theme.dart';
 
 class CustomTextField extends StatelessWidget {
 
+
+  double? width;
+  double? height;
+  BorderRadius borderRadius;
   TextEditingController? controller;
   String? hint;
   String? label;
@@ -22,6 +26,9 @@ class CustomTextField extends StatelessWidget {
 
   CustomTextField({
     Key? key,
+    this.width,
+    this.height,
+    this.borderRadius =  const BorderRadius.all(Radius.circular(100000)),
     this.controller,
     this.hint,
     this.label,
@@ -40,63 +47,68 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      focusNode: focusNode,
-      onTap: onTap,
-      onFieldSubmitted: onFieldSubmitted,
-      keyboardType: keyboardType,
-      enabled: enabled,
-      onTapOutside: onTapOutside,
-      onChanged: onChanged,
-      validator: validator,
-      controller: controller,
-      decoration: InputDecoration(
-        suffixIcon: suffixIcon,
-        contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
+    return SizedBox(
+      width: width,
+      height: height,
+      child: TextFormField(
 
-        hintText: hint,
-        labelText: label,
+        focusNode: focusNode,
+        onTap: onTap,
+        onFieldSubmitted: onFieldSubmitted,
+        keyboardType: keyboardType,
+        enabled: enabled,
+        onTapOutside: onTapOutside,
+        onChanged: onChanged,
+        validator: validator,
+        controller: controller,
+        decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
 
-        labelStyle: TextStyle(
-          color: AppTheme.neutral400,
-          fontSize: AppTheme.font16.sp,
-          fontWeight: FontWeight.w400,
+          hintText: hint,
+          labelText: label,
+
+          labelStyle: TextStyle(
+            color: AppTheme.neutral400,
+            fontSize: AppTheme.font16.sp,
+            fontWeight: FontWeight.w400,
+          ),
+
+          prefixIcon: prefixIcon,
+
+          hintStyle: TextStyle(
+            color: AppTheme.neutral400,
+            fontSize: AppTheme.font14.sp,
+            fontWeight: FontWeight.w400,
+          ),
+
+          disabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.neutral400,width: 1),
+              borderRadius: borderRadius
+          ),
+
+          enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
+              borderRadius: borderRadius
+          ),
+
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.primary900,width: 1),
+              borderRadius: borderRadius
+          ),
+
+          errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.error,width: 1),
+              borderRadius: borderRadius
+          ),
+
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.error,width: 1),
+              borderRadius: borderRadius
+          ),
         ),
-
-        prefixIcon: prefixIcon,
-
-        hintStyle: TextStyle(
-          color: AppTheme.neutral400,
-          fontSize: AppTheme.font16.sp,
-          fontWeight: FontWeight.w400,
-        ),
-
-        disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.neutral400,width: 1),
-            borderRadius: BorderRadius.circular(100.w)
-        ),
-
-        enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.neutral400,width: 1),
-            borderRadius: BorderRadius.circular(100.w)
-        ),
-
-        focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.primary900,width: 1),
-            borderRadius: BorderRadius.circular(100.w)
-        ),
-
-        errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.error,width: 1),
-            borderRadius: BorderRadius.circular(100.w)
-        ),
-
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.error,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
+        onEditingComplete: onEditingComplete,
       ),
-      onEditingComplete: onEditingComplete,
     );
   }
 }

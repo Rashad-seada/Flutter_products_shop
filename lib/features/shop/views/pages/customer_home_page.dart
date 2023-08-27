@@ -14,7 +14,7 @@ import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
-import '../bloc/cart/cart_cubit.dart';
+import '../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../bloc/home/home_cubit.dart';
 import '../bloc/home_customer/home_customer_cubit.dart';
 import '../components/home/ad_banner_slider.dart';
@@ -40,15 +40,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
   Widget build(BuildContext context) {
 
     return  BlocConsumer<HomeCustomerCubit, HomeCustomerState>(
-      listener: (context, state) {
-        if(state is HomeCustomerFailure){
-          CustomFlushBar(
-              title: "Error : ${HomeCustomerFailure.myError.code()}",
-              message: HomeCustomerFailure.myError.message,
-              context: context
-          );
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: SizedBox(

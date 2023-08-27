@@ -13,6 +13,7 @@ import 'package:eng_shop/features/auth/domain/entity/send_sms_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_code_entity.dart';
 import 'package:eng_shop/features/auth/domain/entity/validate_email_entity.dart';
 
+import '../../../../../core/infrastructure/api/api.dart';
 import '../../../domain/entity/validate_phone_entity.dart';
 
 abstract class AuthRemoteDataSource {
@@ -41,9 +42,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   String domain;
   String serviceEmail;
   String servicePassword;
-  final Dio client = Dio();
+  Api client;
 
-  AuthRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword});
+  AuthRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client});
 
 
 
@@ -67,12 +68,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 10, 20),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -94,12 +89,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 30),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
+
       );
 
 
@@ -122,12 +112,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 40),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -153,12 +137,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 50),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -184,12 +162,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 10),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -215,12 +187,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 60),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -246,12 +212,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 70),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -278,12 +238,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 80),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -309,12 +263,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Response response = await client.get(
           AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0, 90),
-          options: Options(
-              receiveDataWhenStatusError: true,
-              followRedirects: false,
-              validateStatus: (status)=> true,
-              receiveTimeout: const Duration(seconds: 60)
-          )
       );
 
       Map<String,dynamic> data = json.decode(response.data);

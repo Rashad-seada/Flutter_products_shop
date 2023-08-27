@@ -18,8 +18,9 @@ class PaymentDetailsCard extends StatelessWidget {
   int totalItemCount;
   double totalPrice;
   double deliveryFees;
+  double discounts;
 
-  PaymentDetailsCard({super.key,this.totalItemCount = 0,this.totalPrice = 0,this.deliveryFees = 0});
+  PaymentDetailsCard({super.key,this.totalItemCount = 0,this.totalPrice = 0,this.deliveryFees = 0,this.discounts = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class PaymentDetailsCard extends StatelessWidget {
 
       child: ListView(
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: [
 
           Row(
@@ -49,7 +51,7 @@ class PaymentDetailsCard extends StatelessWidget {
             ],
           ),
 
-          Space(height: 2.h,),
+          Space(height: 2.5.h,),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +65,21 @@ class PaymentDetailsCard extends StatelessWidget {
 
             ],
           ),
-          Space(height: 1.h,),
+          Space(height: 2.5.h,),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Text(LocaleKeys.discounts.tr(),
+                style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
+
+              Text("- $discounts KD",
+                style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
+
+            ],
+          ),
+          Space(height: 2.h,),
 
           Divider(color: AppTheme.neutral300,),
 
@@ -76,7 +92,7 @@ class PaymentDetailsCard extends StatelessWidget {
               Text(LocaleKeys.total.tr(),
                 style: AppTheme.textL1TextStyle(color: AppTheme.neutral600),),
 
-              Text("${deliveryFees + totalPrice} KD",
+              Text("${(deliveryFees + totalPrice) - discounts} KD",
                 style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
 
             ],
@@ -92,8 +108,7 @@ class PaymentDetailsCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 50.w,
+                Expanded(
                   child: CustomTextField(
                     controller: context.read<PaymentCubit>().promoController,
                     prefixIcon: Padding(
@@ -102,9 +117,12 @@ class PaymentDetailsCard extends StatelessWidget {
                     ),
                     hint: LocaleKeys.promo_code_sub_text.tr(),
                     label: LocaleKeys.promo_code.tr(),
-                    onFieldSubmitted: (_)=> context.read<PaymentCubit>().onSearchSubmitted(context),
+                    onFieldSubmitted: (_)=> context.read<PaymentCubit>().apply(context),
                   ),
                 ),
+
+                Space(width: 2.w,),
+
 
                 MainButton(
                   width: 25.w,
