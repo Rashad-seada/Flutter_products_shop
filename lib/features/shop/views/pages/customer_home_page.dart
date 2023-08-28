@@ -30,10 +30,10 @@ class CustomerHomePage extends StatefulWidget {
 class _CustomerHomePageState extends State<CustomerHomePage> {
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     context.read<HomeCustomerCubit>().pageNumber = 1;
     context.read<HomeCustomerCubit>().getProducts();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -56,20 +56,29 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
 
                     Space(height: 4.h,),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Stack(
+                      alignment: Alignment.center,
                       children: [
 
-                        InkWell(
-                            borderRadius: BorderRadius.circular(100.w),
-                            onTap: () => context.read<HomeCubit>().onMenuTap(UserType.customer),
-                            child: SvgPicture.asset(AppImages.menu2,width: 8.w,height: 8.w,)
+                        Positioned(
+                          left: 0,
+                          child: InkWell(
+                              borderRadius: BorderRadius.circular(100.w),
+                              onTap: () => context.read<HomeCubit>().onMenuTap(UserType.customer),
+                              child: SvgPicture.asset(AppImages.menu,width: 8.w,height: 8.w,)
+                          ),
                         ),
 
-                        InkWell(
-                          borderRadius: BorderRadius.circular(100.w),
-                          onTap: () {},
-                          child: SvgPicture.asset(AppImages.heart,width: 26,height:26,),
+                        Text(LocaleKeys.home.tr(), style: AppTheme.heading3TextStyle(),).tr(),
+
+
+                        Positioned(
+                          right: 0,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(100.w),
+                            onTap: () {},
+                            child: SvgPicture.asset(AppImages.heart,width: 26,height:26,),
+                          ),
                         ),
 
                       ],
@@ -80,14 +89,14 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(LocaleKeys.home.tr(), style: AppTheme.heading2TextStyle(),).tr(),
 
                         Text(LocaleKeys.home_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,).tr(),
                       ],
                     ),
-                    Space(height: 2.h,),
+                    Space(height: 1.5.h,),
 
                     CustomTextField(
+                      height: 5.5.h,
                       onTap: ()=> context.read<HomeCustomerCubit>().onSearchTap(context),
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(1.5.h),

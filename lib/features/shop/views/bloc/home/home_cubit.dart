@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,14 +49,14 @@ class HomeCubit extends Cubit<HomeState> {
   List<BottomNavigationBarItem> get adminNavItems => [
     /// Home
     BottomNavigationBarItem(
-        label: "Home",
+        label: LocaleKeys.favorite.tr(),
         icon: SvgPicture.asset(AppImages.home),
         activeIcon: SvgPicture.asset(AppImages.home)
     ),
 
     /// Search
     BottomNavigationBarItem(
-        label: "Search",
+        label: LocaleKeys.categories.tr(),
         icon: SvgPicture.asset(AppImages.search),
         activeIcon: SvgPicture.asset(AppImages.search)
     ),
@@ -62,7 +64,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     /// Likes
     BottomNavigationBarItem(
-        label: "Favorite",
+        label: LocaleKeys.favorite.tr(),
         icon: SvgPicture.asset(AppImages.heart),
         activeIcon: SvgPicture.asset(AppImages.heart)
 
@@ -70,7 +72,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     /// Profile
     BottomNavigationBarItem(
-        label: "Cart",
+        label: LocaleKeys.cart.tr(),
         icon: SvgPicture.asset(AppImages.cart),
         activeIcon: SvgPicture.asset(AppImages.cart)
     ),
@@ -79,14 +81,14 @@ class HomeCubit extends Cubit<HomeState> {
   List<BottomNavigationBarItem> get customerNavItems => [
     /// Home
     BottomNavigationBarItem(
-        label: "Home",
+        label: LocaleKeys.home.tr(),
         icon: SvgPicture.asset(AppImages.home),
         activeIcon: SvgPicture.asset(AppImages.home)
     ),
 
     /// Search
     BottomNavigationBarItem(
-        label: "Categories",
+        label: LocaleKeys.categories.tr(),
         icon: SvgPicture.asset(AppImages.search2),
         activeIcon: SvgPicture.asset(AppImages.search2)
     ),
@@ -94,7 +96,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     /// Likes
     BottomNavigationBarItem(
-        label: "Favorite",
+        label: LocaleKeys.favorite.tr(),
         icon: SvgPicture.asset(AppImages.heart),
         activeIcon: SvgPicture.asset(AppImages.heart)
 
@@ -102,7 +104,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     /// cart
     BottomNavigationBarItem(
-      label: "Cart",
+      label: LocaleKeys.cart.tr(),
       icon: Badge(
           label: (cartCount.value ==0 )? null: ValueListenableBuilder<int>(
             valueListenable: cartCount,
@@ -125,7 +127,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     /// profile
     BottomNavigationBarItem(
-        label: "Me",
+        label: LocaleKeys.me.tr(),
         icon: SvgPicture.asset(AppImages.profile2),
         activeIcon: SvgPicture.asset(AppImages.profile2)
     ),

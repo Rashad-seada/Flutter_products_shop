@@ -25,7 +25,8 @@ abstract class AppConsts {
 
 
   static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = ""}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=1&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
-  static String baseImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/thums/t${productId}_29.jpg";
+  static String baseProductImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/thums/t${productId}_29.jpg";
+  static String baseCategoryImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/750/images/thums/t${productId}_29.jpg";
 
 
   //Screens code

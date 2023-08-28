@@ -26,7 +26,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
 
   Future<String> getImage() async {
     String? domain = await getIt<SettingsLocalDataSource>().getServiceProviderDomain();
-    String? url = AppConsts.baseImageUrl(domain!, "${widget.productEntity.itemId}");
+    String? url = AppConsts.baseProductImageUrl(domain!, "${widget.productEntity.itemId}");
     return url;
   }
 
@@ -140,7 +140,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
                       ],
                     ),
 
-                    Space(height: 1.h,) ,
+                    Space(height: 0.2.h,) ,
 
                   ],
                 ),

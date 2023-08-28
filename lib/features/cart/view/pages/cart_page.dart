@@ -27,9 +27,9 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     context.read<CartCubit>().getCart();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

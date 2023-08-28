@@ -59,7 +59,7 @@ class BillingAddressDetails extends StatelessWidget {
             hint: LocaleKeys.enter_area.tr(),
           ),
           Space(
-            height: 2.h,
+            height: 1.h,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -119,7 +119,7 @@ class BillingAddressDetails extends StatelessWidget {
             ],
           ),
           Space(
-            height: 2.h,
+            height: 1.h,
           ),
           Text(
             "*" + LocaleKeys.address.tr(),
@@ -138,7 +138,7 @@ class BillingAddressDetails extends StatelessWidget {
             hint: LocaleKeys.enter_address.tr(),
           ),
           Space(
-            height: 2.h,
+            height: 1.h,
           ),
           Text(
             "*" + LocaleKeys.note.tr(),

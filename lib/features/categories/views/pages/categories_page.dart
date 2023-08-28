@@ -70,6 +70,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             SizedBox(
                               width: 80.w,
                               child: CustomTextField(
+                                height: 5.5.h,
                                 onTap: () =>
                                     context.read<CategoriesCubit>().onSearchTap(
                                         context),

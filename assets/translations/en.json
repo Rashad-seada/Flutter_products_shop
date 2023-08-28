@@ -49,7 +49,7 @@
   "language": "language",
   "main_menu": "Main Menu",
   "home": "Home",
-  "home_sub_text": "enjoy the latest offers and exclusive products",
+  "home_sub_text": "Enjoy the latest offers and exclusive products",
 
   "bill_of_sale": "Sale bill",
   "bond": "Bond",
@@ -134,7 +134,8 @@
   "enter_address": "Enter home address",
   "enter_note": "Add any notes on the order if needed",
   "billing_address": "Billing Address",
-  "remember_billing_address": "Remember billing address"
+  "remember_billing_address": "Remember billing address",
 
-
+  "me": "Me",
+  "favorite": "Favorite"
 }

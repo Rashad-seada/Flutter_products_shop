@@ -22,7 +22,7 @@ class CategoriesSection extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return CategoryItem(
-            label: categories[index].etxt!,
+            categoryEntity: categories[index],
             onTap: (){
               if(onCategoryTap != null){
                 onCategoryTap!(index,categories[index]);

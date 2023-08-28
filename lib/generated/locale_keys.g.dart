@@ -120,5 +120,8 @@ abstract class  LocaleKeys {
   static const enter_address = 'enter_address';
   static const enter_note = 'enter_note';
   static const billing_address = 'billing_address';
+  static const remember_billing_address = 'remember_billing_address';
+  static const me = 'me';
+  static const favorite = 'favorite';
 
 }

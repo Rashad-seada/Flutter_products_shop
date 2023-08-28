@@ -48,7 +48,7 @@ class AuthTextField extends StatelessWidget {
 
         labelStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppTheme.font16.sp,
+          fontSize: AppTheme.font14.sp,
           fontWeight: FontWeight.w400,
         ),
 
@@ -56,7 +56,7 @@ class AuthTextField extends StatelessWidget {
 
         hintStyle: TextStyle(
           color: AppTheme.neutral400,
-          fontSize: AppTheme.font16.sp,
+          fontSize: AppTheme.font14.sp,
           fontWeight: FontWeight.w400,
         ),
 

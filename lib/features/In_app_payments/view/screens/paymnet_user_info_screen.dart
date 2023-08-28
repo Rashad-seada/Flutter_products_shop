@@ -28,6 +28,7 @@ class PaymentUserInfoScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: ListView(
+                    physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
 
@@ -82,13 +83,15 @@ class PaymentUserInfoScreen extends StatelessWidget {
                       Space(height: 4.h,),
 
 
+
+
                       MainButton(
                         height: 7.h,
                         label: Text(LocaleKeys.next.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
-                        onTap: ()=> context.read<PaymentCubit>().onNextTap(),
+                        onTap: ()=> context.read<PaymentCubit>().onNextTap(context),
                       ),
 
-                      Space(height: 2.h,),
+                      Space(height: 5.h,),
                     ],
                   ),
                 ),

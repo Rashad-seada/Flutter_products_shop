@@ -1,6 +1,8 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
+import 'package:eng_shop/core/error/error_messages.dart';
+import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/features/categories/domain/entities/category_entity.dart';
 import 'package:eng_shop/features/categories/domain/usecase/get_all_categories_usecase.dart';
 import 'package:eng_shop/features/categories/views/screens/category_products_screen.dart';
@@ -66,18 +68,17 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     getIt<GetSubCategoriesUsecase>().call(GetSubCategoriesParams(parentCategoryId,AppConsts.categoryScreen)).then(
             (value) => value.fold(
                 (error) {
-              emit(CategoriesFailure(error));
+                  emit(CategoriesFailure(error));
 
-
-            },
+                },
                 (success) {
-              emit(CategoriesSuccess());
-              if(!CategoriesSuccess.subCategories.contains(success)) {
-                CategoriesSuccess.subCategories.add(success);
-              }
-              emit(CategoriesInitial());
+                  emit(CategoriesSuccess());
+                  if(!CategoriesSuccess.subCategories.contains(success)) {
+                    CategoriesSuccess.subCategories.add(success);
+                  }
+                  emit(CategoriesInitial());
 
-            }
+                }
         )
     );
   }
@@ -87,7 +88,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       selectedCategoryIndex = index;
 
       if(CategoriesSuccess.subCategories.elementAtOrNull(selectedCategoryIndex) == null){
+
         getSubCategories(int.parse("${categoryEntity.id!}"));
+
       }else {
         emit(CategoriesSuccess());
         emit(CategoriesInitial());

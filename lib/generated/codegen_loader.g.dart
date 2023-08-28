@@ -64,7 +64,7 @@ class CodegenLoader extends AssetLoader{
   "settings": "الاعدادات",
   "language": "اللغه",
   "main_menu": "القائمه الرئيسيه",
-  "home": "الصفحه الرئيسيه",
+  "home": "الرئيسيه",
   "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه",
   "bill_of_sale": "فاتوره بيع",
   "bond": "السنادات",
@@ -133,7 +133,10 @@ class CodegenLoader extends AssetLoader{
   "enter_neighborhood": "أدخل حيك",
   "enter_address": "أدخل عنوان منزلك",
   "enter_note": "أضف أي ملاحظات على الطلب إذا لزم الأمر",
-  "billing_address": "عنوان الفاتورة"
+  "billing_address": "عنوان الفاتورة",
+  "remember_billing_address": "تذكر عنوان الفاتوره",
+  "me": "انا",
+  "favorite": "المفضله"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -186,7 +189,7 @@ static const Map<String,dynamic> en = {
   "language": "language",
   "main_menu": "Main Menu",
   "home": "Home",
-  "home_sub_text": "enjoy the latest offers and exclusive products",
+  "home_sub_text": "Enjoy the latest offers and exclusive products",
   "bill_of_sale": "Sale bill",
   "bond": "Bond",
   "categories": "Categories",
@@ -253,7 +256,10 @@ static const Map<String,dynamic> en = {
   "enter_neighborhood": "Enter Neighborhood",
   "enter_address": "Enter home address",
   "enter_note": "Add any notes on the order if needed",
-  "billing_address": "Billing Address"
+  "billing_address": "Billing Address",
+  "remember_billing_address": "Remember billing address",
+  "me": "Me",
+  "favorite": "Favorite"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

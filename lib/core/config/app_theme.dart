@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,27 +8,34 @@ import 'app_consts.dart';
 
 abstract class AppTheme {
   static TextStyle? heading1TextStyle({Color color = AppTheme.neutral900}) =>
-      GoogleFonts.lato(
-          textStyle: TextStyle(
-              color: color, fontSize: font32.sp, fontWeight: FontWeight.bold));
+      mainTextStyle(color: color, fontSize: font32.sp, fontWeight: FontWeight.bold);
 
   static TextStyle? heading2TextStyle({Color color = AppTheme.neutral900}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font28.sp));
+      mainTextStyle(color: color, fontSize: font28.sp);
 
   static TextStyle? heading3TextStyle({Color color = AppTheme.neutral900}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font21.sp));
+      mainTextStyle(color: color, fontSize: font21.sp);
 
   static TextStyle? textL1TextStyle({Color color = AppTheme.neutral500}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font17.sp));
+      mainTextStyle(color: color, fontSize: font17.sp);
 
   static TextStyle? textL2TextStyle({Color color = AppTheme.neutral500}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font16.sp));
+      mainTextStyle(color: color, fontSize: font16.sp);
 
   static TextStyle? textMTextStyle({Color color = AppTheme.neutral500}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font14.sp));
+      mainTextStyle(color: color, fontSize: font14.sp);
 
   static TextStyle? textSTextStyle({Color color = AppTheme.neutral500}) =>
-      GoogleFonts.lato(textStyle: TextStyle(color: color, fontSize: font12.sp));
+      mainTextStyle(color: color, fontSize: font12.sp);
+
+
+  static TextStyle? mainTextStyle ({Color? color, double? fontSize,FontWeight? fontWeight}) => TextStyle(color: color, fontSize: fontSize,fontWeight: fontWeight);
+
+  static TextStyle? arabicTextStyle ({Color? color, double? fontSize,FontWeight? fontWeight}) => GoogleFonts.notoSansArabic(color: color, fontSize: fontSize,fontWeight: fontWeight);
+  static TextStyle? englishTextStyle ({Color? color, double? fontSize,FontWeight? fontWeight}) => GoogleFonts.lato(color: color, fontSize: fontSize,fontWeight: fontWeight);
+
+
+
 
   static const Color neutral900 = Color(0xff111827);
   static const Color neutral800 = Color(0xff1F2937);
@@ -62,10 +70,11 @@ abstract class AppTheme {
 
   static const Color backgroundColor = Color(0xffFFFFFF);
 
-  static ThemeData theme = ThemeData(
+  static ThemeData theme(BuildContext context) => ThemeData(
     primaryColor: primary900,  // Primary color for your app
     hintColor: neutral300,  // Accent color used for buttons, etc.
-    fontFamily: 'Late',      // Default font family
+
+
     // Text theme
     textTheme: TextTheme(
       displayLarge: heading1TextStyle(),
@@ -73,6 +82,8 @@ abstract class AppTheme {
       bodyLarge: textL2TextStyle(),
       bodyMedium: textMTextStyle(),
     ),
+
+    fontFamily: context.locale.toLanguageTag() == "ar" ? "ArabicFont" : "DefaultFont",
 
     scaffoldBackgroundColor: backgroundColor,
 
@@ -82,6 +93,7 @@ abstract class AppTheme {
         backgroundColor: primary900,  // Default button color
       ),
     ),
+
 
     // Input decoration theme
     inputDecorationTheme: const InputDecorationTheme(
@@ -105,7 +117,7 @@ abstract class AppTheme {
   static void initSystemNavAndStatusBar() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.black,
+      systemNavigationBarColor: backgroundColor,
       statusBarColor: backgroundColor,
       statusBarIconBrightness: Brightness.dark,
     ));

@@ -60,6 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         SizedBox(
                           width:  80.w,
                           child: CustomTextField(
+                            height: 5.5.h,
                             controller: context.read<SearchCubit>().searchController,
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(1.5.h),

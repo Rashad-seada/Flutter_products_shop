@@ -105,6 +105,7 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
       return data.map((e) => CategoryEntity.fromJson(e,response.statusCode!)).toList();
 
     } catch (e) {
+      print(e);
       throw RemoteDataException();
     }
   }

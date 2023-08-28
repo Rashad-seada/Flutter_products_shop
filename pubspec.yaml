@@ -47,9 +47,6 @@ dependencies:
   permission_handler:
 
   google_sign_in:
-  firebase_core:
-  firebase_auth:
-  cloud_firestore:
 
   image_picker:   
 
@@ -87,9 +84,12 @@ dependencies:
   cached_network_image:
   smooth_page_indicator:
   google_fonts:
-  device_preview:
   badges:
   liquid_pull_to_refresh:
+
+
+  #UI Preview
+  device_preview:
 
 
   #client
@@ -129,6 +129,16 @@ flutter:
   assets:
      - images/
      - assets/translations/
+     -
+  fonts:
+    - family: ArabicFont
+      fonts:
+        - asset: fonts/Cairo-Regular.ttf
+
+    - family: DefaultFont
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

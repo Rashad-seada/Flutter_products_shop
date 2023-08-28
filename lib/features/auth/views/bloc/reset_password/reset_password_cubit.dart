@@ -61,12 +61,15 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     await getIt<SendSmsUsecase>().call(SendSmsParams(extractPlusFromPhoneNumber(initPhoneNumber.phoneNumber!),AppConsts.resetPasswordMethodScreen)).then(
             (value) => value.fold(
                 (error) {
-              emit(ResetPasswordFailure(error));
-            },
+                  print(error.message);
+                  emit(ResetPasswordFailure(error));
+                },
                 (success) {
-              emit(ResetPasswordSuccess());
-              Navigator.push(context,MaterialPageRoute(builder: (_)=> PinScreen()));
-            }
+                  print(success);
+
+                  emit(ResetPasswordSuccess());
+                  Navigator.push(context,MaterialPageRoute(builder: (_)=> PinScreen()));
+                }
         )
     );
   }
@@ -186,8 +189,11 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
               (value) => value.fold(
               (error) {
                 emit(ResetPasswordFailure(error));
+                print(error.message);
               },
               (success) {
+                print(success);
+
                 emit(ResetPasswordSuccess());
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MessageScreen(
                   message: LocaleKeys.check_email.tr(),

@@ -37,7 +37,7 @@ class CustomSideMenu extends StatelessWidget {
                     children: [
                       Image.asset(AppImages.logo,width: 10.w,height: 10.w,),
                       Space(width: 2.w,),
-                      Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),
+                      Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral900),).tr(),
                     ],
                   ),
 
@@ -74,7 +74,7 @@ class CustomSideMenu extends StatelessWidget {
 
              Text(LocaleKeys.logout.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),
              Space(width: 0.5.w,),
-             IconButton(onPressed: () async => context.read<HomeCustomerCubit>().onLogoutClick(context) , icon: Icon(Icons.logout))
+             IconButton(onPressed: () async => context.read<HomeCustomerCubit>().onLogoutClick(context) , icon: SvgPicture.asset(AppImages.logout))
            ],
          )
 
@@ -85,3 +85,5 @@ class CustomSideMenu extends StatelessWidget {
     );
   }
 }
+
+

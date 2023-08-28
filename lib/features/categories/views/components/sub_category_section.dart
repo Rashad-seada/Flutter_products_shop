@@ -23,7 +23,7 @@ class SubCategorySection extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return SubCategoryItem(
-            label: categories[index].etxt!,
+            categoryEntity: categories[index],
             onTap: (){
               if(onSubCategoryItemTap != null){
                 onSubCategoryItemTap!(index,categories[index]);

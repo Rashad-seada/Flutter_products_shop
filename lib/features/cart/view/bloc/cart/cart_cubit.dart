@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/features/In_app_payments/view/screens/payment_datails_screen.dart';
+import 'package:eng_shop/features/In_app_payments/view/screens/paymnet_user_info_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -131,9 +132,13 @@ class CartCubit extends Cubit<CartState> {
   }
 
   onDecrementTap(int index,BuildContext context) {
-    CartSuccess.cart[index].cartEntity.quantity = CartSuccess.cart[index].cartEntity.quantity! - 1;
-    calculateTotal();
-    updateCartProduct(CartSuccess.cart[index].cartEntity,context);
+
+    if(CartSuccess.cart[index].cartEntity.quantity != 1) {
+      CartSuccess.cart[index].cartEntity.quantity = CartSuccess.cart[index].cartEntity.quantity! - 1;
+      calculateTotal();
+      updateCartProduct(CartSuccess.cart[index].cartEntity,context);
+    }
+
   }
 
   int getTotalItems() {
@@ -145,7 +150,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   onCheckoutClick(BuildContext context){
-    Navigator.push(context,MaterialPageRoute(builder: (_)=> PaymentDetailsScreen(totalItemsCount: getTotalItems(),totalItemsPrice: totalPrice,)));
+    Navigator.push(context,MaterialPageRoute(builder: (_)=> const PaymentUserInfoScreen()));
   }
 
 }

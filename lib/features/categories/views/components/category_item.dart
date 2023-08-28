@@ -3,18 +3,24 @@ import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../domain/entities/category_entity.dart';
+
+
 
 class CategoryItem extends StatefulWidget {
-  String label;
+  CategoryEntity categoryEntity;
   void Function()? onTap;
   bool isSelected;
-  CategoryItem({super.key,required this.label,this.onTap,this.isSelected = true});
+  CategoryItem({super.key,required this.categoryEntity,this.onTap,this.isSelected = true});
 
   @override
   State<CategoryItem> createState() => _CategoryItemState();
 }
 
 class _CategoryItemState extends State<CategoryItem> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -44,7 +50,7 @@ class _CategoryItemState extends State<CategoryItem> {
               height: (widget.isSelected)? 3.h : 0,
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                color: AppTheme.neutral500,
+                color: AppTheme.primary900,
               ),
             ),
 
@@ -52,7 +58,7 @@ class _CategoryItemState extends State<CategoryItem> {
 
 
 
-            Text(widget.label,style: AppTheme.textMTextStyle(color: ( AppTheme.neutral900),)),
+            Text(widget.categoryEntity.etxt!,style: AppTheme.textMTextStyle(color: (widget.isSelected)? AppTheme.primary900 : AppTheme.neutral900,)),
           ],
         ),
       ),

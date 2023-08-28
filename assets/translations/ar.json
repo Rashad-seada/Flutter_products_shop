@@ -48,7 +48,7 @@
   "settings": "الاعدادات",
   "language": "اللغه",
   "main_menu": "القائمه الرئيسيه",
-  "home": "الصفحه الرئيسيه",
+  "home": "الرئيسيه",
   "home_sub_text": "استمتع باحدث العروض والمنتجات الحصريه",
 
   "bill_of_sale": "فاتوره بيع",
@@ -138,6 +138,9 @@
   "enter_address": "أدخل عنوان منزلك",
   "enter_note": "أضف أي ملاحظات على الطلب إذا لزم الأمر",
   "billing_address": "عنوان الفاتورة",
-  "remember_billing_address": "تذكر عنوان الفاتوره"
+  "remember_billing_address": "تذكر عنوان الفاتوره",
+
+  "me": "انا",
+  "favorite": "المفضله"
 
 }

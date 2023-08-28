@@ -61,6 +61,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         SizedBox(
                           width:  80.w,
                           child: CustomTextField(
+                            height: 5.5.h,
                             onTap: () {
                               Navigator.pop(context);
                               context.read<SearchCubit>().getRecentSearch();

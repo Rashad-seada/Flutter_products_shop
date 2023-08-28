@@ -267,6 +267,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       Map<String,dynamic> data = json.decode(response.data);
 
+      print(response.data);
+
       return ResetPasswordByEmailEntity.fromJson(data,response.statusCode!);
     } catch (e) {
       throw RemoteDataException();

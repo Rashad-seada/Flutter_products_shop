@@ -112,13 +112,13 @@ class CategoryRepoImpl implements CategoryRepo {
 
       List<CategoryEntity> categories = await categoryRemoteDataSource.getSubCategoriesById(parentCategoryId);
 
-      if(categories.isEmpty || categories[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+      if(categories.isNotEmpty){
+        if(categories[0].statusCode != 200) {
+          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+        }
       }
 
-
       return right(categories);
-
 
     } on RemoteDataException {
       return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));

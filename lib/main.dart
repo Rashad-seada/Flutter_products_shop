@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
@@ -34,16 +35,21 @@ void main() async {
   await CoreCubit().init();
 
   runApp(
-    EasyLocalization(
-        supportedLocales: const [
-          Locale(AppConsts.english),
-          Locale(AppConsts.arabic)
-        ],
-        fallbackLocale: const Locale(AppConsts.english),
-        path: AppConsts.localizationPath,
-        assetLoader: const CodegenLoader(),
-        child: const MyApp()
-    )
+      DevicePreview(
+        enabled: false,
+        builder: (BuildContext context) {
+            return EasyLocalization(
+                supportedLocales: const [
+                  Locale(AppConsts.english),
+                  Locale(AppConsts.arabic)
+                ],
+                fallbackLocale: const Locale(AppConsts.english),
+                path: AppConsts.localizationPath,
+                assetLoader: const CodegenLoader(),
+                child: const MyApp()
+            );
+        },
+      )
   );
 }
 
@@ -81,15 +87,14 @@ class MyApp extends StatelessWidget {
 
       ],
       child: Sizer(
-        builder: (BuildContext context, Orientation orientation,
-            DeviceType deviceType) {
+        builder: (BuildContext context, Orientation orientation, deviceType) {
           return MaterialApp(
-
+            builder: DevicePreview.appBuilder,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             debugShowCheckedModeBanner: false,
-            theme: AppTheme.theme,
+            theme: AppTheme.theme(context),
             home: const IntroScreen(),
           );
         },

@@ -46,7 +46,7 @@ class PaymentDetailsCard extends StatelessWidget {
                 style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
 
               Text("$totalPrice KD",
-                style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),),
 
             ],
           ),
@@ -61,7 +61,7 @@ class PaymentDetailsCard extends StatelessWidget {
                 style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
 
               Text("$deliveryFees KD",
-                style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),),
 
             ],
           ),
@@ -75,7 +75,7 @@ class PaymentDetailsCard extends StatelessWidget {
                 style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
 
               Text("- $discounts KD",
-                style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),),
 
             ],
           ),
@@ -90,10 +90,10 @@ class PaymentDetailsCard extends StatelessWidget {
             children: [
 
               Text(LocaleKeys.total.tr(),
-                style: AppTheme.textL1TextStyle(color: AppTheme.neutral600),),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral600),),
 
               Text("${(deliveryFees + totalPrice) - discounts} KD",
-                style: AppTheme.textL1TextStyle(color: AppTheme.neutral900),),
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),),
 
             ],
           ),

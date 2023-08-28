@@ -26,7 +26,7 @@ class CartItem extends StatelessWidget {
 
   Future<String> getImage() async {
     String? domain = await getIt<SettingsLocalDataSource>().getServiceProviderDomain();
-    String? url = AppConsts.baseImageUrl(domain!, "${cartResponse.productEntity.itemId}");
+    String? url = AppConsts.baseProductImageUrl(domain!, "${cartResponse.productEntity.itemId}");
     return url;
   }
 
@@ -88,19 +88,24 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    InkWell(
-                      onTap: ()=> onDeleteTap!(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SvgPicture.asset(AppImages.trash),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Expanded(
+                          child: Text(
+                            "${cartResponse.productEntity.etxt}",
+                            style: AppTheme.textL2TextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        ),
+
+                        InkWell(
+                          onTap: ()=> onDeleteTap!(),
+                          child: SvgPicture.asset(AppImages.trash),
+                        ),
+                      ],
                     ),
 
-                    Text(
-                      "${cartResponse.productEntity.etxt}",
-                      style: AppTheme.textL2TextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
+
 
 
                     Text("${cartResponse.productEntity.price} KD",
@@ -145,7 +150,7 @@ class CartItem extends StatelessWidget {
 
                             Text(
                               "${cartResponse.cartEntity.quantity}",
-                              style: AppTheme.textL2TextStyle(),),
+                              style: AppTheme.textL1TextStyle(),),
                             Space(width: 1.w,),
 
                             InkWell(

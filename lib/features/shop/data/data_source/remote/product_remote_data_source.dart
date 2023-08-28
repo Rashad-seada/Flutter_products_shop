@@ -103,7 +103,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   String getProductImageById(int id) {
-    return AppConsts.baseImageUrl(domain,"$id");
+    return AppConsts.baseProductImageUrl(domain,"$id");
   }
 
   @override
