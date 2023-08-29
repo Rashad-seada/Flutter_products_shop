@@ -86,6 +86,9 @@ dependencies:
   google_fonts:
   badges:
   liquid_pull_to_refresh:
+  flutter_staggered_animations:
+  loading_animation_widget:
+  shimmer:
 
 
   #UI Preview

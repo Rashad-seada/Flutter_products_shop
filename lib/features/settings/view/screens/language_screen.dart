@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../bloc/language/language_cubit.dart';
@@ -42,7 +43,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     children: [
 
 
-                      Space(height: 5.h,),
+                      Space(height: 4.h,),
 
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -50,8 +51,8 @@ class _LanguageScreenState extends State<LanguageScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
 
-                            (state is LanguageChanging)? circleIndicator() : CustomBackButton(),
-                            Text(LocaleKeys.language.tr(), style: AppTheme.heading2TextStyle(),).tr(),
+                            (state is LanguageChanging)? CustomProgressIndicator() : CustomBackButton(),
+                            Text(LocaleKeys.language.tr(), style: AppTheme.heading3TextStyle(),).tr(),
 
                             Space(width: 5.w,),
 
@@ -87,12 +88,6 @@ class _LanguageScreenState extends State<LanguageScreen> {
     );
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,)),
-    );
-  }
 }
 
 

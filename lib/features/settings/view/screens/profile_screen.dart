@@ -30,13 +30,12 @@ class ProfileScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {
-                    // TODO: implement listener
                   },
                   builder: (context, state) {
                     return Column(
                                   children: [
 
-                                    Space(height: 5.h,),
+                                    Space(height: 4.h,),
 
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,14 +43,14 @@ class ProfileScreen extends StatelessWidget {
 
                                         CustomBackButton(),
 
-                                        Text(LocaleKeys.profile.tr(), style: AppTheme.heading2TextStyle(),),
+                                        Text(LocaleKeys.profile.tr(), style: AppTheme.heading3TextStyle(),),
 
                                         Space(width: 5.w,),
 
                                       ],
                                     ),
 
-                                    Space(height: 6.h,),
+                                    Space(height: 5.h,),
 
                                     ProfileImage(),
 
@@ -64,6 +63,7 @@ class ProfileScreen extends StatelessWidget {
 
 
                                           AuthTextField(
+                                            height: 5.5.h,
                                             validator: (_)=> context.read<ProfileCubit>().validateUsername(),
                                             controller: context.read<ProfileCubit>().nameController,
                                             label: LocaleKeys.name.tr(),hint: LocaleKeys.name_hint.tr(),prefixIcon: Padding(
@@ -74,6 +74,7 @@ class ProfileScreen extends StatelessWidget {
                                           Space(height: 1.5.h,),
 
                                           AuthTextField(
+                                            height: 5.5.h,
                                             validator: (_)=> context.read<ProfileCubit>().validateEmail(),
                                             controller: context.read<ProfileCubit>().emailController,
                                             label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),
@@ -86,6 +87,7 @@ class ProfileScreen extends StatelessWidget {
                                           Space(height: 1.5.h,),
 
                                           PhoneNumberField(
+                                            height: 5.7.h,
                                             initialValue:  context.read<ProfileCubit>().initialValue,
                                             controller: context.read<ProfileCubit>().phoneNumberController,
                                             onInputValidated: (bool value) {

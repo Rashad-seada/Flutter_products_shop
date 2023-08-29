@@ -137,5 +137,12 @@
   "remember_billing_address": "Remember billing address",
 
   "me": "Me",
-  "favorite": "Favorite"
+  "favorite": "Favorite",
+
+  "support": "Support",
+  "survey": "Survey Center",
+
+  "my_orders": "My Orders",
+  "more_services": "More Services"
+
 }

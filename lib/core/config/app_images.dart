@@ -82,4 +82,7 @@ abstract class AppImages {
   static const String logout = "images/logout.svg";
   static const String trash2 = "images/trash2.svg";
 
+  static const String support = "images/support.svg";
+  static const String survey = "images/survey.svg";
+
 }

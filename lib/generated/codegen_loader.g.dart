@@ -136,7 +136,11 @@ class CodegenLoader extends AssetLoader{
   "billing_address": "عنوان الفاتورة",
   "remember_billing_address": "تذكر عنوان الفاتوره",
   "me": "انا",
-  "favorite": "المفضله"
+  "favorite": "المفضله",
+  "support": "الدعم الفني",
+  "survey": " مركز استطلاع الراي",
+  "my_orders": "طلبياتي",
+  "more_services": "المزيد من الخدمات"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -259,7 +263,11 @@ static const Map<String,dynamic> en = {
   "billing_address": "Billing Address",
   "remember_billing_address": "Remember billing address",
   "me": "Me",
-  "favorite": "Favorite"
+  "favorite": "Favorite",
+  "support": "Support",
+  "survey": "Survey Center",
+  "my_orders": "My Orders",
+  "more_services": "More Services"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

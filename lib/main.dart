@@ -7,6 +7,7 @@ import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubi
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
+import 'package:eng_shop/features/settings/view/bloc/settings/settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> CategoryProductCubit()),
 
         BlocProvider(create: (_)=> PaymentCubit()),
+        BlocProvider(create: (_)=> SettingsCubit()),
 
       ],
       child: Sizer(

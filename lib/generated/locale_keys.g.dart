@@ -123,5 +123,9 @@ abstract class  LocaleKeys {
   static const remember_billing_address = 'remember_billing_address';
   static const me = 'me';
   static const favorite = 'favorite';
+  static const support = 'support';
+  static const survey = 'survey';
+  static const my_orders = 'my_orders';
+  static const more_services = 'more_services';
 
 }

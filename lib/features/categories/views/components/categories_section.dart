@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../domain/entities/category_entity.dart';
@@ -21,14 +22,25 @@ class CategoriesSection extends StatelessWidget {
         itemCount: categories.length,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          return CategoryItem(
-            categoryEntity: categories[index],
-            onTap: (){
-              if(onCategoryTap != null){
-                onCategoryTap!(index,categories[index]);
-              }
-            },
-            isSelected: selectedIndex == index,
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            child: SlideAnimation(
+              curve: Curves.linearToEaseOut,
+              verticalOffset: 50.0,
+              horizontalOffset: -50,
+              child: FadeInAnimation(
+                curve: Curves.linearToEaseOut,
+                child: CategoryItem(
+                  categoryEntity: categories[index],
+                  onTap: (){
+                    if(onCategoryTap != null){
+                      onCategoryTap!(index,categories[index]);
+                    }
+                  },
+                  isSelected: selectedIndex == index,
+                ),
+              ),
+            ),
           );
         },
       ),

@@ -9,6 +9,7 @@ import '../../../../../core/config/app_images.dart';
 import '../../../../../core/config/app_theme.dart';
 import '../../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../../core/views/widgets/main_button.dart';
 import '../../../../../core/views/widgets/space.dart';
 import '../../../../../generated/locale_keys.g.dart';
@@ -99,7 +100,7 @@ class NewPasswordScreen extends StatelessWidget {
                             MainButton(
                               width: 100.w,
                               height: 7.h,
-                              label: (state is ResetPasswordLoading)? circleIndicator() :Text(LocaleKeys.done.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                              label: (state is ResetPasswordLoading)? CustomProgressIndicator() :Text(LocaleKeys.done.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                               onTap: ()=> context.read<ResetPasswordCubit>().onNewPasswordClick(context),
                             )
                           ],
@@ -113,11 +114,5 @@ class NewPasswordScreen extends StatelessWidget {
     ));
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral100,)),
-    );
-  }
 
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
+import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/features/auth/views/components/auth_text_field.dart';
 import 'package:eng_shop/core/views/widgets/clickable_text.dart';
 import 'package:eng_shop/core/views/widgets/custom_checkbox.dart';
@@ -78,6 +79,7 @@ class LoginScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               AuthTextField(
+                                height: 5.5.h,
                                 controller: context.read<LoginCubit>().emailController,
                                 label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),
@@ -89,6 +91,7 @@ class LoginScreen extends StatelessWidget {
                               Space(height: 1.5.h,),
 
                               AuthTextField(
+                                height: 5.5.h,
                                 controller: context.read<LoginCubit>().passwordController,
                                 label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),
@@ -122,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Space(height: 20.h,),
+                        Space(height: 24.h,),
 
 
                         ClickableText(
@@ -139,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                         MainButton(
                           width: 100.w,
                           height: 7.h,
-                          label: (state is LoginLoading)? circleIndicator() :Text(LocaleKeys.login.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                          label: (state is LoginLoading)? CustomProgressIndicator(color: AppTheme.neutral900,) :Text(LocaleKeys.login.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                           onTap: ()=> context.read<LoginCubit>().onLoginClick(context),
                         )
 
@@ -155,11 +158,5 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral100,)),
-    );
-  }
 }
 

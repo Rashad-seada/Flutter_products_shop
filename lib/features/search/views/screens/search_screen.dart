@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../bloc/search/search_cubit.dart';
@@ -39,13 +39,6 @@ class _SearchScreenState extends State<SearchScreen> {
           physics: BouncingScrollPhysics(),
           child: BlocConsumer<SearchCubit,SearchState>(
             listener: (context, state) {
-              if(state is SearchFailure){
-                CustomFlushBar(
-                    title: "Error : ${SearchFailure.myError.code()}",
-                    message: SearchFailure.myError.message,
-                    context: context
-                );
-              }
             },
             builder: (context, state) {
               return Column(
@@ -96,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   Space(height: 2.h,),
 
-                  Center(child: (state is SearchLoading)? circleIndicator() : const SizedBox()),
+                  Center(child: (state is SearchLoading)? CustomProgressIndicator() : const SizedBox()),
 
                   Space(height: 14.h,),
 
@@ -109,10 +102,4 @@ class _SearchScreenState extends State<SearchScreen> {
     ));
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,)),
-    );
-  }
 }

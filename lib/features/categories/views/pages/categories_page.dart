@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/components/error_message.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
@@ -100,7 +101,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       Space(height: 4.h,),
 
                       (state is CategoriesLoading)?
-                      circleIndicator(): SizedBox(),
+                      CustomProgressIndicator(): SizedBox(),
 
                       (state is CategoriesFailure)?
                       ErrorMessage(message:CategoriesFailure.myError.message): SizedBox(),
@@ -113,7 +114,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           children: [
                             CategoriesSection(categories: CategoriesSuccess.categories,onCategoryTap: (index,_)=> context.read<CategoriesCubit>().onCategoryTap(index,_), selectedIndex: context.read<CategoriesCubit>().selectedCategoryIndex,),
                             (state is CategoriesSubLoading)
-                                ? Expanded(child: circleIndicator())
+                                ? Expanded(child: CustomProgressIndicator())
                                 :  SubCategorySection(
                               categories: CategoriesSuccess.subCategories.elementAtOrNull(context.read<CategoriesCubit>().selectedCategoryIndex) ?? [],
                               onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context),
@@ -133,10 +134,4 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: Center(child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,))),
-    );
-  }
 }

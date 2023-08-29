@@ -141,6 +141,10 @@
   "remember_billing_address": "تذكر عنوان الفاتوره",
 
   "me": "انا",
-  "favorite": "المفضله"
+  "favorite": "المفضله",
 
+  "support": "الدعم الفني",
+  "survey": " مركز استطلاع الراي",
+  "my_orders": "طلبياتي",
+  "more_services": "المزيد من الخدمات"
 }

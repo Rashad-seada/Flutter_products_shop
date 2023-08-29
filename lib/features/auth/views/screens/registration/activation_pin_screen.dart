@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_strings.dart';
 import 'package:eng_shop/core/views/widgets/clickable_text.dart';
+import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +74,7 @@ class ActivationPinScreen extends StatelessWidget {
                         MainButton(
                           width: 100.w,height: 7.h,
                           label: (state is RegistrationActivatingAccountBySms)?
-                          SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
+                          SizedBox(width:8.w,height:8.w,child: CustomProgressIndicator(color: AppTheme.neutral100,))
                               :Text(
                             LocaleKeys.done.tr(),
                             style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),

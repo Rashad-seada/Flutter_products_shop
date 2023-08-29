@@ -35,8 +35,6 @@ class CustomSideMenu extends StatelessWidget {
 
                   Row(
                     children: [
-                      Image.asset(AppImages.logo,width: 10.w,height: 10.w,),
-                      Space(width: 2.w,),
                       Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral900),).tr(),
                     ],
                   ),
@@ -69,7 +67,7 @@ class CustomSideMenu extends StatelessWidget {
 
 
          Row(
-           mainAxisAlignment: MainAxisAlignment.end,
+           mainAxisAlignment: MainAxisAlignment.start,
            children: [
 
              Text(LocaleKeys.logout.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),

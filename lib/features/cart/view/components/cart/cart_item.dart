@@ -129,8 +129,8 @@ class CartItem extends StatelessWidget {
                               onTap: onDecrementTap,
                               child: Container(
                                 alignment: Alignment.center,
-                                width: 6.w,
-                                height: 6.w,
+                                width: 7.w,
+                                height: 7.w,
                                 clipBehavior: Clip.hardEdge,
                                 decoration:  BoxDecoration(
                                   borderRadius: BorderRadius.only(
@@ -157,8 +157,8 @@ class CartItem extends StatelessWidget {
                               onTap: onIncrementTap,
                               child: Container(
                                 alignment: Alignment.center,
-                                width: 6.w,
-                                height: 6.w,
+                                width: 7.w,
+                                height: 7.w,
                                 clipBehavior: Clip.hardEdge,
                                 decoration: BoxDecoration(
                                   color: AppTheme.primary900,

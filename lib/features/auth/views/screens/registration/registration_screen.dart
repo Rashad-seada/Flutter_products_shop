@@ -1,5 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,7 +96,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: Column(
                           children: [
                             AuthTextField(
-
+                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validateUsername(),
                               controller: context.read<RegistrationCubit>().userNameController,
                                 label: LocaleKeys.name.tr(),hint: LocaleKeys.name_hint.tr(),prefixIcon: Padding(
@@ -106,6 +107,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               onChanged: (_)=> context.read<RegistrationCubit>().onEmailChange(context),
                               validator: (_)=> context.read<RegistrationCubit>().validateEmail(),
                               controller: context.read<RegistrationCubit>().emailController,
@@ -114,12 +116,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 padding: EdgeInsets.all(1.5.h),
                                 child: SvgPicture.asset(AppImages.email),
                               ),
-                              suffixIcon: (state is RegistrationValidatingEmail)? circleIndicator() : checkMark(context.read<RegistrationCubit>().doesEmailExist),
+                              suffixIcon: (state is RegistrationValidatingEmail)? CustomProgressIndicator() : checkMark(context.read<RegistrationCubit>().doesEmailExist),
                             ),
                             Space(height: 1.5.h,),
 
                             PhoneNumberField(
-                              suffixIcon: (state is RegistrationValidatingPhone)? circleIndicator() : checkMark(context.read<RegistrationCubit>().doesPhoneExist),
+                              height: 5.7.h,
+                              suffixIcon: (state is RegistrationValidatingPhone)? CustomProgressIndicator() : checkMark(context.read<RegistrationCubit>().doesPhoneExist),
                               initialValue:  context.read<RegistrationCubit>().initPhoneNumber,
                               controller: context.read<RegistrationCubit>().phoneNumberController,
                               onInputValidated: (bool value) {
@@ -131,6 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validatePassword(),
                               controller: context.read<RegistrationCubit>().passwordController,
                               label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
@@ -140,6 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validateRenterPassword(),
                               controller: context.read<RegistrationCubit>().renterPasswordController,
                               label: LocaleKeys.renter_password.tr(),hint: LocaleKeys.renter_password_hint.tr(),prefixIcon: Padding(
@@ -149,7 +154,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ],
                       )),
 
-                      Space(height: 2.h,),
+                      Space(height: 6.h,),
 
 
                       ClickableText(
@@ -166,7 +171,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       MainButton(
                         width: 100.w,height: 7.h,
                         label: (state is RegistrationLoading)?
-                        SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,))
+                        SizedBox(width:8.w,height:8.w,child: CustomProgressIndicator())
                         :Text(
                           LocaleKeys.register.tr(),
                           style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
@@ -194,10 +199,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Icon(Icons.cancel_outlined,color: AppTheme.error,);
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral800,)),
-    );
-  }
 }

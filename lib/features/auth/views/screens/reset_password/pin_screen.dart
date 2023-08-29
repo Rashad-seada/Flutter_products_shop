@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../../core/config/app_theme.dart';
 import '../../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../../core/views/widgets/main_button.dart';
 import '../../../../../core/views/widgets/space.dart';
 import '../../../../../generated/locale_keys.g.dart';
@@ -81,7 +82,7 @@ class PinScreen extends StatelessWidget {
                                   style: AppTheme.textL2TextStyle(color: AppTheme.primary900),
                                 ),
 
-                                (state is ResetPasswordResendSmsLoading)? circleIndicator(AppTheme.neutral900) : SizedBox(),
+                                (state is ResetPasswordResendSmsLoading)? CustomProgressIndicator(color:AppTheme.neutral900) : SizedBox(),
 
                               ],
                             ),
@@ -90,7 +91,7 @@ class PinScreen extends StatelessWidget {
 
                             MainButton(
                               width: 100.w,height: 7.h,
-                              label: (state is ResetPasswordLoading)? circleIndicator(AppTheme.neutral100) :Text(
+                              label: (state is ResetPasswordLoading)? CustomProgressIndicator(color:AppTheme.neutral100) :Text(
                                 LocaleKeys.done.tr(),
                                 style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                               ),
@@ -108,10 +109,4 @@ class PinScreen extends StatelessWidget {
     ));
   }
 
-  Widget circleIndicator(Color color){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: color,)),
-    );
-  }
 }

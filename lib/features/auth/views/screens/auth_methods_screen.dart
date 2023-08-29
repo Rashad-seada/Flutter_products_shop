@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_divider.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -75,7 +76,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           color: AppTheme.neutral100,
                           width: 100.w,height: 7.h,
                           label: (state is AuthMethodsGoogleLoading)?
-                          circleIndicator() : googleButtonLable(),
+                          CustomProgressIndicator() : googleButtonLable(),
                           onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithGoogleClick(context),
                         ),
                         Space(height: 2.h,),
@@ -85,7 +86,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           color: AppTheme.neutral100,
                           width: 100.w,height: 7.h,
                           label: (state is AuthMethodsFacebookLoading)?
-                          circleIndicator()
+                          CustomProgressIndicator()
                               : facebookButtonLable(),
                           onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithFacebookClick(),
                         ),
@@ -126,7 +127,4 @@ class AuthMethodsScreen extends StatelessWidget {
     );
   }
 
-  Widget circleIndicator(){
-    return SizedBox(width:8.w,height:8.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: Colors.white,));
-  }
 }

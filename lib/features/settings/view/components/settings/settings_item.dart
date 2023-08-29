@@ -8,11 +8,11 @@ import '../../../../../core/config/app_images.dart';
 import '../../../../../core/config/app_theme.dart';
 import '../../../../../generated/locale_keys.g.dart';
 
-class SettingItem extends StatelessWidget {
+class SettingsItem extends StatelessWidget {
   String label;
   Widget? nextScreen;
 
-  SettingItem({super.key,required this.label,this.nextScreen});
+  SettingsItem({super.key,required this.label,this.nextScreen});
 
   @override
   Widget build(BuildContext context) {

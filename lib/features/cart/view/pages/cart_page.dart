@@ -4,11 +4,13 @@ import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../bloc/cart/cart_cubit.dart';
@@ -76,7 +78,7 @@ class _CartPageState extends State<CartPage> {
 
 
                       (state is CartLoading)?
-                      circleIndicator() :
+                      CustomProgressIndicator() :
                       SizedBox(),
 
                       (CartSuccess.cart.isEmpty &&  state is! CartLoading && state is! CartFailure)?
@@ -107,13 +109,24 @@ class _CartPageState extends State<CartPage> {
                         shrinkWrap: true,
                         itemCount: CartSuccess.cart.length,
                         itemBuilder: (_, index) {
-                          return CartItem(
-                            cartResponse: CartSuccess.cart[index],
-                            quantity: CartSuccess.cart[index].cartEntity.quantity!,
+                          return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 500),
+                            child: SlideAnimation(
+                              curve: Curves.linearToEaseOut,
+                              verticalOffset: 50.0,
+                              child: FadeInAnimation(
+                                curve: Curves.linearToEaseOut,
+                                child: CartItem(
 
-                            onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
-                            onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
-                            onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
+                                  cartResponse: CartSuccess.cart[index],
+                                  quantity: CartSuccess.cart[index].cartEntity.quantity!,
+                                  onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
+                                  onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
+                                  onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
+                                ),
+                              ),
+                            ),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
@@ -138,11 +151,6 @@ class _CartPageState extends State<CartPage> {
       );
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: Center(child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,))),
-    );
-  }
+
 }
 

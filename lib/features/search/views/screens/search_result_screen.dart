@@ -8,9 +8,11 @@ import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
+import '../../../shop/views/components/home/products_place_holder_section.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
@@ -40,13 +42,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           physics: BouncingScrollPhysics(),
           child: BlocConsumer<SearchCubit,SearchState>(
             listener: (context, state) {
-              if(state is SearchFailure){
-                CustomFlushBar(
-                    title: "Error : ${SearchFailure.myError.code()}",
-                    message: SearchFailure.myError.message,
-                    context: context
-                );
-              }
             },
             builder: (context, state) {
               return Column(
@@ -98,7 +93,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
 
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: GridView.builder(
                         itemCount: SearchSuccess.products.length,
                         physics: const NeverScrollableScrollPhysics(),
@@ -121,27 +116,30 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   (state is SearchFailure)?
                   ErrorMessage(message:SearchFailure.myError.message): SizedBox(),
 
-                  Center(
-                      child: (state is SearchLoading)?
-                      circleIndicator()
-                          : (SearchSuccess.products.isEmpty && state is! SearchFailure)?
-                      Column(
-                        children: [
-                          Space(height: 10.h,),
+                  (state is SearchLoading)? Padding(
 
-                          Image.asset(AppImages.searchPlaceHolder,width: 20.w,height: 20.w,),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    child: ProductsPlaceHolderSection(),
+                  ) : SizedBox(),
 
-                          Space(height: 4.h,),
+                  (SearchSuccess.products.isEmpty && state is! SearchFailure && state is! SearchLoading )?
+                  Column(
+                    children: [
+                      Space(height: 10.h,),
 
-                          Text(
-                            LocaleKeys.search_not_found.tr(),
-                            style: AppTheme.textMTextStyle(color: AppTheme.neutral500),
-                            textAlign: TextAlign.center,
-                          ).tr()
+                      Image.asset(AppImages.searchPlaceHolder,width: 20.w,height: 20.w,),
 
-                        ],
-                      )
-                          : const SizedBox()),
+                      Space(height: 4.h,),
+
+                      Text(
+                        LocaleKeys.search_not_found.tr(),
+                        style: AppTheme.textMTextStyle(color: AppTheme.neutral500),
+                        textAlign: TextAlign.center,
+                      ).tr()
+
+                    ],
+                  )
+                      : const SizedBox(),
 
                   Space(height: 14.h,),
 
@@ -152,12 +150,5 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
         ),
       ),
     ));
-  }
-
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,)),
-    );
   }
 }

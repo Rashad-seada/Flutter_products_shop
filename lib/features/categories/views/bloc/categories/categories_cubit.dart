@@ -39,6 +39,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
 
   getAllCategories(){
+    selectedCategoryIndex = 0;
     CategoriesSuccess.categories.clear();
     CategoriesSuccess.subCategories.clear();
 
@@ -84,7 +85,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
 
   void onCategoryTap(int index,CategoryEntity categoryEntity){
-    if(selectedCategoryIndex != index){
+    if(selectedCategoryIndex != index && state is! CategoriesLoading){
       selectedCategoryIndex = index;
 
       if(CategoriesSuccess.subCategories.elementAtOrNull(selectedCategoryIndex) == null){
@@ -98,6 +99,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
     }
 
+  }
+
+  List<CategoryEntity> getSubCategory(){
+    return CategoriesSuccess.subCategories.elementAtOrNull(selectedCategoryIndex) ?? [];
   }
 
   void onSubCategoryTap(int index, CategoryEntity categoryEntity,BuildContext context) {

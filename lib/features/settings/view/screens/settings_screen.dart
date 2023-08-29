@@ -8,7 +8,7 @@ import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/section_header.dart';
-import '../components/settings/setting_item.dart';
+import '../components/settings/settings_item.dart';
 import 'language_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Space(height: 5.h,),
+                  Space(height: 4.h,),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
 
                         CustomBackButton(),
 
-                        Text(LocaleKeys.settings.tr(), style: AppTheme.heading2TextStyle(),),
+                        Text(LocaleKeys.settings.tr(), style: AppTheme.heading3TextStyle(),),
 
                         Space(width: 5.w,),
 
@@ -41,14 +41,14 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
 
-                  Space(height: 4.h,),
+                  Space(height: 3.h,),
 
                   SectionHeader(label: LocaleKeys.general_settings.tr(),),
                   Space(height: .5.h,),
 
-                  SettingItem(label: LocaleKeys.service_provider.tr(),nextScreen: const ServiceProviderScreen(),),
+                  SettingsItem(label: LocaleKeys.service_provider.tr(),nextScreen: const ServiceProviderScreen(),),
 
-                  SettingItem(label: LocaleKeys.language.tr(),nextScreen: const LanguageScreen(),)
+                  SettingsItem(label: LocaleKeys.language.tr(),nextScreen: const LanguageScreen(),)
 
                 ],
               ),

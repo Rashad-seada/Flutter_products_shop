@@ -11,6 +11,7 @@ import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../../../shop/views/bloc/home_customer/home_customer_cubit.dart';
+import '../../../shop/views/components/home/products_place_holder_section.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/category_product/category_product_cubit.dart';
 
@@ -104,8 +105,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                             );
                           }
                       ),
+                      Space(height: 2.h,),
 
-                      Center(child: (state is CategoryProductLoading)? circleIndicator() : const SizedBox()),
+                      Center(child: (state is CategoryProductLoading)? ProductsPlaceHolderSection() : const SizedBox()),
 
                       Center(child: (state is CategoryProductFailure)? ErrorMessage(message: HomeCustomerFailure.myError.message,) : const SizedBox()),
 
@@ -121,10 +123,4 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         ));
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral900,)),
-    );
-  }
 }

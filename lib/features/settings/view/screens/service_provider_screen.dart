@@ -8,6 +8,7 @@ import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/clickable_text.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
+import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -44,7 +45,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                 return Column(
                           children: [
 
-                            Space(height: 5.h,),
+                            Space(height: 4.h,),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,12 +53,14 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
 
                                 CustomBackButton(),
 
-                                Text(LocaleKeys.service_provider.tr(), style: AppTheme.heading2TextStyle(),),
+                                Text(LocaleKeys.service_provider.tr(), style: AppTheme.heading3TextStyle(),),
 
                                 Space(width: 5.w,),
 
                               ],
                             ),
+
+
 
                             Space(height: 6.h,),
 
@@ -88,6 +91,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().domainController,
                               label: LocaleKeys.domain.tr(),hint: LocaleKeys.domain_hint.tr(),prefixIcon: Padding(
@@ -99,6 +103,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().emailController,
                               label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
@@ -110,6 +115,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
+                              height: 5.5.h,
                               enabled: context.read<ServiceProviderCubit>().isEditable,
                               controller: context.read<ServiceProviderCubit>().passwordController,
                               label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
@@ -124,7 +130,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                             MainButton(
                               width: 100.w,
                               height: 7.h,
-                              label: (state is ServiceProviderSavingConfig)? circleIndicator() :Text(LocaleKeys.save.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                              label: (state is ServiceProviderSavingConfig)? CustomProgressIndicator() :Text(LocaleKeys.save.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                               onTap: ()=> context.read<ServiceProviderCubit>().onSaveClick(context),
                             )
 
@@ -138,12 +144,6 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
     ));
   }
 
-  Widget circleIndicator(){
-    return  Padding(
-      padding: EdgeInsets.all(3.w),
-      child: SizedBox(width:4.w,height:4.w,child: CircularProgressIndicator(strokeWidth: .5.w,color: AppTheme.neutral100,)),
-    );
-  }
 }
 
 // SafeArea(

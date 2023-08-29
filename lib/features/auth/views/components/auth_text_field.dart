@@ -9,7 +9,8 @@ class AuthTextField extends StatelessWidget {
   String? label;
   Widget? prefixIcon;
   Widget? suffixIcon;
-
+  double? width;
+  double? height;
   String? Function(String?)? validator;
   void Function()? onEditingComplete;
   ValueChanged<String>? onChanged;
@@ -23,6 +24,8 @@ class AuthTextField extends StatelessWidget {
     this.label,
     this.prefixIcon,
     this.suffixIcon,
+    this.width,
+    this.height,
     this.validator,
     this.onEditingComplete,
     this.onChanged,
@@ -32,60 +35,64 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SizedBox(
+      width: width,
+      height: height,
+      child: TextFormField(
 
-      enabled: enabled,
-      onTapOutside: onTapOutside,
-      onChanged: onChanged,
-      validator: validator,
-      controller: controller,
-      decoration: InputDecoration(
-        suffixIcon: suffixIcon,
-        contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
+        enabled: enabled,
+        onTapOutside: onTapOutside,
+        onChanged: onChanged,
+        validator: validator,
+        controller: controller,
+        decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
 
-        hintText: hint,
-        labelText: label,
+          hintText: hint,
+          labelText: label,
 
-        labelStyle: TextStyle(
-          color: AppTheme.neutral400,
-          fontSize: AppTheme.font14.sp,
-          fontWeight: FontWeight.w400,
+          labelStyle: TextStyle(
+            color: AppTheme.neutral400,
+            fontSize: AppTheme.font14.sp,
+            fontWeight: FontWeight.w400,
+          ),
+
+          prefixIcon: prefixIcon,
+
+          hintStyle: TextStyle(
+            color: AppTheme.neutral400,
+            fontSize: AppTheme.font14.sp,
+            fontWeight: FontWeight.w400,
+          ),
+
+          disabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
+              borderRadius: BorderRadius.circular(8)
+          ),
+
+          enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
+              borderRadius: BorderRadius.circular(8)
+          ),
+
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.primary900,width: 1),
+              borderRadius: BorderRadius.circular(8)
+          ),
+
+          errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.error,width: 1),
+              borderRadius: BorderRadius.circular(8)
+          ),
+
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppTheme.error,width: 1),
+              borderRadius: BorderRadius.circular(8)
+          ),
         ),
-
-        prefixIcon: prefixIcon,
-
-        hintStyle: TextStyle(
-          color: AppTheme.neutral400,
-          fontSize: AppTheme.font14.sp,
-          fontWeight: FontWeight.w400,
-        ),
-
-        disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
-
-        enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.neutral300,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
-
-        focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.primary900,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
-
-        errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.error,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
-
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.error,width: 1),
-            borderRadius: BorderRadius.circular(8)
-        ),
+        onEditingComplete: onEditingComplete,
       ),
-      onEditingComplete: onEditingComplete,
     );
   }
 }
