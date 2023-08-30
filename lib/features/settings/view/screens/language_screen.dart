@@ -43,7 +43,7 @@ class _LanguageScreenState extends State<LanguageScreen> {
                     children: [
 
 
-                      Space(height: 4.h,),
+                      Space(height: 2.h,),
 
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.w),

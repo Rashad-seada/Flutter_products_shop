@@ -11,7 +11,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../settings/view/screens/language_screen.dart';
 import '../../../../settings/view/screens/settings_screen.dart';
 import '../../bloc/home_customer/home_customer_cubit.dart';
-import '../../../../settings/view/screens/profile_screen.dart';
+import '../../../../profile/views/screens/profile_screen.dart';
 import 'menu_item.dart';
 
 class CustomSideMenu extends StatelessWidget {
@@ -35,7 +35,7 @@ class CustomSideMenu extends StatelessWidget {
 
                   Row(
                     children: [
-                      Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral900),).tr(),
+                      Text(LocaleKeys.main_menu.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral800),).tr(),
                     ],
                   ),
 
@@ -47,10 +47,10 @@ class CustomSideMenu extends StatelessWidget {
 
                 ],
               ),
-              Space(height: 2.h,),
+              Space(height: 1.h,),
 
               Divider(),
-              Space(height: 2.h,),
+              Space(height: 1.5.h,),
 
               MenuItem(text: LocaleKeys.profile.tr(), icon: AppImages.profileActive,screen: const ProfileScreen(),),
 
@@ -69,10 +69,11 @@ class CustomSideMenu extends StatelessWidget {
          Row(
            mainAxisAlignment: MainAxisAlignment.start,
            children: [
+             IconButton(onPressed: () async => context.read<HomeCustomerCubit>().onLogoutClick(context) , icon: SvgPicture.asset(AppImages.logout)),
+             Space(width: 0.5.w,),
 
              Text(LocaleKeys.logout.tr(),style: AppTheme.heading3TextStyle(color: AppTheme.neutral500),).tr(),
-             Space(width: 0.5.w,),
-             IconButton(onPressed: () async => context.read<HomeCustomerCubit>().onLogoutClick(context) , icon: SvgPicture.asset(AppImages.logout))
+
            ],
          )
 

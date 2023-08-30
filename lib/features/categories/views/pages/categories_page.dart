@@ -35,9 +35,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocConsumer<CategoriesCubit, CategoriesState>(
-          listener: (context, state) {
-            print(state);
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
               body: SizedBox(

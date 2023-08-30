@@ -45,7 +45,7 @@ class _ServiceProviderScreenState extends State<ServiceProviderScreen> {
                 return Column(
                           children: [
 
-                            Space(height: 4.h,),
+                            Space(height: 2.h,),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

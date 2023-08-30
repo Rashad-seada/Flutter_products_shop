@@ -84,5 +84,9 @@ abstract class AppImages {
 
   static const String support = "images/support.svg";
   static const String survey = "images/survey.svg";
+  static const String shipped = "images/shipped.svg";
+  static const String returns = "images/returns.svg";
+  static const String processing = "images/processing.svg";
+  static const String tracking = "images/tracking.svg";
 
 }

@@ -140,7 +140,12 @@ class CodegenLoader extends AssetLoader{
   "support": "الدعم الفني",
   "survey": " مركز استطلاع الراي",
   "my_orders": "طلبياتي",
-  "more_services": "المزيد من الخدمات"
+  "more_services": "المزيد من الخدمات",
+  "processing": "يتم التحضير",
+  "returns": "المسترد",
+  "shipped": "تم الشحن",
+  "tracking": "تتبع",
+  "logout_sub_text": "هل انت متاكد من انك تريد تسجيل الخروج من حسابك؟"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -267,7 +272,12 @@ static const Map<String,dynamic> en = {
   "support": "Support",
   "survey": "Survey Center",
   "my_orders": "My Orders",
-  "more_services": "More Services"
+  "more_services": "More Services",
+  "processing": "Processing",
+  "returns": "Returns",
+  "shipped": "Shipped",
+  "tracking": "Tracking",
+  "logout_sub_text": "Are you sure you want to logout?"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

@@ -127,5 +127,10 @@ abstract class  LocaleKeys {
   static const survey = 'survey';
   static const my_orders = 'my_orders';
   static const more_services = 'more_services';
+  static const processing = 'processing';
+  static const returns = 'returns';
+  static const shipped = 'shipped';
+  static const tracking = 'tracking';
+  static const logout_sub_text = 'logout_sub_text';
 
 }

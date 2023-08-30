@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Space(height: 4.h,),
+                  Space(height: 2.h,),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),

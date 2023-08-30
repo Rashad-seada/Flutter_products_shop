@@ -158,6 +158,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }];
 
       String jsonString = json.encode(srvData);
+
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(

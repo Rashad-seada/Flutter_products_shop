@@ -16,6 +16,7 @@ import '../../../auth/views/components/phone_number_field.dart';
 import '../bloc/profile/profile_cubit.dart';
 import '../components/profile/profile_image.dart';
 
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -35,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                     return Column(
                                   children: [
 
-                                    Space(height: 4.h,),
+                                    Space(height: 2.h,),
 
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
 
                                     Space(height: 5.h,),
 
-                                    ProfileImage(),
+                                    ProfileImage(width: 25.w,height: 25.w,),
 
                                     Space(height: 6.h,),
 

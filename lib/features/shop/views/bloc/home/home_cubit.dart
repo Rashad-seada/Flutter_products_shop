@@ -9,7 +9,7 @@ import '../../../../../core/config/app_images.dart';
 import '../../../../../core/views/screens/playground_screen.dart';
 import '../../../../auth/domain/util/user_type_enum.dart';
 import '../../../../cart/view/pages/cart_page.dart';
-import '../../../../settings/view/pages/me_page.dart';
+import '../../../../profile/views/pages/me_page.dart';
 import '../../pages/admin_home_page.dart';
 import '../../../../categories/views/pages/categories_page.dart';
 import '../../pages/customer_home_page.dart';

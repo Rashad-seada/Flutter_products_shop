@@ -143,6 +143,11 @@
   "survey": "Survey Center",
 
   "my_orders": "My Orders",
-  "more_services": "More Services"
+  "more_services": "More Services",
+  "processing": "Processing",
+  "returns": "Returns",
+  "shipped": "Shipped",
+  "tracking": "Tracking",
+  "logout_sub_text": "Are you sure you want to logout?"
 
 }

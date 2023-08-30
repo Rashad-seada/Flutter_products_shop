@@ -26,7 +26,7 @@ class RecentSearchItem extends StatelessWidget {
       },
       child: SizedBox(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: Column(
             children: [
               Space(height: 1.h,),

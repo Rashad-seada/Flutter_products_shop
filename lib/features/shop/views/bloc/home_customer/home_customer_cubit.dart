@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/infrastructure/services/network_service.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/error_messages.dart';
 import '../../../../../core/error/failure.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../../../../profile/views/components/diaglog.dart';
 import '../../../../search/views/screens/search_screen.dart';
 import '../../../domain/entity/product_entity.dart';
 import '../../../domain/usecase/products/get_products_usecase.dart';
@@ -40,7 +43,19 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
 
 
   onLogoutClick(BuildContext context) {
-    logout(context);
+    showCustomDialog(
+        context,
+        label: LocaleKeys.logout.tr(),
+        message: LocaleKeys.logout_sub_text.tr(),
+        callToAction: LocaleKeys.logout.tr(),
+        antiCallToAction: LocaleKeys.cancel.tr(),
+        onAntiCallToActionTap: (){
+          Navigator.pop(context);
+        },
+        onCallToActionTap: (){
+          logout(context);
+        }
+    );
   }
 
 

@@ -27,7 +27,7 @@ class CategoriesSection extends StatelessWidget {
             child: SlideAnimation(
               curve: Curves.linearToEaseOut,
               verticalOffset: 50.0,
-              horizontalOffset: -50,
+              horizontalOffset: 50,
               child: FadeInAnimation(
                 curve: Curves.linearToEaseOut,
                 child: CategoryItem(

@@ -21,7 +21,6 @@ class SubCategoryItem extends StatelessWidget {
   Future<String> getImage() async {
     String? domain = await getIt<SettingsLocalDataSource>().getServiceProviderDomain();
     String? url = AppConsts.baseCategoryImageUrl(domain!, "${categoryEntity.id}");
-    print(url);
     return url;
   }
 

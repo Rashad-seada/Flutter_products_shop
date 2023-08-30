@@ -13,7 +13,7 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 7.w),
+      padding: EdgeInsets.symmetric(horizontal: 4.w),
       width: 100.w,
       height: 6.h,
       decoration: const BoxDecoration(

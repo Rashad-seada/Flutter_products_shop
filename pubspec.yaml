@@ -140,7 +140,7 @@ flutter:
 
     - family: DefaultFont
       fonts:
-        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Cairo-Regular.ttf
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

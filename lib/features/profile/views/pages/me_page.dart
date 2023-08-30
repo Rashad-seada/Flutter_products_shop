@@ -7,10 +7,12 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/section_header.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../bloc/profile/profile_cubit.dart';
+import '../components/me/me_footer.dart';
 import '../components/me/me_section.dart';
+import '../components/profile/profile_image.dart';
 
 class MePage extends StatelessWidget {
   const MePage({super.key});
@@ -25,7 +27,7 @@ class MePage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
 
-            Space(height: 4.h,),
+            Space(height: 2.h,),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -38,13 +40,18 @@ class MePage extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
 
+                      Positioned(
+                          left: 0,
+                          child: ProfileImage(width: 9.w,height: 9.w,onTap: ()=> context.read<ProfileCubit>().onProfileClick(context),),
+                      ),
+
                       Text(LocaleKeys.me.tr(), style: AppTheme.heading3TextStyle(),).tr(),
 
                       Positioned(
                         right: 0,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(100.w),
-                          onTap: () {},
+                          onTap: () => context.read<ProfileCubit>().onSettengsClick(context),
                           child: SvgPicture.asset(AppImages.setting,width: 26,height:26,),
                         ),
                       ),
@@ -57,13 +64,15 @@ class MePage extends StatelessWidget {
 
             Space(height: 3.h,),
 
-            MeSection(meEntities: context.read<SettingsCubit>().myOrders, label: LocaleKeys.my_orders.tr(),),
+            MeSection(meEntities: context.read<ProfileCubit>().myOrders, label: LocaleKeys.my_orders.tr(),),
 
 
-            Space(height: 2.h,),
 
-            MeSection(meEntities: context.read<SettingsCubit>().services, label: LocaleKeys.more_services.tr(),)
+            MeSection(meEntities: context.read<ProfileCubit>().services, label: LocaleKeys.more_services.tr(),),
 
+            Space(height: 11.h,),
+
+            MeFooter()
 
           ],
         ),

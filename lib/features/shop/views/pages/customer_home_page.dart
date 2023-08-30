@@ -57,7 +57,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                   physics: BouncingScrollPhysics(),
                   children: [
 
-                    Space(height: 4.h,),
+                    Space(height: 2.h,),
 
                     Stack(
                       alignment: Alignment.center,
