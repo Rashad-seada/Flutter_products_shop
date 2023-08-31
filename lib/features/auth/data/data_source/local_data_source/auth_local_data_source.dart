@@ -41,7 +41,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   AuthLocalDataSourceImpl({required this.secureStorage,required this.storage});
 
   String get userIdKey => AppConsts.userIdKey;
-  String get isFirstTimeKey => AppConsts.userIdKey;
+  String get isFirstTimeKey => AppConsts.isFirstTimeKey;
   String get emailKey => AppConsts.emailKey;
   String get passwordKey => AppConsts.passwordKey;
   String get userTypeKey => AppConsts.userTypeKey;
@@ -67,16 +67,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<String?> getEmail() async {
     try {
-      await secureStorage.read(key: emailKey,);
-    } catch (e) {
-      throw LocalDataException();
-    }
-  }
-
-  @override
-  Future<String?> getPassword() async {
-    try {
-      await secureStorage.read(key: passwordKey);
+      return await secureStorage.read(key: emailKey,);
     } catch (e) {
       throw LocalDataException();
     }
@@ -90,6 +81,26 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       throw LocalDataException();
     }
   }
+
+  @override
+  Future<void> deleteEmail() async {
+    try {
+      await secureStorage.delete(key: emailKey);
+    } catch (e) {
+      throw LocalDataException();
+    }
+  }
+
+  @override
+  Future<String?> getPassword() async {
+    try {
+      return await secureStorage.read(key: passwordKey);
+    } catch (e) {
+      throw LocalDataException();
+    }
+  }
+
+
 
   @override
   Future<void> putPassword(String password) async {
@@ -139,14 +150,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     }
   }
 
-  @override
-  Future<void> deleteEmail() async {
-    try {
-      await secureStorage.delete(key: emailKey);
-    } catch (e) {
-      throw LocalDataException();
-    }
-  }
+
 
   @override
   Future<void> deleteUserID() async {

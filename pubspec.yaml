@@ -89,7 +89,7 @@ dependencies:
   flutter_staggered_animations:
   loading_animation_widget:
   shimmer:
-
+  libphonenumber:
 
   #UI Preview
   device_preview:

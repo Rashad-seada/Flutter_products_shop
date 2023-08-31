@@ -15,9 +15,7 @@ class HomeScreen extends StatelessWidget {
   final BuildContext context;
   UserType userType;
 
-  HomeScreen({super.key, required this.userType ,required this.context}){
-    context.read<CartCubit>().getCart();
-  }
+  HomeScreen({super.key, required this.userType ,required this.context});
 
   @override
   Widget build(BuildContext context) {

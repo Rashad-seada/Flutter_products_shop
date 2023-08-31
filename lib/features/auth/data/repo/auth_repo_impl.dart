@@ -239,13 +239,18 @@ class AuthRepoImpl implements AuthRepo {
         return left(RemoteDataFailure(loginEntity.msg ?? ErrorMessages.unknown, screenCode: screenCode, customCode: 02));
       }
 
-      print(loginEntity.utype!);
+      print(email);
       
       localDataSource
           ..putUserType(fromUserTypeToString(loginEntity.utype!)!)
           ..putUserID(int.parse(loginEntity.id!))
           ..putEmail(email)
           ..putPassword(password);
+
+      print(await localDataSource.getEmail());
+      print(await localDataSource.getPassword());
+      print(await localDataSource.getUserID());
+      print(await localDataSource.getUserType());
 
       return right(loginEntity);
 

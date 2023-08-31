@@ -18,6 +18,11 @@ import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dar
 import 'package:eng_shop/features/cart/data/data_source/local/cart_local_data_source.dart';
 import 'package:eng_shop/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:eng_shop/features/cart/domain/repo/cart_repo.dart';
+import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
+import 'package:eng_shop/features/profile/data/repo/profile_repo_impl.dart';
+import 'package:eng_shop/features/profile/domain/usecases/change_password_usecase.dart';
+import 'package:eng_shop/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:eng_shop/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
 import 'package:eng_shop/features/search/data/data_source/remote_data_source/search_remote_data_source.dart';
 import 'package:eng_shop/features/search/domain/repo/search_repo_impl.dart';
@@ -43,11 +48,11 @@ import '../../features/cart/domain/usecase/update_cart_usecase.dart';
 import '../../features/categories/data/data_source/remote/category_remote_data_source.dart';
 import '../../features/categories/domain/usecase/get_category_products_usecase.dart';
 import '../../features/categories/domain/usecase/get_sub_categories_usecase.dart';
+import '../../features/profile/data/data_source/remote/profile_remote_data_source.dart';
 import '../../features/search/data/repo/search_repo.dart';
 import '../../features/shop/data/data_source/local/product_local_data_source.dart';
 import '../../features/settings/data/data_source/local/settings_local_data_source.dart';
 import '../../features/shop/data/data_source/remote/product_remote_data_source.dart';
-import '../../features/settings/data/data_source/remote/profile_remote_data_source.dart';
 import '../../features/shop/data/repo/product_repo_impl.dart';
 import '../../features/shop/domain/repo/product_repo.dart';
 import '../../features/shop/domain/usecase/products/drop_all_products_usecase.dart';
@@ -100,11 +105,10 @@ class AppModule {
             getIt
                 ..registerSingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl(database))
                 ..registerSingleton<SearchLocalDataSource>(SearchLocalDataSourceImpl(database))
-                ..registerSingleton<CartLocalDataSource>(CartLocalDataSourceImpl(database))
+                ..registerSingleton<CartLocalDataSource>(CartLocalDataSourceImpl(database));
 
 
              //Remote data source
-            ..registerSingleton<ProfileRemoteDataSource>(ProfileRemoteDataSourceImpl());
 
             final authRemoteDataSource = await _initializeAuthRemoteDataSource();
             getIt.registerSingleton<AuthRemoteDataSource>(authRemoteDataSource);
@@ -117,6 +121,9 @@ class AppModule {
 
             final categoryRemoteDataSource = await _initializeCategoryRemoteDataSource();
             getIt.registerSingleton<CategoryRemoteDataSource>(categoryRemoteDataSource);
+
+            final profileRemoteDataSource = await _initializeProfileRemoteDataSource();
+            getIt.registerSingleton<ProfileRemoteDataSource>(profileRemoteDataSource);
 
             //Repos
         getIt
@@ -144,6 +151,12 @@ class AppModule {
                 localDataSource: getIt<CartLocalDataSource>(),
                 settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>()
+            ))
+            ..registerSingleton<ProfileRepo>(ProfileRepoImpl(
+                remoteDataSource: getIt<ProfileRemoteDataSource>(),
+                settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
+                services: getIt<Services>(),
+                authLocalDataSource: getIt<AuthLocalDataSource>(),
             ))
 
             //Use cases
@@ -205,7 +218,14 @@ class AppModule {
             ..registerSingleton<GetCategoryProductsUsecase>(
                 GetCategoryProductsUsecase(repo: getIt<CategoryRepo>()))
             ..registerSingleton<GetSubCategoriesUsecase>(
-                GetSubCategoriesUsecase(repo: getIt<CategoryRepo>()));
+                GetSubCategoriesUsecase(repo: getIt<CategoryRepo>()))
+
+            ..registerSingleton<ChangePasswordUsecase>(
+                ChangePasswordUsecase(repo: getIt<ProfileRepo>()))
+            ..registerSingleton<GetProfileUsecase>(
+                GetProfileUsecase(repo: getIt<ProfileRepo>()))
+            ..registerSingleton<UpdateProfileUsecase>(
+                UpdateProfileUsecase(repo: getIt<ProfileRepo>()));
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {
@@ -237,6 +257,15 @@ class AppModule {
 
     static Future<CategoryRemoteDataSource> _initializeCategoryRemoteDataSource() async {
         return CategoryRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
+        );
+    }
+
+    static Future<ProfileRemoteDataSource> _initializeProfileRemoteDataSource() async {
+        return ProfileRemoteDataSourceImpl(
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,

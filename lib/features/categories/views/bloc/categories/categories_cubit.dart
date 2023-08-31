@@ -48,14 +48,13 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       (value) => value.fold(
         (error) {
           emit(CategoriesFailure(error));
-
         },
         (success) {
           emit(CategoriesSuccess());
           CategoriesSuccess.categories = success;
           emit(CategoriesInitial());
 
-          getSubCategories(int.parse("${CategoriesSuccess.categories[selectedCategoryIndex].id!}"));
+          getSubCategories(int.parse("${CategoriesSuccess.categories[selectedCategoryIndex].id!}"),selectedCategoryIndex);
 
         }
       )
@@ -63,7 +62,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   }
 
-  getSubCategories(int parentCategoryId){
+  getSubCategories(int parentCategoryId,int index){
 
     emit(CategoriesSubLoading());
     getIt<GetSubCategoriesUsecase>().call(GetSubCategoriesParams(parentCategoryId,AppConsts.categoryScreen)).then(
@@ -74,9 +73,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
                 },
                 (success) {
                   emit(CategoriesSuccess());
-                  if(!CategoriesSuccess.subCategories.contains(success)) {
-                    CategoriesSuccess.subCategories.add(success);
-                  }
+                  CategoriesSuccess.subCategories.addAll({
+                    index: success
+                  });
+
                   emit(CategoriesInitial());
 
                 }
@@ -88,9 +88,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     if(selectedCategoryIndex != index && state is! CategoriesLoading){
       selectedCategoryIndex = index;
 
-      if(CategoriesSuccess.subCategories.elementAtOrNull(selectedCategoryIndex) == null){
+      if(CategoriesSuccess.subCategories[index] == null){
 
-        getSubCategories(int.parse("${categoryEntity.id!}"));
+        getSubCategories(int.parse("${categoryEntity.id!}",),index);
 
       }else {
         emit(CategoriesSuccess());
@@ -102,7 +102,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
 
   List<CategoryEntity> getSubCategory(){
-    return CategoriesSuccess.subCategories.elementAtOrNull(selectedCategoryIndex) ?? [];
+    return CategoriesSuccess.subCategories[selectedCategoryIndex] ?? [];
   }
 
   void onSubCategoryTap(int index, CategoryEntity categoryEntity,BuildContext context) {

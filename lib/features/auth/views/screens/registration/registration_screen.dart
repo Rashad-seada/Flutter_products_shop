@@ -96,7 +96,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           child: Column(
                           children: [
                             AuthTextField(
-                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validateUsername(),
                               controller: context.read<RegistrationCubit>().userNameController,
                                 label: LocaleKeys.name.tr(),hint: LocaleKeys.name_hint.tr(),prefixIcon: Padding(
@@ -107,7 +106,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              height: 5.5.h,
                               onChanged: (_)=> context.read<RegistrationCubit>().onEmailChange(context),
                               validator: (_)=> context.read<RegistrationCubit>().validateEmail(),
                               controller: context.read<RegistrationCubit>().emailController,
@@ -121,7 +119,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             PhoneNumberField(
-                              height: 5.7.h,
                               suffixIcon: (state is RegistrationValidatingPhone)? CustomProgressIndicator() : checkMark(context.read<RegistrationCubit>().doesPhoneExist),
                               initialValue:  context.read<RegistrationCubit>().initPhoneNumber,
                               controller: context.read<RegistrationCubit>().phoneNumberController,
@@ -134,7 +131,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validatePassword(),
                               controller: context.read<RegistrationCubit>().passwordController,
                               label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
@@ -144,7 +140,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Space(height: 1.5.h,),
 
                             AuthTextField(
-                              height: 5.5.h,
                               validator: (_)=> context.read<RegistrationCubit>().validateRenterPassword(),
                               controller: context.read<RegistrationCubit>().renterPasswordController,
                               label: LocaleKeys.renter_password.tr(),hint: LocaleKeys.renter_password_hint.tr(),prefixIcon: Padding(

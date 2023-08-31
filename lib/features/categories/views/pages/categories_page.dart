@@ -114,7 +114,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             (state is CategoriesSubLoading)
                                 ? Expanded(child: CustomProgressIndicator())
                                 :  SubCategorySection(
-                              categories: CategoriesSuccess.subCategories.elementAtOrNull(context.read<CategoriesCubit>().selectedCategoryIndex) ?? [],
+                              categories: context.read<CategoriesCubit>().getSubCategory(),
                               onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context),
                             ),
                           ],

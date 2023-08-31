@@ -45,6 +45,9 @@ abstract class AppConsts {
   static int get searchScreen => 120;
   static int get categoryScreen => 130;
   static int get categoryProductScreen => 140;
+  static int get profileScreen => 150;
+
+
 
 
   //User types

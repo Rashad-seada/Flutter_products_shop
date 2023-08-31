@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 
-import '../../domain/entities/change_password_entity.dart';
-import '../../domain/entities/profile_entity.dart';
-import '../../domain/entities/update_profile_entity.dart';
+import '../entities/change_password_entity.dart';
+import '../entities/profile_entity.dart';
+import '../entities/update_profile_entity.dart';
 
 abstract class ProfileRepo {
 

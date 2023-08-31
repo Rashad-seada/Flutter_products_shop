@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/profile/data/data_source/remote/profile_remote_data_source.dart';
-import 'package:eng_shop/features/profile/data/repo/profile_repo.dart';
+import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 import 'package:eng_shop/features/profile/domain/entities/change_password_entity.dart';
 import 'package:eng_shop/features/profile/domain/entities/profile_entity.dart';
 import 'package:eng_shop/features/profile/domain/entities/update_profile_entity.dart';
@@ -53,17 +53,23 @@ class ProfileRepoImpl implements ProfileRepo {
         return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
       }
 
+      String? id = await authLocalDataSource.getEmail();
+
       ProfileEntity profileEntity = await remoteDataSource.getProfile(
           id: (await authLocalDataSource.getUserID())! ,
           email:  (await authLocalDataSource.getEmail())!,
           password:  (await authLocalDataSource.getPassword())!
       );
 
+      print(profileEntity.statusCode);
+
+
       if(profileEntity.id == null) {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
       if(profileEntity.statusCode != 200) {
+        print(profileEntity.statusCode);
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
       }
 
@@ -135,7 +141,7 @@ class ProfileRepoImpl implements ProfileRepo {
           mobile: mobile
     );
 
-    if(updateProfileEntity.res == "1") {
+    if(updateProfileEntity.res != "1") {
     return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
     }
 

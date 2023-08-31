@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/core/util/usecase/usecase.dart';
-import 'package:eng_shop/features/profile/data/repo/profile_repo.dart';
+import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 
 
 class UpdateProfileUsecase implements Usecase<void,UpdateProfileParams> {

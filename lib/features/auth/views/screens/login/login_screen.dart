@@ -79,7 +79,6 @@ class LoginScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               AuthTextField(
-                                height: 5.5.h,
                                 controller: context.read<LoginCubit>().emailController,
                                 label: LocaleKeys.email.tr(),hint: LocaleKeys.email_hint.tr(),prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),
@@ -91,7 +90,6 @@ class LoginScreen extends StatelessWidget {
                               Space(height: 1.5.h,),
 
                               AuthTextField(
-                                height: 5.5.h,
                                 controller: context.read<LoginCubit>().passwordController,
                                 label: LocaleKeys.password.tr(),hint: LocaleKeys.password_hint.tr(),prefixIcon: Padding(
                                 padding: EdgeInsets.all(1.5.h),

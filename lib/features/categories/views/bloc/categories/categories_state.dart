@@ -12,7 +12,7 @@ class CategoriesInitial extends CategoriesState {
 class CategoriesSuccess extends CategoriesState {
   static List<CategoryEntity> categories = [];
 
-  static List<List<CategoryEntity>> subCategories = [];
+  static Map<int,List<CategoryEntity>> subCategories = {};
 
 
   @override

@@ -73,9 +73,10 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,110),
       );
 
-      Map<String,dynamic> data = json.decode(response.data);
+      List<dynamic> data = json.decode(response.data);
 
-      return ProfileEntity.fromJson(data,response.statusCode!);
+
+      return ProfileEntity.fromJson(data[0],response.statusCode!);
     } catch (e) {
       throw RemoteDataException();
     }
@@ -108,6 +109,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         });
       }
 
+
       String jsonString = json.encode(srvData);
 
       String base64String = base64.encode(utf8.encode(jsonString));
@@ -117,9 +119,13 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       );
 
       Map<String,dynamic> data = json.decode(response.data);
+      print(response.data);
+
 
       return UpdateProfileEntity.fromJson(data,response.statusCode!);
     } catch (e) {
+      print(e);
+
       throw RemoteDataException();
     }
   }
