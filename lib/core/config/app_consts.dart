@@ -24,7 +24,7 @@ abstract class AppConsts {
   static const String servicePassword = "111111";
 
 
-  static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = ""}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=1&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
+  static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = "",int userId = 1}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=$userId&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
   static String baseProductImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/thums/t${productId}_29.jpg";
   static String baseCategoryImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/750/images/thums/t${productId}_29.jpg";
 
@@ -42,10 +42,11 @@ abstract class AppConsts {
   static int get homeScreen => 108;
   static int get languageScreen => 109;
   static int get cartScreen => 110;
-  static int get searchScreen => 120;
-  static int get categoryScreen => 130;
-  static int get categoryProductScreen => 140;
-  static int get profileScreen => 150;
+  static int get searchScreen => 111;
+  static int get categoryScreen => 113;
+  static int get categoryProductScreen => 114;
+  static int get profileScreen => 115;
+  static int get favoriteScreen => 116;
 
 
 

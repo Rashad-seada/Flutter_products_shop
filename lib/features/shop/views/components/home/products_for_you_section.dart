@@ -1,17 +1,19 @@
+import 'package:eng_shop/features/favorites/view/bloc/favorite/favorite_cubit.dart';
 import 'package:eng_shop/features/shop/views/components/home/small_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../../../domain/entity/product_entity.dart';
-import '../../bloc/home_customer/home_customer_cubit.dart';
 
 class ProductsForYouSection extends StatelessWidget {
   List<ProductEntity> products;
-  void Function()? onAddToFavoriteTap;
+  List<int> addedToFavoriteProductIds;
+  void Function(ProductEntity,int)? onFavoriteClick;
+  void Function(ProductEntity,int)? onProductClick;
+  int? indexOfLoadingFavoriteProduct;
 
-  ProductsForYouSection({super.key,required this.products,this.onAddToFavoriteTap});
+  ProductsForYouSection({super.key,required this.products,this.onFavoriteClick,this.onProductClick,this.addedToFavoriteProductIds = const [],this.indexOfLoadingFavoriteProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,19 @@ class ProductsForYouSection extends StatelessWidget {
         ),
         itemBuilder: (_,index) {
           return SmallProductItem(
+            isAddedToFavorite: addedToFavoriteProductIds.contains(products[index].itemId),
+            isFavoriteLoading: indexOfLoadingFavoriteProduct == index,
             productEntity: products[index],
-            onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(HomeCustomerSuccess.products[index],context),
+            onAddToFavoriteTap: () {
+              if(onFavoriteClick != null){
+                onFavoriteClick!(products[index],index);
+              }
+            },
+            onItemTap: (){
+              if(onProductClick != null){
+                onProductClick!(products[index],index);
+              }
+            },
           );
         }
     );

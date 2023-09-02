@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +17,9 @@ class SmallProductItem extends StatefulWidget {
   ProductEntity productEntity;
   void Function()? onItemTap;
   void Function()? onAddToFavoriteTap;
-  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap});
+  bool isAddedToFavorite;
+  bool isFavoriteLoading;
+  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap,this.isAddedToFavorite = true,this.isFavoriteLoading = true});
 
   @override
   State<SmallProductItem> createState() => _SmallProductItemState();
@@ -161,7 +164,10 @@ class _SmallProductItemState extends State<SmallProductItem> {
                 shape: BoxShape.circle,
                 color: AppTheme.neutral100,
               ),
-              child: SvgPicture.asset(AppImages.heart,width: 4.w,height: 4.w,),
+              child: widget.isFavoriteLoading? Padding(
+                padding: EdgeInsets.all(2.w),
+                child: CircularProgressIndicator(color: AppTheme.neutral900,strokeWidth: .5.w,),
+              ) : SvgPicture.asset(widget.isAddedToFavorite ? AppImages.heartFilled :AppImages.heart, width: 4.w,height: 4.w,),
             ),
           ),
 

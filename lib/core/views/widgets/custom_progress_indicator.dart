@@ -12,10 +12,9 @@ class CustomProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(3.w),
-      child: LoadingAnimationWidget.flickr(
-          leftDotColor: AppTheme.neutral100,
-          rightDotColor: color,
+      child: LoadingAnimationWidget.threeArchedCircle(
           size: 10.w,
+          color: color,
       ),
     );
   }

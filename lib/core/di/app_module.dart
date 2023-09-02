@@ -18,6 +18,12 @@ import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dar
 import 'package:eng_shop/features/cart/data/data_source/local/cart_local_data_source.dart';
 import 'package:eng_shop/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:eng_shop/features/cart/domain/repo/cart_repo.dart';
+import 'package:eng_shop/features/favorites/data/data_source/remote/favorite_remote_data_source.dart';
+import 'package:eng_shop/features/favorites/data/repo/favorites_repo_impl.dart';
+import 'package:eng_shop/features/favorites/domain/repo/favorites_repo.dart';
+import 'package:eng_shop/features/favorites/domain/usecase/add_to_favorite_usecase.dart';
+import 'package:eng_shop/features/favorites/domain/usecase/get_user_favorite_usecase.dart';
+import 'package:eng_shop/features/favorites/domain/usecase/remove_from_favorite_usecase.dart';
 import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 import 'package:eng_shop/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:eng_shop/features/profile/domain/usecases/change_password_usecase.dart';
@@ -108,7 +114,7 @@ class AppModule {
                 ..registerSingleton<CartLocalDataSource>(CartLocalDataSourceImpl(database));
 
 
-             //Remote data source
+            //Remote data source
 
             final authRemoteDataSource = await _initializeAuthRemoteDataSource();
             getIt.registerSingleton<AuthRemoteDataSource>(authRemoteDataSource);
@@ -125,6 +131,9 @@ class AppModule {
             final profileRemoteDataSource = await _initializeProfileRemoteDataSource();
             getIt.registerSingleton<ProfileRemoteDataSource>(profileRemoteDataSource);
 
+            final favoriteRemoteDataSource = await _initializeFavoriteRemoteDataSource();
+            getIt.registerSingleton<FavoriteRemoteDataSource>(favoriteRemoteDataSource);
+
             //Repos
         getIt
             ..registerSingleton<AuthRepo>(AuthRepoImpl(
@@ -132,6 +141,10 @@ class AppModule {
                 settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>(),
                 remoteDataSource: getIt<AuthRemoteDataSource>()))
+            ..registerSingleton<FavoriteRepo>(FavoriteRepoImpl(
+                services: getIt<Services>(),
+                remoteDataSource: getIt<FavoriteRemoteDataSource>(),
+                authLocalDataSource: getIt<AuthLocalDataSource>()))
             ..registerSingleton<ProductRepo>(ProductRepoImpl(
                 remoteDataSource: getIt<ProductRemoteDataSource>(),
                 localDataSource: getIt<ProductLocalDataSource>(),
@@ -220,12 +233,23 @@ class AppModule {
             ..registerSingleton<GetSubCategoriesUsecase>(
                 GetSubCategoriesUsecase(repo: getIt<CategoryRepo>()))
 
+
             ..registerSingleton<ChangePasswordUsecase>(
                 ChangePasswordUsecase(repo: getIt<ProfileRepo>()))
             ..registerSingleton<GetProfileUsecase>(
                 GetProfileUsecase(repo: getIt<ProfileRepo>()))
             ..registerSingleton<UpdateProfileUsecase>(
-                UpdateProfileUsecase(repo: getIt<ProfileRepo>()));
+                UpdateProfileUsecase(repo: getIt<ProfileRepo>()))
+
+
+            ..registerSingleton<GetUserFavoriteUsecase>(
+                GetUserFavoriteUsecase(repo: getIt<FavoriteRepo>()))
+            ..registerSingleton<AddToFavoriteUsecase>(
+                AddToFavoriteUsecase(repo: getIt<FavoriteRepo>()))
+            ..registerSingleton<RemoveFromFavoriteUsecase>(
+                RemoveFromFavoriteUsecase(repo: getIt<FavoriteRepo>()));
+
+
     }
 
     static Future<AuthRemoteDataSource> _initializeAuthRemoteDataSource() async {
@@ -269,6 +293,13 @@ class AppModule {
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
+        );
+    }
+
+    static Future<FavoriteRemoteDataSource> _initializeFavoriteRemoteDataSource() async {
+        return FavoriteRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             client: getIt<Api>(),
         );
     }

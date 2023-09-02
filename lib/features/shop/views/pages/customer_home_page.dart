@@ -17,6 +17,7 @@ import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
+import '../../../favorites/view/bloc/favorite/favorite_cubit.dart';
 import '../bloc/home/home_cubit.dart';
 import '../bloc/home_customer/home_customer_cubit.dart';
 import '../components/home/ad_banner_slider.dart';
@@ -36,6 +37,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
   void didChangeDependencies() {
     context.read<HomeCustomerCubit>().pageNumber = 1;
     context.read<HomeCustomerCubit>().getProducts();
+    context.read<FavoriteCubit>().getFavorites();
     super.didChangeDependencies();
   }
 
@@ -131,13 +133,21 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                     ),
                     Space(height: 1.h,),
 
-                    ProductsForYouSection(
-                      products: HomeCustomerSuccess.products,
+                    BlocConsumer<FavoriteCubit,FavoriteState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return ProductsForYouSection(
+                          addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
+                          onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
+                          products: HomeCustomerSuccess.products,
+                          indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                        );
+                      },
                     ),
 
                     Space(height: 2.h,),
 
-                    Center(child: (state is HomeCustomerIsLoading)? ProductsPlaceHolderSection() : const SizedBox()),
+                    Center(child: (state is HomeCustomerIsLoading)? const ProductsPlaceHolderSection() : const SizedBox()),
 
                     Center(child: (state is HomeCustomerFailure)? ErrorMessage(message: HomeCustomerFailure.myError.message,) : const SizedBox()),
 

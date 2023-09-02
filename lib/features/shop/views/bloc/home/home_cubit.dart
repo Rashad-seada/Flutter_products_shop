@@ -9,6 +9,7 @@ import '../../../../../core/config/app_images.dart';
 import '../../../../../core/views/screens/playground_screen.dart';
 import '../../../../auth/domain/util/user_type_enum.dart';
 import '../../../../cart/view/pages/cart_page.dart';
+import '../../../../favorites/view/pages/favorite_page.dart';
 import '../../../../profile/views/pages/me_page.dart';
 import '../../pages/admin_home_page.dart';
 import '../../../../categories/views/pages/categories_page.dart';
@@ -42,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> get customerHomePages  =>  [
     const CustomerHomePage(),
     const CategoriesPage(),
-    const Scaffold(),
+    FavoritePage(),
     CartPage(),
     const MePage(),
   ];
