@@ -148,6 +148,9 @@
   "returns": "Returns",
   "shipped": "Shipped",
   "tracking": "Tracking",
-  "logout_sub_text": "Are you sure you want to logout?"
+  "logout_sub_text": "Are you sure you want to logout?",
+  "add_to_cart": "Add to cart"
+
+
 
 }

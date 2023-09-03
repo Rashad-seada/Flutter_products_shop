@@ -157,7 +157,6 @@ class AppModule {
                 services: getIt<Services>()))
             ..registerSingleton<CategoryRepo>(CategoryRepoImpl(
                 categoryRemoteDataSource: getIt<CategoryRemoteDataSource>(),
-                settingsLocalDataSource: getIt<SettingsLocalDataSource>(),
                 services: getIt<Services>(),))
             ..registerSingleton<CartRepo>(CartRepoImpl(
                 remoteDataSource: getIt<ProductRemoteDataSource>(),

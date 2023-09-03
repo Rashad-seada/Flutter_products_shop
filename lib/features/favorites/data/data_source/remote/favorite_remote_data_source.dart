@@ -39,11 +39,8 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,email,password,base64String,0,70,endPoint: "mrk/"),
+        AppConsts.baseUrl(domain,email,password,base64String,0,70,endPoint: "mrk/",userId: userId),
       );
-
-      print(AppConsts.baseUrl(domain,email,password,base64String,0,70,endPoint: "mrk/"));
-      print(response.data);
 
       Map<String,dynamic> data = json.decode(response.data);
 
@@ -56,19 +53,27 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
   @override
   Future<List<ProductEntity>> getUserFavorite({required String email,required String password,required int userId}) async {
     try {
+      // List<Map<String,dynamic>> srvData = [{
+      //   "userid":"$userId",
+      // }];
+
       List<Map<String,dynamic>> srvData = [{
-        "userid":"$userId",
+        "Whr":" AND item_id IN(SELECT item_id FROM st_items_fav WHERE userid=$userId)"
       }];
 
       String jsonString = json.encode(srvData);
 
       String base64String = base64.encode(utf8.encode(jsonString));
 
+      // Response response = await client.get(
+      //   AppConsts.baseUrl(domain,email,password,base64String,1267,10,endPoint: "list/"),
+      // );
+
       Response response = await client.get(
-        AppConsts.baseUrl(domain,email,password,base64String,1267,10,endPoint: "list/"),
+        AppConsts.baseUrl(domain,email,password,base64String,823,10,endPoint: "list/",userId: userId),
       );
 
-      print(response.data);
+      print(AppConsts.baseUrl(domain,email,password,base64String,823,10,endPoint: "list/"));
 
 
       List data = json.decode(response.data);
@@ -92,11 +97,8 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,email,password,base64String,0,70,endPoint: "mrk/"),
+        AppConsts.baseUrl(domain,email,password,base64String,0,70,endPoint: "mrk/",userId: userId),
       );
-
-      print(response.data);
-
 
       Map<String,dynamic> data = json.decode(response.data);
 

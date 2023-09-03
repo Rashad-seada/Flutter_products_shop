@@ -87,7 +87,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 borderRadius: BorderRadius.circular(100.w),
                                 onTap: () =>
                                     context.read<CategoriesCubit>()
-                                        .onFavoritesClick(),
+                                        .onFavoritesClick(context),
                                 child: SvgPicture.asset(
                                   AppImages.heart, width: 26, height: 26,),
                               ),

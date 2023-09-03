@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
+import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/categories/domain/entities/category_entity.dart';
 import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 import 'package:eng_shop/features/categories/domain/repo/category_repo.dart';
@@ -15,20 +16,18 @@ import '../../../settings/data/data_source/local/settings_local_data_source.dart
 class CategoryRepoImpl implements CategoryRepo {
 
   CategoryRemoteDataSource categoryRemoteDataSource ;
-  SettingsLocalDataSource settingsLocalDataSource;
   Services services;
 
   CategoryRepoImpl(
       {required this.categoryRemoteDataSource,
-        required this.settingsLocalDataSource,
         required this.services});
 
   initRemoteDataSource() async {
     try {
       categoryRemoteDataSource = CategoryRemoteDataSourceImpl(
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
-        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+        serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
+        servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
         client: getIt<Api>(),
       );
     } catch (e) {

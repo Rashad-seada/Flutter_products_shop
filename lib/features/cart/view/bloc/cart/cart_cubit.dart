@@ -25,7 +25,6 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
   Future<void> getCart() async {
-    CartSuccess.cart.clear();
     emit(CartLoading());
     await getIt<GetCartUsecase>().call(GetCartParams(AppConsts.homeScreen)).then(
         (value) => value.fold(
@@ -36,7 +35,7 @@ class CartCubit extends Cubit<CartState> {
             emit(CartSuccess());
             CartSuccess.cart = success;
             HomeCubit.cartCount.value = getTotalItems() ;
-
+            calculateTotalPrice();
             emit(CartInitial());
           },
         )
@@ -47,7 +46,8 @@ class CartCubit extends Cubit<CartState> {
 
   int cartCount = 0;
 
-  calculateTotal(){
+  calculateTotalPrice(){
+    totalPrice = 0;
     emit(CartInitial());
     CartSuccess.cart.forEach((element) {
       totalPrice += element.productEntity.price! * int.parse("${element.cartEntity.quantity}");
@@ -69,7 +69,7 @@ class CartCubit extends Cubit<CartState> {
                 HomeCubit.cartCount.value = getTotalItems() ;
 
                 emit(CartInitial());
-                calculateTotal();
+                calculateTotalPrice();
               },
         )
     );
@@ -77,11 +77,15 @@ class CartCubit extends Cubit<CartState> {
 
   void addToCart(ProductEntity productEntity,BuildContext context){
 
-
     getIt<AddToCartUsecase>().call(AddToCartParams(productEntity, AppConsts.homeScreen)).then(
       (value) => value.fold(
         (error) {
           emit(CartFailure(error));
+          CustomFlushBar(
+              title: "Error ${error.code()}",
+              message: error.message,
+              context: context
+          );
           emit(CartInitial());
         },
         (success) async {
@@ -96,7 +100,7 @@ class CartCubit extends Cubit<CartState> {
               context: context
           );
           emit(CartInitial());
-          calculateTotal();
+          calculateTotalPrice();
 
         },
       )
@@ -119,23 +123,26 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  onIncrementTap(int index,BuildContext context) {
+  onIncrementTap(int id,BuildContext context) {
+    int index = CartSuccess.cart.indexWhere((element) => element.cartEntity.itemId == id);
+
     CartSuccess.cart[index].cartEntity.quantity = CartSuccess.cart[index].cartEntity.quantity! + 1;
-    calculateTotal();
+    calculateTotalPrice();
     updateCartProduct(CartSuccess.cart[index].cartEntity,context);
   }
 
-  onDeleteTap(int index,BuildContext context) {
+  onDeleteTap(int id,BuildContext context) {
+    int index = CartSuccess.cart.indexWhere((element) => element.cartEntity.itemId == id);
     removeFromCart(CartSuccess.cart[index],context);
-    calculateTotal();
-
+    calculateTotalPrice();
   }
 
-  onDecrementTap(int index,BuildContext context) {
+  onDecrementTap(int id,BuildContext context) {
+    int index = CartSuccess.cart.indexWhere((element) => element.cartEntity.itemId == id);
 
     if(CartSuccess.cart[index].cartEntity.quantity != 1) {
       CartSuccess.cart[index].cartEntity.quantity = CartSuccess.cart[index].cartEntity.quantity! - 1;
-      calculateTotal();
+      calculateTotalPrice();
       updateCartProduct(CartSuccess.cart[index].cartEntity,context);
     }
 
@@ -146,6 +153,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   onRefreash() {
+    CartSuccess.cart.clear();
     getCart();
   }
 

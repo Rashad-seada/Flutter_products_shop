@@ -12,6 +12,8 @@ import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
+import '../../../favorites/view/bloc/favorite/favorite_cubit.dart';
+import '../../../shop/views/components/home/products_section.dart';
 import '../../../shop/views/components/home/products_place_holder_section.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/search/search_cubit.dart';
@@ -91,27 +93,21 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   Space(height: 3.h,),
 
 
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: GridView.builder(
-                        itemCount: SearchSuccess.products.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 3.w,
-                            crossAxisSpacing: 3.w,
-                            childAspectRatio: 1.9/3
+                  BlocConsumer<FavoriteCubit,FavoriteState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: ProductsSection(
+                          addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
+                          onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
+                          products: SearchSuccess.products,
+                          indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
                         ),
-                        itemBuilder: (_,index) {
-                          return SmallProductItem(
-                            productEntity: SearchSuccess.products[index],
-                            onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(SearchSuccess.products[index],context),
-                          );
-                        }
-                    ),
+                      );
+                    },
                   ),
+
 
                   (state is SearchFailure)?
                   ErrorMessage(message:SearchFailure.myError.message): SizedBox(),

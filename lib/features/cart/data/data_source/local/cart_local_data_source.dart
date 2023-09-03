@@ -45,7 +45,7 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> insertAllCartProduct(List<ProductEntity> productEntity) async {
     try{
-      return await database.productCartDao.insertAllProducts(productEntity.map((e) => CartEntity.fromProduct(e)).toList());
+      await database.productCartDao.insertAllProducts(productEntity.map((e) => CartEntity.fromProduct(e)).toList());
 
     } catch (e) {
       throw LocalDataException();
@@ -55,9 +55,11 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   @override
   Future<void> insertCartProduct(ProductEntity productEntity) async {
     try{
-      return await database.productCartDao.insertProduct(CartEntity.fromProduct(productEntity));
+      await database.productCartDao.insertProduct(CartEntity.fromProduct(productEntity));
 
     } catch (e) {
+      print(e);
+
       throw LocalDataException();
     }
   }

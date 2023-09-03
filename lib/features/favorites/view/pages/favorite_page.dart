@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/features/cart/view/bloc/cart/cart_cubit.dart';
 import 'package:eng_shop/features/favorites/view/bloc/favorite/favorite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,7 @@ import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/pull_to_refresh.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../../../shop/views/components/home/products_for_you_section.dart';
+import '../../../shop/views/components/home/products_section.dart';
 import '../../../shop/views/components/home/products_place_holder_section.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -64,11 +65,21 @@ class _FavoritePageState extends State<FavoritePage> {
 
                     Space(height: 2.h,),
 
-                    ProductsForYouSection(
-                      addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
-                      onFavoriteClick: (product,index) => context.read<FavoriteCubit>().removeFavorites(int.parse("${product.itemId}"),index,context),
-                      products: FavoriteSuccess.products,
-                      indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                    BlocConsumer<CartCubit, CartState>(
+                      listener: (context, state) {
+                        // TODO: implement listener
+                      },
+                      builder: (context, state) {
+                        return ProductsSection(
+                                          cart: CartSuccess.cart,
+                                          withAddToCart: true,
+                                          addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
+                                          onFavoriteClick: (product,index) => context.read<FavoriteCubit>().removeFavorites(int.parse("${product.itemId}"),index,context),
+                                          onCartClick: (product,index) => context.read<CartCubit>().addToCart(product, context),
+                                          products: FavoriteSuccess.products,
+                                          indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                        );
+                      },
                     ),
 
                     Space(height: 2.h,),

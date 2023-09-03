@@ -73,7 +73,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
     );
   }
 
-  void getProducts({bool refresh = false}){
+  Future<void> getProducts({bool refresh = false}) async {
     emit(HomeCustomerIsLoading());
     getIt<GetProductsUsecase>().call(GetProductsParams(pageNumber, AppConsts.homeScreen,refresh: refresh)).then(
       (value) => value.fold(

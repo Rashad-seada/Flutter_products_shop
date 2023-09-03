@@ -132,5 +132,6 @@ abstract class  LocaleKeys {
   static const shipped = 'shipped';
   static const tracking = 'tracking';
   static const logout_sub_text = 'logout_sub_text';
+  static const add_to_cart = 'add_to_cart';
 
 }

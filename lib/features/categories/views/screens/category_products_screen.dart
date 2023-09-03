@@ -10,7 +10,9 @@ import '../../../../core/infrastructure/services/services.dart';
 import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
+import '../../../favorites/view/bloc/favorite/favorite_cubit.dart';
 import '../../../shop/views/bloc/home_customer/home_customer_cubit.dart';
+import '../../../shop/views/components/home/products_section.dart';
 import '../../../shop/views/components/home/products_place_holder_section.dart';
 import '../../../shop/views/components/home/small_product_item.dart';
 import '../bloc/category_product/category_product_cubit.dart';
@@ -88,23 +90,27 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
                       Space(height: 4.h,),
 
-                      GridView.builder(
-                          itemCount: CategoryProductSuccess.products.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 3.w,
-                              crossAxisSpacing: 3.w,
-                              childAspectRatio: 2/3
-                          ),
-                          itemBuilder: (_,index) {
-                            return SmallProductItem(
-                              productEntity: CategoryProductSuccess.products[index],
-                              onAddToFavoriteTap: ()=> context.read<CartCubit>().addToCart(CategoryProductSuccess.products[index],context),
-                            );
-                          }
+                    BlocConsumer<CartCubit, CartState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          return BlocConsumer<FavoriteCubit,FavoriteState>(
+                                            listener: (context, state) {},
+                                            builder: (context, state) {
+                                              return ProductsSection(
+                                                cart: CartSuccess.cart,
+                                                withAddToCart: true,
+                                                onCartClick: (product,index) => context.read<CartCubit>().addToCart(product, context),
+                                                addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
+                                                onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
+                                                products: CategoryProductSuccess.products,
+                                                indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                              );
+                                            },
+                                          );
+                        },
                       ),
+
+
                       Space(height: 2.h,),
 
                       Center(child: (state is CategoryProductLoading)? ProductsPlaceHolderSection() : const SizedBox()),

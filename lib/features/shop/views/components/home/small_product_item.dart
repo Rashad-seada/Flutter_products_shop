@@ -1,15 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/di/app_module.dart';
-import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
+import 'package:eng_shop/core/views/widgets/main_button.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
+import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../core/config/app_images.dart';
+import '../../../../../core/infrastructure/services/locale_service.dart';
 import '../../../../settings/data/data_source/local/settings_local_data_source.dart';
 import '../../../domain/entity/product_entity.dart';
 
@@ -17,9 +20,24 @@ class SmallProductItem extends StatefulWidget {
   ProductEntity productEntity;
   void Function()? onItemTap;
   void Function()? onAddToFavoriteTap;
+
+  void Function()? onAddToCartTap;
+  void Function()? onIncrementCartTap;
+  void Function()? onDecrementCartTap;
+  void Function()? onDeleteTap;
+
+  String? cartCount;
+
   bool isAddedToFavorite;
+
   bool isFavoriteLoading;
-  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap,this.isAddedToFavorite = true,this.isFavoriteLoading = true});
+
+  bool withAddToCart;
+  bool isAddedToTheCart;
+
+
+
+  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap,this.isAddedToFavorite = true,this.isFavoriteLoading = true,this.withAddToCart = false,this.onAddToCartTap,this.isAddedToTheCart = true,this.cartCount ,this.onDecrementCartTap,this.onIncrementCartTap,this.onDeleteTap});
 
   @override
   State<SmallProductItem> createState() => _SmallProductItemState();
@@ -148,6 +166,101 @@ class _SmallProductItemState extends State<SmallProductItem> {
                   ],
                 ),
               ),
+              Space(height: .7.h,) ,
+
+
+
+              (widget.withAddToCart)? Expanded(
+                child: Center(
+                  child: (widget.isAddedToTheCart)? MainButton(
+                    width: 40.w,
+                    height: 5.h,
+                    color: AppTheme.neutral300,
+                    label:  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
+                          InkWell(
+                            onTap: widget.onDeleteTap,
+                            child: SvgPicture.asset(AppImages.trash),
+                          ),
+
+                          Expanded(child: Space(width: 1.w,)),
+
+                          InkWell(
+                            onTap: widget.onDecrementCartTap,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 7.w,
+                              height: 7.w,
+                              clipBehavior: Clip.hardEdge,
+                              decoration:  BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight:  Radius.circular((!getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    bottomRight: Radius.circular((!getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    topLeft: Radius.circular((getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    bottomLeft: Radius.circular((getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                  ),
+                                  color: AppTheme.neutral900
+                              ),
+                              child: Text(
+                                "-",
+                                style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                            ),
+                          ),
+                          Space(width: 1.w,),
+
+                          Text(
+                            "${widget.cartCount}",
+                            style: AppTheme.textL1TextStyle(),),
+                          Space(width: 1.w,),
+
+                          InkWell(
+                            onTap: widget.onIncrementCartTap,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 7.w,
+                              height: 7.w,
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  color: AppTheme.neutral900,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular((getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    bottomRight: Radius.circular((getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    topLeft: Radius.circular((!getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                    bottomLeft: Radius.circular((!getIt<LocaleService>().isLtr(context))? 100.w : 0),
+                                  )
+                              ),
+                              child: Text(
+                                "+",
+                                style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
+                              ),
+                            ),
+                          ),
+
+                        ],),
+                    ),
+                  )
+                      : MainButton(
+                      onTap: widget.onAddToCartTap,
+                      width: 40.w,
+                      height: 5.h,
+                      color: AppTheme.neutral900,
+                      label: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(AppImages.bag),
+                                Space(width: 2.w,) ,
+                                Text(LocaleKeys.add_to_cart.tr(),style: AppTheme.textMTextStyle(color: AppTheme.neutral100))
+                              ],
+                          ),
+                  ),
+                ),
+              ) : SizedBox()
 
 
             ],

@@ -19,7 +19,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   int? indexOfLoadingFavoriteProduct;
 
-  getFavorites(){
+  Future<void> getFavorites() async {
     FavoriteSuccess.products.clear();
     emit(FavoriteLoading());
     getIt<GetUserFavoriteUsecase>().call(GetUserFavoriteParams(screenCode: AppConsts.favoriteScreen)).then(

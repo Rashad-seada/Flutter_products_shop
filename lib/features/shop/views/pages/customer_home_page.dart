@@ -4,7 +4,7 @@ import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/core/views/widgets/custom_flushbar.dart';
 import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
-import 'package:eng_shop/features/shop/views/components/home/products_for_you_section.dart';
+import 'package:eng_shop/features/shop/views/components/home/products_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,12 +33,12 @@ class CustomerHomePage extends StatefulWidget {
 
 class _CustomerHomePageState extends State<CustomerHomePage> {
 
+
   @override
-  void didChangeDependencies() {
+  void initState() {
     context.read<HomeCustomerCubit>().pageNumber = 1;
     context.read<HomeCustomerCubit>().getProducts();
-    context.read<FavoriteCubit>().getFavorites();
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -136,7 +136,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                     BlocConsumer<FavoriteCubit,FavoriteState>(
                       listener: (context, state) {},
                       builder: (context, state) {
-                        return ProductsForYouSection(
+                        return ProductsSection(
                           addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
                           onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
                           products: HomeCustomerSuccess.products,

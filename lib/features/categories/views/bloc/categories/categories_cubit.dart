@@ -6,6 +6,8 @@ import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/features/categories/domain/entities/category_entity.dart';
 import 'package:eng_shop/features/categories/domain/usecase/get_all_categories_usecase.dart';
 import 'package:eng_shop/features/categories/views/screens/category_products_screen.dart';
+import 'package:eng_shop/features/favorites/view/bloc/favorite/favorite_cubit.dart';
+import 'package:eng_shop/features/shop/views/bloc/home/home_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,13 +27,11 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     Navigator.push(context,MaterialPageRoute(builder: (_)=> SearchScreen() )) ;
   }
 
-  void onFavoritesClick() {
-
+  void onFavoritesClick(BuildContext context) {
+    context.read<HomeCubit>().onNavigationBarTap(2);
   }
 
   int selectedCategoryIndex = 0;
-
-
 
   onRefreash() {
     selectedCategoryIndex = 0;
@@ -42,7 +42,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     selectedCategoryIndex = 0;
     CategoriesSuccess.categories.clear();
     CategoriesSuccess.subCategories.clear();
-
     emit(CategoriesLoading());
     getIt<GetAllCategoriesUsecase>().call(GetAllCategoriesParams(AppConsts.categoryScreen)).then(
       (value) => value.fold(
@@ -53,13 +52,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
           emit(CategoriesSuccess());
           CategoriesSuccess.categories = success;
           emit(CategoriesInitial());
-
           getSubCategories(int.parse("${CategoriesSuccess.categories[selectedCategoryIndex].id!}"),selectedCategoryIndex);
-
         }
       )
     );
-
   }
 
   getSubCategories(int parentCategoryId,int index){

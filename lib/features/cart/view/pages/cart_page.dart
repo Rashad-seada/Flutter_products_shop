@@ -30,6 +30,8 @@ class _CartPageState extends State<CartPage> {
 
   @override
   void didChangeDependencies() {
+    CartSuccess.cart.clear();
+
     context.read<CartCubit>().getCart();
     super.didChangeDependencies();
   }
@@ -119,9 +121,9 @@ class _CartPageState extends State<CartPage> {
 
                                   cartResponse: CartSuccess.cart[index],
                                   quantity: CartSuccess.cart[index].cartEntity.quantity!,
-                                  onIncrementTap: () => context.read<CartCubit>().onIncrementTap(index,context),
-                                  onDecrementTap: () => context.read<CartCubit>().onDecrementTap(index,context),
-                                  onDeleteTap: () => context.read<CartCubit>().onDeleteTap(index,context),
+                                  onIncrementTap: () => context.read<CartCubit>().onIncrementTap(CartSuccess.cart[index].cartEntity.itemId!,context),
+                                  onDecrementTap: () => context.read<CartCubit>().onDecrementTap(CartSuccess.cart[index].cartEntity.itemId!,context),
+                                  onDeleteTap: () => context.read<CartCubit>().onDeleteTap(CartSuccess.cart[index].cartEntity.itemId!,context),
                                 ),
                               ),
                             ),

@@ -90,4 +90,6 @@ abstract class AppImages {
   static const String tracking = "images/tracking.svg";
   static const String heartFilled = "images/heart_filled.svg";
 
+  static const String bag = "images/bag.svg";
+
 }

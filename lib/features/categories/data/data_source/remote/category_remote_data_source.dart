@@ -43,7 +43,7 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
 
 
       Response response = await client.get(
-          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,858, 10,endPoint: "list/"),
+          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,858, 10,endPoint: "list/",),
       );
 
       List data = json.decode(response.data);
