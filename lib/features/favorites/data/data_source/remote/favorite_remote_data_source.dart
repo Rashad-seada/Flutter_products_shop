@@ -22,8 +22,9 @@ class FavoriteRemoteDataSourceImpl implements FavoriteRemoteDataSource {
 
   String domain;
   Api client;
+  int userID;
 
-  FavoriteRemoteDataSourceImpl({required this.domain,required this.client});
+  FavoriteRemoteDataSourceImpl({required this.domain,required this.client,required this.userID});
 
 
   @override

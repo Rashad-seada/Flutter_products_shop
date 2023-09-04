@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 
 import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
@@ -30,9 +31,10 @@ class ProductRepoImpl implements ProductRepo {
     try {
       remoteDataSource = ProductRemoteDataSourceImpl(
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
-        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
-        client: getIt<Api>()
+        serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
+        servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
+        client: getIt<Api>(),
+        userId: (await getIt<AuthLocalDataSource>().getUserID())!,
       );
     } catch (e) {
       throw LocalDataException();

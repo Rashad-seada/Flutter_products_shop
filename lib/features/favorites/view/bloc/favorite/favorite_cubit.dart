@@ -51,17 +51,17 @@ class FavoriteCubit extends Cubit<FavoriteState> {
             (value) => value.fold(
                 (error) {
               emit(FavoriteFailure(error));
+              CustomFlushBar(
+                  title: 'Error : ${error.code()}',
+                  message: error.message,
+                  context: context
+              );
               indexOfLoadingFavoriteProduct = null;
               emit(FavoriteInitial());
 
             },
                 (success) {
               emit(FavoriteSuccess());
-              CustomFlushBar(
-                  title: 'Success ',
-                  message: "${success.msg}",
-                  context: context
-              );
               int index = FavoriteSuccess.favoriteIds.indexWhere((element) => element == productId);
               if(index != -1){
 
@@ -87,23 +87,24 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         (error) {
           emit(FavoriteFailure(error));
           indexOfLoadingFavoriteProduct = null;
+          CustomFlushBar(
+              title: 'Error : ${error.code()}',
+              message: error.message,
+              context: context
+          );
           emit(FavoriteInitial());
 
         },
         (success) {
           emit(FavoriteSuccess());
-          CustomFlushBar(
-            title: 'Success ',
-            message: "${success.msg}",
-            context: context
-          );
 
           int index = FavoriteSuccess.favoriteIds.indexWhere((element) => element == productId);
           if(index != -1){
-
             FavoriteSuccess.favoriteIds.removeAt(index);
+
           }else{
             FavoriteSuccess.favoriteIds.add(productId);
+
           }
           indexOfLoadingFavoriteProduct = null;
           emit(FavoriteInitial());

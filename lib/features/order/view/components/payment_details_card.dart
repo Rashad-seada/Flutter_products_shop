@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/widgets/main_button.dart';
-import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +10,7 @@ import '../../../../core/config/app_images.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../bloc/order/order_cubit.dart';
 
 
 class PaymentDetailsCard extends StatelessWidget {
@@ -18,9 +18,10 @@ class PaymentDetailsCard extends StatelessWidget {
   int totalItemCount;
   double totalPrice;
   double deliveryFees;
+  double shipFess;
   double discounts;
 
-  PaymentDetailsCard({super.key,this.totalItemCount = 0,this.totalPrice = 0,this.deliveryFees = 0,this.discounts = 0});
+  PaymentDetailsCard({super.key,this.totalItemCount = 0,this.totalPrice = 0,this.deliveryFees = 0,this.discounts = 0,this.shipFess = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,20 @@ class PaymentDetailsCard extends StatelessWidget {
             ],
           ),
 
+          Space(height: 2.5.h,),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Text(LocaleKeys.ship_fees.tr(),
+                style: AppTheme.textMTextStyle(color: AppTheme.neutral600),),
+
+              Text("$shipFess KD",
+                style: AppTheme.textL2TextStyle(color: AppTheme.neutral900),),
+
+            ],
+          ),
           Space(height: 2.5.h,),
 
           Row(
@@ -110,14 +125,14 @@ class PaymentDetailsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomTextField(
-                    controller: context.read<PaymentCubit>().promoController,
+                    controller: context.read<OrderCubit>().promoController,
                     prefixIcon: Padding(
                       padding: EdgeInsets.all(1.5.h),
                       child: SvgPicture.asset(AppImages.ticket),
                     ),
                     hint: LocaleKeys.promo_code_sub_text.tr(),
                     label: LocaleKeys.promo_code.tr(),
-                    onFieldSubmitted: (_)=> context.read<PaymentCubit>().apply(context),
+                    onFieldSubmitted: (_)=> context.read<OrderCubit>().apply(context),
                   ),
                 ),
 

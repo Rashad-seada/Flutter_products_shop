@@ -91,9 +91,12 @@ class _CartPageState extends State<CartPage> {
                             SvgPicture.asset(AppImages.emptyCart,width: 86.w,height: 60.w,),
                             Space(height: 4.h,),
 
-                            Text(
-                              LocaleKeys.cart_sub_text.tr(),
-                              style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              child: Text(
+                                LocaleKeys.cart_sub_text.tr(),
+                                style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,maxLines: 2,),
+                            ),
 
                             Space(height: 2.h,),
 
@@ -143,7 +146,7 @@ class _CartPageState extends State<CartPage> {
             ),
             bottomNavigationBar: CheckoutButton(
               totalItems: context.read<CartCubit>().getTotalItems(),
-              totalPrice: context.read<CartCubit>().totalPrice,
+              totalPrice: context.read<CartCubit>().calculateTotalPrice(),
               onTap: ()=> context.read<CartCubit>().onCheckoutClick(context),
             )
           );

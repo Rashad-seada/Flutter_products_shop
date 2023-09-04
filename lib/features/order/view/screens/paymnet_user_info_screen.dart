@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
-import 'package:eng_shop/features/In_app_payments/view/components/billing_address_details.dart';
+import 'package:eng_shop/features/cart/view/bloc/cart/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +11,8 @@ import '../../../../core/views/widgets/custom_back_button.dart';
 import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../bloc/order/order_cubit.dart';
+import '../components/billing_address_details.dart';
 
 class PaymentUserInfoScreen extends StatelessWidget {
   const PaymentUserInfoScreen({super.key});
@@ -19,7 +20,7 @@ class PaymentUserInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<PaymentCubit, PaymentState>(
+        child: BlocConsumer<OrderCubit,OrderState>(
           listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
@@ -48,8 +49,6 @@ class PaymentUserInfoScreen extends StatelessWidget {
                       ),
                       Space(height: 6.h,),
 
-                      SvgPicture.asset(AppImages.address3,width: 92.w,height: 12.h,),
-                      Space(height: 2.5.h,),
 
                       Row(
                         children: [
@@ -70,13 +69,13 @@ class PaymentUserInfoScreen extends StatelessWidget {
 
 
                       BillingAddressDetails(
-                        areaController: context.read<PaymentCubit>().areaController,
-                        cityController: context.read<PaymentCubit>().cityController,
-                        neighborhoodController: context.read<PaymentCubit>().neighborhoodController,
-                        addressController: context.read<PaymentCubit>().addressController,
-                        noteController: context.read<PaymentCubit>().noteController,
-                        saveBillingAddress: context.read<PaymentCubit>().saveBillingAddress,
-                        onChanged: (_)=> context.read<PaymentCubit>().onChanged(_!),
+                        areaController: context.read<OrderCubit>().areaController,
+                        cityController: context.read<OrderCubit>().cityController,
+                        neighborhoodController: context.read<OrderCubit>().neighborhoodController,
+                        addressController: context.read<OrderCubit>().addressController,
+                        noteController: context.read<OrderCubit>().noteController,
+                        saveBillingAddress: context.read<OrderCubit>().saveBillingAddress,
+                        onChanged: (_)=> context.read<OrderCubit>().onChanged(_!),
                       ),
 
 
@@ -88,7 +87,7 @@ class PaymentUserInfoScreen extends StatelessWidget {
                       MainButton(
                         height: 7.h,
                         label: Text(LocaleKeys.next.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
-                        onTap: ()=> context.read<PaymentCubit>().onNextTap(context),
+                        onTap: ()=> context.read<OrderCubit>().onNextTap(context,CartSuccess.cart.map((e) => e.cartEntity).toList()),
                       ),
 
                       Space(height: 5.h,),

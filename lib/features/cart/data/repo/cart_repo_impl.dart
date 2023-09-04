@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/cart/data/data_source/local/cart_local_data_source.dart';
 import 'package:eng_shop/features/cart/domain/repo/cart_repo.dart';
 
@@ -32,9 +33,10 @@ class CartRepoImpl implements CartRepo {
     try {
       remoteDataSource = ProductRemoteDataSourceImpl(
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
-        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
-        client: getIt<Api>()
+        serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
+        servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
+        client: getIt<Api>(),
+        userId: (await getIt<AuthLocalDataSource>().getUserID())!,
       );
     } catch (e) {
       throw LocalDataException();
@@ -57,7 +59,6 @@ class CartRepoImpl implements CartRepo {
         return right([]);
       }
 
-
       List<ProductEntity> cartProducts = await remoteDataSource.getProductsById(cartEntity.map((e) => e.id!).toList());
 
 
@@ -65,11 +66,24 @@ class CartRepoImpl implements CartRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
-      if(cartProducts[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
+      print(cartEntity.length);
+      cartEntity.map((e) => e.id).forEach((element) {
+        print(element);
+      });
 
-      List<CartResponse> cartResponse = List.generate(cartEntity.length, (index) => CartResponse(cartEntity: cartEntity[index], productEntity: cartProducts[index]));
+      print("................");
+
+      print(cartProducts.length);
+      cartProducts.map((e) => e.id).forEach((element) {
+        print(element);
+      });
+
+      List<CartResponse> cartResponse = List.generate(
+          cartEntity.length,
+          (index) {
+            return CartResponse(cartEntity: cartEntity[index], productEntity: cartProducts[index]);
+
+          });
 
       return right(cartResponse);
 

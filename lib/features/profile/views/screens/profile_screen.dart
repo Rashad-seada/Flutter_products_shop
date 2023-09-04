@@ -14,7 +14,6 @@ import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../auth/views/components/auth_text_field.dart';
-import '../../../auth/views/components/phone_number_field.dart';
 import '../bloc/profile/profile_cubit.dart';
 import '../components/profile/profile_image.dart';
 
@@ -57,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                   builder: (context, state) {
                     return Column(
-                                  children: [
+                      children: [
 
                                     Space(height: 2.h,),
 
@@ -94,6 +93,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             child: SvgPicture.asset(AppImages.profile),
                                           ),
                                           ),
+
+
+
                                         ],
                                       ),
                                     ),
@@ -124,12 +126,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
                                   ],
-                                );
+                    );
                   },
                 ),
               ),
             ),
           ),
-        ));
+        )
+    );
   }
 }

@@ -99,11 +99,12 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                                               return ProductsSection(
                                                 cart: CartSuccess.cart,
                                                 withAddToCart: true,
-                                                onCartClick: (product,index) => context.read<CartCubit>().addToCart(product, context),
+                                                onCartClick: (product,index) => context.read<CartCubit>().addToCart(product,index,  context),
                                                 addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
                                                 onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
                                                 products: CategoryProductSuccess.products,
                                                 indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                                indexOfLoadingCartProduct: context.read<CartCubit>().indexOfLoadingCartProduct,
                                               );
                                             },
                                           );

@@ -1,6 +1,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
 import 'package:eng_shop/features/search/domain/entity/recent_search_entity.dart';
 
@@ -32,9 +33,10 @@ class SearchRepoImpl implements SearchRepo {
     try {
       remoteDataSource = SearchRemoteDataSourceImpl(
         domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-        serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
-        servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
-        client: getIt<Api>()
+        serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
+        servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
+        client: getIt<Api>(),
+        userId: (await getIt<AuthLocalDataSource>().getUserID())!,
       );
     } catch (e) {
       throw LocalDataException();

@@ -12,7 +12,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
-import '../../../../core/views/widgets/custom_progress_indicator.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
@@ -22,7 +21,6 @@ import '../bloc/home/home_cubit.dart';
 import '../bloc/home_customer/home_customer_cubit.dart';
 import '../components/home/ad_banner_slider.dart';
 import '../components/home/products_place_holder_section.dart';
-import '../components/home/small_product_item.dart';
 
 class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({super.key});
@@ -37,7 +35,11 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
   @override
   void initState() {
     context.read<HomeCustomerCubit>().pageNumber = 1;
+
+    context.read<CartCubit>().getCart();
+    context.read<FavoriteCubit>().getFavorites();
     context.read<HomeCustomerCubit>().getProducts();
+
     super.initState();
   }
 
@@ -141,6 +143,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                           onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
                           products: HomeCustomerSuccess.products,
                           indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                          indexOfLoadingCartProduct: context.read<CartCubit>().indexOfLoadingCartProduct,
                         );
                       },
                     ),

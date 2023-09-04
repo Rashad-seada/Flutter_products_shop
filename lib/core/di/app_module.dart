@@ -54,6 +54,11 @@ import '../../features/cart/domain/usecase/update_cart_usecase.dart';
 import '../../features/categories/data/data_source/remote/category_remote_data_source.dart';
 import '../../features/categories/domain/usecase/get_category_products_usecase.dart';
 import '../../features/categories/domain/usecase/get_sub_categories_usecase.dart';
+import '../../features/order/data/data_source/remote/order_remote_data_source.dart';
+import '../../features/order/data/repo/order_repo_impl.dart';
+import '../../features/order/domain/repo/order_repo.dart';
+import '../../features/order/domain/usecase/make_order_items_usecase.dart';
+import '../../features/order/domain/usecase/make_order_usecase.dart';
 import '../../features/profile/data/data_source/remote/profile_remote_data_source.dart';
 import '../../features/search/data/repo/search_repo.dart';
 import '../../features/shop/data/data_source/local/product_local_data_source.dart';
@@ -134,6 +139,9 @@ class AppModule {
             final favoriteRemoteDataSource = await _initializeFavoriteRemoteDataSource();
             getIt.registerSingleton<FavoriteRemoteDataSource>(favoriteRemoteDataSource);
 
+            final orderRemoteDataSource = await _initializeOrderRemoteDataSource();
+            getIt.registerSingleton<OrderRemoteDataSource>(orderRemoteDataSource);
+
             //Repos
         getIt
             ..registerSingleton<AuthRepo>(AuthRepoImpl(
@@ -170,6 +178,11 @@ class AppModule {
                 services: getIt<Services>(),
                 authLocalDataSource: getIt<AuthLocalDataSource>(),
             ))
+            ..registerSingleton<OrderRepo>(OrderRepoImpl(
+                remoteDataSource: getIt<OrderRemoteDataSource>(),
+                services: getIt<Services>(),
+                authLocalDataSource: getIt<AuthLocalDataSource>(),
+            ) as OrderRepo)
 
             //Use cases
             ..registerSingleton<ActivateAccountBySmsUsecase>(
@@ -246,7 +259,12 @@ class AppModule {
             ..registerSingleton<AddToFavoriteUsecase>(
                 AddToFavoriteUsecase(repo: getIt<FavoriteRepo>()))
             ..registerSingleton<RemoveFromFavoriteUsecase>(
-                RemoveFromFavoriteUsecase(repo: getIt<FavoriteRepo>()));
+                RemoveFromFavoriteUsecase(repo: getIt<FavoriteRepo>()))
+
+            ..registerSingleton<MakeOrderUsecase>(
+                MakeOrderUsecase(repo: getIt<OrderRepo>()))
+            ..registerSingleton<MakeOrderItemsUsecase>(
+                MakeOrderItemsUsecase(repo: getIt<OrderRepo>()));
 
 
     }
@@ -266,6 +284,7 @@ class AppModule {
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
             client: getIt<Api>(),
+            userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 
@@ -275,6 +294,7 @@ class AppModule {
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
             client: getIt<Api>(),
+            userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 
@@ -284,6 +304,7 @@ class AppModule {
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
             client: getIt<Api>(),
+            userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 
@@ -293,6 +314,7 @@ class AppModule {
             serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
             client: getIt<Api>(),
+            userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 
@@ -300,6 +322,17 @@ class AppModule {
         return FavoriteRemoteDataSourceImpl(
             domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
             client: getIt<Api>(),
+            userID: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
+        );
+    }
+
+    static Future<OrderRemoteDataSource> _initializeOrderRemoteDataSource() async {
+        return OrderRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            client: getIt<Api>(),
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 
@@ -328,6 +361,10 @@ class AppModule {
 
         if(await getIt<SettingsLocalDataSource>().getServiceProviderPassword() == null){
             await getIt<SettingsLocalDataSource>().putServiceProviderPassword(AppConsts.servicePassword);
+        }
+
+        if(await getIt<SettingsLocalDataSource>().getServiceProviderUserId() == null){
+            await getIt<SettingsLocalDataSource>().putServiceProviderUserId(AppConsts.serviceUserId);
         }
     }
 

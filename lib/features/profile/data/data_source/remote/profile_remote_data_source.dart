@@ -26,8 +26,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   String serviceEmail;
   String servicePassword;
   Api client;
+  int userId;
 
-  ProfileRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client});
+  ProfileRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client,required this.userId});
 
 
   @override
@@ -45,7 +46,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,100),
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,100,userId: userId),
       );
 
       Map<String,dynamic> data = json.decode(response.data);
@@ -70,7 +71,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,110),
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,110,userId: userId),
       );
 
       List<dynamic> data = json.decode(response.data);
@@ -115,7 +116,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,10),
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,10,userId: userId),
       );
 
       Map<String,dynamic> data = json.decode(response.data);

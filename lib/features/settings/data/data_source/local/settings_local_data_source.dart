@@ -18,9 +18,14 @@ abstract class SettingsLocalDataSource {
 
   Future<void> putServiceProviderEmail(String email);
 
+  Future<void> putServiceProviderUserId(int id);
+
   Future<String?> getServiceProviderPassword();
 
   Future<void> putServiceProviderPassword(String password);
+
+  Future<int?> getServiceProviderUserId();
+
 
 }
 
@@ -30,6 +35,7 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   String get serviceProviderEmailKey => AppConsts.serviceProviderEmailKey;
   String get serviceProviderPasswordKey => AppConsts.serviceProviderPasswordKey;
   String get serviceProviderDomainKey => AppConsts.serviceProviderDomainKey;
+  String get serviceProviderUserIdKey => AppConsts.serviceProviderUserIdKey;
 
   Box storage;
 
@@ -108,6 +114,25 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
       throw LocalDataException();
     }
 
+  }
+
+  @override
+  Future<int?> getServiceProviderUserId() async {
+    try {
+      return await storage.get(serviceProviderUserIdKey);
+    } catch (e) {
+      print(e);
+      throw LocalDataException();
+    }
+  }
+
+  @override
+  Future<void> putServiceProviderUserId(int id) async {
+    try {
+      await storage.put(serviceProviderUserIdKey,id);
+    } catch (e) {
+      throw LocalDataException();
+    }
   }
 
 

@@ -89,7 +89,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   onChangePasswordClick(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_)=> PasswordResetMethodsScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (_)=> const PasswordResetMethodsScreen()));
   }
 
 
@@ -101,8 +101,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     MeEntity(label: LocaleKeys.returns.tr(), icon: AppImages.returns),
 
     MeEntity(label: LocaleKeys.tracking.tr(), icon: AppImages.tracking),
-
-
   ];
 
 
@@ -110,7 +108,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     MeEntity(label: LocaleKeys.support.tr(), icon: AppImages.support),
 
     MeEntity(label: LocaleKeys.survey.tr(), icon: AppImages.survey),
-
   ];
 
   onLogoutClick(BuildContext context) {

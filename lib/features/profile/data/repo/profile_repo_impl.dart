@@ -34,9 +34,10 @@ class ProfileRepoImpl implements ProfileRepo {
     try {
       remoteDataSource = ProfileRemoteDataSourceImpl(
           domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-          serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
-          servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
-          client: getIt<Api>()
+          serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
+          servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
+          client: getIt<Api>(),
+          userId: (await getIt<AuthLocalDataSource>().getUserID())!
       );
     } catch (e) {
       throw LocalDataException();

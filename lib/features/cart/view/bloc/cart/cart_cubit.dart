@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:eng_shop/features/In_app_payments/view/screens/payment_datails_screen.dart';
-import 'package:eng_shop/features/In_app_payments/view/screens/paymnet_user_info_screen.dart';
+import 'package:eng_shop/core/error/error_messages.dart';
+import 'package:eng_shop/features/order/domain/usecase/make_order_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +9,7 @@ import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/di/app_module.dart';
 import '../../../../../core/error/failure.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../order/view/screens/paymnet_user_info_screen.dart';
 import '../../../../shop/domain/entity/product_entity.dart';
 import '../../../../shop/views/bloc/home/home_cubit.dart';
 import '../../../../cart/domain/entity/cart_entity.dart';
@@ -30,6 +31,7 @@ class CartCubit extends Cubit<CartState> {
         (value) => value.fold(
           (error) {
             emit(CartFailure(error));
+            ErrorMessages().debugErrorCode(error.code());
           },
           (success) {
             emit(CartSuccess());
@@ -42,17 +44,18 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  double totalPrice = 0;
+  int? indexOfLoadingCartProduct;
 
   int cartCount = 0;
 
-  calculateTotalPrice(){
-    totalPrice = 0;
+  double calculateTotalPrice(){
+    double totalPrice = 0;
     emit(CartInitial());
     CartSuccess.cart.forEach((element) {
-      totalPrice += element.productEntity.price! * int.parse("${element.cartEntity.quantity}");
+      totalPrice += double.parse("${element.productEntity.price!}") * double.parse("${element.cartEntity.quantity}");
     });
     emit(CartSuccess());
+    return totalPrice;
   }
 
   void removeFromCart(CartResponse cartResponse,BuildContext context) {
@@ -75,7 +78,10 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  void addToCart(ProductEntity productEntity,BuildContext context){
+  void addToCart(ProductEntity productEntity,int index,BuildContext context){
+
+    indexOfLoadingCartProduct = index;
+    emit(CartAddingToCart());
 
     getIt<AddToCartUsecase>().call(AddToCartParams(productEntity, AppConsts.homeScreen)).then(
       (value) => value.fold(
@@ -86,6 +92,7 @@ class CartCubit extends Cubit<CartState> {
               message: error.message,
               context: context
           );
+          indexOfLoadingCartProduct = null;
           emit(CartInitial());
         },
         (success) async {
@@ -94,11 +101,7 @@ class CartCubit extends Cubit<CartState> {
           await getCart();
           HomeCubit.cartCount.value = getTotalItems() ;
 
-          CustomFlushBar(
-              title: "Added to cart",
-              message: "the product has been added to your cart",
-              context: context
-          );
+          indexOfLoadingCartProduct = null;
           emit(CartInitial());
           calculateTotalPrice();
 
@@ -160,5 +163,7 @@ class CartCubit extends Cubit<CartState> {
   onCheckoutClick(BuildContext context){
     Navigator.push(context,MaterialPageRoute(builder: (_)=> const PaymentUserInfoScreen()));
   }
+
+
 
 }

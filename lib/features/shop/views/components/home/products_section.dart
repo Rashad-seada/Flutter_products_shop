@@ -17,6 +17,7 @@ class ProductsSection extends StatelessWidget {
   void Function(ProductEntity,int)? onProductClick;
 
   int? indexOfLoadingFavoriteProduct;
+  int? indexOfLoadingCartProduct;
 
   bool withAddToCart;
 
@@ -28,6 +29,7 @@ class ProductsSection extends StatelessWidget {
     this.addedToFavoriteProductIds = const [],
     this.cart = const [],
     this.indexOfLoadingFavoriteProduct,
+    this.indexOfLoadingCartProduct,
     this.withAddToCart = false,
     this.onCartClick,
   });
@@ -61,6 +63,7 @@ class ProductsSection extends StatelessWidget {
             isAddedToFavorite: addedToFavoriteProductIds.contains(products[index].itemId),
             isFavoriteLoading: indexOfLoadingFavoriteProduct == index,
 
+            isCartLoading: indexOfLoadingCartProduct == index,
             productEntity: products[index],
             onAddToFavoriteTap: () {
               if(onFavoriteClick != null){

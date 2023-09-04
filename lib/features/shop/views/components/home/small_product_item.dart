@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/di/app_module.dart';
+import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/core/views/widgets/main_button.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
@@ -31,13 +32,14 @@ class SmallProductItem extends StatefulWidget {
   bool isAddedToFavorite;
 
   bool isFavoriteLoading;
+  bool isCartLoading;
 
   bool withAddToCart;
   bool isAddedToTheCart;
 
 
 
-  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap,this.isAddedToFavorite = true,this.isFavoriteLoading = true,this.withAddToCart = false,this.onAddToCartTap,this.isAddedToTheCart = true,this.cartCount ,this.onDecrementCartTap,this.onIncrementCartTap,this.onDeleteTap});
+  SmallProductItem({super.key,required this.productEntity,this.onItemTap,this.onAddToFavoriteTap,this.isAddedToFavorite = true,this.isFavoriteLoading = false,this.isCartLoading = false ,this.withAddToCart = false,this.onAddToCartTap,this.isAddedToTheCart = true,this.cartCount ,this.onDecrementCartTap,this.onIncrementCartTap,this.onDeleteTap});
 
   @override
   State<SmallProductItem> createState() => _SmallProductItemState();
@@ -249,15 +251,23 @@ class _SmallProductItemState extends State<SmallProductItem> {
                       width: 40.w,
                       height: 5.h,
                       color: AppTheme.neutral900,
-                      label: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(AppImages.bag),
-                                Space(width: 2.w,) ,
-                                Text(LocaleKeys.add_to_cart.tr(),style: AppTheme.textMTextStyle(color: AppTheme.neutral100))
-                              ],
-                          ),
+                      label: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        switchInCurve: Curves.easeInOut,
+                        switchOutCurve: Curves.easeInOut,
+                        child: widget.isCartLoading
+                            ?  Center(child: CustomProgressIndicator(color: AppTheme.neutral100))
+
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(AppImages.bag),
+                                  Space(width: 2.w,) ,
+                                  Text(LocaleKeys.add_to_cart.tr(),style: AppTheme.textMTextStyle(color: AppTheme.neutral100))
+                                ],
+                            ),
+                      ),
                   ),
                 ),
               ) : SizedBox()

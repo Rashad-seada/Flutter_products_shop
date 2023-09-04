@@ -92,4 +92,8 @@ abstract class AppImages {
 
   static const String bag = "images/bag.svg";
 
+  static const String favoriteImg = "images/favorite_img.svg";
+
+  static const String doneAnim = "images/done_anim.json";
+
 }

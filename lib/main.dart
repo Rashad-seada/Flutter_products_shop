@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/bloc/core_cubit.dart';
 import 'package:eng_shop/core/config/app_theme.dart';
 import 'package:eng_shop/core/views/screens/intro_screen.dart';
-import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
@@ -18,6 +17,7 @@ import 'features/auth/views/bloc/login/login_cubit.dart';
 import 'features/cart/view/bloc/cart/cart_cubit.dart';
 import 'features/categories/views/bloc/categories/categories_cubit.dart';
 import 'features/categories/views/bloc/category_product/category_product_cubit.dart';
+import 'features/order/view/bloc/order/order_cubit.dart';
 import 'features/profile/views/bloc/profile/profile_cubit.dart';
 import 'features/search/views/bloc/search/search_cubit.dart';
 import 'features/settings/view/bloc/language/language_cubit.dart';
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> CategoriesCubit()),
         BlocProvider(create: (_)=> CategoryProductCubit()),
 
-        BlocProvider(create: (_)=> PaymentCubit()),
+        BlocProvider(create: (_)=> OrderCubit()),
         BlocProvider(create: (_)=> SettingsCubit()),
         BlocProvider(create: (_)=> FavoriteCubit()),
 

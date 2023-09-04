@@ -1,7 +1,8 @@
-import 'package:eng_shop/features/In_app_payments/view/bloc/payment/payment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../bloc/order/order_cubit.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
   const PaymentMethodsScreen({super.key});
@@ -9,7 +10,7 @@ class PaymentMethodsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<PaymentCubit, PaymentState>(
+        child: BlocConsumer<OrderCubit,OrderState>(
           listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(

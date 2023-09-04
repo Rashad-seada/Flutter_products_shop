@@ -93,20 +93,29 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   Space(height: 3.h,),
 
 
-                  BlocConsumer<FavoriteCubit,FavoriteState>(
+                  BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {},
                     builder: (context, state) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.w),
-                        child: ProductsSection(
-                          addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
-                          onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
-                          products: SearchSuccess.products,
-                          indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
-                        ),
-                      );
+                      return BlocConsumer<FavoriteCubit,FavoriteState>(
+                                      listener: (context, state) {},
+                                      builder: (context, state) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                          child: ProductsSection(
+                                            cart : CartSuccess.cart,
+                                            withAddToCart: true,
+                                            onCartClick: (product,index) => context.read<CartCubit>().addToCart(product,index,  context),
+                                            addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
+                                            onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
+                                            products: SearchSuccess.products,
+                                            indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                          ),
+                                        );
+                                      },
+                                    );
                     },
                   ),
+
 
 
                   (state is SearchFailure)?

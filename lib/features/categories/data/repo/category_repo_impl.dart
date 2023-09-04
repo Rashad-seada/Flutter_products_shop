@@ -29,6 +29,7 @@ class CategoryRepoImpl implements CategoryRepo {
         serviceEmail: (await getIt<AuthLocalDataSource>().getEmail())!,
         servicePassword: (await getIt<AuthLocalDataSource>().getPassword())!,
         client: getIt<Api>(),
+        userId: (await getIt<AuthLocalDataSource>().getUserID())!
       );
     } catch (e) {
       throw LocalDataException();

@@ -90,6 +90,7 @@ dependencies:
   loading_animation_widget:
   shimmer:
   libphonenumber:
+  lottie:
 
   #UI Preview
   device_preview:

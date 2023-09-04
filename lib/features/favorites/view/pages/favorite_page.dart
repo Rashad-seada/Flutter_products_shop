@@ -3,8 +3,10 @@ import 'package:eng_shop/features/cart/view/bloc/cart/cart_cubit.dart';
 import 'package:eng_shop/features/favorites/view/bloc/favorite/favorite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/components/error_message.dart';
 import '../../../../core/views/widgets/custom_back_button.dart';
@@ -66,18 +68,17 @@ class _FavoritePageState extends State<FavoritePage> {
                     Space(height: 2.h,),
 
                     BlocConsumer<CartCubit, CartState>(
-                      listener: (context, state) {
-                        // TODO: implement listener
-                      },
+                      listener: (context, state) {},
                       builder: (context, state) {
                         return ProductsSection(
                                           cart: CartSuccess.cart,
                                           withAddToCart: true,
                                           addedToFavoriteProductIds: FavoriteSuccess.favoriteIds,
                                           onFavoriteClick: (product,index) => context.read<FavoriteCubit>().removeFavorites(int.parse("${product.itemId}"),index,context),
-                                          onCartClick: (product,index) => context.read<CartCubit>().addToCart(product, context),
+                                          onCartClick: (product,index) => context.read<CartCubit>().addToCart(product,index, context),
                                           products: FavoriteSuccess.products,
                                           indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                          indexOfLoadingCartProduct: context.read<CartCubit>().indexOfLoadingCartProduct,
                                         );
                       },
                     ),
@@ -87,6 +88,32 @@ class _FavoritePageState extends State<FavoritePage> {
                     Center(child: (state is FavoriteLoading)? const ProductsPlaceHolderSection() : const SizedBox()),
 
                     Center(child: (state is FavoriteFailure)? ErrorMessage(message: FavoriteFailure.myError.message,) : const SizedBox()),
+
+                    (FavoriteSuccess.products.isEmpty &&  state is! FavoriteLoading && state is! FavoriteFailure)?
+                    Center(
+                      child: Column(
+                        children: [
+
+                          Space(height: 10.h,),
+
+                          SvgPicture.asset(AppImages.favoriteImg,width: 86.w,height: 60.w,),
+                          Space(height: 4.h,),
+
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Text(
+                              LocaleKeys.favorite_sub_text.tr(),
+                              style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),textAlign: TextAlign.center,maxLines: 2,),
+                          ),
+
+                          Space(height: 2.h,),
+
+
+                        ],
+                      ),
+                    ) :
+                    SizedBox(),
+
 
                     Space(height: 14.h,),
 

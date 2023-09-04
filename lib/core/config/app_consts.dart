@@ -8,6 +8,7 @@ abstract class AppConsts {
   static const String languageKey = "language";
   static const String serviceProviderDomainKey = "serviceDomainKey";
   static const String serviceProviderEmailKey = "serviceEmailKey";
+  static const String serviceProviderUserIdKey = "serviceUserIdKey";
   static const String serviceProviderPasswordKey = "servicePasswordKey";
   static const String isFirstTimeKey = "isFirstTimeKey";
   static const String emailKey = "userEmailKey";
@@ -22,6 +23,7 @@ abstract class AppConsts {
   static const String domain = "http://ksa.engqr.com";
   static const String serviceEmail = "eng@engegypt.com";
   static const String servicePassword = "111111";
+  static const int serviceUserId = 1;
 
 
   static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = "",int userId = 1}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=$userId&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
@@ -47,6 +49,8 @@ abstract class AppConsts {
   static int get categoryProductScreen => 114;
   static int get profileScreen => 115;
   static int get favoriteScreen => 116;
+  static int get billingAddressScreen => 117;
+  static int get paymentsDetailsScreen => 118;
 
 
 

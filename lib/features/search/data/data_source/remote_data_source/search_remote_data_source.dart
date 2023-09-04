@@ -19,8 +19,9 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
   String serviceEmail;
   String servicePassword;
   Api client;
+  int userId;
 
-  SearchRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client});
+  SearchRemoteDataSourceImpl({required this.domain,required this.serviceEmail,required this.servicePassword,required this.client,required this.userId});
 
   @override
   Future<List<ProductEntity>> searchProducts(String searchTerm) async {
@@ -39,7 +40,7 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,823, 50,endPoint: "list/"),
+          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,823, 50,endPoint: "list/",userId: userId),
       );
 
       List data = json.decode(response.data);

@@ -146,7 +146,11 @@ class CodegenLoader extends AssetLoader{
   "shipped": "تم الشحن",
   "tracking": "تتبع",
   "logout_sub_text": "هل انت متاكد من انك تريد تسجيل الخروج من حسابك؟",
-  "add_to_cart": "أضف الى عربه التسوق"
+  "add_to_cart": "أضف الى العربه",
+  "favorite_sub_text": "اضف منتجاتك المفضله و سوف تظهر لك هنا",
+  "ship_fees": "ضريبه الشحن",
+  "thank_you_order": "شكرا على طلبك",
+  "thank_you_order_sub_text": "لقد تم ارسال طلبك بنجاح و سوف يصلك الطلب في اسرع وقت ممكن"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -279,7 +283,11 @@ static const Map<String,dynamic> en = {
   "shipped": "Shipped",
   "tracking": "Tracking",
   "logout_sub_text": "Are you sure you want to logout?",
-  "add_to_cart": "Add to cart"
+  "add_to_cart": "Add to cart",
+  "favorite_sub_text": "Add your favorite products and it will appear here",
+  "ship_fees": "Ship Fees",
+  "thank_you_order": "Thank you for your order",
+  "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible "
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

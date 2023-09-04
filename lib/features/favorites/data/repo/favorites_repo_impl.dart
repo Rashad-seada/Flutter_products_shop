@@ -12,7 +12,6 @@ import '../../../../core/error/exception.dart';
 import '../../../../core/infrastructure/api/api.dart';
 import '../../../../core/infrastructure/services/services.dart';
 import '../../../auth/data/data_source/local_data_source/auth_local_data_source.dart';
-import '../../../profile/data/data_source/remote/profile_remote_data_source.dart';
 import '../../../settings/data/data_source/local/settings_local_data_source.dart';
 
 class FavoriteRepoImpl implements FavoriteRepo {
@@ -33,7 +32,8 @@ class FavoriteRepoImpl implements FavoriteRepo {
     try {
       remoteDataSource = FavoriteRemoteDataSourceImpl(
           domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
-          client: getIt<Api>()
+          client: getIt<Api>(),
+          userID: (await getIt<AuthLocalDataSource>().getUserID())!,
       );
     } catch (e) {
       throw LocalDataException();

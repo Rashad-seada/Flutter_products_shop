@@ -24,7 +24,7 @@ class CartFailure extends CartState {
   List<Object> get props => [];
 }
 
-class CartNetworkError extends CartState {
+class CartAddingToCart extends CartState {
   @override
   List<Object> get props => [];
 }
