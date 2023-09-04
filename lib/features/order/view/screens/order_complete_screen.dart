@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_images.dart';
+import 'package:eng_shop/features/order/view/bloc/order/order_cubit.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:lottie/lottie.dart';
 
@@ -42,11 +44,7 @@ class OrderCompleteScreen extends StatelessWidget {
                 Space(height: 20.h,),
 
 
-                MainButton(width: 100.w,height: 7.h,label: Text(LocaleKeys.done.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),onTap: (){
-                  if(screen != null) {
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=> screen!));
-                  }
-                }),
+                MainButton(width: 100.w,height: 7.h,label: Text(LocaleKeys.done.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),onTap: () => context.read<OrderCubit>().onDoneClick(context)),
 
               ],
             ),

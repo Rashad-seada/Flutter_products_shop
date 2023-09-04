@@ -3,6 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
 import 'package:eng_shop/features/cart/view/bloc/cart/cart_cubit.dart';
 import 'package:eng_shop/features/order/domain/usecase/make_order_items_usecase.dart';
+import 'package:eng_shop/features/shop/views/bloc/home/home_cubit.dart';
+import 'package:eng_shop/features/shop/views/bloc/home_customer/home_customer_cubit.dart';
+import 'package:eng_shop/features/shop/views/screens/home_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di/app_module.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
+import '../../../../auth/domain/usecase/get_user_type_usecase.dart';
 import '../../../../cart/domain/entity/cart_entity.dart';
 import '../../../domain/usecase/make_order_usecase.dart';
 import '../../screens/order_complete_screen.dart';
@@ -41,6 +45,19 @@ class OrderCubit extends Cubit<OrderState> {
 
   confirm(BuildContext context,List<CartEntity> products,String paidAmount){
     makeOrder(context,products: products, paidAmount: paidAmount);
+  }
+
+  onDoneClick(BuildContext context) async {
+    await getIt<GetUserTypeUsecase>().call(GetUserTypeParams(AppConsts.languageScreen)).then((
+    value) => value.fold(
+    (error) {
+
+    },
+    (success) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomeScreen(userType: success!, context: context)), (route) => false);
+      context.read<HomeCubit>().onNavigationBarTap(0);
+    }
+    ));
   }
 
   onNextTap(BuildContext context,List<CartEntity> products,){
