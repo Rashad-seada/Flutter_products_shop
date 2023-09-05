@@ -34,11 +34,11 @@ class CartCubit extends Cubit<CartState> {
             ErrorMessages().debugErrorCode(error.code());
           },
           (success) {
-            emit(CartSuccess());
             CartSuccess.cart = success;
             HomeCubit.cartCount.value = getTotalItems() ;
             calculateTotalPrice();
-            emit(CartInitial());
+            emit(CartSuccess());
+
           },
         )
     );

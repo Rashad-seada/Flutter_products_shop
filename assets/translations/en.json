@@ -144,9 +144,11 @@
 
   "my_orders": "My Orders",
   "more_services": "More Services",
-  "processing": "Processing",
-  "returns": "Returns",
+
+  "current": "Current",
+  "canceled": "Canceled",
   "shipped": "Shipped",
+
   "tracking": "Tracking",
   "logout_sub_text": "Are you sure you want to logout?",
   "add_to_cart": "Add to cart",
@@ -155,5 +157,8 @@
 
   "ship_fees": "Ship Fees",
   "thank_you_order": "Thank you for your order",
-  "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible "
+  "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible ",
+  "quantity": "Quantity",
+  "date": "Date"
+
 }

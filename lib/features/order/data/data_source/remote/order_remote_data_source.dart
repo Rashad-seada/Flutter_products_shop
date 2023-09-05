@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eng_shop/features/cart/domain/entity/cart_entity.dart';
+import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/error/exception.dart';
@@ -12,7 +13,7 @@ import '../../../domain/entities/make_order_items_entity.dart';
 abstract class OrderRemoteDataSource {
 
   // Future<> getMyOrder();
-  // Future<> getMyOrderItems();
+  Future<List<ProductEntity>> getMyOrderItems();
   // Future<> makeOrderItems();
 
   Future<MakeOrderEntity> makeOrder(
@@ -98,37 +99,42 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
   Future<MakeOrderItemsEntity> makeOrderItems({required String orderId, required String paidAmount,required List<CartEntity> products}) async {
     try {
 
-      final productsToMap = products.map((e) => {
+      final productsToMap = products.map((e) => <String,String>{
 
-        "id": e.id,
-        "userid": userId,
+        "id": e.id.toString(),
+        "userid": userId.toString(),
         "order_id": orderId,
         "color_id": "",
         "size_id": "",
-        "quantity": e.quantity,
+        "quantity": e.quantity.toString(),
         "complx_ids": ""
       }).toList();
-
-
       String productsJsonString = json.encode(productsToMap);
+      String productsBase64String = base64.encode(utf8.encode((productsJsonString)));
 
-      String productsBase64String = base64.encode(utf8.encode(productsJsonString));
 
-      List<Map<String,dynamic>> srvData = [{
-        "userid": userId,
+      List<Map<String,String>> srvData = [{
+        "userid": userId.toString(),
         "order_id": orderId,
         "place_id":"0",
         "paid_amount": paidAmount,
         "paid_method_id":"0",
-        "items_count": products.length,
+        "items_count": products.length.toString(),
         "pitems": productsBase64String,
       }];
 
 
-
       String jsonString = json.encode(srvData);
 
+      print(srvData.toString());
+      print(jsonString);
+
       String base64String = base64.encode(utf8.encode(jsonString));
+
+
+      String x = utf8.decode(base64.decode(base64String));
+      print(x);
+
 
       Response response = await client.get(
         AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/"),
@@ -138,11 +144,21 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
 
       Map<String,dynamic> data = json.decode(response.data);
 
+
+
       return MakeOrderItemsEntity.fromJson(data,response.statusCode!);
     } catch (e) {
-
+      print(e);
       throw RemoteDataException();
     }
   }
+
+  @override
+  Future<List<ProductEntity>> getMyOrderItems() {
+    // TODO: implement getMyOrderItems
+    throw UnimplementedError();
+  }
+
+
 
 }

@@ -12,6 +12,7 @@ abstract class CartRepo {
   Future<Either<Failure, List<CartResponse>>> getCart(int screenCode);
   Future<Either<Failure, void>> removeFromCart(ProductEntity productEntity,int screenCode);
   Future<Either<Failure, void>> updateCartProduct(CartEntity productEntity,int screenCode);
+  Future<Either<Failure, void>> clearCartProduct(int screenCode);
 
 
 }

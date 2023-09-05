@@ -109,6 +109,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                                             onFavoriteClick: (product,index) => context.read<FavoriteCubit>().addFavorites(int.parse("${product.itemId}"),index,context),
                                             products: SearchSuccess.products,
                                             indexOfLoadingFavoriteProduct: context.read<FavoriteCubit>().indexOfLoadingFavoriteProduct,
+                                            indexOfLoadingCartProduct: context.read<CartCubit>().indexOfLoadingCartProduct,
                                           ),
                                         );
                                       },

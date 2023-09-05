@@ -89,11 +89,15 @@ abstract class AppImages {
   static const String processing = "images/processing.svg";
   static const String tracking = "images/tracking.svg";
   static const String heartFilled = "images/heart_filled.svg";
+  static const String canceled = "images/canceled_orders.svg";
 
   static const String bag = "images/bag.svg";
 
   static const String favoriteImg = "images/favorite_img.svg";
 
   static const String doneAnim = "images/done_anim.json";
+
+  static const String emptyBox = "images/empty_box.svg";
+
 
 }

@@ -141,8 +141,8 @@ class CodegenLoader extends AssetLoader{
   "survey": " مركز استطلاع الراي",
   "my_orders": "طلبياتي",
   "more_services": "المزيد من الخدمات",
-  "processing": "يتم التحضير",
-  "returns": "المسترد",
+  "current": "الحالي",
+  "canceled": "الملغاه",
   "shipped": "تم الشحن",
   "tracking": "تتبع",
   "logout_sub_text": "هل انت متاكد من انك تريد تسجيل الخروج من حسابك؟",
@@ -150,7 +150,9 @@ class CodegenLoader extends AssetLoader{
   "favorite_sub_text": "اضف منتجاتك المفضله و سوف تظهر لك هنا",
   "ship_fees": "ضريبه الشحن",
   "thank_you_order": "شكرا على طلبك",
-  "thank_you_order_sub_text": "لقد تم ارسال طلبك بنجاح و سوف يصلك الطلب في اسرع وقت ممكن"
+  "thank_you_order_sub_text": "لقد تم ارسال طلبك بنجاح و سوف يصلك الطلب في اسرع وقت ممكن",
+  "quantity": "الكميه",
+  "date": "التاريخ"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -278,8 +280,8 @@ static const Map<String,dynamic> en = {
   "survey": "Survey Center",
   "my_orders": "My Orders",
   "more_services": "More Services",
-  "processing": "Processing",
-  "returns": "Returns",
+  "current": "Current",
+  "canceled": "Canceled",
   "shipped": "Shipped",
   "tracking": "Tracking",
   "logout_sub_text": "Are you sure you want to logout?",
@@ -287,7 +289,9 @@ static const Map<String,dynamic> en = {
   "favorite_sub_text": "Add your favorite products and it will appear here",
   "ship_fees": "Ship Fees",
   "thank_you_order": "Thank you for your order",
-  "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible "
+  "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible ",
+  "quantity": "Quantity",
+  "date": "Date"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

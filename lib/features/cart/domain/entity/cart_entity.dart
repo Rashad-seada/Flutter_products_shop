@@ -38,6 +38,34 @@ class CartEntity{
     note = "";
   }
 
+  // Deserialize from JSON Map
+  factory CartEntity.fromJson(Map<String, dynamic> json) {
+    return CartEntity(
+      id: json['id'] as int?,
+      itemId: json['itemId'] as int?,
+      unitId: json['unitId'] as int?,
+      storeId: json['storeId'] as int?,
+      colorId: json['colorId'] as int?,
+      sizeId: json['sizeId'] as int?,
+      quantity: json['quantity'] as int?,
+      note: json['note'] as String?,
+    );
+  }
+
+  // Serialize to JSON Map
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['itemId'] = itemId;
+    data['unitId'] = unitId;
+    data['storeId'] = storeId;
+    data['colorId'] = colorId;
+    data['sizeId'] = sizeId;
+    data['quantity'] = quantity;
+    data['note'] = note;
+    return data;
+  }
+
 
 
 }

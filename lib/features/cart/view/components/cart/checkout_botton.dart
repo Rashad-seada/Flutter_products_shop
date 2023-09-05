@@ -11,8 +11,10 @@ class CheckoutButton extends StatelessWidget {
   int totalItems;
   double totalPrice;
   void Function()? onTap;
+  Color color;
+  Color textColor;
 
-  CheckoutButton({super.key,this.totalPrice = 0.0 ,this.totalItems = 0,this.onTap});
+  CheckoutButton({super.key,this.totalPrice = 0.0 ,this.totalItems = 0,this.onTap,this.color = AppTheme.primary900,this.textColor = AppTheme.neutral100});
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,9 @@ class CheckoutButton extends StatelessWidget {
               width: 40.w,
               height: 5.h,
               label: Text(LocaleKeys.checkout.tr() + "($totalItems)",
-                style: AppTheme.textL2TextStyle(color: AppTheme
-                    .neutral100),),
+                style: AppTheme.textL2TextStyle(color: textColor),),
               onTap: onTap,
+              color: color,
             )
 
 

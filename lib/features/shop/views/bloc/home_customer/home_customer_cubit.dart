@@ -87,6 +87,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
 
             emit(HomeCustomerSuccess());
             HomeCustomerSuccess.products = success;
+
             getProducts();
 
           }else {

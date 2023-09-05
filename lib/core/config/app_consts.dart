@@ -51,6 +51,7 @@ abstract class AppConsts {
   static int get favoriteScreen => 116;
   static int get billingAddressScreen => 117;
   static int get paymentsDetailsScreen => 118;
+  static int get orderStatusScreen => 119;
 
 
 

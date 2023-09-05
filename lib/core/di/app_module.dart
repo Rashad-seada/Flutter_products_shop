@@ -18,6 +18,7 @@ import 'package:eng_shop/features/auth/domain/usecase/validate_phone_usecase.dar
 import 'package:eng_shop/features/cart/data/data_source/local/cart_local_data_source.dart';
 import 'package:eng_shop/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:eng_shop/features/cart/domain/repo/cart_repo.dart';
+import 'package:eng_shop/features/cart/domain/usecase/clear_cart_usecase.dart';
 import 'package:eng_shop/features/favorites/data/data_source/remote/favorite_remote_data_source.dart';
 import 'package:eng_shop/features/favorites/data/repo/favorites_repo_impl.dart';
 import 'package:eng_shop/features/favorites/domain/repo/favorites_repo.dart';
@@ -27,6 +28,7 @@ import 'package:eng_shop/features/favorites/domain/usecase/remove_from_favorite_
 import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 import 'package:eng_shop/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:eng_shop/features/profile/domain/usecases/change_password_usecase.dart';
+import 'package:eng_shop/features/profile/domain/usecases/get_orders_by_state.dart';
 import 'package:eng_shop/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:eng_shop/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
@@ -206,10 +208,7 @@ class AppModule {
                 LogoutUsecase(repo: getIt<AuthRepo>()))
 
 
-            ..registerSingleton<AddToCartUsecase>(
-                AddToCartUsecase(repo: getIt<CartRepo>()))
-            ..registerSingleton<GetCartUsecase>(
-                GetCartUsecase(repo: getIt<CartRepo>()))
+
             ..registerSingleton<GetImageByIdUsecase>(
                 GetImageByIdUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductByIdUsecase>(
@@ -220,10 +219,18 @@ class AppModule {
                 GetProductsUsecase(repo: getIt<ProductRepo>(),
                     dropAllProductsUsecase: getIt<DropAllProductsUsecase>(),
                     networkService: getIt<NetworkService>()))
+
+
+            ..registerSingleton<AddToCartUsecase>(
+                AddToCartUsecase(repo: getIt<CartRepo>()))
+            ..registerSingleton<GetCartUsecase>(
+                GetCartUsecase(repo: getIt<CartRepo>()))
             ..registerSingleton<RemoveFromCartUsecase>(
                 RemoveFromCartUsecase(repo: getIt<CartRepo>()))
             ..registerSingleton<UpdateCartUsecase>(
                 UpdateCartUsecase(repo: getIt<CartRepo>()))
+            ..registerSingleton<ClearCartUsecase>(
+                ClearCartUsecase(repo: getIt<CartRepo>()))
 
 
             ..registerSingleton<SearchUsecase>(
@@ -252,7 +259,8 @@ class AppModule {
                 GetProfileUsecase(repo: getIt<ProfileRepo>()))
             ..registerSingleton<UpdateProfileUsecase>(
                 UpdateProfileUsecase(repo: getIt<ProfileRepo>()))
-
+            ..registerSingleton<GetOrdersByStateUsecase>(
+                GetOrdersByStateUsecase(repo: getIt<ProfileRepo>()))
 
             ..registerSingleton<GetUserFavoriteUsecase>(
                 GetUserFavoriteUsecase(repo: getIt<FavoriteRepo>()))
@@ -261,10 +269,12 @@ class AppModule {
             ..registerSingleton<RemoveFromFavoriteUsecase>(
                 RemoveFromFavoriteUsecase(repo: getIt<FavoriteRepo>()))
 
+
             ..registerSingleton<MakeOrderUsecase>(
                 MakeOrderUsecase(repo: getIt<OrderRepo>()))
             ..registerSingleton<MakeOrderItemsUsecase>(
-                MakeOrderItemsUsecase(repo: getIt<OrderRepo>()));
+                MakeOrderItemsUsecase(repo: getIt<OrderRepo>(),
+                    clearCartUsecase: getIt<ClearCartUsecase>()));
 
 
     }

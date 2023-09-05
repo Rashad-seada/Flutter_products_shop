@@ -136,9 +136,23 @@ class CartRepoImpl implements CartRepo {
   @override
   Future<Either<Failure, void>> updateCartProduct(CartEntity productEntity, int screenCode) async {
     try {
-      print(productEntity.quantity);
 
-      localDataSource.updateCartProduct(productEntity);
+      await localDataSource.updateCartProduct(productEntity);
+      return right(Unit);
+
+    } on LocalDataException {
+
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> clearCartProduct(int screenCode) async {
+    try {
+
+      await localDataSource.dropAllCartProducts();
       return right(Unit);
 
     } on LocalDataException {

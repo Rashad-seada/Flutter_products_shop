@@ -2,9 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/error/error_messages.dart';
 import 'package:eng_shop/features/auth/views/screens/reset_password/password_reset_methods_screen.dart';
+import 'package:eng_shop/features/order/data/util/order_status.dart';
 import 'package:eng_shop/features/profile/domain/usecases/change_password_usecase.dart';
 import 'package:eng_shop/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:eng_shop/features/profile/domain/usecases/update_profile_usecase.dart';
+import 'package:eng_shop/features/profile/views/screens/order_status_screen.dart';
 import 'package:eng_shop/features/profile/views/screens/profile_screen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,11 +96,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
 
   List<MeEntity> get myOrders => [
-    MeEntity(label: LocaleKeys.processing.tr(), icon: AppImages.processing),
+    MeEntity(label: LocaleKeys.current.tr(), icon: AppImages.processing,screen: OrderStatusScreen(label: LocaleKeys.current.tr(), orderStatus: OrderStatus.current)),
 
-    MeEntity(label: LocaleKeys.shipped.tr(), icon: AppImages.shipped),
+    MeEntity(label: LocaleKeys.shipped.tr(), icon: AppImages.shipped,screen: OrderStatusScreen(label: LocaleKeys.shipped.tr(), orderStatus: OrderStatus.delivered)),
 
-    MeEntity(label: LocaleKeys.returns.tr(), icon: AppImages.returns),
+    MeEntity(label: LocaleKeys.canceled.tr(), icon: AppImages.canceled,screen: OrderStatusScreen(label: LocaleKeys.canceled.tr(), orderStatus: OrderStatus.canceled)),
 
     MeEntity(label: LocaleKeys.tracking.tr(), icon: AppImages.tracking),
   ];

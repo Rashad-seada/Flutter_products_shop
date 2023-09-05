@@ -145,9 +145,17 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
             bottomNavigationBar: CheckoutButton(
+              color: (CartSuccess.cart.isEmpty)? AppTheme.neutral200 : AppTheme.primary900,
+              textColor: (CartSuccess.cart.isEmpty)? AppTheme.neutral900 : AppTheme.neutral200,
               totalItems: context.read<CartCubit>().getTotalItems(),
               totalPrice: context.read<CartCubit>().calculateTotalPrice(),
-              onTap: ()=> context.read<CartCubit>().onCheckoutClick(context),
+              onTap: () {
+
+                if(CartSuccess.cart.isNotEmpty){
+                  context.read<CartCubit>().onCheckoutClick(context);
+                }
+
+              },
             )
           );
         },

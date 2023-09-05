@@ -127,8 +127,8 @@ abstract class  LocaleKeys {
   static const survey = 'survey';
   static const my_orders = 'my_orders';
   static const more_services = 'more_services';
-  static const processing = 'processing';
-  static const returns = 'returns';
+  static const current = 'current';
+  static const canceled = 'canceled';
   static const shipped = 'shipped';
   static const tracking = 'tracking';
   static const logout_sub_text = 'logout_sub_text';
@@ -137,5 +137,7 @@ abstract class  LocaleKeys {
   static const ship_fees = 'ship_fees';
   static const thank_you_order = 'thank_you_order';
   static const thank_you_order_sub_text = 'thank_you_order_sub_text';
+  static const quantity = 'quantity';
+  static const date = 'date';
 
 }

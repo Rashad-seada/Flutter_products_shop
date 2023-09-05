@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(100.h),
-      child: Container(
+      child: AnimatedContainer(
         alignment: Alignment.center,
         width: width,
         height: height,
@@ -26,6 +26,7 @@ class MainButton extends StatelessWidget {
           border: Border.all(color: borderColor),
           color: color,
         ),
+        duration: Duration(milliseconds: 500),
         child: label,
       ),
     );

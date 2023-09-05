@@ -13,22 +13,30 @@ class MeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 15.w,
-      height: 25.w,
-      child: Center(
-        child: Column(
-          children: [
+    return InkWell(
+      onTap: (){
+        if(meEntity.screen != null) {
+          Navigator.push(context,MaterialPageRoute(builder: (_)=> meEntity.screen!));
+        }
+      },
+      borderRadius: BorderRadius.circular(100.w),
+      child: SizedBox(
+        width: 15.w,
+        height: 25.w,
+        child: Center(
+          child: Column(
+            children: [
 
-            SvgPicture.asset(meEntity.icon,width: 6.5.w,height: 6.5.w,),
+              SvgPicture.asset(meEntity.icon,width: 6.5.w,height: 6.5.w,),
 
-            Space(
-              height: 1.h,
-            ),
+              Space(
+                height: 1.h,
+              ),
 
-            Text(meEntity.label,style: AppTheme.textSTextStyle(),maxLines: 2,textAlign: TextAlign.center,)
+              Text(meEntity.label,style: AppTheme.textSTextStyle(),maxLines: 2,textAlign: TextAlign.center,)
 
-          ],
+            ],
+          ),
         ),
       ),
     );

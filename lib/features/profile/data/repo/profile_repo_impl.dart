@@ -5,6 +5,7 @@ import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 import 'package:eng_shop/features/profile/domain/entities/change_password_entity.dart';
 import 'package:eng_shop/features/profile/domain/entities/profile_entity.dart';
 import 'package:eng_shop/features/profile/domain/entities/update_profile_entity.dart';
+import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 
 import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
@@ -13,6 +14,7 @@ import '../../../../core/infrastructure/api/api.dart';
 import '../../../../core/infrastructure/services/services.dart';
 import '../../../auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import '../../../settings/data/data_source/local/settings_local_data_source.dart';
+import '../../domain/entities/get_orders_entity.dart';
 
 class ProfileRepoImpl implements ProfileRepo {
 
@@ -159,6 +161,29 @@ class ProfileRepoImpl implements ProfileRepo {
     return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
     } catch (e) {
     return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<GetOrderItemsEntity>>> getOrderByState({required int orderState, required int screenCode}) async {
+    try {
+      await initRemoteDataSource();
+
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
+      }
+
+      List<GetOrderItemsEntity> orders = await remoteDataSource.getOrdersByState(orderState: orderState);
+
+      return right(orders);
+
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));
+    } on ServiceException {
+      return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }
   }
 
