@@ -58,8 +58,6 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
       await database.productCartDao.insertProduct(CartEntity.fromProduct(productEntity));
 
     } catch (e) {
-      print(e);
-
       throw LocalDataException();
     }
   }

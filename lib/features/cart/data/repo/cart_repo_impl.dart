@@ -66,17 +66,6 @@ class CartRepoImpl implements CartRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
-      print(cartEntity.length);
-      cartEntity.map((e) => e.id).forEach((element) {
-        print(element);
-      });
-
-      print("................");
-
-      print(cartProducts.length);
-      cartProducts.map((e) => e.id).forEach((element) {
-        print(element);
-      });
 
       List<CartResponse> cartResponse = List.generate(
           cartEntity.length,

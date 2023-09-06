@@ -2,10 +2,11 @@ class MakeOrderEntity {
   int? statusCode;
   String? res;
   String? msg;
+  String? data;
 
-  MakeOrderEntity({this.res, this.msg,this.statusCode});
+  MakeOrderEntity({this.res, this.msg,this.statusCode,this.data});
 
-  MakeOrderEntity.fromJson(Map<String, dynamic> json,this.statusCode) {
+  MakeOrderEntity.fromJson(Map<String, dynamic> json,this.statusCode,this.data) {
     res = json['res'];
     msg = json['msg'];
   }

@@ -10,6 +10,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart'; // Import the services package
 
 import '../../../../../core/di/app_module.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
@@ -70,6 +71,8 @@ class OrderCubit extends Cubit<OrderState> {
 
   }
 
+
+
   makeOrder(BuildContext context,{required List<CartEntity> products,required String paidAmount}){
     emit(OrderLoading());
     getIt<MakeOrderUsecase>().call(MakeOrderParams(
@@ -99,6 +102,8 @@ class OrderCubit extends Cubit<OrderState> {
               paidAmount: paidAmount,
               products: products,
           );
+
+
           emit(OrderSuccess());
           emit(OrderInitial());
         }

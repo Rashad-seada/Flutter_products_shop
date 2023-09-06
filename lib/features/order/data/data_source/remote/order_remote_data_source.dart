@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eng_shop/features/cart/domain/entity/cart_entity.dart';
-import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/error/exception.dart';
@@ -12,9 +12,6 @@ import '../../../domain/entities/make_order_items_entity.dart';
 
 abstract class OrderRemoteDataSource {
 
-  // Future<> getMyOrder();
-  Future<List<ProductEntity>> getMyOrderItems();
-  // Future<> makeOrderItems();
 
   Future<MakeOrderEntity> makeOrder(
       {required String countryId,
@@ -77,7 +74,6 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
       }];
 
 
-
       String jsonString = json.encode(srvData);
 
       String base64String = base64.encode(utf8.encode(jsonString));
@@ -86,10 +82,11 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
         AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,80,userId: userId,endPoint: "mrk/"),
       );
 
-      Map<String,dynamic> data = json.decode(response.data);
+      final data = json.decode(response.data);
 
+      //Clipboard.setData(ClipboardData(text: AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,80,userId: userId,endPoint: "mrk/")));
 
-      return MakeOrderEntity.fromJson(data,response.statusCode!);
+      return MakeOrderEntity.fromJson(data,response.statusCode!,response.data);
     } catch (e) {
       throw RemoteDataException();
     }
@@ -109,6 +106,8 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
         "quantity": e.quantity.toString(),
         "complx_ids": ""
       }).toList();
+
+
       String productsJsonString = json.encode(productsToMap);
       String productsBase64String = base64.encode(utf8.encode((productsJsonString)));
 
@@ -125,15 +124,7 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
 
 
       String jsonString = json.encode(srvData);
-
-      print(srvData.toString());
-      print(jsonString);
-
       String base64String = base64.encode(utf8.encode(jsonString));
-
-
-      String x = utf8.decode(base64.decode(base64String));
-      print(x);
 
 
       Response response = await client.get(
@@ -141,23 +132,16 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
       );
 
 
+      Clipboard.setData(ClipboardData(text: AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/")));
 
-      Map<String,dynamic> data = json.decode(response.data);
+      final data = json.decode(response.data);
 
-
-
-      return MakeOrderItemsEntity.fromJson(data,response.statusCode!);
+      return MakeOrderItemsEntity.fromJson(data,response.statusCode!,AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/"));
     } catch (e) {
-      print(e);
       throw RemoteDataException();
     }
   }
 
-  @override
-  Future<List<ProductEntity>> getMyOrderItems() {
-    // TODO: implement getMyOrderItems
-    throw UnimplementedError();
-  }
 
 
 

@@ -28,6 +28,8 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
 
+
+
   @override
   void didChangeDependencies() {
     CartSuccess.cart.clear();
@@ -39,7 +41,9 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit,CartState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          print(state);
+        },
         builder: (context, state) {
           return Scaffold(
             body: SizedBox(
@@ -145,10 +149,11 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
             bottomNavigationBar: CheckoutButton(
+
               color: (CartSuccess.cart.isEmpty)? AppTheme.neutral200 : AppTheme.primary900,
               textColor: (CartSuccess.cart.isEmpty)? AppTheme.neutral900 : AppTheme.neutral200,
               totalItems: context.read<CartCubit>().getTotalItems(),
-              totalPrice: context.read<CartCubit>().calculateTotalPrice(),
+              totalPrice: context.read<CartCubit>().totalPrice,
               onTap: () {
 
                 if(CartSuccess.cart.isNotEmpty){

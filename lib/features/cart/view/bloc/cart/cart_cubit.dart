@@ -26,6 +26,7 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
   Future<void> getCart() async {
+    totalPrice = 0;
     emit(CartLoading());
     await getIt<GetCartUsecase>().call(GetCartParams(AppConsts.homeScreen)).then(
         (value) => value.fold(
@@ -48,8 +49,11 @@ class CartCubit extends Cubit<CartState> {
 
   int cartCount = 0;
 
+  double totalPrice = 0;
+
+
   double calculateTotalPrice(){
-    double totalPrice = 0;
+    totalPrice = 0;
     emit(CartInitial());
     CartSuccess.cart.forEach((element) {
       totalPrice += double.parse("${element.productEntity.price!}") * double.parse("${element.cartEntity.quantity}");

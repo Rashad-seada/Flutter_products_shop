@@ -76,13 +76,13 @@ class OrderRepoImpl implements OrderRepo {
           paidMethodId: ""
       );
 
-    if(int.parse("${makeOrderEntity.res}") < 1) {
-      return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
-    }
-
-    if(makeOrderEntity.statusCode != 200) {
-      return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-    }
+    // if(int.parse("${makeOrderEntity.res}") < 1) {
+    //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
+    // }
+    //
+    // if(makeOrderEntity.statusCode != 200) {
+    //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+    // }
 
     return right(makeOrderEntity);
 
@@ -117,13 +117,13 @@ class OrderRepoImpl implements OrderRepo {
           products: products
       );
 
-      if(int.parse("${makeOrderItemsEntity.res}") < 1) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
-      }
-
-      if(makeOrderItemsEntity.statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
+      // if(int.parse("${makeOrderItemsEntity.res}") < 1) {
+      //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
+      // }
+      //
+      // if(makeOrderItemsEntity.statusCode != 200) {
+      //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+      // }
 
       return right(makeOrderItemsEntity);
 

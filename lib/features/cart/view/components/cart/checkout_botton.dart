@@ -49,7 +49,11 @@ class CheckoutButton extends StatelessWidget {
               height: 5.h,
               label: Text(LocaleKeys.checkout.tr() + "($totalItems)",
                 style: AppTheme.textL2TextStyle(color: textColor),),
-              onTap: onTap,
+              onTap: () {
+                if(onTap != null){
+                  onTap!();
+                }
+              },
               color: color,
             )
 

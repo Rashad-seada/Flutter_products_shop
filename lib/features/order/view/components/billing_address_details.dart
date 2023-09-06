@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/config/app_images.dart';
 import '../../../../core/config/app_theme.dart';
 import '../../../../core/views/widgets/custom_checkbox.dart';
+import '../../../../core/views/widgets/custom_drop_down_menu.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
@@ -43,20 +44,16 @@ class BillingAddressDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "*" + LocaleKeys.area.tr(),
+            "*" + LocaleKeys.country.tr(),
             style: AppTheme.textL2TextStyle(color: AppTheme.neutral500),
           ),
           Space(
             height: 0.5.h,
           ),
-          CustomTextField(
-            borderRadius: BorderRadius.circular(3.w),
-            controller: areaController,
-            prefixIcon: Padding(
-              padding: EdgeInsets.all(1.5.h),
-              child: SvgPicture.asset(AppImages.area),
-            ),
-            hint: LocaleKeys.enter_area.tr(),
+          CustomDropDownButton(
+            value: "1",
+            items: const ["1","2","3"],
+            onChanged: (_){},
           ),
           Space(
             height: 1.h,
@@ -70,7 +67,7 @@ class BillingAddressDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "*" + LocaleKeys.city.tr(),
+                      "*" + LocaleKeys.area.tr(),
                       style:
                           AppTheme.textL2TextStyle(color: AppTheme.neutral500),
                     ),
@@ -97,7 +94,7 @@ class BillingAddressDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "*" + LocaleKeys.neighborhood.tr(),
+                      "*" + LocaleKeys.city.tr(),
                       style:
                           AppTheme.textL2TextStyle(color: AppTheme.neutral500),
                     ),

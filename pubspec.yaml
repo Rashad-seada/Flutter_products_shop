@@ -34,22 +34,17 @@ dependencies:
 
   #path
   path_provider:
-
+  json_string:
 
   #services
   awesome_notifications:
-
   internet_connection_checker_plus:
-
   flutter_background_service:
   regexpattern:
   easy_localization:
   permission_handler:
-
   google_sign_in:
-
-  image_picker:   
-
+  image_picker:
   geolocator:
 
   #state management
