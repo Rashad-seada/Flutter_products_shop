@@ -99,5 +99,5 @@ abstract class AppImages {
 
   static const String emptyBox = "images/empty_box.svg";
 
-
+  static const String call = "images/call.svg";
 }

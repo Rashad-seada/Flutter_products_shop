@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/cart/domain/entity/cart_entity.dart';
+import 'package:eng_shop/features/order/data/data_source/local/order_local_data_source.dart';
+import 'package:eng_shop/features/order/domain/entities/billing_address_entity.dart';
 
 import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
@@ -17,12 +19,14 @@ import '../data_source/remote/order_remote_data_source.dart';
 class OrderRepoImpl implements OrderRepo {
 
   OrderRemoteDataSource remoteDataSource;
+  OrderLocalDataSource localDataSource;
   AuthLocalDataSource authLocalDataSource;
   Services services;
 
 
   OrderRepoImpl(
       {required this.remoteDataSource,
+        required this.localDataSource,
         required this.authLocalDataSource,
         required this.services});
 
@@ -76,13 +80,13 @@ class OrderRepoImpl implements OrderRepo {
           paidMethodId: ""
       );
 
-    // if(int.parse("${makeOrderEntity.res}") < 1) {
-    //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
-    // }
-    //
-    // if(makeOrderEntity.statusCode != 200) {
-    //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-    // }
+    if(int.parse("${makeOrderEntity.res}") < 1) {
+      return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
+    }
+
+    if(makeOrderEntity.statusCode != 200) {
+      return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+    }
 
     return right(makeOrderEntity);
 
@@ -117,13 +121,13 @@ class OrderRepoImpl implements OrderRepo {
           products: products
       );
 
-      // if(int.parse("${makeOrderItemsEntity.res}") < 1) {
-      //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
-      // }
-      //
-      // if(makeOrderItemsEntity.statusCode != 200) {
-      //   return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      // }
+      if(int.parse("${makeOrderItemsEntity.res}") < 1) {
+        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
+      }
+
+      if(makeOrderItemsEntity.statusCode != 200) {
+        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+      }
 
       return right(makeOrderItemsEntity);
 
@@ -132,6 +136,42 @@ class OrderRepoImpl implements OrderRepo {
       return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));
     } on ServiceException {
       return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BillingAddressEntity?>> getBillingAddress({required int screenCode}) async {
+    try {
+
+
+      BillingAddressEntity? billingAddressEntity = await localDataSource.getBillingAddress();
+
+
+      return right(billingAddressEntity);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> putBillingAddress({required BillingAddressEntity billingAddressEntity, required int screenCode}) async {
+    try {
+
+
+      await localDataSource.putBillingAddress(billingAddressEntity,);
+
+
+      return right(Unit);
+
+
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
     } catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }

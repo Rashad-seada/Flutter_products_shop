@@ -162,6 +162,10 @@
   "thank_you_order": "شكرا على طلبك",
   "thank_you_order_sub_text": "لقد تم ارسال طلبك بنجاح و سوف يصلك الطلب في اسرع وقت ممكن",
   "quantity": "الكميه",
-  "date": "التاريخ"
+  "date": "التاريخ",
+
+  "country_validate_message": "من فضلك اختر دوله",
+  "area_validate_message": "من فضلك اختر منطقه",
+  "city_validate_message": "من فضلك اختر مدينه"
 
 }

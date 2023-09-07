@@ -14,8 +14,20 @@ import '../../../../generated/locale_keys.g.dart';
 import '../bloc/order/order_cubit.dart';
 import '../components/billing_address_details.dart';
 
-class PaymentUserInfoScreen extends StatelessWidget {
+class PaymentUserInfoScreen extends StatefulWidget {
   const PaymentUserInfoScreen({super.key});
+
+  @override
+  State<PaymentUserInfoScreen> createState() => _PaymentUserInfoScreenState();
+}
+
+class _PaymentUserInfoScreenState extends State<PaymentUserInfoScreen> {
+
+  @override
+  void initState() {
+    context.read<OrderCubit>().initBillingAddress(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +59,7 @@ class PaymentUserInfoScreen extends StatelessWidget {
 
                         ],
                       ),
-                      Space(height: 6.h,),
+                      Space(height: 2.h,),
 
 
                       Row(
@@ -69,13 +81,30 @@ class PaymentUserInfoScreen extends StatelessWidget {
 
 
                       BillingAddressDetails(
-                        areaController: context.read<OrderCubit>().areaController,
-                        cityController: context.read<OrderCubit>().cityController,
-                        neighborhoodController: context.read<OrderCubit>().neighborhoodController,
+                        phoneController: context.read<OrderCubit>().phoneController,
+                        formKey: context.read<OrderCubit>().formKey,
+                        addressValidator: (_)=> context.read<OrderCubit>().addressValidator(_),
+                        region: context.read<OrderCubit>().areaId,
+                        city: context.read<OrderCubit>().cityId,
+                        country: context.read<OrderCubit>().countryId,
                         addressController: context.read<OrderCubit>().addressController,
-                        noteController: context.read<OrderCubit>().noteController,
                         saveBillingAddress: context.read<OrderCubit>().saveBillingAddress,
                         onChanged: (_)=> context.read<OrderCubit>().onChanged(_!),
+                        regions: OrderSuccess.regions,
+                        cities: OrderSuccess.cities,
+                        countries: OrderSuccess.countries,
+                        onRegionChanged: (_)=>  context.read<OrderCubit>().onRegionChanged(_!,context),
+                        onCityChanged: (_)=>  context.read<OrderCubit>().onCityChanged(_!,context),
+                        onCountryChanged: (_)=>  context.read<OrderCubit>().onCountryChanged(_!,context),
+                        isCountriesLoading: context.read<OrderCubit>().isCountriesLoading,
+                        isCitiesLoading: context.read<OrderCubit>().isCitiesLoading,
+                        isRegionsLoading: context.read<OrderCubit>().isAreasLoading, 
+                        
+                        initialPhoneValue: context.read<OrderCubit>().initialPhoneValue,
+                        onPhoneChanged: (_)=> context.read<OrderCubit>().onPhoneChanged(_),
+                        onPhoneValidated: (_)=> context.read<OrderCubit>().onPhoneValidated(_),
+                        phoneValidator: (_)=> context.read<OrderCubit>().phoneValidator(_!),
+
                       ),
 
 

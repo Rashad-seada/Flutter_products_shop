@@ -139,5 +139,8 @@ abstract class  LocaleKeys {
   static const thank_you_order_sub_text = 'thank_you_order_sub_text';
   static const quantity = 'quantity';
   static const date = 'date';
+  static const country_validate_message = 'country_validate_message';
+  static const area_validate_message = 'area_validate_message';
+  static const city_validate_message = 'city_validate_message';
 
 }

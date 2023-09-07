@@ -63,7 +63,7 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
-          contentPadding: EdgeInsets.symmetric(vertical: 1.8.h), // Adjust the vertical padding as needed
+          contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 15), // Adjust padding as needed
 
           hintText: hint,
           labelText: label,

@@ -46,8 +46,9 @@ class AdditionalRemoteDataSourceImpl implements AdditionalRemoteDataSource {
 
 
     Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 10, 20,userId: userID),
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 23, 10,userId: userID,endPoint: "list/"),
       );
+      print(AppConsts.baseUrl(domain,serviceEmail,servicePassword,"", 23, 10,userId: userID,endPoint: "list/"));
 
       List data = json.decode(response.data);
 
@@ -62,13 +63,17 @@ class AdditionalRemoteDataSourceImpl implements AdditionalRemoteDataSource {
     try {
 
     Response response = await client.get(
-    AppConsts.baseUrl(domain,serviceEmail,servicePassword,"", 10, 20,userId: userID),
+    AppConsts.baseUrl(domain,serviceEmail,servicePassword,"", 21, 10,userId: userID,endPoint: "list/"),
     );
+
+
+    print(AppConsts.baseUrl(domain,serviceEmail,servicePassword,"", 21, 10,userId: userID,endPoint: "list/"));
 
     List data = json.decode(response.data);
 
     return data.map((e) => GetCountriesEntity.fromJson(e)).toList();
     } catch (e) {
+      print(e);
     throw RemoteDataException();
     }
   }
@@ -86,8 +91,9 @@ class AdditionalRemoteDataSourceImpl implements AdditionalRemoteDataSource {
 
 
       Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 10, 20,userId: userID),
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 22, 10,userId: userID,endPoint: "list/"),
       );
+      print(AppConsts.baseUrl(domain,serviceEmail,servicePassword,"", 22, 10,userId: userID,endPoint: "list/"));
 
       List data = json.decode(response.data);
 

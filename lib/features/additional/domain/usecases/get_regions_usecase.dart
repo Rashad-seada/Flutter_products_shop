@@ -18,8 +18,13 @@ class GetRegionsUsecase implements Usecase<List<GetRegionsEntity>,GetRegionsPara
 }
 
 class GetRegionsParams {
+
   int screenCode;
   int countryId;
 
-  GetRegionsParams({required this.countryId,required this.screenCode});
+  GetRegionsParams({
+    required this.countryId,
+    required this.screenCode
+  });
+
 }

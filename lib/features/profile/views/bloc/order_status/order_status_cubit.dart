@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
-import 'package:eng_shop/features/profile/domain/usecases/get_orders_by_state.dart';
+import 'package:eng_shop/features/profile/domain/usecases/get_orders_by_state_usecase.dart';
 import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

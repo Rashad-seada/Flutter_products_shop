@@ -1,6 +1,12 @@
 import 'dart:async';
 
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/features/additional/data/data_source/remote/additional_remote_data_source.dart';
+import 'package:eng_shop/features/additional/data/repo/additional_repo_impl.dart';
+import 'package:eng_shop/features/additional/domain/repo/additional_repo.dart';
+import 'package:eng_shop/features/additional/domain/usecases/get_cities_usecase.dart';
+import 'package:eng_shop/features/additional/domain/usecases/get_countries_usecase.dart';
+import 'package:eng_shop/features/additional/domain/usecases/get_regions_usecase.dart';
 import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
 import 'package:eng_shop/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:eng_shop/features/auth/data/repo/auth_repo_impl.dart';
@@ -25,10 +31,13 @@ import 'package:eng_shop/features/favorites/domain/repo/favorites_repo.dart';
 import 'package:eng_shop/features/favorites/domain/usecase/add_to_favorite_usecase.dart';
 import 'package:eng_shop/features/favorites/domain/usecase/get_user_favorite_usecase.dart';
 import 'package:eng_shop/features/favorites/domain/usecase/remove_from_favorite_usecase.dart';
+import 'package:eng_shop/features/order/data/data_source/local/order_local_data_source.dart';
+import 'package:eng_shop/features/order/domain/usecase/get_billing_address_usecase.dart';
+import 'package:eng_shop/features/order/domain/usecase/put_billing_address_usecase.dart';
 import 'package:eng_shop/features/profile/domain/repo/profile_repo.dart';
 import 'package:eng_shop/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:eng_shop/features/profile/domain/usecases/change_password_usecase.dart';
-import 'package:eng_shop/features/profile/domain/usecases/get_orders_by_state.dart';
+import 'package:eng_shop/features/profile/domain/usecases/get_orders_by_state_usecase.dart';
 import 'package:eng_shop/features/profile/domain/usecases/get_profile_usecase.dart';
 import 'package:eng_shop/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:eng_shop/features/search/data/data_source/local_data_source/search_local_data_source.dart';
@@ -58,6 +67,7 @@ import '../../features/categories/domain/usecase/get_category_products_usecase.d
 import '../../features/categories/domain/usecase/get_sub_categories_usecase.dart';
 import '../../features/order/data/data_source/remote/order_remote_data_source.dart';
 import '../../features/order/data/repo/order_repo_impl.dart';
+import '../../features/order/domain/entities/billing_address_entity.dart';
 import '../../features/order/domain/repo/order_repo.dart';
 import '../../features/order/domain/usecase/make_order_items_usecase.dart';
 import '../../features/order/domain/usecase/make_order_usecase.dart';
@@ -104,11 +114,15 @@ class AppModule {
 
             //Local data source
             final hiveStorage = await _initializeHiveDatabase();
+            Hive.registerAdapter(BillingAddressEntityAdapter()); // Register the adapter for BillingAddressEntity
+
             getIt.registerSingleton<Box>(hiveStorage);
+
 
         getIt
             ..registerSingleton<FlutterSecureStorage>( FlutterSecureStorage())
             ..registerSingleton<SettingsLocalDataSource>(SettingsLocalDataSourceImpl(storage: getIt<Box>()))
+            ..registerSingleton<OrderLocalDataSource>(OrderLocalDataSourceImpl(storage: getIt<Box>()))
             ..registerSingleton<AuthLocalDataSource>(AuthLocalDataSourceImpl(secureStorage: getIt<FlutterSecureStorage>(), storage: getIt<Box>()));
 
 
@@ -143,6 +157,9 @@ class AppModule {
 
             final orderRemoteDataSource = await _initializeOrderRemoteDataSource();
             getIt.registerSingleton<OrderRemoteDataSource>(orderRemoteDataSource);
+
+            final additionalRemoteDataSource = await _initializeAdditionalRemoteDataSource();
+            getIt.registerSingleton<AdditionalRemoteDataSource>(additionalRemoteDataSource);
 
             //Repos
         getIt
@@ -184,7 +201,14 @@ class AppModule {
                 remoteDataSource: getIt<OrderRemoteDataSource>(),
                 services: getIt<Services>(),
                 authLocalDataSource: getIt<AuthLocalDataSource>(),
-            ) as OrderRepo)
+                localDataSource: getIt<OrderLocalDataSource>(),
+            ))
+
+            ..registerSingleton<AdditionalRpo>(AdditionalRpoImpl(
+                remoteDataSource: getIt<AdditionalRemoteDataSource>(),
+                services: getIt<Services>(),
+                authLocalDataSource: getIt<AuthLocalDataSource>(),
+            ))
 
             //Use cases
             ..registerSingleton<ActivateAccountBySmsUsecase>(
@@ -274,7 +298,20 @@ class AppModule {
                 MakeOrderUsecase(repo: getIt<OrderRepo>()))
             ..registerSingleton<MakeOrderItemsUsecase>(
                 MakeOrderItemsUsecase(repo: getIt<OrderRepo>(),
-                    clearCartUsecase: getIt<ClearCartUsecase>()));
+                    clearCartUsecase: getIt<ClearCartUsecase>()))
+            ..registerSingleton<GetBillingAddressUsecase>(
+                GetBillingAddressUsecase(repo: getIt<OrderRepo>()))
+            ..registerSingleton<PutBillingAddressUsecase>(
+                PutBillingAddressUsecase(repo: getIt<OrderRepo>()))
+
+
+            ..registerSingleton<GetCountriesUsecase>(
+                GetCountriesUsecase(repo: getIt<AdditionalRpo>()))
+            ..registerSingleton<GetRegionsUsecase>(
+                GetRegionsUsecase(repo: getIt<AdditionalRpo>()))
+            ..registerSingleton<GetCitiesUsecase>(
+                GetCitiesUsecase(repo: getIt<AdditionalRpo>()));
+
 
 
     }
@@ -295,6 +332,18 @@ class AppModule {
             servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
             client: getIt<Api>(),
             userId: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
+        );
+    }
+
+
+
+    static Future<AdditionalRemoteDataSource> _initializeAdditionalRemoteDataSource() async {
+        return AdditionalRemoteDataSourceImpl(
+            domain: (await getIt<SettingsLocalDataSource>().getServiceProviderDomain())!,
+            serviceEmail: (await getIt<SettingsLocalDataSource>().getServiceProviderEmail())!,
+            servicePassword: (await getIt<SettingsLocalDataSource>().getServiceProviderPassword())!,
+            client: getIt<Api>(),
+            userID: (await getIt<SettingsLocalDataSource>().getServiceProviderUserId())!,
         );
     }
 

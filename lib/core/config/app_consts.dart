@@ -15,6 +15,9 @@ abstract class AppConsts {
   static const String passwordKey = "userPasswordKey";
   static const String userTypeKey = "userTypeKey";
 
+  static const String billingAddressIdKey = "billingAddressIdKey";
+
+
   static const String localizationPath = "assets/translations";
 
   static const String english = "en";

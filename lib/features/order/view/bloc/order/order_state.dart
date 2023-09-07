@@ -15,6 +15,14 @@ class OrderFailure extends OrderState {
 }
 
 class OrderSuccess extends OrderState {
+
+  static List<GetCountriesEntity> countries = [];
+
+  static List<GetRegionsEntity> regions = [];
+
+  static List<GetCitiesEntity> cities = [];
+
+
   @override
   List<Object> get props => [];
 }

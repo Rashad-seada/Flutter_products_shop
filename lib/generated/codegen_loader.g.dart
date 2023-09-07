@@ -152,7 +152,10 @@ class CodegenLoader extends AssetLoader{
   "thank_you_order": "شكرا على طلبك",
   "thank_you_order_sub_text": "لقد تم ارسال طلبك بنجاح و سوف يصلك الطلب في اسرع وقت ممكن",
   "quantity": "الكميه",
-  "date": "التاريخ"
+  "date": "التاريخ",
+  "country_validate_message": "من فضلك اختر دوله",
+  "area_validate_message": "من فضلك اختر منطقه",
+  "city_validate_message": "من فضلك اختر مدينه"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -169,8 +172,8 @@ static const Map<String,dynamic> en = {
   "renter_password_hint": "please renter your password",
   "phone_number": "Phone number",
   "phone_number_hint": "Enter your phone number",
-  "country": "Phone number",
-  "country_hint": "Enter your phone number",
+  "country": "Country",
+  "country_hint": "Select your country",
   "remember_me": "Remember me",
   "dont_have_an_account": "Don't have an account?",
   "already_have_an_account": "already have an account?",
@@ -267,8 +270,8 @@ static const Map<String,dynamic> en = {
   "neighborhood": "Neighborhood",
   "address": "Address",
   "note": "Note",
-  "enter_area": "Enter area",
-  "enter_city": "Enter city",
+  "enter_area": "Select area",
+  "enter_city": "Select city",
   "enter_neighborhood": "Enter Neighborhood",
   "enter_address": "Enter home address",
   "enter_note": "Add any notes on the order if needed",
@@ -291,7 +294,10 @@ static const Map<String,dynamic> en = {
   "thank_you_order": "Thank you for your order",
   "thank_you_order_sub_text": "Your order is has been submitted and it will get to you as soon as possible ",
   "quantity": "Quantity",
-  "date": "Date"
+  "date": "Date",
+  "country_validate_message": "please Select a country",
+  "area_validate_message": "please Select an area",
+  "city_validate_message": "please Select a city"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }
