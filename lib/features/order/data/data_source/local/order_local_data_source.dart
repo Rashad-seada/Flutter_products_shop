@@ -1,5 +1,4 @@
 import 'package:eng_shop/features/order/domain/entities/billing_address_entity.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../../core/config/app_consts.dart';
@@ -8,8 +7,8 @@ import '../../../../../core/error/exception.dart';
 abstract class OrderLocalDataSource {
 
   Future<BillingAddressEntity?> getBillingAddress();
-  Future<void> putBillingAddress(BillingAddressEntity billingAddressEntity);
 
+  Future<void> putBillingAddress(BillingAddressEntity billingAddressEntity);
 
 }
 

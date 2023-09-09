@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eng_shop/core/config/app_consts.dart';
@@ -13,7 +12,6 @@ import 'package:eng_shop/features/order/domain/usecase/get_billing_address_useca
 import 'package:eng_shop/features/order/domain/usecase/make_order_items_usecase.dart';
 import 'package:eng_shop/features/order/domain/usecase/put_billing_address_usecase.dart';
 import 'package:eng_shop/features/shop/views/bloc/home/home_cubit.dart';
-import 'package:eng_shop/features/shop/views/bloc/home_customer/home_customer_cubit.dart';
 import 'package:eng_shop/features/shop/views/screens/home_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:equatable/equatable.dart';
@@ -34,16 +32,13 @@ import '../../screens/payment_datails_screen.dart';
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
-  OrderCubit() : super(OrderInitial()){
-
-  }
+  OrderCubit() : super(OrderInitial());
 
   Future initBillingAddress(BuildContext context) async {
     getBillingAddress().then(
             (value) async {
 
               if(billingAddress != null){
-
 
                 countryId = billingAddress!.countryId;
                 areaId = billingAddress!.areaId;
@@ -53,11 +48,10 @@ class OrderCubit extends Cubit<OrderState> {
 
                 await getCountries(context,selectCounty: true);
                 await getRegions(context, billingAddress!.countryId,selectRegion: true);
-                await getCities(context, billingAddress!.cityId,selectCity: true);
+                await getCities(context, billingAddress!.areaId,selectCity: true);
 
               } else {
                 getCountries(context);
-
               }
 
             }
@@ -65,13 +59,6 @@ class OrderCubit extends Cubit<OrderState> {
 
     getCountries(context);
 
-    if(billingAddress != null){
-      countryId = billingAddress!.countryId;
-      areaId = billingAddress!.areaId;
-      cityId = billingAddress!.cityId;
-      addressController.text = billingAddress!.address;
-      phoneController.text = billingAddress!.phone;
-    }
 
   }
 
@@ -143,7 +130,7 @@ class OrderCubit extends Cubit<OrderState> {
     if (addressController.text.isNotEmpty) {
       return null;
     } else {
-      return "Please enter a valid phone number";
+      return "Please enter your address";
     }
   }
 
@@ -348,7 +335,7 @@ class OrderCubit extends Cubit<OrderState> {
     isCitiesLoading = true;
     selectCity? null : cityId = null ;
     selectCity? null : OrderSuccess.cities.clear();
-
+    print("region id : $regionsId and "+OrderSuccess.cities.toString());
     emit(OrderLoading());
 
     await getIt<GetCitiesUsecase>().call(GetCitiesParams(screenCode: AppConsts.billingAddressScreen, regionsId: regionsId)).then(

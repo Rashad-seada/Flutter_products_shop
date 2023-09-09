@@ -80,10 +80,10 @@ class PaymentDetailsScreen extends StatelessWidget {
 
                         PaymentDetailsCard(
                           totalPrice: totalItemsPrice,
-                          deliveryFees: 5,
-                          shipFess: 10,
+                          deliveryFees: 0,
+                          shipFess: 0,
                           totalItemCount: products.length,
-                          discounts: 100,
+                          discounts: 0,
                         ),
 
                         Space(height: 2.h,),

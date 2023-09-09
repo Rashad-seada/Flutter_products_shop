@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eng_shop/features/cart/domain/entity/cart_entity.dart';
+import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../core/config/app_consts.dart';
@@ -96,47 +97,61 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
   Future<MakeOrderItemsEntity> makeOrderItems({required String orderId, required String paidAmount,required List<CartEntity> products}) async {
     try {
 
-      final productsToMap = products.map((e) => <String,String>{
-
-        "id": e.id.toString(),
-        "userid": userId.toString(),
-        "order_id": orderId,
-        "color_id": "",
-        "size_id": "",
-        "quantity": e.quantity.toString(),
-        "complx_ids": ""
-      }).toList();
 
 
-      String productsJsonString = json.encode(productsToMap);
-      String productsBase64String = base64.encode(utf8.encode((productsJsonString)));
+      List<List<CartEntity>> productsChuncks = [];
 
+      for(int i = 0; i < products.length ; i += 5 ){
 
-      List<Map<String,String>> srvData = [{
-        "userid": userId.toString(),
-        "order_id": orderId,
-        "place_id":"0",
-        "paid_amount": paidAmount,
-        "paid_method_id":"0",
-        "items_count": products.length.toString(),
-        "pitems": productsBase64String,
-      }];
+        List<CartEntity> a = products.sublist( i ,(products.length < i + 5)? products.length : i + 5 );
 
+        productsChuncks.addAll([a]);
 
-      String jsonString = json.encode(srvData);
-      String base64String = base64.encode(utf8.encode(jsonString));
+      }
 
+      dynamic data;
+      dynamic response;
 
-      Response response = await client.get(
-        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/"),
-      );
+      for (var element in productsChuncks) {
 
+        final productsToMap = element.map((e) => <String,String>{
 
-      Clipboard.setData(ClipboardData(text: AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/")));
+          "id": e.id.toString(),
+          "userid": userId.toString(),
+          "order_id": orderId,
+          "color_id": "",
+          "size_id": "",
+          "quantity": e.quantity.toString(),
+          "complx_ids": ""
+        }).toList();
 
-      final data = json.decode(response.data);
+        String productsJsonString = json.encode(productsToMap);
+        String productsBase64String = base64.encode(utf8.encode((productsJsonString)));
 
-      return MakeOrderItemsEntity.fromJson(data,response.statusCode!,AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/"));
+        List<Map<String,String>> srvData = [{
+          "userid": userId.toString(),
+          "order_id": orderId,
+          "place_id":"0",
+          "paid_amount": paidAmount,
+          "paid_method_id":"0",
+          "items_count": products.length.toString(),
+          "pitems": productsBase64String,
+        }];
+
+        String jsonString = json.encode(srvData);
+        String base64String = base64.encode(utf8.encode(jsonString));
+
+        response = await client.get(
+          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/"),
+        );
+
+        Clipboard.setData(ClipboardData(text: AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 0,90,userId: userId,endPoint: "mrk/")));
+
+        data = json.decode(response.data);
+
+      }
+      return MakeOrderItemsEntity.fromJson(data,response.statusCode!);
+
     } catch (e) {
       throw RemoteDataException();
     }
