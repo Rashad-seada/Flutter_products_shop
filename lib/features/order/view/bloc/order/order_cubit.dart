@@ -39,7 +39,6 @@ class OrderCubit extends Cubit<OrderState> {
   }
 
   Future initBillingAddress(BuildContext context) async {
-
     getBillingAddress().then(
             (value) async {
 
