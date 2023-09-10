@@ -153,7 +153,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 839,50,userId: userId,endPoint: "list/"),
       );
 
-      print(AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 839,50,userId: userId,endPoint: "list/"));
+      print(response.data);
 
       List data = json.decode(response.data);
 

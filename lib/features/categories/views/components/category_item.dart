@@ -58,7 +58,7 @@ class _CategoryItemState extends State<CategoryItem> {
 
 
 
-            Text(widget.categoryEntity.etxt!,style: AppTheme.textMTextStyle(color: (widget.isSelected)? AppTheme.primary900 : AppTheme.neutral900,)),
+            Expanded(child: Text(widget.categoryEntity.etxt! ,style: AppTheme.textMTextStyle(color: (widget.isSelected)? AppTheme.primary900 : AppTheme.neutral900,))),
           ],
         ),
       ),

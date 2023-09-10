@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:eng_shop/features/search/views/components/search/suggested_search_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -61,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             hint: LocaleKeys.search_hint_home.tr(),
                             onFieldSubmitted: (_)=> context.read<SearchCubit>().onSearchSubmitted(context),
-                            onChanged: (_)=> context.read<SearchCubit>().onChangeSearch() ,
+                            onChanged: (_)=> context.read<SearchCubit>().onChangeSearch(_) ,
                           ),
                         ),
 
@@ -80,7 +81,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   Space(height: 3.h,),
 
-                  (SearchSuccess.recentSearches.isNotEmpty )? RecentSearchSection(
+                  (SearchSuccess.suggestsSearches.isNotEmpty )? SuggestedSearchSection(
+                    recentSearchEntities: SearchSuccess.suggestsSearches,
+                    onItemTap: (_)=> context.read<SearchCubit>().onSuggestedSearchTap(_,context),
+                  ) : const SizedBox(),
+
+                  (SearchSuccess.recentSearches.isNotEmpty && SearchSuccess.suggestsSearches.isEmpty)? RecentSearchSection(
                     recentSearchEntities: SearchSuccess.recentSearches,
                     onClearTap: ()=> context.read<SearchCubit>().onClearTap(),
                     onItemTap: (_)=> context.read<SearchCubit>().onRecentSearchTap(_,context),

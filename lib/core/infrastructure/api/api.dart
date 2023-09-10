@@ -40,7 +40,7 @@ class ApiImpl implements Api {
           receiveDataWhenStatusError: true,
           followRedirects: false,
           validateStatus: (status)=> true,
-          receiveTimeout: const Duration(seconds: 60)
+          receiveTimeout: const Duration(minutes: 15)
       ),
       data: data,
       queryParameters: queryParameters,

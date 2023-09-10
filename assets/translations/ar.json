@@ -166,6 +166,9 @@
 
   "country_validate_message": "من فضلك اختر دوله",
   "area_validate_message": "من فضلك اختر منطقه",
-  "city_validate_message": "من فضلك اختر مدينه"
+  "city_validate_message": "من فضلك اختر مدينه",
+
+  "suggested": "المقترحات"
+
 
 }

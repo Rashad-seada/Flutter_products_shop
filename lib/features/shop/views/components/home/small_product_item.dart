@@ -6,6 +6,7 @@ import 'package:eng_shop/core/di/app_module.dart';
 import 'package:eng_shop/core/views/widgets/custom_progress_indicator.dart';
 import 'package:eng_shop/core/views/widgets/main_button.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
+import 'package:eng_shop/features/shop/views/screens/details_screen.dart';
 import 'package:eng_shop/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -75,7 +76,12 @@ class _SmallProductItemState extends State<SmallProductItem> {
             children: [
 
               InkWell(
-                onTap: widget.onItemTap,
+                onTap: (){
+                  if(widget.onItemTap != null){
+                    widget.onItemTap!();
+                  }
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> DetailsScreen(productId: int.parse("${widget.productEntity.itemId}"))));
+                },
                 child: Container(
                   clipBehavior: Clip.hardEdge,
                   height: 20.h,

@@ -8,6 +8,7 @@ abstract class SearchRepo {
 
   //search
   Future<Either<Failure, List<ProductEntity>>> searchProduct(String searchTerm,int screenCode);
+  Future<Either<Failure,List<ProductEntity>>> getSuggestedProducts(String searchTerm,int screenCode);
 
   Future<Either<Failure, void>> insertRecentSearch(RecentSearchEntity recentSearchEntity,int screenCode);
   Future<Either<Failure, void>> deleteRecentSearch(RecentSearchEntity recentSearchEntity,int screenCode);

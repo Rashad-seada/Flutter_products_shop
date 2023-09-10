@@ -99,20 +99,20 @@ class OrderRemoteDataSourceImpl implements  OrderRemoteDataSource {
 
 
 
-      List<List<CartEntity>> productsChuncks = [];
+      List<List<CartEntity>> productsChunks = [];
 
       for(int i = 0; i < products.length ; i += 5 ){
 
         List<CartEntity> a = products.sublist( i ,(products.length < i + 5)? products.length : i + 5 );
 
-        productsChuncks.addAll([a]);
+        productsChunks.addAll([a]);
 
       }
 
       dynamic data;
       dynamic response;
 
-      for (var element in productsChuncks) {
+      for (var element in productsChunks) {
 
         final productsToMap = element.map((e) => <String,String>{
 

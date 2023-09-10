@@ -155,7 +155,8 @@ class CodegenLoader extends AssetLoader{
   "date": "التاريخ",
   "country_validate_message": "من فضلك اختر دوله",
   "area_validate_message": "من فضلك اختر منطقه",
-  "city_validate_message": "من فضلك اختر مدينه"
+  "city_validate_message": "من فضلك اختر مدينه",
+  "suggested": "المقترحات"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -297,7 +298,8 @@ static const Map<String,dynamic> en = {
   "date": "Date",
   "country_validate_message": "please Select a country",
   "area_validate_message": "please Select an area",
-  "city_validate_message": "please Select a city"
+  "city_validate_message": "please Select a city",
+  "suggested": "suggested"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

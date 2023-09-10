@@ -6,6 +6,7 @@ import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/features/search/domain/usecase/delete_all_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/delete_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/get_recent_search_usecase.dart';
+import 'package:eng_shop/features/search/domain/usecase/get_suggested_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/insert_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
 import 'package:eng_shop/features/search/views/screens/search_result_screen.dart';
@@ -77,15 +78,15 @@ class SearchCubit extends Cubit<SearchState> {
 
   deleteAllRecentSearch(){
     getIt<DeleteAllRecentSearchUsecase>().call(DeleteAllRecentSearchParams(AppConsts.searchScreen)).then((value) => value.fold(
-            (error) {
-              emit(SearchFailure(error));
-              emit(SearchInitial());
-            },
-            (success) {
-              emit(SearchSuccess());
-              SearchSuccess.recentSearches.clear();
-              emit(SearchInitial());
-            }
+      (error) {
+        emit(SearchFailure(error));
+        emit(SearchInitial());
+      },
+      (success) {
+        emit(SearchSuccess());
+        SearchSuccess.recentSearches.clear();
+        emit(SearchInitial());
+      }
     ));
   }
 
@@ -100,9 +101,9 @@ class SearchCubit extends Cubit<SearchState> {
     deleteAllRecentSearch();
   }
 
-  onChangeSearch(){
+  onChangeSearch(String searchTerm){
     emit(SearchInitial());
-
+    getSuggestedSearch(searchTerm);
   }
 
   onRecentSearchTap(String s,BuildContext context) {
@@ -111,5 +112,27 @@ class SearchCubit extends Cubit<SearchState> {
     Navigator.push(context,MaterialPageRoute(builder: (_)=> SearchResultScreen()));
   }
 
+  onSuggestedSearchTap(String s,BuildContext context) {
+    searchController.text = s;
+    search(searchController.text);
+    Navigator.push(context,MaterialPageRoute(builder: (_)=> SearchResultScreen()));
+  }
+
+  getSuggestedSearch(String searchTerm){
+    emit(SearchLoading());
+    if(searchTerm.trim().isNotEmpty){
+      insertRecentSearch();
+      getIt<GetSuggestedUsecase>().call(GetSuggestedParams(searchTerm, AppConsts.searchScreen)).then((value) => value.fold(
+        (error) {
+          emit(SearchFailure(error));
+        },
+        (success) {
+          emit(SearchSuccess());
+          SearchSuccess.suggestsSearches = success.map((e) => RecentSearchEntity(searchTerm: e.etxt!)).toList();
+          emit(SearchResult());
+        }
+      ));
+    }
+  }
 
 }

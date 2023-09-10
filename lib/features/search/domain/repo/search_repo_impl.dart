@@ -137,6 +137,37 @@ class SearchRepoImpl implements SearchRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getSuggestedProducts(String searchTerm, int screenCode) async {
+    try {
+      await initRemoteDataSource();
+
+      if (await services.networkService.isConnected == false) {
+        return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
+      }
+
+      List<ProductEntity> productEntity = await remoteDataSource.searchProducts(searchTerm);
+
+      if(productEntity.isNotEmpty){
+        if(productEntity[0].statusCode != 200) {
+          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
+        }
+      }
+
+      return right(productEntity);
+
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } on ServiceException {
+      return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
 
 
 

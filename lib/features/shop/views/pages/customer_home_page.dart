@@ -4,6 +4,7 @@ import 'package:eng_shop/core/views/components/error_message.dart';
 import 'package:eng_shop/core/views/widgets/custom_flushbar.dart';
 import 'package:eng_shop/core/views/widgets/pull_to_refresh.dart';
 import 'package:eng_shop/features/auth/domain/util/user_type_enum.dart';
+import 'package:eng_shop/features/shop/views/components/home/home_categories_section.dart';
 import 'package:eng_shop/features/shop/views/components/home/products_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +17,12 @@ import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../../core/views/widgets/custom_text_field.dart';
 import '../../../cart/view/bloc/cart/cart_cubit.dart';
+import '../../../categories/views/bloc/categories/categories_cubit.dart';
 import '../../../favorites/view/bloc/favorite/favorite_cubit.dart';
 import '../bloc/home/home_cubit.dart';
 import '../bloc/home_customer/home_customer_cubit.dart';
 import '../components/home/ad_banner_slider.dart';
+import '../components/home/home_categories_section_place_holder.dart';
 import '../components/home/products_place_holder_section.dart';
 
 class CustomerHomePage extends StatefulWidget {
@@ -39,6 +42,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
     context.read<CartCubit>().getCart();
     context.read<FavoriteCubit>().getFavorites();
     context.read<HomeCustomerCubit>().getProducts();
+    context.read<HomeCustomerCubit>().getAllCategories();
 
     super.initState();
   }
@@ -57,6 +61,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: ListView(
+                  shrinkWrap: true,
                   controller: context.read<HomeCustomerCubit>().scrollController,
                   physics: BouncingScrollPhysics(),
                   children: [
@@ -77,15 +82,6 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                         ),
 
                         Text(LocaleKeys.home.tr(), style: AppTheme.heading3TextStyle(),).tr(),
-
-                        // Positioned(
-                        //   right: 0,
-                        //   child: InkWell(
-                        //     borderRadius: BorderRadius.circular(100.w),
-                        //     onTap: () {},
-                        //     child: SvgPicture.asset(AppImages.heart,width: 26,height:26,),
-                        //   ),
-                        // ),
 
                       ],
                     ),
@@ -122,10 +118,15 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                       ],
                     ),
 
-
-
                     Space(height: 3.h,),
 
+                    Center(child: (context.read<HomeCustomerCubit>().isCategoriesLoading)? const HomeCategoriesSectionPlaceHolder() : const SizedBox()),
+
+                    (!context.read<HomeCustomerCubit>().isCategoriesLoading)?
+                    HomeCategoriesSection(
+                      categories: HomeCustomerSuccess.categories,
+                      onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context)
+                    ): const SizedBox(),
 
 
                     Row(
@@ -148,9 +149,9 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                       },
                     ),
 
-                    Space(height: 2.h,),
+                    Space(height:2.h,),
 
-                    Center(child: (state is HomeCustomerIsLoading)? const ProductsPlaceHolderSection() : const SizedBox()),
+                    Center(child: (context.read<HomeCustomerCubit>().isRecommendedLoading)? const ProductsPlaceHolderSection() : const SizedBox()),
 
                     Center(child: (state is HomeCustomerFailure)? ErrorMessage(message: HomeCustomerFailure.myError.message,) : const SizedBox()),
 

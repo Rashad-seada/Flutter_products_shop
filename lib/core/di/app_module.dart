@@ -46,6 +46,7 @@ import 'package:eng_shop/features/search/domain/repo/search_repo_impl.dart';
 import 'package:eng_shop/features/search/domain/usecase/delete_all_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/delete_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/get_recent_search_usecase.dart';
+import 'package:eng_shop/features/search/domain/usecase/get_suggested_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/insert_recent_search_usecase.dart';
 import 'package:eng_shop/features/search/domain/usecase/search_usecase.dart';
 import 'package:eng_shop/features/categories/data/repo/category_repo_impl.dart';
@@ -81,6 +82,7 @@ import '../../features/shop/domain/repo/product_repo.dart';
 import '../../features/shop/domain/usecase/products/drop_all_products_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_image_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_product_by_id_usecase.dart';
+import '../../features/shop/domain/usecase/products/get_products_by_id_usecase.dart';
 import '../../features/shop/domain/usecase/products/get_products_usecase.dart';
 import '../config/app_consts.dart';
 import '../infrastructure/database/database.dart';
@@ -114,7 +116,6 @@ class AppModule {
 
             //Local data source
             final hiveStorage = await _initializeHiveDatabase();
-            Hive.registerAdapter(BillingAddressEntityAdapter()); // Register the adapter for BillingAddressEntity
 
             getIt.registerSingleton<Box>(hiveStorage);
 
@@ -237,6 +238,8 @@ class AppModule {
                 GetImageByIdUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductByIdUsecase>(
                 GetProductByIdUsecase(repo: getIt<ProductRepo>()))
+            ..registerSingleton<GetProductsByIdUsecase>(
+                GetProductsByIdUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<DropAllProductsUsecase>(
                 DropAllProductsUsecase(repo: getIt<ProductRepo>()))
             ..registerSingleton<GetProductsUsecase>(
@@ -259,6 +262,8 @@ class AppModule {
 
             ..registerSingleton<SearchUsecase>(
                 SearchUsecase(repo: getIt<SearchRepo>()))
+            ..registerSingleton<GetSuggestedUsecase>(
+                GetSuggestedUsecase(repo: getIt<SearchRepo>()))
             ..registerSingleton<InsertRecentSearchUsecase>(
                 InsertRecentSearchUsecase(repo: getIt<SearchRepo>()))
             ..registerSingleton<GetRecentSearchUsecase>(
@@ -402,11 +407,11 @@ class AppModule {
     }
 
     static Future<Box> _initializeHiveDatabase() async {
+        Hive.registerAdapter(BillingAddressEntityAdapter()); // Register the adapter for BillingAddressEntity
         await Hive.initFlutter();
         final appDocumentDirectory = await getApplicationDocumentsDirectory();
         Hive.init(appDocumentDirectory.path);
         return await Hive.openBox(AppConsts.prefDBName);
-
     }
 
     static Future<void> _seedingInitialValue() async {

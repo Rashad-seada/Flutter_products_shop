@@ -23,6 +23,7 @@ class SearchFailure extends SearchState {
 class SearchSuccess extends SearchState {
   static List<ProductEntity> products = [];
   static List<RecentSearchEntity> recentSearches = [];
+  static List<RecentSearchEntity> suggestsSearches = [];
 
   @override
   List<Object> get props => [];

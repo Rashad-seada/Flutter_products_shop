@@ -18,6 +18,10 @@ class HomeCustomerSuccess extends HomeCustomerState {
 
   static List<ProductEntity> products = [];
 
+  static ProductEntity productEntity = ProductEntity();
+
+  static List<CategoryEntity> categories = [];
+
   @override
   List<Object> get props => [];
 }

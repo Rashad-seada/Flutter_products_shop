@@ -163,7 +163,7 @@
 
   "country_validate_message": "please Select a country",
   "area_validate_message": "please Select an area",
-  "city_validate_message": "please Select a city"
+  "city_validate_message": "please Select a city",
 
-
+  "suggested": "suggested"
 }
