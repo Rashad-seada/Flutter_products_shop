@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+
+    <string name="app_name">Eng Shop</string>
+    <string name="facebook_app_id">220230001031733</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">263f75850899247b0ee860da35704e3b</string>
+
+
+</resources>

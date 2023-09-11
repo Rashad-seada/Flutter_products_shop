@@ -44,6 +44,7 @@ dependencies:
   easy_localization:
   permission_handler:
   google_sign_in:
+  flutter_facebook_auth:
   image_picker:
   geolocator:
 
