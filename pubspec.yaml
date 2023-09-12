@@ -47,7 +47,8 @@ dependencies:
   flutter_facebook_auth:
   image_picker:
   geolocator:
-
+  printing:
+  pdf: ^3.10.4
   #state management
   bloc:
   flutter_bloc:
@@ -106,6 +107,11 @@ dev_dependencies:
 
   floor_generator:
   build_runner:
+
+#  flutter_launcher_icons:
+#    android: "launcher_icon"
+#    ios: true
+#    image_path: "assets/icon/icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

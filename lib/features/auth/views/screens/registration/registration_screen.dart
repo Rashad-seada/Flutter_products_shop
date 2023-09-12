@@ -45,7 +45,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
 
               child: BlocConsumer<RegistrationCubit, RegistrationState>(
                 listener: (context, state) {
@@ -61,7 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   return SingleChildScrollView(
                     child: Column(children: [
 
-                      Space(height: 5.h,),
+                      Space(height: 4.h,),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,8 +80,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(LocaleKeys.register.tr(), style: AppTheme.heading2TextStyle(),),
-
-                              Space(height: 1.h,),
 
                               Text(LocaleKeys.register_sub_title.tr(), style: AppTheme.textL2TextStyle(),),
                             ],

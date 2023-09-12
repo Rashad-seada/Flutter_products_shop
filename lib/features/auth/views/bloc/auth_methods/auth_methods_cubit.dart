@@ -25,8 +25,8 @@ class AuthMethodsCubit extends Cubit<AuthMethodsState> {
     _registerWithGoogle(context);
   }
 
-  onRegisterWithFacebookClick(){
-    _registerWithFacebook();
+  onRegisterWithFacebookClick(BuildContext context){
+    _registerWithFacebook(context);
   }
 
   _registerWithGoogle(BuildContext context) async {
@@ -38,8 +38,15 @@ class AuthMethodsCubit extends Cubit<AuthMethodsState> {
     );
   }
 
-  _registerWithFacebook(){
+  _registerWithFacebook(BuildContext context) async {
+    await getIt<Services>().facebookService.login().then(
+    (account) {
+    //Navigator.push(context,MaterialPageRoute(builder: (_)=> RegistrationScreen(email: account?.email ?? "",name: account?.displayName ?? "",)));
 
+      print(account);
+    getIt<Services>().facebookService.logOut();
+    }
+    );
   }
 
 }

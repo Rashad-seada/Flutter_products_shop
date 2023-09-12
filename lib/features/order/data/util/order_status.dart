@@ -1,7 +1,8 @@
 class OrderStatus {
 
-  static int current = 1;
-  static int delivered = 2;
-  static int canceled = 3;
+  static List<int> current = [1];
+  static List<int> delivered = [2];
+  static List<int> canceled = [3];
 
 }
+

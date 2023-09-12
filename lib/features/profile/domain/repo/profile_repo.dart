@@ -16,6 +16,6 @@ abstract class ProfileRepo {
 
   Future<Either<Failure,ChangePasswordEntity>> changePassword({required String oldPassword,required String newPassword,required int screenCode});
 
-  Future<Either<Failure,List<GetOrderItemsEntity>>> getOrderByState({required int orderState,required int screenCode});
+  Future<Either<Failure,List<GetOrderItemsEntity>>> getOrderByState({required List<int> orderState,required int screenCode});
 
 }

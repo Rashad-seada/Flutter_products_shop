@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: BlocConsumer<LoginCubit,LoginState>(
                 listener: (context, state) {
                   if(state is LoginFailure){
@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
 
-                        Space(height: 5.h,),
+                        Space(height: 4.h,),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,8 +62,6 @@ class LoginScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(LocaleKeys.login.tr(), style: AppTheme.heading2TextStyle(),),
-
-                                Space(height: 1.h,),
 
                                 Text(LocaleKeys.login_sub_title.tr(), style: AppTheme.textL2TextStyle(),),
                               ],

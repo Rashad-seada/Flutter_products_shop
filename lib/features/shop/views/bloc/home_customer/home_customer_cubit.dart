@@ -84,7 +84,6 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
     isRecommendedLoading = true;
 
     emit(HomeCustomerIsLoading());
-    print("getProducts");
 
     getIt<GetProductsUsecase>().call(GetProductsParams(pageNumber, AppConsts.homeScreen,refresh: refresh)).then(
       (value) => value.fold(
@@ -113,7 +112,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
   }
 
   void onSearchTap(BuildContext context) {
-   Navigator.push(context,MaterialPageRoute(builder: (_)=> SearchScreen() )) ;
+   Navigator.push(context,MaterialPageRoute(builder: (_)=> const SearchScreen() )) ;
   }
 
   void onRefresh() async  {
@@ -128,12 +127,10 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
   getAllCategories(){
     isCategoriesLoading = true;
     emit(HomeCustomerIsLoading());
-    print("getAllCategories");
     getIt<GetAllCategoriesUsecase>().call(GetAllCategoriesParams(AppConsts.categoryScreen)).then(
             (value) => value.fold(
                 (error) {
                   isCategoriesLoading = false;
-                  print(error.message);
                   emit(HomeCustomerFailure(error));
             },
                 (success) {

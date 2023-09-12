@@ -165,5 +165,8 @@
   "area_validate_message": "please Select an area",
   "city_validate_message": "please Select a city",
 
-  "suggested": "suggested"
+  "suggested": "suggested",
+
+  "payment_methods": "Payment methods"
+
 }

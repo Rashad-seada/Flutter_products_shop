@@ -21,7 +21,7 @@ class GetOrdersByStateUsecase implements Usecase<List<GetOrderItemsEntity>,GetOr
 
 class GetOrderByStateParams {
   int screenCode;
-  int orderState;
+  List<int> orderState;
 
 
   GetOrderByStateParams(this.orderState,this.screenCode);

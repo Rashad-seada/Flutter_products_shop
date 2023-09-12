@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:eng_shop/core/error/failure.dart';
 import 'package:eng_shop/core/infrastructure/api/api.dart';
 import 'package:eng_shop/features/auth/data/data_source/local_data_source/auth_local_data_source.dart';
+import 'package:eng_shop/features/shop/domain/entity/get_product_images_entity.dart';
 
 import '../../../../core/di/app_module.dart';
 import '../../../../core/error/error_messages.dart';
@@ -187,6 +188,36 @@ class ProductRepoImpl implements ProductRepo {
     } on LocalDataException {
 
       return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } catch (e) {
+      return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProductImagesEntity>> getProductImagesById(int id, int screenCode) async {
+    try {
+      await initRemoteDataSource();
+
+      if (await services.networkService.isConnected == false) {
+          return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
+      }
+
+
+      GetProductImagesEntity getProductImagesEntity = await remoteDataSource.getProductImagesById(id);
+
+      if(int.parse(getProductImagesEntity.res!) != 1) {
+        return left(RemoteDataFailure(ErrorMessages.emptyListOfProducts, screenCode: screenCode, customCode: 03));
+      }
+
+      return right(getProductImagesEntity);
+
+
+    } on RemoteDataException {
+      return left(RemoteDataFailure(ErrorMessages.serverDown, screenCode: screenCode, customCode: 00));
+    } on LocalDataException {
+      return left(LocalDataFailure(ErrorMessages.cachingFailure, screenCode: screenCode, customCode: 00));
+    } on ServiceException {
+      return left(ServiceFailure(ErrorMessages.serviceProvider, screenCode: screenCode, customCode: 00));
     } catch (e) {
       return left(InternalFailure(e.toString(), screenCode: screenCode, customCode: 00));
     }

@@ -15,7 +15,7 @@ part 'order_status_state.dart';
 class OrderStatusCubit extends Cubit<OrderStatusState> {
   OrderStatusCubit() : super(OrderStatusInitial());
 
-  getOrdersByState(int orderState,BuildContext context){
+  getOrdersByState(List<int> orderState,BuildContext context){
     OrderStatusSuccess.orders.clear();
     emit(OrderStatusLoading());
     getIt<GetOrdersByStateUsecase>().call(GetOrderByStateParams(orderState,AppConsts.orderStatusScreen)).then(
@@ -30,6 +30,8 @@ class OrderStatusCubit extends Cubit<OrderStatusState> {
                     },
                     (success) {
                       emit(OrderStatusSuccess());
+
+                      print(success);
 
                       OrderStatusSuccess.orders = success;
 

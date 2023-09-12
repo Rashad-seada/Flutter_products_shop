@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/core/infrastructure/services/facebook_service.dart';
 import 'package:eng_shop/features/additional/data/data_source/remote/additional_remote_data_source.dart';
 import 'package:eng_shop/features/additional/data/repo/additional_repo_impl.dart';
 import 'package:eng_shop/features/additional/domain/repo/additional_repo.dart';
@@ -106,6 +107,7 @@ class AppModule {
             //services
             ..registerSingleton<CameraService>(CameraService())
             ..registerSingleton<GoogleService>(GoogleService())
+            ..registerSingleton<FacebookService>(FacebookService())
             ..registerSingleton<NetworkService>(NetworkServiceImpl())
             ..registerSingleton<PermissionService>(PermissionService())
             ..registerSingleton<LocationService>(LocationService())
@@ -275,7 +277,7 @@ class AppModule {
 
 
             ..registerSingleton<GetAllCategoriesUsecase>(
-                GetAllCategoriesUsecase(repo: getIt<CategoryRepo>()))
+                GetAllCategoriesUsecase(repo: getIt<CategoryRepo>(), networkService: getIt<NetworkService>()))
             ..registerSingleton<GetCategoryProductsUsecase>(
                 GetCategoryProductsUsecase(repo: getIt<CategoryRepo>()))
             ..registerSingleton<GetSubCategoriesUsecase>(

@@ -26,7 +26,7 @@ class PinScreen extends StatelessWidget {
       body: SizedBox(
         width: 100.w,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 7.w),
           child: SingleChildScrollView(
             child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
               listener: (context, state) {
@@ -42,7 +42,7 @@ class PinScreen extends StatelessWidget {
                 return Column(
                           children: [
 
-                            Space(height: 5.h,),
+                            Space(height: 4.h,),
 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -55,8 +55,6 @@ class PinScreen extends StatelessWidget {
                             Column(
                               children: [
                                 Text(LocaleKeys.verification.tr(), style: AppTheme.heading2TextStyle(),),
-
-                                Space(height: 1.h,),
 
                                 Text(LocaleKeys.verification_sub_text.tr(), style: AppTheme.textL2TextStyle(),textAlign: TextAlign.center,),
                               ],

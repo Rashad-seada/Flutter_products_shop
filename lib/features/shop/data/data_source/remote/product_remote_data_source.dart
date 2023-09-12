@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eng_shop/core/infrastructure/api/api.dart';
+import 'package:eng_shop/features/shop/domain/entity/get_product_images_entity.dart';
 
 import '../../../../../core/config/app_consts.dart';
 import '../../../../../core/error/exception.dart';
@@ -16,6 +17,9 @@ abstract class ProductRemoteDataSource {
   String getProductImageById(int id);
 
   Future<List<ProductEntity>> getProducts(int pageNumber);
+
+  Future<GetProductImagesEntity> getProductImagesById(int id);
+
 
 }
 
@@ -125,14 +129,43 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       String base64String = base64.encode(utf8.encode(jsonString));
 
       Response response = await client.get(
-          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,823, 50,endPoint: "list/",userId:userId),
+          AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,823, 50,endPoint: "list/",userId: userId),
       );
 
       List data = json.decode(response.data);
 
+      print(response.data);
+
       List<ProductEntity> products = data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
 
       return products;
+
+    } catch (e) {
+      throw RemoteDataException();
+    }
+  }
+
+  @override
+  Future<GetProductImagesEntity> getProductImagesById(int id) async {
+    try {
+
+      List<Map<String,dynamic>> srvData = [{
+        "Whr": " AND item_id=$id"
+      }];
+
+
+      String jsonString = json.encode(srvData);
+      String base64String = base64.encode(utf8.encode(jsonString));
+
+      Response response = await client.get(
+        AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String,862, 20,endPoint: "list/",userId: userId),
+      );
+
+      List data = json.decode(response.data);
+
+      print(response.data);
+
+      return GetProductImagesEntity.fromJson(response.data);
 
     } catch (e) {
       throw RemoteDataException();

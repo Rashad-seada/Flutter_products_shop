@@ -100,4 +100,10 @@ abstract class AppImages {
   static const String emptyBox = "images/empty_box.svg";
 
   static const String call = "images/call.svg";
+
+  static const String password2 = "images/password2.svg";
+
+  static const String cash = "images/cash.svg";
+  static const String card = "images/card.svg";
+
 }

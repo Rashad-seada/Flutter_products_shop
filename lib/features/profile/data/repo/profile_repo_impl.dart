@@ -165,7 +165,7 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, List<GetOrderItemsEntity>>> getOrderByState({required int orderState, required int screenCode}) async {
+  Future<Either<Failure, List<GetOrderItemsEntity>>> getOrderByState({required List<int> orderState, required int screenCode}) async {
     try {
       await initRemoteDataSource();
 

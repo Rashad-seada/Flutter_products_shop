@@ -24,6 +24,7 @@ import '../../../../../core/di/app_module.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../auth/domain/usecase/get_user_type_usecase.dart';
 import '../../../../cart/domain/entity/cart_entity.dart';
+import '../../../../payment_methods/views/screens/payment_methods_screen.dart';
 import '../../../domain/entities/billing_address_entity.dart';
 import '../../../domain/usecase/make_order_usecase.dart';
 import '../../screens/order_complete_screen.dart';
@@ -184,7 +185,7 @@ class OrderCubit extends Cubit<OrderState> {
       }
 
 
-      Navigator.push(context, MaterialPageRoute(builder: (_)=> PaymentDetailsScreen(
+      Navigator.push(context, MaterialPageRoute(builder: (_)=> PaymentMethodsScreen(
         totalItemsPrice: context.read<CartCubit>().calculateTotalPrice(),
         products: products,
       )));

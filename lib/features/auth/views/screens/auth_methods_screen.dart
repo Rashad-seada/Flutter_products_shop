@@ -23,7 +23,7 @@ class AuthMethodsScreen extends StatelessWidget {
           body: SizedBox(
             width: 100.w,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: SingleChildScrollView(
                 child: BlocConsumer<AuthMethodsCubit,AuthMethodsState>(
                   listener: (context, state) {},
@@ -90,7 +90,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           label: (state is AuthMethodsFacebookLoading)?
                           CustomProgressIndicator()
                               : facebookButtonLable(),
-                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithFacebookClick(),
+                          onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithFacebookClick(context),
                         ),
 
 

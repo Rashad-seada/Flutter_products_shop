@@ -30,7 +30,7 @@ class PasswordResetScreen extends StatelessWidget {
         body: SizedBox(
           width: 100.w,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            padding: EdgeInsets.symmetric(horizontal: 7.w),
             child: SingleChildScrollView(
               child: BlocConsumer<ResetPasswordCubit,ResetPasswordState>(
                 listener: (context, state) {
@@ -47,7 +47,7 @@ class PasswordResetScreen extends StatelessWidget {
                     children: [
 
 
-                      Space(height: 5.h,),
+                      Space(height: 4.h,),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -64,8 +64,6 @@ class PasswordResetScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(LocaleKeys.reset_password.tr(), style: AppTheme.heading2TextStyle(),),
-
-                          Space(height: 1.h,),
 
                           Text((method == ResetMethod.email)? LocaleKeys.reset_password_email_sub_title.tr() : LocaleKeys.reset_password_phone_sub_title.tr(), style: AppTheme.textMTextStyle(),),
                         ],
@@ -96,7 +94,7 @@ class PasswordResetScreen extends StatelessWidget {
                       MainButton(
                         width: 100.w,
                         height: 7.h,
-                        label: (state is ResetPasswordLoading)? CustomProgressIndicator() :Text(LocaleKeys.reset_password.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                        label: (state is ResetPasswordLoading)? CustomProgressIndicator(color:AppTheme.neutral100) :Text(LocaleKeys.reset_password.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                         onTap: ()=> context.read<ResetPasswordCubit>().onResetPasswordClick(context),
                       ),
 

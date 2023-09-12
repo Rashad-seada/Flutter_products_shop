@@ -16,7 +16,7 @@ import '../components/me/orders_section.dart';
 
 class OrderStatusScreen extends StatefulWidget {
   String label;
-  int orderStatus;
+  List<int> orderStatus;
   
   
   OrderStatusScreen({
@@ -47,7 +47,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                 body: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
                   child: ListView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
 
                     shrinkWrap: true,
                     children: [
@@ -73,12 +73,12 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
 
                       (state is OrderStatusFailure)?
                       ErrorMessage(message: OrderStatusFailure.myError.message,) :
-                      SizedBox() ,
+                      const SizedBox() ,
 
 
                       (state is OrderStatusLoading)?
                       CustomProgressIndicator() :
-                      SizedBox(),
+                      const SizedBox(),
 
                       (OrderStatusSuccess.orders.isEmpty &&  state is! OrderStatusLoading && state is! OrderStatusFailure)?
                       Center(
@@ -102,7 +102,7 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                           ],
                         ),
                       ) :
-                      SizedBox(),
+                      const SizedBox(),
 
                       Space(height: 10.h,),
 

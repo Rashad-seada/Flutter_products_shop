@@ -15,7 +15,7 @@ abstract class ProfileRemoteDataSource {
 
   Future<ProfileEntity> getProfile({required int id,required String email,required String password});
 
-  Future<List<GetOrderItemsEntity>> getOrdersByState({required int orderState});
+  Future<List<GetOrderItemsEntity>> getOrdersByState({required List<int> orderState});
 
   Future<UpdateProfileEntity> updateProfile({required int id,String? name,String? email,String? mobile });
 
@@ -136,10 +136,31 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   @override
-  Future<List<GetOrderItemsEntity>> getOrdersByState({required int orderState}) async {
+  Future<List<GetOrderItemsEntity>> getOrdersByState({required List<int> orderState}) async {
+
+    String stateIds = "";
+
+    for(int i = 0 ; i < orderState.length ; ++i){
+      if(i == 0){
+        stateIds += "(";
+      }
+
+      stateIds += "${orderState[i]}";
+
+
+      if(i == orderState.length -1){
+        stateIds += ")";
+      }else {
+        stateIds += ",";
+      }
+
+    }
+
+    print(stateIds);
+
     try {
       List<Map<String,dynamic>> srvData = [{
-          "Whr":" AND userid =$userId",
+          "Whr":" AND userid =$userId AND state_id in$stateIds",
           "Pgsize" : "1000",
 
     }];
@@ -152,8 +173,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       Response response = await client.get(
         AppConsts.baseUrl(domain,serviceEmail,servicePassword,base64String, 839,50,userId: userId,endPoint: "list/"),
       );
-
-      print(response.data);
 
       List data = json.decode(response.data);
 

@@ -143,5 +143,6 @@ abstract class  LocaleKeys {
   static const area_validate_message = 'area_validate_message';
   static const city_validate_message = 'city_validate_message';
   static const suggested = 'suggested';
+  static const payment_methods = 'payment_methods';
 
 }

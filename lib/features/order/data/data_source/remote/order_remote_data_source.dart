@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:eng_shop/features/cart/domain/entity/cart_entity.dart';
-import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../core/config/app_consts.dart';

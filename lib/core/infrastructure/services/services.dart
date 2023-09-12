@@ -1,4 +1,5 @@
 
+import 'package:eng_shop/core/infrastructure/services/facebook_service.dart';
 import 'package:eng_shop/core/infrastructure/services/permission_service.dart';
 
 import 'camera_service.dart';
@@ -12,6 +13,8 @@ class Services {
   final NetworkService networkService = NetworkServiceImpl();
 
   final GoogleService googleService = GoogleService();
+
+  final FacebookService facebookService = FacebookService();
 
   final CameraService cameraService = CameraService();
 

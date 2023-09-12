@@ -7,6 +7,7 @@ import 'package:eng_shop/features/auth/views/bloc/auth_methods/auth_methods_cubi
 import 'package:eng_shop/features/auth/views/bloc/registration/registration_cubit.dart';
 import 'package:eng_shop/features/auth/views/bloc/reset_password/reset_password_cubit.dart';
 import 'package:eng_shop/features/favorites/view/bloc/favorite/favorite_cubit.dart';
+import 'package:eng_shop/features/payment_methods/views/bloc/payment_methods/payment_methods_cubit.dart';
 import 'package:eng_shop/features/profile/views/bloc/order_status/order_status_cubit.dart';
 import 'package:eng_shop/features/settings/view/bloc/settings/settings_cubit.dart';
 import 'package:flutter/material.dart';
@@ -91,11 +92,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> FavoriteCubit()),
 
         BlocProvider(create: (_)=> OrderStatusCubit()),
+        BlocProvider(create: (_)=> PaymentMethodsCubit()),
 
       ],
       child: Sizer(
         builder: (BuildContext context, Orientation orientation, deviceType) {
           return MaterialApp(
+            title: 'Eng Shop',
+
             builder: DevicePreview.appBuilder,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,

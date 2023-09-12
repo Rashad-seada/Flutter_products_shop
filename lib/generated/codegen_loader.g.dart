@@ -156,7 +156,8 @@ class CodegenLoader extends AssetLoader{
   "country_validate_message": "من فضلك اختر دوله",
   "area_validate_message": "من فضلك اختر منطقه",
   "city_validate_message": "من فضلك اختر مدينه",
-  "suggested": "المقترحات"
+  "suggested": "المقترحات",
+  "payment_methods": "طرق الدفع"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -299,7 +300,77 @@ static const Map<String,dynamic> en = {
   "country_validate_message": "please Select a country",
   "area_validate_message": "please Select an area",
   "city_validate_message": "please Select a city",
-  "suggested": "suggested"
+  "suggested": "suggested",
+  "payment_methods": "Payment methods"
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
+static const Map<String,dynamic> product_details = {
+  "price": 650,
+  "name": "t-shirt",
+  "description": "a classic men t-shirt for all ages ",
+  "additional_info": "a classic men t-shirt for all ages ",
+  "rating": 4.5,
+  "sold_units": 295,
+  "images": [
+    "image1.com",
+    "image2.com",
+    "image3.com"
+  ],
+  "variants": [
+    {
+      "variants_category_name": "Size",
+      "variants": [
+        {
+          "variants_name": "S",
+          "variants_img": null
+        },
+        {
+          "variants_name": "M",
+          "variants_img": null
+        },
+        {
+          "variants_name": "XXL",
+          "variants_img": null
+        }
+      ]
+    },
+    {
+      "variants_category_name": "Color",
+      "variants": [
+        {
+          "variants_name": "red",
+          "variants_img": "image.com"
+        },
+        {
+          "variants_name": "blue",
+          "variants_img": "image.com"
+        },
+        {
+          "variants_name": "yellow",
+          "variants_img": "image.com"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "review_id": 1,
+      "user_name": "rashad",
+      "rating": 2.5,
+      "review": "the product is not good"
+    },
+    {
+      "review_id": 2,
+      "user_name": "mohammed",
+      "rating": 5,
+      "review": "I loved this product"
+    },
+    {
+      "review_id": 3,
+      "user_name": "rashad",
+      "rating": 4.5,
+      "review": "the coton was to soft"
+    }
+  ]
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en, "product_details": product_details};
 }

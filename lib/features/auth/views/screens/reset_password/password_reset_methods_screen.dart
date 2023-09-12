@@ -26,7 +26,7 @@ class PasswordResetMethodsScreen extends StatelessWidget {
       body: SizedBox(
         width: 100.w,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 7.w),
           child: SingleChildScrollView(
             child: BlocConsumer<ResetPasswordCubit,ResetPasswordState>(
               listener: (context, state) {
@@ -42,7 +42,7 @@ class PasswordResetMethodsScreen extends StatelessWidget {
                 return Column(
                           children: [
 
-                            Space(height: 5.h,),
+                            Space(height: 4.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -53,7 +53,7 @@ class PasswordResetMethodsScreen extends StatelessWidget {
                             ),
                             Space(height: 5.h,),
 
-                            SvgPicture.asset(AppImages.forgotPassword,width: 100.w,height: 16.h,),
+                            SvgPicture.asset(AppImages.password2,width: 100.w,height: 16.h,),
                             Space(height: 5.h,),
 
                             Row(
@@ -62,8 +62,6 @@ class PasswordResetMethodsScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(LocaleKeys.reset_password.tr(), style: AppTheme.heading2TextStyle(),),
-
-                                    Space(height: 1.h,),
 
                                     Text(LocaleKeys.reset_password_method.tr(), style: AppTheme.textMTextStyle(),),
                                   ],
