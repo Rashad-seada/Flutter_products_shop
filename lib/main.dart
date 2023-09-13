@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
 
         //main feature
         BlocProvider(create: (_)=> HomeCubit()),
-        BlocProvider(create: (_)=> HomeCustomerCubit()),
+        BlocProvider(create: (_)=> HomeCustomerCubit(context)),
         BlocProvider(create: (_)=> HomeAdminCubit()),
         BlocProvider(create: (_)=> LanguageCubit()),
         BlocProvider(create: (_)=> ServiceProviderCubit()),

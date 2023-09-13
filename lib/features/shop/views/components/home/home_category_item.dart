@@ -71,7 +71,7 @@ class HomeCategoryItem extends StatelessWidget {
 
             Space(height: .5.h,),
 
-            Text(categoryEntity.etxt!,style: AppTheme.textSTextStyle(color: AppTheme.neutral900),maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,)
+            Text(categoryEntity.etxt!,style: AppTheme.textS2TextStyle(color: AppTheme.neutral900),maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,)
           ],
         ),
       ),

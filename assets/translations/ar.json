@@ -170,5 +170,14 @@
 
   "suggested": "المقترحات",
 
-  "payment_methods": "طرق الدفع"
+  "payment_methods": "طرق الدفع",
+  "payment_methods_sub_text": "من فضلك اخر طريقه دفع",
+
+  "cash": "نقدا",
+  "cash_sub_text": "الدفع عن الاستلام",
+
+  "card": "الكرت",
+  "card_sub_text": "الدفع اونلاين عن طريق بطاقه الشراء",
+
+  "payment_methods_hint": "من فضلك اختر احد طرق الدفع المتوفره"
 }

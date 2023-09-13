@@ -144,5 +144,11 @@ abstract class  LocaleKeys {
   static const city_validate_message = 'city_validate_message';
   static const suggested = 'suggested';
   static const payment_methods = 'payment_methods';
+  static const payment_methods_sub_text = 'payment_methods_sub_text';
+  static const cash = 'cash';
+  static const cash_sub_text = 'cash_sub_text';
+  static const card = 'card';
+  static const card_sub_text = 'card_sub_text';
+  static const payment_methods_hint = 'payment_methods_hint';
 
 }

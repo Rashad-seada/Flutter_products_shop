@@ -54,7 +54,7 @@ class PaymentDetailsScreen extends StatelessWidget {
 
                           ],
                         ),
-                        Space(height: 6.h,),
+                        Space(height: 2.h,),
 
                         Row(
                           children: [
@@ -86,16 +86,9 @@ class PaymentDetailsScreen extends StatelessWidget {
                           discounts: 0,
                         ),
 
-                        Space(height: 2.h,),
+                        Space(height: 4.h,),
 
 
-                        MainButton(
-                          height: 7.h,
-                          label: state is OrderLoading ? CustomProgressIndicator(color: AppTheme.neutral100,) : Text(LocaleKeys.confirm.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
-                          onTap: ()=> context.read<OrderCubit>().confirm(context,products,totalItemsPrice.toString()),
-                        ),
-
-                        Space(height: 2.h,),
 
 
                       ],
@@ -103,6 +96,15 @@ class PaymentDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              bottomNavigationBar: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 2.5.h),
+                child: MainButton(
+                  height: 7.h,
+                  label: state is OrderLoading ? CustomProgressIndicator(color: AppTheme.neutral100,) : Text(LocaleKeys.confirm.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                  onTap: ()=> context.read<OrderCubit>().confirm(context,products,totalItemsPrice.toString()),
+                ),
+              ),
+
             );
           },
         ));

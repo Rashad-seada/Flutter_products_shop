@@ -26,6 +26,8 @@ import '../components/home/home_categories_section_place_holder.dart';
 import '../components/home/products_place_holder_section.dart';
 
 class CustomerHomePage extends StatefulWidget {
+
+
   const CustomerHomePage({super.key});
 
   @override
@@ -34,17 +36,10 @@ class CustomerHomePage extends StatefulWidget {
 
 class _CustomerHomePageState extends State<CustomerHomePage> {
 
-
   @override
-  void initState() {
+  void didChangeDependencies() {
     context.read<HomeCustomerCubit>().pageNumber = 1;
-
-    context.read<CartCubit>().getCart();
-    context.read<FavoriteCubit>().getFavorites();
-    context.read<HomeCustomerCubit>().getProducts();
-    context.read<HomeCustomerCubit>().getAllCategories();
-
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -124,8 +119,8 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
 
                     (!context.read<HomeCustomerCubit>().isCategoriesLoading)?
                     HomeCategoriesSection(
-                      categories: HomeCustomerSuccess.categories,
-                      onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context)
+                        categories: HomeCustomerSuccess.categories,
+                        onSubCategoryItemTap: (index,_)=> context.read<CategoriesCubit>().onSubCategoryTap(index,_,context)
                     ): const SizedBox(),
 
 
@@ -168,8 +163,9 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
       },
     );
   }
-
 }
+
+
 
 
 

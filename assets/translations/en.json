@@ -167,6 +167,15 @@
 
   "suggested": "suggested",
 
-  "payment_methods": "Payment methods"
+  "payment_methods": "Payment methods",
+  "payment_methods_sub_text": "Please select a payment method",
+
+  "cash": "Cash",
+  "cash_sub_text": "Pay on delivery",
+
+  "card": "Card",
+  "card_sub_text": "Pay online with your card",
+  "payment_methods_hint": "please select one of the available payment methods"
+
 
 }

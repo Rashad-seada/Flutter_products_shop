@@ -8,3 +8,23 @@ class PaymentMethodsInitial extends PaymentMethodsState {
   @override
   List<Object> get props => [];
 }
+
+class PaymentMethodsLoading extends PaymentMethodsState {
+  @override
+  List<Object> get props => [];
+}
+
+class PaymentMethodsSuccess extends PaymentMethodsState {
+  @override
+  List<Object> get props => [];
+}
+
+class PaymentMethodsFailure extends PaymentMethodsState {
+  @override
+  List<Object> get props => [];
+}
+
+class PaymentMethodsSelect extends PaymentMethodsState {
+  @override
+  List<Object> get props => [];
+}

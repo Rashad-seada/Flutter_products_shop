@@ -162,7 +162,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
                               color: AppTheme.neutral200,
                               borderRadius: BorderRadius.circular(1.w)
                           ),
-                          child: Text("4075 Sold",style: AppTheme.textSTextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                          child: Text("4075 Sold",style: AppTheme.textS2TextStyle(color: AppTheme.neutral500),maxLines: 2,overflow: TextOverflow.ellipsis,),
                         ),
 
 

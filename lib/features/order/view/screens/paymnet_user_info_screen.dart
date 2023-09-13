@@ -113,15 +113,18 @@ class _PaymentUserInfoScreenState extends State<PaymentUserInfoScreen> {
 
 
 
-                      MainButton(
-                        height: 7.h,
-                        label: Text(LocaleKeys.next.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
-                        onTap: ()=> context.read<OrderCubit>().onNextTap(context,CartSuccess.cart.map((e) => e.cartEntity).toList()),
-                      ),
 
-                      Space(height: 5.h,),
+
                     ],
                   ),
+                ),
+              ),
+              bottomNavigationBar: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 2.5.h),
+                child: MainButton(
+                  height: 7.h,
+                  label: Text(LocaleKeys.next.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                  onTap: ()=> context.read<OrderCubit>().onNextTap(context,CartSuccess.cart.map((e) => e.cartEntity).toList()),
                 ),
               ),
             );

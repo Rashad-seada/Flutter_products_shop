@@ -106,4 +106,11 @@ abstract class AppImages {
   static const String cash = "images/cash.svg";
   static const String card = "images/card.svg";
 
+
+  static const String mastercard = "images/card.png";
+  static const String visa = "images/visa.png";
+  static const String byHand = "images/by_hand.png";
+
+  static const String money = "images/money.png";
+
 }

@@ -157,7 +157,13 @@ class CodegenLoader extends AssetLoader{
   "area_validate_message": "من فضلك اختر منطقه",
   "city_validate_message": "من فضلك اختر مدينه",
   "suggested": "المقترحات",
-  "payment_methods": "طرق الدفع"
+  "payment_methods": "طرق الدفع",
+  "payment_methods_sub_text": "من فضلك اخر طريقه دفع",
+  "cash": "نقدا",
+  "cash_sub_text": "الدفع عن الاستلام",
+  "card": "الكرت",
+  "card_sub_text": "الدفع اونلاين عن طريق بطاقه الشراء",
+  "payment_methods_hint": "من فضلك اختر احد طرق الدفع المتوفره"
 };
 static const Map<String,dynamic> en = {
   "login": "Login",
@@ -301,7 +307,13 @@ static const Map<String,dynamic> en = {
   "area_validate_message": "please Select an area",
   "city_validate_message": "please Select a city",
   "suggested": "suggested",
-  "payment_methods": "Payment methods"
+  "payment_methods": "Payment methods",
+  "payment_methods_sub_text": "Please select a payment method",
+  "cash": "Cash",
+  "cash_sub_text": "Pay on delivery",
+  "card": "Card",
+  "card_sub_text": "Pay online with your card",
+  "payment_methods_hint": "please select one of the available payment methods"
 };
 static const Map<String,dynamic> product_details = {
   "price": 650,

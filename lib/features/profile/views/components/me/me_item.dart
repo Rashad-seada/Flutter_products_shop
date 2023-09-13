@@ -33,7 +33,7 @@ class MeItem extends StatelessWidget {
                 height: 1.h,
               ),
 
-              Text(meEntity.label,style: AppTheme.textSTextStyle(),maxLines: 2,textAlign: TextAlign.center,)
+              Text(meEntity.label,style: AppTheme.textS2TextStyle(),maxLines: 2,textAlign: TextAlign.center,)
 
             ],
           ),

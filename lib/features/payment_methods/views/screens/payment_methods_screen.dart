@@ -10,6 +10,7 @@ import '../../../../core/views/widgets/main_button.dart';
 import '../../../../core/views/widgets/space.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../cart/domain/entity/cart_entity.dart';
+import '../components/payment_method_section.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
   double totalItemsPrice;
@@ -47,23 +48,56 @@ class PaymentMethodsScreen extends StatelessWidget {
                       ).tr(),
                     ],
                   ),
-                  Space(
-                    height: 2.h,
+
+
+                  Space(height: 2.h,),
+
+
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+
+                          Text(LocaleKeys.payment_methods_sub_text.tr(),
+                            style: AppTheme.textL2TextStyle(color: AppTheme.neutral400),),
+                          Space(height: 1.h,),
+
+                        ],
+                      ),
+                    ],
                   ),
-                  MainButton(
-                    height: 7.h,
-                    label: Text(
-                      LocaleKeys.next.tr(),
-                      style:
-                          AppTheme.textL2TextStyle(color: AppTheme.neutral100),
-                    ),
-                    onTap: () => context.read<PaymentMethodsCubit>().onNextTap(context),
+                  Space(height: 0.5.h,),
+
+
+
+
+                  PaymentMethodSection(
+                    paymentMethods: context.read<PaymentMethodsCubit>().paymentMethods,
+                    selectedIndex: context.read<PaymentMethodsCubit>().selectedIndex,
+                    onTap: (_)=> context.read<PaymentMethodsCubit>().onMethodTap(_),
                   ),
-                  Space(
-                    height: 5.h,
-                  ),
+
+
+
+
+
+
                 ],
               ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 2.5.h),
+            child: MainButton(
+              height: 7.h,
+              label: Text(
+                LocaleKeys.next.tr(),
+                style:
+                AppTheme.textL2TextStyle(color: AppTheme.neutral100),
+              ),
+              onTap: () => context.read<PaymentMethodsCubit>().onNextTap(context),
             ),
           ),
         );

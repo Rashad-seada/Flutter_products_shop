@@ -45,6 +45,7 @@ class OrderCubit extends Cubit<OrderState> {
                 areaId = billingAddress!.areaId;
                 cityId = billingAddress!.cityId;
                 addressController.text = billingAddress!.address;
+                phoneController.text = billingAddress!.phone;
                 phoneNumber = billingAddress!.phone;
 
                 await getCountries(context,selectCounty: true);

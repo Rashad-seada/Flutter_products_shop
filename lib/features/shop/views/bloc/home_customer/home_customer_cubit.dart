@@ -13,8 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/failure.dart';
 import '../../../../../generated/locale_keys.g.dart';
+import '../../../../cart/view/bloc/cart/cart_cubit.dart';
 import '../../../../categories/domain/entities/category_entity.dart';
 import '../../../../categories/domain/usecase/get_all_categories_usecase.dart';
+import '../../../../favorites/view/bloc/favorite/favorite_cubit.dart';
 import '../../../../profile/views/components/diaglog.dart';
 import '../../../../search/views/screens/search_screen.dart';
 import '../../../../settings/data/data_source/local/settings_local_data_source.dart';
@@ -39,9 +41,12 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
   bool isCategoriesLoading = false;
 
 
-  HomeCustomerCubit() : super(HomeCustomerInitial()){
+  HomeCustomerCubit(BuildContext context) : super(HomeCustomerInitial()){
     scrollController = ScrollController();
     scrollController.addListener(()=> _listener());
+
+    getProducts();
+    getAllCategories();
   }
 
   ScrollController scrollController = ScrollController();
@@ -82,6 +87,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
 
   Future<void> getProducts({bool refresh = false}) async {
     isRecommendedLoading = true;
+    pageNumber = HomeCustomerSuccess.products.length ~/ 10 + 1 ;
 
     emit(HomeCustomerIsLoading());
 
@@ -100,7 +106,6 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
           emit(HomeCustomerSuccess());
           HomeCustomerSuccess.products = success;
           emit(HomeCustomerInitial());
-          pageNumber = HomeCustomerSuccess.products.length ~/ 10 + 1 ;
 
         }
       )
