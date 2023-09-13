@@ -10,6 +10,13 @@ class OrderInitial extends OrderState {
 }
 
 class OrderFailure extends OrderState {
+
+  static Failure myError = Failure("", screenCode: 0, exceptionCode: 0, customCode: 0);
+
+  OrderFailure(Failure error){
+    myError = error;
+  }
+
   @override
   List<Object> get props => [];
 }

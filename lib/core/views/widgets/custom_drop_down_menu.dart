@@ -15,7 +15,7 @@ class CustomDropDownButton<T> extends StatelessWidget {
     super.key,
     this.value,
     this.onChanged,
-    required this.items,
+    this.items = const [],
     this.hint,
     this.suffixIcon,
     this.borderRadius =  const BorderRadius.all(Radius.circular(100000)),

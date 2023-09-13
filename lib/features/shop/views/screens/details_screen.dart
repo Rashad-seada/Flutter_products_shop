@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eng_shop/core/views/widgets/custom_back_button.dart';
 import 'package:eng_shop/core/views/widgets/custom_shimmer.dart';
 import 'package:eng_shop/features/shop/domain/entity/product_entity.dart';
+import 'package:eng_shop/features/shop/views/bloc/details/details_cubit.dart';
 import 'package:eng_shop/features/shop/views/bloc/home_customer/home_customer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,14 +27,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void initState() {
-    context.read<HomeCustomerCubit>().getProductById(widget.productId);
+    print(widget.productId);
+    context.read<DetailsCubit>().getProductById(widget.productId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: BlocConsumer<HomeCustomerCubit,HomeCustomerState>(
+        child: BlocConsumer<DetailsCubit,DetailsState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

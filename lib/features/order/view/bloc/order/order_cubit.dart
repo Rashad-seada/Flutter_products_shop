@@ -21,6 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../../../core/di/app_module.dart';
+import '../../../../../core/error/failure.dart';
 import '../../../../../core/views/widgets/custom_flushbar.dart';
 import '../../../../auth/domain/usecase/get_user_type_usecase.dart';
 import '../../../../cart/domain/entity/cart_entity.dart';
@@ -28,7 +29,6 @@ import '../../../../payment_methods/views/screens/payment_methods_screen.dart';
 import '../../../domain/entities/billing_address_entity.dart';
 import '../../../domain/usecase/make_order_usecase.dart';
 import '../../screens/order_complete_screen.dart';
-import '../../screens/payment_datails_screen.dart';
 
 part 'order_state.dart';
 
@@ -223,7 +223,7 @@ class OrderCubit extends Cubit<OrderState> {
         screenCode: AppConsts.billingAddressScreen
     )).then((value) => value.fold(
         (error) {
-          emit(OrderFailure());
+          emit(OrderFailure(error));
           CustomFlushBar(
               title: "Error",
               message: error.message,
@@ -256,7 +256,7 @@ class OrderCubit extends Cubit<OrderState> {
         screenCode: AppConsts.billingAddressScreen,
     )).then((value) => value.fold(
             (error) {
-              emit(OrderFailure());
+              emit(OrderFailure(error));
               CustomFlushBar(
                   title: "Error",
                   message: error.message.toString(),
@@ -285,13 +285,9 @@ class OrderCubit extends Cubit<OrderState> {
 
       (value) => value.fold(
         (error) {
-          emit(OrderFailure());
+          emit(OrderFailure(error));
           isCountriesLoading = false;
-          CustomFlushBar(
-              title: "Error",
-              message: error.message.toString(),
-              context: context
-          );
+
         },
         (success) {
           isCountriesLoading = false;
@@ -314,14 +310,10 @@ class OrderCubit extends Cubit<OrderState> {
     await getIt<GetRegionsUsecase>().call(GetRegionsParams(screenCode: AppConsts.billingAddressScreen, countryId: countryId)).then(
             (value) => value.fold(
                 (error) {
-                  emit(OrderFailure());
+                  emit(OrderFailure(error));
                   isAreasLoading = false;
 
-                  CustomFlushBar(
-                  title: "Error",
-                  message: error.message.toString(),
-                  context: context
-              );
+
             },
                 (success) {
                   OrderSuccess.regions = success;
@@ -343,13 +335,9 @@ class OrderCubit extends Cubit<OrderState> {
     await getIt<GetCitiesUsecase>().call(GetCitiesParams(screenCode: AppConsts.billingAddressScreen, regionsId: regionsId)).then(
             (value) => value.fold(
                 (error) {
-                  emit(OrderFailure());
+                  emit(OrderFailure(error));
                   isCitiesLoading = false;
-                  CustomFlushBar(
-                  title: "Error",
-                  message: error.message.toString(),
-                  context: context
-              );
+
             },
                 (success) {
                   OrderSuccess.cities = success;
@@ -378,17 +366,12 @@ class OrderCubit extends Cubit<OrderState> {
     await getIt<GetBillingAddressUsecase>().call(GetBillingAddressParams(AppConsts.billingAddressScreen)).then(
             (value) => value.fold(
                     (error) {
-                      emit(OrderFailure());
-                      print("getBillingAddress error");
-
+                      emit(OrderFailure(error));
                       emit(OrderInitial());
                     },
                     (success) {
                       emit(OrderSuccess());
-
                       billingAddress = success;
-
-                      print("getBillingAddress success");
                       emit(OrderInitial());
                     },
             )
@@ -400,9 +383,8 @@ class OrderCubit extends Cubit<OrderState> {
     getIt<PutBillingAddressUsecase>().call(PutBillingAddressParams(billingAddressEntity: billingAddressEntity, screenCode: AppConsts.billingAddressScreen)).then(
             (value) => value.fold(
                     (error) {
-                      emit(OrderFailure());
+                      emit(OrderFailure(error));
                       emit(OrderInitial());
-                      print("putPillingAddress ${error.message}");
 
                     },
                     (success) {
