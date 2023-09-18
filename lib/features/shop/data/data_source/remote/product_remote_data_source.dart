@@ -51,7 +51,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
       List data = json.decode(response.data);
 
-      return data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
+      return data.map((e) => ProductEntity.fromJson(e)).toList();
 
     } catch (e) {
       throw RemoteDataException();
@@ -103,7 +103,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       List data = json.decode(response.data);
 
 
-      return data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
+      return data.map((e) => ProductEntity.fromJson(e)).toList();
 
     } catch (e) {
       throw RemoteDataException();
@@ -136,11 +136,12 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
       print(response.data);
 
-      List<ProductEntity> products = data.map((e) => ProductEntity.fromJson(e,response.statusCode!)).toList();
+      List<ProductEntity> products = data.map((e) => ProductEntity.fromJson(e)).toList();
 
       return products;
 
     } catch (e) {
+      print(e);
       throw RemoteDataException();
     }
   }

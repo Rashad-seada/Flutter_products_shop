@@ -94,7 +94,7 @@ class CartItem extends StatelessWidget {
 
                         Expanded(
                           child: Text(
-                            "${cartResponse.productEntity.etxt}",
+                            "${getIt<LocaleService>().isArabic(context)? cartResponse.productEntity.atxt : cartResponse.productEntity.etxt}",
                             style: AppTheme.textL2TextStyle(),maxLines: 1,overflow: TextOverflow.ellipsis,),
                         ),
 
@@ -129,8 +129,8 @@ class CartItem extends StatelessWidget {
                               onTap: onDecrementTap,
                               child: Container(
                                 alignment: Alignment.center,
-                                width: 7.w,
-                                height: 7.w,
+                                width: 9.w,
+                                height: 9.w,
                                 clipBehavior: Clip.hardEdge,
                                 decoration:  BoxDecoration(
                                   borderRadius: BorderRadius.only(
@@ -157,8 +157,8 @@ class CartItem extends StatelessWidget {
                               onTap: onIncrementTap,
                               child: Container(
                                 alignment: Alignment.center,
-                                width: 7.w,
-                                height: 7.w,
+                                width: 9.w,
+                                height: 9.w,
                                 clipBehavior: Clip.hardEdge,
                                 decoration: BoxDecoration(
                                   color: AppTheme.primary900,

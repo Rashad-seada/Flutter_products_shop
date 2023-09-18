@@ -10,4 +10,11 @@ class LocaleService {
     return true;
   }
 
+  bool isArabic(BuildContext context){
+    if (context.locale.toLanguageTag() == "ar"){
+      return true;
+    }
+    return false;
+  }
+
 }

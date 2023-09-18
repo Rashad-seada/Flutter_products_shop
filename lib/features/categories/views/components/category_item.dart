@@ -3,6 +3,8 @@ import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../core/di/app_module.dart';
+import '../../../../core/infrastructure/services/locale_service.dart';
 import '../../domain/entities/category_entity.dart';
 
 
@@ -58,7 +60,7 @@ class _CategoryItemState extends State<CategoryItem> {
 
 
 
-            Expanded(child: Text(widget.categoryEntity.etxt! ,style: AppTheme.textMTextStyle(color: (widget.isSelected)? AppTheme.primary900 : AppTheme.neutral900,))),
+            Expanded(child:  Text("${getIt<LocaleService>().isArabic(context)? widget.categoryEntity.atxt :widget.categoryEntity.etxt}" ,style: AppTheme.textMTextStyle(color: (widget.isSelected)? AppTheme.primary900 : AppTheme.neutral900,))),
           ],
         ),
       ),

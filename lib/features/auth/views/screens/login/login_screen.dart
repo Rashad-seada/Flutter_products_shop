@@ -138,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                         MainButton(
                           width: 100.w,
                           height: 7.h,
-                          label: (state is LoginLoading)? CustomProgressIndicator(color: AppTheme.neutral900,) :Text(LocaleKeys.login.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
+                          label: (state is LoginLoading)? CustomProgressIndicator(color: AppTheme.neutral100,) :Text(LocaleKeys.login.tr(),style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),),
                           onTap: ()=> context.read<LoginCubit>().onLoginClick(context),
                         )
 

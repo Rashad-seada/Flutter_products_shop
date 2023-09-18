@@ -14,7 +14,7 @@ class HomeCategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 21.h,
+      height: 22.h,
       child: GridView.builder(
 
         scrollDirection: Axis.horizontal,

@@ -55,11 +55,7 @@ class SearchRepoImpl implements SearchRepo {
 
       List<ProductEntity> productEntity = await remoteDataSource.searchProducts(searchTerm);
 
-      if(productEntity.isNotEmpty){
-        if(productEntity[0].statusCode != 200) {
-          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-        }
-      }
+
 
       return right(productEntity);
 
@@ -148,11 +144,6 @@ class SearchRepoImpl implements SearchRepo {
 
       List<ProductEntity> productEntity = await remoteDataSource.searchProducts(searchTerm);
 
-      if(productEntity.isNotEmpty){
-        if(productEntity[0].statusCode != 200) {
-          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-        }
-      }
 
       return right(productEntity);
 

@@ -37,7 +37,7 @@ class ApiImpl implements Api {
     return await client.get(
       baseUrl,
       options: Options(
-          receiveDataWhenStatusError: true,
+          receiveDataWhenStatusError: false,
           followRedirects: false,
           validateStatus: (status)=> true,
           receiveTimeout: const Duration(minutes: 15)

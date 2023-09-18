@@ -31,9 +31,12 @@ abstract class AppConsts {
 
   static String baseUrl(String domain,String serviceEmail,String servicePassword,String serData,int fid,int serCode,{String endPoint = "",int userId = 1}) => "$domain/SRV/$endPoint?srv_code=$serCode&fid=$fid&userid=$userId&upass=$servicePassword&uname=$serviceEmail&SRV_DATA=$serData";
   static String baseProductImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/thums/t${productId}_29.jpg";
-  static String baseCategoryImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/750/images/org/${productId}_29.jpg";
+  static String baseBigProductImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/751/images/org/${productId}_29.jpg";
+
+  static String baseCategoryImageUrl(String domain,String productId) => "$domain/files/ENG_STORES/mdata/750/images/org/${productId}_12.jpg";
 
 
+  //http://ksa.engqr.com/files/ENG_STORES/mdata/750/images/org/17_12.jpg
   //Screens code
   static int get introScreen => 000;
   static int get authMethodScreen => 100;

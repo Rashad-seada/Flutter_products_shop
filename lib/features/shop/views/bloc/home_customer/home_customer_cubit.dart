@@ -104,7 +104,7 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
           isRecommendedLoading = false;
 
           emit(HomeCustomerSuccess());
-          HomeCustomerSuccess.products = success;
+          HomeCustomerSuccess.products.addAll(success) ;
           emit(HomeCustomerInitial());
 
         }
@@ -155,7 +155,9 @@ class HomeCustomerCubit extends Cubit<HomeCustomerState> {
 
   Future<String> getImage(int id) async {
     String? domain = await getIt<SettingsLocalDataSource>().getServiceProviderDomain();
-    String? url = AppConsts.baseProductImageUrl(domain!, "$id");
+    String? url = AppConsts.baseBigProductImageUrl(domain!, "$id");
+
+    print(url);
     return url;
   }
 

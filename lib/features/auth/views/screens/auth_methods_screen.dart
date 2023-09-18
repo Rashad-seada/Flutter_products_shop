@@ -88,7 +88,7 @@ class AuthMethodsScreen extends StatelessWidget {
                           color: AppTheme.neutral100,
                           width: 100.w,height: 7.h,
                           label: (state is AuthMethodsFacebookLoading)?
-                          CustomProgressIndicator()
+                          CustomProgressIndicator(color: AppTheme.neutral100)
                               : facebookButtonLable(),
                           onTap: ()=> context.read<AuthMethodsCubit>().onRegisterWithFacebookClick(context),
                         ),

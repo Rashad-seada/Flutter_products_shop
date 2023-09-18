@@ -93,7 +93,7 @@ abstract class AppTheme {
     // Button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: primary900,  // Default button color
+        backgroundColor: primary900,
       ),
     ),
 

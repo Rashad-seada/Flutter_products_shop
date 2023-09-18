@@ -40,6 +40,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
       return await database.productDao.getProducts();
 
     } catch (e) {
+      print(e);
       throw LocalDataException();
     }
   }

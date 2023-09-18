@@ -4,7 +4,6 @@ import 'package:floor/floor.dart';
 @Entity(tableName: "ProductFavoriteEntity")
 class ProductFavoriteEntity extends ProductEntity {
   ProductFavoriteEntity({
-    int? statusCode,
     int? id,
     int? fdate,
     int? hfdate,
@@ -56,9 +55,9 @@ class ProductFavoriteEntity extends ProductEntity {
     int? avaPurchasePrice,
     int? priceAddPer,
     int? priceAddValue,
-    int? price,
+    double? price,
     int? discPer,
-    int? discValue,
+    double? discValue,
     int? minPrice,
     int? lastSprice,
     int? lastBprice,
@@ -70,7 +69,7 @@ class ProductFavoriteEntity extends ProductEntity {
     String? img,
     int? salesComm,
     int? visits,
-    int? netPrice,
+    double? netPrice,
     String? adetails,
     String? edetails,
     int? isSerial,
@@ -82,11 +81,10 @@ class ProductFavoriteEntity extends ProductEntity {
     String? barcodesOther,
     int? xtypeId,
     int? countryId,
-    String? codeOrg,
-    String? codesAlter,
+    int? codeOrg,
+    int? codesAlter,
     int? isForsale,
   }) : super(
-    statusCode: statusCode,
     id: id,
     fdate: fdate,
     hfdate: hfdate,

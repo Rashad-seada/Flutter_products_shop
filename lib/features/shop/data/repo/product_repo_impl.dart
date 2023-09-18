@@ -58,9 +58,6 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
-      if(productEntity[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
 
       return right(productEntity);
 
@@ -94,9 +91,7 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 02));
       }
 
-      if(productEntity[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
+
 
       return right(productEntity);
 
@@ -139,13 +134,16 @@ class ProductRepoImpl implements ProductRepo {
       await initRemoteDataSource();
 
       if (await services.networkService.isConnected == false) {
-        List<ProductEntity> productEntity = await localDataSource.getProducts();
+        // List<ProductEntity> productEntity = await localDataSource.getProducts();
+        //
+        // if(productEntity.isEmpty){
+        //   return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
+        // }
+        //
+        // return right(productEntity);
 
-        if(productEntity.isEmpty){
-          return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
-        }
+        return left(ServiceFailure(ErrorMessages.network, screenCode: screenCode, customCode: 01));
 
-        return right(productEntity);
       }
 
 
@@ -155,14 +153,11 @@ class ProductRepoImpl implements ProductRepo {
         return left(RemoteDataFailure(ErrorMessages.emptyListOfProducts, screenCode: screenCode, customCode: 03));
       }
 
-      if(productEntity[0].statusCode != 200) {
-        return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-      }
 
-      await localDataSource.insertAllProduct(productEntity);
+      //await localDataSource.insertAllProduct(productEntity);
 
-      List<ProductEntity> allProducts = await localDataSource.getProducts();
-      return right(allProducts);
+      //List<ProductEntity> allProducts = await localDataSource.getProducts();
+      return right(productEntity);
 
 
     } on RemoteDataException {

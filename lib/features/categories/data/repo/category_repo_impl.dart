@@ -79,12 +79,6 @@ class CategoryRepoImpl implements CategoryRepo {
 
       List<ProductEntity> products = await categoryRemoteDataSource.getCategoryProducts(pageNumber,categoryEntity);
 
-      if(products.isNotEmpty){
-        if(products[0].statusCode != 200) {
-          return left(RemoteDataFailure(ErrorMessages.server, screenCode: screenCode, customCode: 00));
-        }
-      }
-
 
       return right(products);
 

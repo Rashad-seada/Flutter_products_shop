@@ -123,7 +123,7 @@ class _SmallProductItemState extends State<SmallProductItem> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${widget.productEntity.atxt}",style: AppTheme.textMTextStyle(),maxLines:2,overflow: TextOverflow.ellipsis,),
+                    Text("${getIt<LocaleService>().isArabic(context)? widget.productEntity.atxt: widget.productEntity.etxt}",style: AppTheme.textMTextStyle(),maxLines:2,overflow: TextOverflow.ellipsis,),
 
                     Text(
                       "${widget.productEntity.price} KD",

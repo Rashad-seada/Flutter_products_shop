@@ -91,11 +91,11 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ProductEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `ProductEntity` (`id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` REAL, `discPer` INTEGER, `discValue` REAL, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` REAL, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` INTEGER, `codesAlter` INTEGER, `isForsale` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `CartEntity` (`id` INTEGER, `itemId` INTEGER, `unitId` INTEGER, `storeId` INTEGER, `colorId` INTEGER, `sizeId` INTEGER, `quantity` INTEGER, `note` TEXT, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ProductFavoriteEntity` (`statusCode` INTEGER, `id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` INTEGER, `discPer` INTEGER, `discValue` INTEGER, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` INTEGER, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` TEXT, `codesAlter` TEXT, `isForsale` INTEGER, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `ProductFavoriteEntity` (`id` INTEGER, `fdate` INTEGER, `hfdate` INTEGER, `ftime` INTEGER, `fupdate` INTEGER, `hfupdate` INTEGER, `utime` INTEGER, `fdelete` INTEGER, `hfdelete` INTEGER, `dtime` INTEGER, `userid` INTEGER, `updateUserid` INTEGER, `deleteUserid` INTEGER, `flagnet` INTEGER, `categoryId` INTEGER, `branchId` INTEGER, `storeId` INTEGER, `itemId` INTEGER, `barcode` TEXT, `munitId` INTEGER, `unitId` INTEGER, `quantityStart` INTEGER, `buyAlertAmount` INTEGER, `orderQntMin` INTEGER, `quantity` INTEGER, `quantityIn` INTEGER, `lastSellQuantity` INTEGER, `lastPurQuantity` INTEGER, `saleQuantity` INTEGER, `purchaseQuantity` INTEGER, `itemEvalId` INTEGER, `terminalPrinterId` INTEGER, `categoryPrntr` TEXT, `isActive` INTEGER, `isShowPrice` INTEGER, `isDef` INTEGER, `isPublish` INTEGER, `isClose` INTEGER, `isCompound` INTEGER, `isPriceIncludeTax` INTEGER, `isSpecialOffer` INTEGER, `notes` TEXT, `xfile` TEXT, `atxt` TEXT, `etxt` TEXT, `expirDays` INTEGER, `itemLocationId` INTEGER, `locationCode` TEXT, `avaPurchasePrice` INTEGER, `priceAddPer` INTEGER, `priceAddValue` INTEGER, `price` REAL, `discPer` INTEGER, `discValue` REAL, `minPrice` INTEGER, `lastSprice` INTEGER, `lastBprice` INTEGER, `isRetailSale` INTEGER, `setItem` INTEGER, `inUnitId` INTEGER, `quantityUnit` INTEGER, `xgrid` INTEGER, `img` TEXT, `salesComm` INTEGER, `visits` INTEGER, `netPrice` REAL, `adetails` TEXT, `edetails` TEXT, `isSerial` INTEGER, `outId` INTEGER, `isSize` INTEGER, `isColor` INTEGER, `isExpiredDate` INTEGER, `avaStartPrice` INTEGER, `barcodesOther` TEXT, `xtypeId` INTEGER, `countryId` INTEGER, `codeOrg` INTEGER, `codesAlter` INTEGER, `isForsale` INTEGER, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `RecentSearchEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `searchTerm` TEXT NOT NULL)');
 
@@ -136,7 +136,6 @@ class _$ProductDao extends ProductDao {
             database,
             'ProductEntity',
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -223,7 +222,6 @@ class _$ProductDao extends ProductDao {
             'ProductEntity',
             ['id'],
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -310,7 +308,6 @@ class _$ProductDao extends ProductDao {
             'ProductEntity',
             ['id'],
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -410,7 +407,6 @@ class _$ProductDao extends ProductDao {
     return _queryAdapter.queryList('SELECT * FROM ProductEntity',
         mapper: (Map<String, Object?> row) => ProductEntity(
             id: row['id'] as int?,
-            statusCode: row['statusCode'] as int?,
             fdate: row['fdate'] as int?,
             hfdate: row['hfdate'] as int?,
             ftime: row['ftime'] as int?,
@@ -461,9 +457,9 @@ class _$ProductDao extends ProductDao {
             avaPurchasePrice: row['avaPurchasePrice'] as int?,
             priceAddPer: row['priceAddPer'] as int?,
             priceAddValue: row['priceAddValue'] as int?,
-            price: row['price'] as int?,
+            price: row['price'] as double?,
             discPer: row['discPer'] as int?,
-            discValue: row['discValue'] as int?,
+            discValue: row['discValue'] as double?,
             minPrice: row['minPrice'] as int?,
             lastSprice: row['lastSprice'] as int?,
             lastBprice: row['lastBprice'] as int?,
@@ -475,7 +471,7 @@ class _$ProductDao extends ProductDao {
             img: row['img'] as String?,
             salesComm: row['salesComm'] as int?,
             visits: row['visits'] as int?,
-            netPrice: row['netPrice'] as int?,
+            netPrice: row['netPrice'] as double?,
             adetails: row['adetails'] as String?,
             edetails: row['edetails'] as String?,
             isSerial: row['isSerial'] as int?,
@@ -487,8 +483,8 @@ class _$ProductDao extends ProductDao {
             barcodesOther: row['barcodesOther'] as String?,
             xtypeId: row['xtypeId'] as int?,
             countryId: row['countryId'] as int?,
-            codeOrg: row['codeOrg'] as String?,
-            codesAlter: row['codesAlter'] as String?,
+            codeOrg: row['codeOrg'] as int?,
+            codesAlter: row['codesAlter'] as int?,
             isForsale: row['isForsale'] as int?));
   }
 
@@ -653,7 +649,6 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             database,
             'ProductEntity',
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -740,7 +735,6 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             'ProductEntity',
             ['id'],
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -827,7 +821,6 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             'ProductEntity',
             ['id'],
             (ProductEntity item) => <String, Object?>{
-                  'statusCode': item.statusCode,
                   'id': item.id,
                   'fdate': item.fdate,
                   'hfdate': item.hfdate,
@@ -927,7 +920,6 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
     return _queryAdapter.queryList('SELECT * FROM ProductFavoriteEntity',
         mapper: (Map<String, Object?> row) => ProductEntity(
             id: row['id'] as int?,
-            statusCode: row['statusCode'] as int?,
             fdate: row['fdate'] as int?,
             hfdate: row['hfdate'] as int?,
             ftime: row['ftime'] as int?,
@@ -978,9 +970,9 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             avaPurchasePrice: row['avaPurchasePrice'] as int?,
             priceAddPer: row['priceAddPer'] as int?,
             priceAddValue: row['priceAddValue'] as int?,
-            price: row['price'] as int?,
+            price: row['price'] as double?,
             discPer: row['discPer'] as int?,
-            discValue: row['discValue'] as int?,
+            discValue: row['discValue'] as double?,
             minPrice: row['minPrice'] as int?,
             lastSprice: row['lastSprice'] as int?,
             lastBprice: row['lastBprice'] as int?,
@@ -992,7 +984,7 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             img: row['img'] as String?,
             salesComm: row['salesComm'] as int?,
             visits: row['visits'] as int?,
-            netPrice: row['netPrice'] as int?,
+            netPrice: row['netPrice'] as double?,
             adetails: row['adetails'] as String?,
             edetails: row['edetails'] as String?,
             isSerial: row['isSerial'] as int?,
@@ -1004,8 +996,8 @@ class _$ProductFavoriteDao extends ProductFavoriteDao {
             barcodesOther: row['barcodesOther'] as String?,
             xtypeId: row['xtypeId'] as int?,
             countryId: row['countryId'] as int?,
-            codeOrg: row['codeOrg'] as String?,
-            codesAlter: row['codesAlter'] as String?,
+            codeOrg: row['codeOrg'] as int?,
+            codesAlter: row['codesAlter'] as int?,
             isForsale: row['isForsale'] as int?));
   }
 

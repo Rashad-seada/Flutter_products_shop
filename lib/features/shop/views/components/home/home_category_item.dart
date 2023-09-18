@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eng_shop/core/infrastructure/services/locale_service.dart';
 import 'package:eng_shop/core/views/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +37,7 @@ class HomeCategoryItem extends StatelessWidget {
             Container(
               width:12.w,
               height: 12.w,
-              padding: EdgeInsets.symmetric(horizontal: 3.w,vertical: 1.5.h),
+              padding: EdgeInsets.symmetric(horizontal: 1.w,vertical: 1.h),
               alignment: Alignment.centerLeft,
               decoration:  BoxDecoration(
                   color: AppTheme.neutral100,
@@ -53,16 +54,28 @@ class HomeCategoryItem extends StatelessWidget {
                         ),
                         child: CachedNetworkImage(
                           imageUrl: snapshot.data!,
-                          placeholder: (context, url) => Center(child: SvgPicture.asset(AppImages.shop2,width: 15.w,height: 15.w,)),
-                          errorWidget: (context, url, error) => Center(child: SvgPicture.asset(AppImages.shop2,width: 15.w,height: 15.w,)),
+                          placeholder: (context, url) => Center(child: Padding(
+                            padding:  EdgeInsets.all(1.w),
+                            child: SvgPicture.asset(AppImages.shop2),
+                          )),
+                          errorWidget: (context, url, error) => Center(child: Padding(
+                            padding:  EdgeInsets.all(1.w),
+                            child: SvgPicture.asset(AppImages.shop2),
+                          )),
                           fit: BoxFit.cover,
                         ),
                       );
 
                     }else if(snapshot.hasError){
-                      return Center(child: SvgPicture.asset(AppImages.shop2));
+                      return Center(child: Padding(
+                        padding:  EdgeInsets.all(1.w),
+                        child: SvgPicture.asset(AppImages.shop2),
+                      ));
                     }else {
-                      return Center(child: SvgPicture.asset(AppImages.shop2));
+                      return Center(child: Padding(
+                        padding:  EdgeInsets.all(1.w),
+                        child: SvgPicture.asset(AppImages.shop2),
+                      ));
 
                     }
                   }
@@ -71,7 +84,7 @@ class HomeCategoryItem extends StatelessWidget {
 
             Space(height: .5.h,),
 
-            Text(categoryEntity.etxt!,style: AppTheme.textS2TextStyle(color: AppTheme.neutral900),maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,)
+            Text("${getIt<LocaleService>().isArabic(context)?  categoryEntity.atxt : categoryEntity.etxt }",style: AppTheme.textS2TextStyle(color: AppTheme.neutral900),maxLines: 2,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,)
           ],
         ),
       ),

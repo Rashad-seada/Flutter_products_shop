@@ -164,7 +164,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       MainButton(
                         width: 100.w,height: 7.h,
                         label: (state is RegistrationLoading)?
-                        SizedBox(width:8.w,height:8.w,child: CustomProgressIndicator())
+                        CustomProgressIndicator(color: AppTheme.neutral100)
                         :Text(
                           LocaleKeys.register.tr(),
                           style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),

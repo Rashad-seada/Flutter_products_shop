@@ -72,7 +72,7 @@ class ActivationPinScreen extends StatelessWidget {
                         MainButton(
                           width: 100.w,height: 7.h,
                           label: (state is RegistrationActivatingAccountBySms)?
-                          SizedBox(width:8.w,height:8.w,child: CustomProgressIndicator(color: AppTheme.neutral100,))
+                          CustomProgressIndicator(color: AppTheme.neutral100,)
                               :Text(
                             LocaleKeys.done.tr(),
                             style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),

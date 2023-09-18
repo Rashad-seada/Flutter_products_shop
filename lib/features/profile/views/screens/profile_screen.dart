@@ -117,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     MainButton(
                                       width: 100.w,height: 7.h,
                                       label: (state is ProfileLoading)?
-                                      SizedBox(width:8.w,height:8.w,child: CustomProgressIndicator(color: AppTheme.neutral900,)) :Text(
+                                      CustomProgressIndicator(color: AppTheme.neutral100,) :Text(
                                         LocaleKeys.save.tr(),
                                         style: AppTheme.textL2TextStyle(color: AppTheme.neutral100),
                                       ),
